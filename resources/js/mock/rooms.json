@@ -1,0 +1,30 @@
+{
+  "roomTypes": [
+    {
+      "id": 1,
+      "thumbnail": "/img/default-room.webp",
+      "roomName": "Kembang",
+      "facilities": ["Wifi", "Playstation 5", "TV 29 inc"],
+      "facilityCount": 10,
+      "discount": 50,
+      "discountPrice": "500,000",
+      "originPrice": "250,000",
+      "roomAvailable": 5,
+      "typeBedRoom": ["Single bed", "Double bed"],
+      "numberOfGuest": 2
+    },
+    {
+      "id": 2,
+      "thumbnail": "/img/default-room.webp",
+      "roomName": "Melatih",
+      "facilities": ["Rak sepatu", "Lemari baju", "Wifi"],
+      "facilityCount": 5,
+      "discount": 50,
+      "discountPrice": "400,000",
+      "originPrice": "200,000",
+      "roomAvailable": 5,
+      "typeBedRoom": ["Single bed", "Double bed"],
+      "numberOfGuest": 2
+    }
+  ]
+}

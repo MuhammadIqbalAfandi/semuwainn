@@ -1,0 +1,31 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Service;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ServiceFactory extends Factory
+{
+
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Service::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'service_name' => $this->faker->lexify('Layanan ??????'),
+            'unit' => 'Per orang',
+            'price' => $this->faker->numberBetween(1000, 700000),
+        ];
+    }
+}

@@ -1,0 +1,161 @@
+@startuml Semuwainn
+  entity Reservation {
+    * id
+    __
+    * reserved_date
+    * reservation_number
+    * adult
+    * children
+    * user_id
+    * guest_id
+    * reservation_status_id
+  }
+
+  entity RoomOrder {
+    * id
+    __
+    * order_time
+    * arrival_date
+    * departure_date
+    * price
+    discount
+    * user_id
+    * room_id
+    * reservation_id
+    * room_order_status_id
+  }
+
+  entity ServiceOrder {
+    * id
+    __
+    * order_time
+    * price
+    * quantity
+    discount
+    * user_id
+    * reservation_id
+    * service_id
+  }
+
+  entity Service {
+    * id
+    __
+    * service_name
+    * price
+    * unit
+  }
+
+  entity ReservationStatus {
+    * id
+    __
+    * reservation_status_name
+  }
+
+  entity Guest {
+    * id
+    __
+    * nik
+    * name
+    * phone
+    email
+    * address
+  }
+
+  entity User {
+    * id
+    __
+    * name
+    * phone
+    * email
+    * address
+    * status
+    * password
+    * role_id
+  }
+
+  entity Role {
+    * id
+    __
+    * role_name
+  }
+
+  entity RestaurantOrder {
+    * id
+    __
+    * order_time
+    * price
+    * quantity
+    discount
+    * user_id
+    * reservation_id
+    * restaurant_id
+  }
+
+  entity Restaurant {
+    * id
+    __
+    * item_name
+    * price
+    * unit
+  }
+
+  entity Facility {
+    * id
+    __
+    * facility_name
+  }
+
+  entity RoomType {
+    * id
+    __
+    * room_type_name
+  }
+
+  entity RoomFacility {
+    * id
+    __
+    * room_type_id
+    * facility_id
+  }
+
+  entity RoomPrice {
+    * id
+    __
+    * description
+    * price
+    * room_type_id
+  }
+
+  entity Room {
+    * id
+    __
+    * room_number
+    * room_type_id
+  }
+
+  entity RoomOrderStatus {
+    * id
+    __
+    * room_order_status_name
+  }
+
+  Reservation }|--|| RestaurantOrder
+  Reservation }|--|| ServiceOrder
+  Reservation ||--|{ ReservationStatus
+  Reservation ||--|{ User
+  Reservation ||--|{ Guest
+  ServiceOrder ||--|{ Service
+  ServiceOrder ||--|{ User
+  User ||--|{ Role
+  RestaurantOrder ||--|{ Restaurant
+  RestaurantOrder ||--|{ User
+  RoomOrder ||--|{ RoomOrderStatus
+  RoomOrder ||--|{ Room
+  RoomOrder ||--|{ User
+  RoomOrder ||--|{ Reservation
+  RoomFacility ||--|{ Facility
+  RoomFacility ||--|{ RoomType
+  RoomType }|--|| RoomPrice
+  Room ||-|{ RoomType
+
+@enduml
