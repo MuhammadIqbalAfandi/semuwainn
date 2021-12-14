@@ -9,9 +9,7 @@
       "discount": 50,
       "discountPrice": "500,000",
       "originPrice": "250,000",
-      "roomAvailable": 5,
-      "typeBedRoom": ["Single bed", "Double bed"],
-      "numberOfGuest": 2
+      "roomAvailable": 5
     },
     {
       "id": 2,
@@ -19,12 +17,8 @@
       "roomName": "Melatih",
       "facilities": ["Rak sepatu", "Lemari baju", "Wifi"],
       "facilityCount": 5,
-      "discount": 50,
-      "discountPrice": "400,000",
       "originPrice": "200,000",
-      "roomAvailable": 5,
-      "typeBedRoom": ["Single bed", "Double bed"],
-      "numberOfGuest": 2
+      "roomAvailable": 5
     }
   ]
 }

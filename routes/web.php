@@ -14,9 +14,9 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::resource('/', HomeController::class);
-Route::resource('room-detail', RoomDetailController::class);
-Route::resource('room-booking', RoomBookingController::class);
+Route::get('/', [HomeController::class, 'index']);
+Route::get('room-detail/{roomType}', [RoomDetailController::class, 'show'])->name('room-detail.show');
+Route::get('room-booking', [RoomBookingController::class, 'index']);
 
 Route::prefix('dashboard')->group(function () {
     Route::middleware(['auth'])->group(function () {

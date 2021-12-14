@@ -1,4 +1,6 @@
 <script>
+import { Head } from '@inertiajs/inertia-vue'
+
 import GuestLayout from '@/layouts/Guest.vue'
 import Paragraph from '@/shared/Paragraph.vue'
 import TextField from '@/shared/TextField.vue'
@@ -8,13 +10,9 @@ import Price from '@/components/Guest/RoomDetail/Price.vue'
 import roomDetails from '@/mock/room-details.json'
 
 export default {
-  // props: {
-  //   roomName: String,
-  //   photoGrid: Object,
-  //   priceRange: Object,
-  //   facilities: Array,
-  //   prices: Array,
-  // },
+  props: {
+    room: Object,
+  },
   layout: GuestLayout,
   components: {
     Paragraph,
@@ -22,17 +20,22 @@ export default {
     PhotoGrid,
     PriceRange,
     Price,
+    Head,
   },
   data() {
     return {
       roomDetails,
     }
   },
+  mounted() {
+    console.log(this.room)
+  },
 }
 </script>
 
 <template>
   <div>
+    <Head title="Detail Ruangan" />
     <v-row no-gutters>
       <v-col cols="12">
         <PhotoGrid :photoGrid="roomDetails.photoGrid" />

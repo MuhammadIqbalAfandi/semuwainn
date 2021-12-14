@@ -26,10 +26,10 @@ export default {
         <v-card-text>
           <Paragraph class="text-caption text-md-body-2">{{ price.description }}</Paragraph>
         </v-card-text>
-        <v-spacer></v-spacer>
+
+        <v-spacer />
+
         <v-card-text>
-          <Discount :discount="price.discount" />
-          <DiscountPrice :price="price.discountPrice" />
           <OriginPrice :price="price.originPrice" />
           <Paragraph class="text-caption red--text text--lighten-2">
             Sisa {{ price.roomAvailable }} kamar lagi!

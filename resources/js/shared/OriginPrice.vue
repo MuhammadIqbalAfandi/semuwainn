@@ -1,10 +1,12 @@
 <script>
 import Paragraph from '@/shared/Paragraph.vue'
+import mixinHelper from '@/mixins/helpers'
 
 export default {
   props: {
-    price: String,
+    price: Number,
   },
+  mixins: [mixinHelper],
   components: {
     Paragraph,
   },
@@ -13,6 +15,6 @@ export default {
 
 <template>
   <Paragraph v-if="price" class="text-md-h5 text-body-2 red--text text--lighten-2">
-    <span class="text-md-subtitle-2 text-caption">Rp</span> {{ price }}
+    <span class="text-md-subtitle-2 text-caption">Rp</span> {{ currencyFormat(price) }}
   </Paragraph>
 </template>

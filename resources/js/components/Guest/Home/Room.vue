@@ -47,33 +47,15 @@ export default {
                 </v-col>
 
                 <v-col cols="auto">
-                  <v-chip class="mb-0" tag="p" x-small>
+                  <v-chip v-if="roomType.facilityCount" class="mb-0" tag="p" x-small>
                     <span>+{{ roomType.facilityCount }}</span>
                   </v-chip>
-                </v-col>
-
-                <v-col cols="12">
-                  <ParagraphLeftIcon
-                    class="text-caption text-md-body-2"
-                    icon="mdi-bed-king"
-                    :multiText="roomType.typeBedRoom"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <ParagraphLeftIcon
-                    class="text-caption text-md-body-2"
-                    icon="mdi-account-multiple"
-                    :text="roomType.numberOfGuest + ' tamu'"
-                  />
                 </v-col>
               </v-row>
             </v-col>
 
             <v-col class="text-end" cols="12" md="auto" align-self="end">
               <Paragraph class="text-caption text-md-body-2">Harga mulai dari</Paragraph>
-              <Discount :discount="roomType.discount" />
-              <DiscountPrice :price="roomType.discountPrice" />
               <OriginPrice :price="roomType.originPrice" />
               <Paragraph class="text-caption red--text text--lighten-2">
                 Sisa {{ roomType.roomAvailable }} kamar lagi!

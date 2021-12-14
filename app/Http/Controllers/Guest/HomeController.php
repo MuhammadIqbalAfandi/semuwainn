@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
-use App\Models\Room;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
-
 class HomeController extends Controller
 {
     /**
@@ -16,14 +15,17 @@ class HomeController extends Controller
     public function index()
     {
         return inertia('Guest/Home', [
-            'rooms' => Room::with(['roomType', 'roomType.roomPrices', 'roomType.roomFacilities.facility'])
-                ->paginate(20)
+            'rooms' => RoomType::paginate(10)
                 ->withQueryString()
                 ->through(fn ($rooms) => [
                     'id' => $rooms->id,
-                    'roomName' => $rooms->roomType->room_type_name,
-                    'originPrice' => $rooms->roomType->room_prices,
-                    'facilityCount' => $rooms->roomType->roomFacilities->count()
+                    'roomName' => $rooms->room_type_name,
+                    'originPrice' => $rooms->roomPrices->max('price'),
+                    'facilities' => $rooms->roomFacilities->take(3)->pluck('facility.facility_name'),
+                    'facilityCount' => $rooms->roomFacilities->skip(3)->count(),
+                    'roomAvailable' => $rooms->rooms
+                        ->whereNotIn('room_type_id', $rooms->rooms->pluck('roomOrder.room_id'))
+                        ->count(),
                 ]),
         ]);
     }

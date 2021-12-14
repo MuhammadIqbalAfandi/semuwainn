@@ -1,5 +1,5 @@
 export default {
   methods: {
-    currencyFormat: (v) => new Intl.NumberFormat('id', { style: 'currency', currency: 'IDR' }).format(v),
+    currencyFormat: (v) => new Intl.NumberFormat({ minimumFractionDigits: 3 }).format(v),
   },
 }

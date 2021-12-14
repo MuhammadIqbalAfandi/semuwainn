@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
 
 class RoomDetailController extends Controller
@@ -14,7 +15,7 @@ class RoomDetailController extends Controller
      */
     public function index()
     {
-        return inertia('Guest/RoomDetail');
+        //
     }
 
     /**
@@ -44,9 +45,13 @@ class RoomDetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(RoomType $roomType)
     {
-        //
+        return inertia('Guest/RoomDetail', [
+            'room' => $roomType::transform(fn ($room) => [
+                'roomName' => $room->room_type_name
+            ])
+        ]);
     }
 
     /**
