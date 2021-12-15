@@ -14,6 +14,6 @@ class GuestSeeder extends Seeder
      */
     public function run()
     {
-        Guest::factory()->count(500)->create();
+        Guest::factory()->create();
     }
 }

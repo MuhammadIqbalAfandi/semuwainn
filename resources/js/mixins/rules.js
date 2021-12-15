@@ -2,6 +2,7 @@ export default {
   data() {
     return {
       rules: {
+        notZero: (v) => v >= 1 || 'Nilai tidak boleh 0',
         required: (v) => !!v || 'Nilai tidak boleh kosong',
         lessThan50: (v) => v.length <= 50 || 'Nilai tidak boleh lebih dari 50',
         lessThan250: (v) => v.length <= 250 || 'Nilai tidak boleh lebih dari 255',

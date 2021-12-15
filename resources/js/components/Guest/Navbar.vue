@@ -5,6 +5,11 @@ export default {
   components: {
     Link,
   },
+  computed: {
+    totalOrder() {
+      return this.$store.state.shoppingCart.length
+    },
+  },
 }
 </script>
 
@@ -34,7 +39,12 @@ export default {
 
           <v-col cols="auto">
             <Link v-if="$page.url !== '/room-booking'" href="/room-booking">
-              <v-badge content="2" color="orange lighten-2 grey--text text--darken-4" overlap>
+              <v-badge
+                :content="totalOrder"
+                :value="totalOrder"
+                color="orange lighten-2 grey--text text--darken-4"
+                overlap
+              >
                 <v-btn icon :small="$vuetify.breakpoint.smAndDown">
                   <v-icon :small="$vuetify.breakpoint.smAndDown">mdi-cart</v-icon>
                 </v-btn>

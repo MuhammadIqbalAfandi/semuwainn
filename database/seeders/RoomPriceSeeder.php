@@ -14,6 +14,8 @@ class RoomPriceSeeder extends Seeder
      */
     public function run()
     {
-        RoomPrice::factory()->count(500)->create();
+        for ($i=1; $i <= 500; $i++) {
+            RoomPrice::factory()->count(random_int(2,5))->create();
+        }
     }
 }

@@ -48,9 +48,26 @@ class RoomDetailController extends Controller
     public function show(RoomType $roomType)
     {
         return inertia('Guest/RoomDetail', [
-            'room' => $roomType::transform(fn ($room) => [
-                'roomName' => $room->room_type_name
-            ])
+            'room' => [
+                'roomName' => $roomType->room_type_name,
+                'photoGrid' => [
+                    'thumbnails' => [],
+                    'defaultImage' => '/img/default-room.webp',
+                ],
+                'priceRange' => [
+                    'minPrice' => $roomType->roomPrices->min('price'),
+                    'maxPrice' => $roomType->roomPrices->max('price'),
+                ],
+                'facilities' => $roomType->roomFacilities->pluck('facility.facility_name'),
+                'prices' => $roomType->roomPrices->transform(fn ($roomPrice) => [
+                    'id' => $roomPrice->id,
+                    'description' => $roomPrice->description,
+                    'originPrice' => $roomPrice->price,
+                    'roomAvailable' => $roomType->rooms
+                        ->whereNotIn('room_type_id', $roomType->rooms->pluck('roomOrder.room_id'))
+                        ->count(),
+                ]),
+            ],
         ]);
     }
 

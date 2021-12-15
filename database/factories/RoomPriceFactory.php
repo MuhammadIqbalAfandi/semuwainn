@@ -22,9 +22,9 @@ class RoomPriceFactory extends Factory
     public function definition()
     {
         return [
-            'room_type_id' => $this->faker->unique(true)->numberBetween(1, 500),
-            'description' => $this->faker->word(15),
-            'price' => $this->faker->numberBetween(1000, 700000),
+            'room_type_id' => $this->faker->unique()->numberBetween(1, 500),
+            'description' => $this->faker->sentence(5),
+            'price' => $this->faker->numberBetween(1000, 500000),
         ];
     }
 }

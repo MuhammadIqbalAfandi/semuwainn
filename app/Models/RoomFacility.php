@@ -18,4 +18,9 @@ class RoomFacility extends Model
     {
         return $this->belongsTo(Facility::class);
     }
+
+    public function roomType()
+    {
+        return $this->belongsTo(RoomType::class);
+    }
 }

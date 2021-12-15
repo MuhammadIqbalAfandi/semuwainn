@@ -25,7 +25,7 @@ class RestaurantFactory extends Factory
         return [
             'item_name' => $this->faker->lexify('Makanan ??????'),
             'unit' => 'Per porsi',
-            'price' => $this->faker->numberBetween(1000, 700000),
+            'price' => $this->faker->numberBetween(1000, 50000),
         ];
     }
 }

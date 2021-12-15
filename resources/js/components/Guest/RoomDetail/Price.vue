@@ -1,7 +1,5 @@
 <script>
 import Paragraph from '@/shared/Paragraph.vue'
-import Discount from '@/shared/Discount.vue'
-import DiscountPrice from '@/shared/DiscountPrice.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
 import Button from '@/shared/Button.vue'
 
@@ -11,8 +9,6 @@ export default {
   },
   components: {
     Paragraph,
-    DiscountPrice,
-    Discount,
     OriginPrice,
     Button,
   },
@@ -36,7 +32,7 @@ export default {
           </Paragraph>
         </v-card-text>
         <v-card-actions>
-          <Button>Pilih!</Button>
+          <Button @click="$emit('order', price.id)">Pilih!</Button>
         </v-card-actions>
       </v-card>
     </v-col>

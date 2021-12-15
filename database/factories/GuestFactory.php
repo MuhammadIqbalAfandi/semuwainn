@@ -22,10 +22,10 @@ class GuestFactory extends Factory
     public function definition()
     {
         return [
-            'nik' => $this->faker->unique(true)->nik(),
+            'nik' => $this->faker->unique()->nik(),
             'name' => $this->faker->name(),
-            'phone' => $this->faker->unique(true)->phoneNumber(),
-            'email' => $this->faker->unique(true)->email(),
+            'phone' => $this->faker->unique()->phoneNumber(),
+            'email' => $this->faker->unique()->email(),
             'address' => $this->faker->address(),
         ];
     }

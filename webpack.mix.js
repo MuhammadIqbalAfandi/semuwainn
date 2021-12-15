@@ -17,3 +17,5 @@ mix
   .vue(2)
   .webpackConfig(require('./webpack.config'))
   .version()
+  .disableNotifications()
+  .browserSync('http://semuwainn.test')

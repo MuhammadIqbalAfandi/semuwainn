@@ -25,7 +25,7 @@ class ServiceFactory extends Factory
         return [
             'service_name' => $this->faker->lexify('Layanan ??????'),
             'unit' => 'Per orang',
-            'price' => $this->faker->numberBetween(1000, 700000),
+            'price' => $this->faker->numberBetween(1000, 500000),
         ];
     }
 }

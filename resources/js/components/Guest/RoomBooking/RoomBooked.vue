@@ -1,8 +1,9 @@
 <script>
 import Paragraph from '@/shared/Paragraph.vue'
+import Button from '@/shared/Button.vue'
 
 export default {
-  components: { Paragraph },
+  components: { Paragraph, Button },
   props: {
     room: Object,
   },
@@ -39,7 +40,7 @@ export default {
             </v-col>
 
             <v-col cols="auto" align-self="end">
-              <v-btn text x-small>Hapus</v-btn>
+              <Button @click="$emit('orderDelete', room.id)" text x-small>Hapus</Button>
             </v-col>
           </v-row>
         </v-col>

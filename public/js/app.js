@@ -3084,6 +3084,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Link: _shared_Link_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: {
+    totalOrder: function totalOrder() {
+      return this.$store.state.shoppingCart.length;
+    }
   }
 });
 
@@ -3200,10 +3205,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
+/* harmony import */ var _shared_Button_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/shared/Button.vue */ "./resources/js/shared/Button.vue");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
     room: Object
@@ -3295,12 +3303,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
-/* harmony import */ var _shared_Discount_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/shared/Discount.vue */ "./resources/js/shared/Discount.vue");
-/* harmony import */ var _shared_DiscountPrice_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/DiscountPrice.vue */ "./resources/js/shared/DiscountPrice.vue");
-/* harmony import */ var _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/shared/OriginPrice.vue */ "./resources/js/shared/OriginPrice.vue");
-/* harmony import */ var _shared_Button_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/shared/Button.vue */ "./resources/js/shared/Button.vue");
-
-
+/* harmony import */ var _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/shared/OriginPrice.vue */ "./resources/js/shared/OriginPrice.vue");
+/* harmony import */ var _shared_Button_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/Button.vue */ "./resources/js/shared/Button.vue");
 
 
 
@@ -3310,10 +3314,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    DiscountPrice: _shared_DiscountPrice_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    Discount: _shared_Discount_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -3457,8 +3459,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Guest_RoomBooking_Service_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Guest/RoomBooking/Service.vue */ "./resources/js/components/Guest/RoomBooking/Service.vue");
 /* harmony import */ var _components_Guest_RoomBooking_RoomBooked_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Guest/RoomBooking/RoomBooked.vue */ "./resources/js/components/Guest/RoomBooking/RoomBooked.vue");
 /* harmony import */ var _components_Guest_RoomBooking_PriceDetail_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/Guest/RoomBooking/PriceDetail.vue */ "./resources/js/components/Guest/RoomBooking/PriceDetail.vue");
-/* harmony import */ var _mock_room_booking_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/mock/room-booking.json */ "./resources/js/mock/room-booking.json");
-
 
 
 
@@ -3468,9 +3468,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  // props: {
-  //   service: Array,
-  // },
   layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   components: {
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Link,
@@ -3481,10 +3478,15 @@ __webpack_require__.r(__webpack_exports__);
     PriceDetail: _components_Guest_RoomBooking_PriceDetail_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     Service: _components_Guest_RoomBooking_Service_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  data: function data() {
-    return {
-      roomBooking: _mock_room_booking_json__WEBPACK_IMPORTED_MODULE_8__
-    };
+  methods: {
+    orderDelete: function orderDelete(id) {
+      this.$store.dispatch('removeShoppingCart', id);
+    }
+  },
+  computed: {
+    roomBooked: function roomBooked() {
+      return this.$store.state.shoppingCart;
+    }
   }
 });
 
@@ -3508,7 +3510,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Guest_RoomDetail_PhotoGrid_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/Guest/RoomDetail/PhotoGrid.vue */ "./resources/js/components/Guest/RoomDetail/PhotoGrid.vue");
 /* harmony import */ var _components_Guest_RoomDetail_PriceRange_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Guest/RoomDetail/PriceRange.vue */ "./resources/js/components/Guest/RoomDetail/PriceRange.vue");
 /* harmony import */ var _components_Guest_RoomDetail_Price_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Guest/RoomDetail/Price.vue */ "./resources/js/components/Guest/RoomDetail/Price.vue");
-/* harmony import */ var _mock_room_details_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/mock/room-details.json */ "./resources/js/mock/room-details.json");
+/* harmony import */ var _mixins_rules__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/mixins/rules */ "./resources/js/mixins/rules.js");
 
 
 
@@ -3518,10 +3520,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   props: {
     room: Object
   },
-  layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+  mixins: [_mixins_rules__WEBPACK_IMPORTED_MODULE_7__["default"]],
   components: {
     Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     TextField: _shared_TextField_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -3531,12 +3534,30 @@ __webpack_require__.r(__webpack_exports__);
     Head: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Head
   },
   data: function data() {
+    var _this = this;
+
     return {
-      roomDetails: _mock_room_details_json__WEBPACK_IMPORTED_MODULE_7__
+      roomCount: 1,
+      guestCount: 1,
+      rules: {
+        lessOrEqualThanRoomAvailable: function lessOrEqualThanRoomAvailable(v) {
+          return v <= _this.room.prices[0].roomAvailable || 'Nilai melebihi ruangan yang tersediah';
+        }
+      }
     };
   },
-  mounted: function mounted() {
-    console.log(this.room);
+  methods: {
+    order: function order(id) {
+      if (this.$refs.form.validate) {
+        this.$store.dispatch('addShoppingCart', {
+          id: id,
+          thumbnail: this.room.photoGrid.defaultImage,
+          roomName: this.room.roomName,
+          roomCount: this.roomCount,
+          guestCount: this.guestCount
+        });
+      }
+    }
   }
 });
 
@@ -3777,6 +3798,47 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/mixins/rules.js":
+/*!**************************************!*\
+  !*** ./resources/js/mixins/rules.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      rules: {
+        notZero: function notZero(v) {
+          return v >= 1 || 'Nilai tidak boleh 0';
+        },
+        required: function required(v) {
+          return !!v || 'Nilai tidak boleh kosong';
+        },
+        lessThan50: function lessThan50(v) {
+          return v.length <= 50 || 'Nilai tidak boleh lebih dari 50';
+        },
+        lessThan250: function lessThan250(v) {
+          return v.length <= 250 || 'Nilai tidak boleh lebih dari 255';
+        },
+        numeric: function numeric(v) {
+          var re = /^[0-9\b]+$/;
+          return re.test(v) || 'Nilai harus angka';
+        },
+        digitsLessThan100: function digitsLessThan100(v) {
+          return v <= 100 || 'Nilai tidak boleh lebih dari 100';
+        }
+      }
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/plugins/vuetify.js":
 /*!*****************************************!*\
   !*** ./resources/js/plugins/vuetify.js ***!
@@ -3825,7 +3887,19 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    services: []
+    shoppingCart: []
+  },
+  actions: {
+    addShoppingCart: function addShoppingCart(_ref, room) {
+      var state = _ref.state;
+      state.shoppingCart.push(room);
+    },
+    removeShoppingCart: function removeShoppingCart(_ref2, id) {
+      var state = _ref2.state;
+      state.shoppingCart = state.shoppingCart.filter(function (item) {
+        return item.id !== id;
+      });
+    }
   }
 }));
 
@@ -12758,7 +12832,8 @@ var render = function () {
                                 "v-badge",
                                 {
                                   attrs: {
-                                    content: "2",
+                                    content: _vm.totalOrder,
+                                    value: _vm.totalOrder,
                                     color:
                                       "orange lighten-2 grey--text text--darken-4",
                                     overlap: "",
@@ -13370,9 +13445,18 @@ var render = function () {
                         "v-col",
                         { attrs: { cols: "auto", "align-self": "end" } },
                         [
-                          _c("v-btn", { attrs: { text: "", "x-small": "" } }, [
-                            _vm._v("Hapus"),
-                          ]),
+                          _c(
+                            "Button",
+                            {
+                              attrs: { text: "", "x-small": "" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.$emit("orderDelete", _vm.room.id)
+                                },
+                              },
+                            },
+                            [_vm._v("Hapus")]
+                          ),
                         ],
                         1
                       ),
@@ -13487,22 +13571,6 @@ var render = function () {
                                 "Paragraph",
                                 { staticClass: "text-caption text-md-body-2" },
                                 [_vm._v("Satuan: " + _vm._s(service.unit))]
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            { attrs: { cols: "12" } },
-                            [
-                              _c(
-                                "Paragraph",
-                                {
-                                  staticClass:
-                                    "text-caption text-md-body-2 text--secondary",
-                                },
-                                [_vm._v(_vm._s(service.description))]
                               ),
                             ],
                             1
@@ -13651,7 +13719,23 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _c("v-card-actions", [_c("Button", [_vm._v("Pilih!")])], 1),
+              _c(
+                "v-card-actions",
+                [
+                  _c(
+                    "Button",
+                    {
+                      on: {
+                        click: function ($event) {
+                          return _vm.$emit("order", price.id)
+                        },
+                      },
+                    },
+                    [_vm._v("Pilih!")]
+                  ),
+                ],
+                1
+              ),
             ],
             1
           ),
@@ -14031,15 +14115,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("v-divider"),
                       _vm._v(" "),
-                      _c(
-                        "v-card-text",
-                        [
-                          _c("Service", {
-                            attrs: { services: _vm.roomBooking.services },
-                          }),
-                        ],
-                        1
-                      ),
+                      _c("v-card-text"),
                     ],
                     1
                   ),
@@ -14107,17 +14183,19 @@ var render = function () {
                     "v-row",
                     { attrs: { dense: "" } },
                     [
-                      _vm._l(
-                        _vm.roomBooking.roomBooked,
-                        function (room, index) {
-                          return _c(
-                            "v-col",
-                            { key: index, attrs: { cols: "12" } },
-                            [_c("RoomBooked", { attrs: { room: room } })],
-                            1
-                          )
-                        }
-                      ),
+                      _vm._l(_vm.roomBooked, function (room, index) {
+                        return _c(
+                          "v-col",
+                          { key: index, attrs: { cols: "12" } },
+                          [
+                            _c("RoomBooked", {
+                              attrs: { room: room },
+                              on: { orderDelete: _vm.orderDelete },
+                            }),
+                          ],
+                          1
+                        )
+                      }),
                       _vm._v(" "),
                       _c(
                         "v-col",
@@ -14125,20 +14203,7 @@ var render = function () {
                         [
                           _c(
                             "v-row",
-                            [
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "12" } },
-                                [
-                                  _c("PriceDetail", {
-                                    attrs: {
-                                      priceDetail: _vm.roomBooking.priceDetail,
-                                    },
-                                  }),
-                                ],
-                                1
-                              ),
-                            ],
+                            [_c("v-col", { attrs: { cols: "12" } })],
                             1
                           ),
                         ],
@@ -14195,11 +14260,7 @@ var render = function () {
           _c(
             "v-col",
             { attrs: { cols: "12" } },
-            [
-              _c("PhotoGrid", {
-                attrs: { photoGrid: _vm.roomDetails.photoGrid },
-              }),
-            ],
+            [_c("PhotoGrid", { attrs: { photoGrid: _vm.room.photoGrid } })],
             1
           ),
           _vm._v(" "),
@@ -14209,10 +14270,10 @@ var render = function () {
             [
               _c("PriceRange", {
                 attrs: {
-                  priceRange: _vm.roomDetails.priceRange,
-                  roomName: _vm.roomDetails.roomName,
-                  typeBedRoom: _vm.roomDetails.typeBedRoom,
-                  numberOfGuest: _vm.roomDetails.numberOfGuest,
+                  priceRange: _vm.room.priceRange,
+                  roomName: _vm.room.roomName,
+                  typeBedRoom: _vm.room.typeBedRoom,
+                  numberOfGuest: _vm.room.numberOfGuest,
                 },
               }),
             ],
@@ -14263,7 +14324,7 @@ var render = function () {
                                 "v-row",
                                 { staticClass: "facility-detail text-center" },
                                 _vm._l(
-                                  _vm.roomDetails.facilities,
+                                  _vm.room.facilities,
                                   function (facility, index) {
                                     return _c(
                                       "v-col",
@@ -14313,6 +14374,7 @@ var render = function () {
                     [
                       _c(
                         "v-form",
+                        { ref: "form" },
                         [
                           _c(
                             "v-row",
@@ -14326,9 +14388,21 @@ var render = function () {
                                     staticClass:
                                       "text-caption text-sm-subtitle-1",
                                     attrs: {
+                                      rules: [
+                                        _vm.rules.numeric,
+                                        _vm.rules.notZero,
+                                        _vm.rules.lessOrEqualThanRoomAvailable,
+                                      ],
                                       placeholder: "Jumlah Kamar",
                                       hint: "Jumlah Kamar yang akan dipesan",
                                       outlined: "",
+                                    },
+                                    model: {
+                                      value: _vm.roomCount,
+                                      callback: function ($$v) {
+                                        _vm.roomCount = $$v
+                                      },
+                                      expression: "roomCount",
                                     },
                                   }),
                                 ],
@@ -14343,9 +14417,20 @@ var render = function () {
                                     staticClass:
                                       "text-caption text-sm-subtitle-1",
                                     attrs: {
+                                      rules: [
+                                        _vm.rules.numeric,
+                                        _vm.rules.notZero,
+                                      ],
                                       placeholder: "Banyak Tamu",
                                       hint: "Tamu yang akan meginap disatu kamar",
                                       outlined: "",
+                                    },
+                                    model: {
+                                      value: _vm.guestCount,
+                                      callback: function ($$v) {
+                                        _vm.guestCount = $$v
+                                      },
+                                      expression: "guestCount",
                                     },
                                   }),
                                 ],
@@ -14370,7 +14455,12 @@ var render = function () {
           _c(
             "v-col",
             { attrs: { sm: "12", md: "8" } },
-            [_c("Price", { attrs: { prices: _vm.roomDetails.prices } })],
+            [
+              _c("Price", {
+                attrs: { prices: _vm.room.prices },
+                on: { order: _vm.order },
+              }),
+            ],
             1
           ),
         ],
@@ -74508,28 +74598,6 @@ webpackContext.id = "./resources/js/pages sync recursive ^\\.\\/.*$";
 
 "use strict";
 module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","fix":"eslint --fix lib/**/*.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://axios-http.com","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"jsdelivr":"dist/axios.min.js","unpkg":"dist/axios.min.js","typings":"./index.d.ts","dependencies":{"follow-redirects":"^1.14.0"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}]}');
-
-/***/ }),
-
-/***/ "./resources/js/mock/room-booking.json":
-/*!*********************************************!*\
-  !*** ./resources/js/mock/room-booking.json ***!
-  \*********************************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"roomBooked":[{"id":1,"thumbnail":"/img/default-room.webp","roomName":"Kembang","roomCount":1,"guestCount":2},{"id":2,"thumbnail":"/img/default-room.webp","roomName":"Melatih","roomCount":1,"guestCount":2}],"priceDetail":{"checkinDate":"Kamis, 18, November 2021","checkoutDate":"Kamis, 19, November 2021","stayingDate":"1","totalPrice":"500,000"},"services":[{"id":1,"name":"PCR","unit":"Per orang","price":"250,000","description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit."},{"id":2,"name":"Test Rapid Covid 19","unit":"Per orang","price":"250,000","description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit."},{"id":3,"name":"Vaksin 19","unit":"Per orang","price":"250,000","description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit."}]}');
-
-/***/ }),
-
-/***/ "./resources/js/mock/room-details.json":
-/*!*********************************************!*\
-  !*** ./resources/js/mock/room-details.json ***!
-  \*********************************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"roomName":"Kembang","typeBedRoom":["Single bed","Double bed"],"numberOfGuest":2,"photoGrid":{"thumbnails":[{"caption":"Other","url":"/img/default-room.webp"},{"caption":"Other","url":"/img/default-room.webp"},{"caption":"Other","url":"/img/default-room.webp"}],"defaultImage":"/img/default-room.webp"},"priceRange":{"minPrice":"250,000","maxPrice":"350,000"},"facilities":["Wifi","PlayStation 5","TV 29 inc"],"prices":[{"id":1,"description":"Belum termasuk makan pagi siang dan malam","discount":50,"discountPrice":"500,000","originPrice":"250,000","roomAvailable":2},{"id":2,"description":"Sudah termasuk makan pagi siang dan malam","discount":0,"discountPrice":"","originPrice":"350,000","roomAvailable":2}]}');
 
 /***/ })
 

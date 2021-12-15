@@ -14,6 +14,6 @@ class RestaurantSeeder extends Seeder
      */
     public function run()
     {
-        Restaurant::factory()->count(500)->create();
+        Restaurant::factory()->create();
     }
 }

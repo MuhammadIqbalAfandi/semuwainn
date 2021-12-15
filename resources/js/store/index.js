@@ -5,6 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    services: [],
+    shoppingCart: [],
+  },
+  actions: {
+    addShoppingCart({ state }, room) {
+      state.shoppingCart.push(room)
+    },
+    removeShoppingCart({ state }, id) {
+      state.shoppingCart = state.shoppingCart.filter((item) => item.id !== id)
+    },
   },
 })

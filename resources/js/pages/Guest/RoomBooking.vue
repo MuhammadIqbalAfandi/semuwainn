@@ -8,12 +8,8 @@ import GuestForm from '@/components/Guest/RoomBooking/GuestForm.vue'
 import Service from '@/components/Guest/RoomBooking/Service.vue'
 import RoomBooked from '@/components/Guest/RoomBooking/RoomBooked.vue'
 import PriceDetail from '@/components/Guest/RoomBooking/PriceDetail.vue'
-import roomBooking from '@/mock/room-booking.json'
 
 export default {
-  // props: {
-  //   service: Array,
-  // },
   layout: GuestLayout,
   components: {
     Link,
@@ -24,10 +20,15 @@ export default {
     PriceDetail,
     Service,
   },
-  data() {
-    return {
-      roomBooking,
-    }
+  methods: {
+    orderDelete(id) {
+      this.$store.dispatch('removeShoppingCart', id)
+    },
+  },
+  computed: {
+    roomBooked() {
+      return this.$store.state.shoppingCart
+    },
   },
 }
 </script>
@@ -55,7 +56,7 @@ export default {
             <v-divider />
 
             <v-card-text>
-              <Service :services="roomBooking.services" />
+              <!-- <Service :services="roomBooking.services" /> -->
             </v-card-text>
           </v-card>
         </v-col>
@@ -77,14 +78,14 @@ export default {
         <v-card-title class="text-body-2 text-md-h5">Detail Pemesanan</v-card-title>
         <v-card-text>
           <v-row dense>
-            <v-col v-for="(room, index) in roomBooking.roomBooked" :key="index" cols="12">
-              <RoomBooked :room="room" />
+            <v-col v-for="(room, index) in roomBooked" :key="index" cols="12">
+              <RoomBooked @orderDelete="orderDelete" :room="room" />
             </v-col>
 
             <v-col cols="12">
               <v-row>
                 <v-col cols="12">
-                  <PriceDetail :priceDetail="roomBooking.priceDetail" />
+                  <!-- <PriceDetail :priceDetail="roomBooking.priceDetail" /> -->
                 </v-col>
               </v-row>
             </v-col>

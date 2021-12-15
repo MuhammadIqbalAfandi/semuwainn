@@ -25,15 +25,12 @@ export default {
               </template>
             </v-checkbox>
           </v-expansion-panel-header>
+
           <v-expansion-panel-content>
             <v-row dense>
               <v-col cols="12">
                 <Paragraph class="text-caption text-md-body-2">IDR: {{ service.price }}</Paragraph>
                 <Paragraph class="text-caption text-md-body-2">Satuan: {{ service.unit }}</Paragraph>
-              </v-col>
-
-              <v-col cols="12">
-                <Paragraph class="text-caption text-md-body-2 text--secondary">{{ service.description }}</Paragraph>
               </v-col>
             </v-row>
           </v-expansion-panel-content>
