@@ -1,4 +1,6 @@
 <script>
+import { mapState } from 'vuex'
+
 import Link from '@/shared/Link.vue'
 
 export default {
@@ -6,9 +8,9 @@ export default {
     Link,
   },
   computed: {
-    totalOrder() {
-      return this.$store.state.shoppingCart.length
-    },
+    ...mapState({
+      shoppingCartLength: (state) => state.shoppingCart.length,
+    }),
   },
 }
 </script>
@@ -38,10 +40,10 @@ export default {
           <v-spacer />
 
           <v-col cols="auto">
-            <Link v-if="$page.url !== '/room-booking'" href="/room-booking">
+            <Link v-if="$page.url !== '/room-booking'" :href="shoppingCartLength ? '/room-booking' : ''">
               <v-badge
-                :content="totalOrder"
-                :value="totalOrder"
+                :content="shoppingCartLength"
+                :value="shoppingCartLength"
                 color="orange lighten-2 grey--text text--darken-4"
                 overlap
               >

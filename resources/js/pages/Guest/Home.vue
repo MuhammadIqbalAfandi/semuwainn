@@ -7,10 +7,10 @@ import Room from '@/components/Guest/Home/Room.vue'
 import PriceFilter from '@/components/Guest/Home/PriceFilter.vue'
 
 export default {
+  layout: GuestLayout,
   props: {
     rooms: Object,
   },
-  layout: GuestLayout,
   components: {
     Head,
     Link,
@@ -20,7 +20,6 @@ export default {
   data() {
     return {
       current_page: this.rooms.current_page,
-      sheet: false,
     }
   },
   methods: {

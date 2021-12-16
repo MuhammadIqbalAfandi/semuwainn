@@ -3079,17 +3079,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _shared_Link_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/shared/Link.vue */ "./resources/js/shared/Link.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Link: _shared_Link_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  computed: {
-    totalOrder: function totalOrder() {
-      return this.$store.state.shoppingCart.length;
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)({
+    shoppingCartLength: function shoppingCartLength(state) {
+      return state.shoppingCart.length;
     }
-  }
+  }))
 });
 
 /***/ }),
@@ -3105,9 +3113,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3116,26 +3132,35 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      checkin: dayjs__WEBPACK_IMPORTED_MODULE_0___default()().toISOString().substring(0, 10),
-      checkinMin: dayjs__WEBPACK_IMPORTED_MODULE_0___default()().toISOString(),
-      checkout: null
+      checkIn: dayjs__WEBPACK_IMPORTED_MODULE_0___default()().toISOString().substring(0, 10),
+      checkOut: null
     };
   },
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)(['setCheckIn', 'setCheckOut', 'setNightCount'])),
   computed: {
     nightCount: function nightCount() {
-      return dayjs__WEBPACK_IMPORTED_MODULE_0___default()(this.checkout).diff(this.checkin, 'day');
+      var dr = dayjs__WEBPACK_IMPORTED_MODULE_0___default()(this.checkOut).diff(this.checkIn, 'day');
+      this.setNightCount(dr);
+      return dr;
     },
-    checkoutMin: function checkoutMin() {
-      var d = new Date(this.checkin);
+    checkInMin: function checkInMin() {
+      return dayjs__WEBPACK_IMPORTED_MODULE_0___default()().toISOString();
+    },
+    checkOutMin: function checkOutMin() {
+      var d = new Date(this.checkIn);
       return dayjs__WEBPACK_IMPORTED_MODULE_0___default()(d).add(1, 'day').toISOString();
     },
-    checkinDateFormatted: function checkinDateFormatted() {
-      var d = new Date(this.checkin);
-      this.checkout = dayjs__WEBPACK_IMPORTED_MODULE_0___default()(d).add(1, 'day').toISOString().substring(0, 10);
-      return this.checkin ? dayjs__WEBPACK_IMPORTED_MODULE_0___default()(this.checkin).format('ddd, DD MMM YYYY') : '';
+    checkInDateFormatted: function checkInDateFormatted() {
+      var d = new Date(this.checkIn);
+      var df = this.checkIn ? dayjs__WEBPACK_IMPORTED_MODULE_0___default()(this.checkIn).format('ddd, DD MMM YYYY') : '';
+      this.checkOut = dayjs__WEBPACK_IMPORTED_MODULE_0___default()(d).add(1, 'day').toISOString().substring(0, 10);
+      this.setCheckIn(df);
+      return df;
     },
-    checkoutDateFormatted: function checkoutDateFormatted() {
-      return this.checkout ? dayjs__WEBPACK_IMPORTED_MODULE_0___default()(this.checkout).format('ddd, DD MMM YYYY') : '';
+    checkOutDateFormatted: function checkOutDateFormatted() {
+      var df = this.checkOut ? dayjs__WEBPACK_IMPORTED_MODULE_0___default()(this.checkOut).format('ddd, DD MMM YYYY') : '';
+      this.setCheckOut(df);
+      return df;
     }
   }
 });
@@ -3158,7 +3183,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     TextField: _shared_TextField_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
+  },
+  computed: {}
 });
 
 /***/ }),
@@ -3174,21 +3200,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
 /* harmony import */ var _shared_ParagraphSpacing_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/shared/ParagraphSpacing.vue */ "./resources/js/shared/ParagraphSpacing.vue");
 /* harmony import */ var _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/OriginPrice.vue */ "./resources/js/shared/OriginPrice.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    priceDetail: Object
-  },
   components: {
     ParagraphSpacing: _shared_ParagraphSpacing_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)(['shoppingCart', 'checkIn', 'checkOut', 'nightCount'])), {}, {
+    totalPrice: function totalPrice() {
+      var pricesRoom = this.shoppingCart.map(function (item) {
+        return item.price.originPrice * item.roomCount;
+      });
+      var totalPrice = pricesRoom.length ? pricesRoom.reduce(function (prev, current) {
+        return prev + current;
+      }) * this.nightCount : '0';
+      return totalPrice;
+    }
+  })
 });
 
 /***/ }),
@@ -3206,16 +3248,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
 /* harmony import */ var _shared_Button_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/shared/Button.vue */ "./resources/js/shared/Button.vue");
+/* harmony import */ var _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/OriginPrice.vue */ "./resources/js/shared/OriginPrice.vue");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/mixins/helpers */ "./resources/js/mixins/helpers.js");
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
     room: Object
-  }
+  },
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]]
 });
 
 /***/ }),
@@ -3403,10 +3451,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
   props: {
     rooms: Object
   },
-  layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
   components: {
     Head: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Head,
     Link: _shared_Link_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3415,8 +3463,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      current_page: this.rooms.current_page,
-      sheet: false
+      current_page: this.rooms.current_page
     };
   },
   methods: {
@@ -3451,6 +3498,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/layouts/Guest.vue */ "./resources/js/layouts/Guest.vue");
 /* harmony import */ var _shared_Button_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/Button.vue */ "./resources/js/shared/Button.vue");
@@ -3459,6 +3507,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Guest_RoomBooking_Service_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Guest/RoomBooking/Service.vue */ "./resources/js/components/Guest/RoomBooking/Service.vue");
 /* harmony import */ var _components_Guest_RoomBooking_RoomBooked_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Guest/RoomBooking/RoomBooked.vue */ "./resources/js/components/Guest/RoomBooking/RoomBooked.vue");
 /* harmony import */ var _components_Guest_RoomBooking_PriceDetail_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/Guest/RoomBooking/PriceDetail.vue */ "./resources/js/components/Guest/RoomBooking/PriceDetail.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -3469,6 +3524,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+  props: {},
   components: {
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Link,
     Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -3478,16 +3534,11 @@ __webpack_require__.r(__webpack_exports__);
     PriceDetail: _components_Guest_RoomBooking_PriceDetail_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     Service: _components_Guest_RoomBooking_Service_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  methods: {
-    orderDelete: function orderDelete(id) {
-      this.$store.dispatch('removeShoppingCart', id);
-    }
+  mounted: function mounted() {
+    console.log(this.service);
   },
-  computed: {
-    roomBooked: function roomBooked() {
-      return this.$store.state.shoppingCart;
-    }
-  }
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapActions)(['removeShoppingCart'])),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapState)(['shoppingCart']))
 });
 
 /***/ }),
@@ -3503,6 +3554,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/layouts/Guest.vue */ "./resources/js/layouts/Guest.vue");
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
@@ -3511,6 +3563,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Guest_RoomDetail_PriceRange_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Guest/RoomDetail/PriceRange.vue */ "./resources/js/components/Guest/RoomDetail/PriceRange.vue");
 /* harmony import */ var _components_Guest_RoomDetail_Price_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Guest/RoomDetail/Price.vue */ "./resources/js/components/Guest/RoomDetail/Price.vue");
 /* harmony import */ var _mixins_rules__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/mixins/rules */ "./resources/js/mixins/rules.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -3546,19 +3605,26 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  methods: {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapActions)(['addShoppingCart'])), {}, {
     order: function order(id) {
       if (this.$refs.form.validate) {
-        this.$store.dispatch('addShoppingCart', {
-          id: id,
-          thumbnail: this.room.photoGrid.defaultImage,
-          roomName: this.room.roomName,
+        var _this$room = this.room,
+            prices = _this$room.prices,
+            photoGrid = _this$room.photoGrid,
+            roomName = _this$room.roomName;
+        var price = prices.find(function (price) {
+          return price.id === id;
+        });
+        this.addShoppingCart({
+          price: price,
+          photoGrid: photoGrid,
+          roomName: roomName,
           roomCount: this.roomCount,
           guestCount: this.guestCount
         });
       }
     }
-  }
+  })
 });
 
 /***/ }),
@@ -3665,7 +3731,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    price: Number
+    price: [String, Number]
   },
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
@@ -3887,7 +3953,10 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
-    shoppingCart: []
+    shoppingCart: [],
+    checkIn: null,
+    checkOut: null,
+    nightCount: null
   },
   actions: {
     addShoppingCart: function addShoppingCart(_ref, room) {
@@ -3897,8 +3966,20 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
     removeShoppingCart: function removeShoppingCart(_ref2, id) {
       var state = _ref2.state;
       state.shoppingCart = state.shoppingCart.filter(function (item) {
-        return item.id !== id;
+        return item.price.id !== id;
       });
+    },
+    setCheckIn: function setCheckIn(_ref3, date) {
+      var state = _ref3.state;
+      state.checkIn = date;
+    },
+    setCheckOut: function setCheckOut(_ref4, date) {
+      var state = _ref4.state;
+      state.checkOut = date;
+    },
+    setNightCount: function setNightCount(_ref5, night) {
+      var state = _ref5.state;
+      state.nightCount = night;
     }
   }
 }));
@@ -12826,14 +12907,20 @@ var render = function () {
                       _vm.$page.url !== "/room-booking"
                         ? _c(
                             "Link",
-                            { attrs: { href: "/room-booking" } },
+                            {
+                              attrs: {
+                                href: _vm.shoppingCartLength
+                                  ? "/room-booking"
+                                  : "",
+                              },
+                            },
                             [
                               _c(
                                 "v-badge",
                                 {
                                   attrs: {
-                                    content: _vm.totalOrder,
-                                    value: _vm.totalOrder,
+                                    content: _vm.shoppingCartLength,
+                                    value: _vm.shoppingCartLength,
                                     color:
                                       "orange lighten-2 grey--text text--darken-4",
                                     overlap: "",
@@ -12963,12 +13050,12 @@ var render = function () {
                                                 readonly: "",
                                               },
                                               model: {
-                                                value: _vm.checkinDateFormatted,
+                                                value: _vm.checkInDateFormatted,
                                                 callback: function ($$v) {
-                                                  _vm.checkinDateFormatted = $$v
+                                                  _vm.checkInDateFormatted = $$v
                                                 },
                                                 expression:
-                                                  "checkinDateFormatted",
+                                                  "checkInDateFormatted",
                                               },
                                             },
                                             "v-text-field",
@@ -12993,7 +13080,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("v-date-picker", {
                         attrs: {
-                          min: _vm.checkinMin,
+                          min: _vm.checkInMin,
                           "full-width": _vm.$vuetify.breakpoint.smAndDown
                             ? true
                             : false,
@@ -13004,11 +13091,11 @@ var render = function () {
                           scrollable: "",
                         },
                         model: {
-                          value: _vm.checkin,
+                          value: _vm.checkIn,
                           callback: function ($$v) {
-                            _vm.checkin = $$v
+                            _vm.checkIn = $$v
                           },
-                          expression: "checkin",
+                          expression: "checkIn",
                         },
                       }),
                     ],
@@ -13122,13 +13209,13 @@ var render = function () {
                                               },
                                               model: {
                                                 value:
-                                                  _vm.checkoutDateFormatted,
+                                                  _vm.checkOutDateFormatted,
                                                 callback: function ($$v) {
-                                                  _vm.checkoutDateFormatted =
+                                                  _vm.checkOutDateFormatted =
                                                     $$v
                                                 },
                                                 expression:
-                                                  "checkoutDateFormatted",
+                                                  "checkOutDateFormatted",
                                               },
                                             },
                                             "v-text-field",
@@ -13153,7 +13240,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("v-date-picker", {
                         attrs: {
-                          min: _vm.checkoutMin,
+                          min: _vm.checkOutMin,
                           "full-width": _vm.$vuetify.breakpoint.smAndDown
                             ? true
                             : false,
@@ -13164,11 +13251,11 @@ var render = function () {
                           scrollable: "",
                         },
                         model: {
-                          value: _vm.checkout,
+                          value: _vm.checkOut,
                           callback: function ($$v) {
-                            _vm.checkout = $$v
+                            _vm.checkOut = $$v
                           },
-                          expression: "checkout",
+                          expression: "checkOut",
                         },
                       }),
                     ],
@@ -13290,21 +13377,15 @@ var render = function () {
     { staticClass: "text-body-2 text-md-subtitle-2" },
     [
       _c("ParagraphSpacing", {
-        attrs: { textLeft: "Checkin", textRight: _vm.priceDetail.checkinDate },
+        attrs: { textLeft: "Checkin", textRight: _vm.checkIn },
       }),
       _vm._v(" "),
       _c("ParagraphSpacing", {
-        attrs: {
-          textLeft: "Checkout",
-          textRight: _vm.priceDetail.checkoutDate,
-        },
+        attrs: { textLeft: "Checkout", textRight: _vm.checkOut },
       }),
       _vm._v(" "),
       _c("ParagraphSpacing", {
-        attrs: {
-          textLeft: "Lama inap",
-          textRight: _vm.priceDetail.stayingDate + " malam",
-        },
+        attrs: { textLeft: "Lama inap", textRight: _vm.nightCount + " malam" },
       }),
       _vm._v(" "),
       _c("v-divider"),
@@ -13321,11 +13402,7 @@ var render = function () {
           {
             key: "textRight",
             fn: function () {
-              return [
-                _c("OriginPrice", {
-                  attrs: { id: "IDR", price: _vm.priceDetail.totalPrice },
-                }),
-              ]
+              return [_c("OriginPrice", { attrs: { price: _vm.totalPrice } })]
             },
             proxy: true,
           },
@@ -13388,7 +13465,7 @@ var render = function () {
                               "max-height": _vm.$vuetify.breakpoint.smAndDown
                                 ? 50
                                 : 70,
-                              src: _vm.room.thumbnail,
+                              src: _vm.room.photoGrid.defaultImage,
                               alt: "Thumbnail Room",
                               tile: "",
                             },
@@ -13415,9 +13492,50 @@ var render = function () {
                                 [
                                   _c("Paragraph", [
                                     _vm._v(
-                                      _vm._s(_vm.room.roomCount) + "x kamar"
+                                      _vm._s(_vm.room.guestCount) + " tamu"
                                     ),
                                   ]),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-row",
+                            {
+                              staticClass: "text-caption",
+                              attrs: { dense: "" },
+                            },
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "auto" } },
+                                [
+                                  _c(
+                                    "Paragraph",
+                                    {
+                                      staticClass:
+                                        "text-caption red--text text--lighten-2",
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "text-caption" },
+                                        [_vm._v("Rp")]
+                                      ),
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(
+                                            _vm.currencyFormat(
+                                              _vm.room.price.originPrice
+                                            )
+                                          ) +
+                                          "\n                "
+                                      ),
+                                    ]
+                                  ),
                                 ],
                                 1
                               ),
@@ -13428,7 +13546,7 @@ var render = function () {
                                 [
                                   _c("Paragraph", [
                                     _vm._v(
-                                      _vm._s(_vm.room.guestCount) + " tamu"
+                                      _vm._s(_vm.room.roomCount) + "x kamar"
                                     ),
                                   ]),
                                 ],
@@ -13451,7 +13569,10 @@ var render = function () {
                               attrs: { text: "", "x-small": "" },
                               on: {
                                 click: function ($event) {
-                                  return _vm.$emit("orderDelete", _vm.room.id)
+                                  return _vm.$emit(
+                                    "orderDelete",
+                                    _vm.room.price.id
+                                  )
                                 },
                               },
                             },
@@ -14183,14 +14304,14 @@ var render = function () {
                     "v-row",
                     { attrs: { dense: "" } },
                     [
-                      _vm._l(_vm.roomBooked, function (room, index) {
+                      _vm._l(_vm.shoppingCart, function (room, index) {
                         return _c(
                           "v-col",
                           { key: index, attrs: { cols: "12" } },
                           [
                             _c("RoomBooked", {
                               attrs: { room: room },
-                              on: { orderDelete: _vm.orderDelete },
+                              on: { orderDelete: _vm.removeShoppingCart },
                             }),
                           ],
                           1
@@ -14203,7 +14324,14 @@ var render = function () {
                         [
                           _c(
                             "v-row",
-                            [_c("v-col", { attrs: { cols: "12" } })],
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [_c("PriceDetail")],
+                                1
+                              ),
+                            ],
                             1
                           ),
                         ],
@@ -14695,7 +14823,7 @@ var render = function () {
           _c("span", { staticClass: "text-md-subtitle-2 text-caption" }, [
             _vm._v("Rp"),
           ]),
-          _vm._v(" " + _vm._s(_vm.currencyFormat(_vm.price)) + "\n"),
+          _vm._v(" " + _vm._s(_vm.currencyFormat(Number(_vm.price))) + "\n"),
         ]
       )
     : _vm._e()

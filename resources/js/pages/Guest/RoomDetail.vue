@@ -1,4 +1,5 @@
 <script>
+import { mapActions } from 'vuex'
 import { Head } from '@inertiajs/inertia-vue'
 
 import GuestLayout from '@/layouts/Guest.vue'
@@ -34,12 +35,16 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['addShoppingCart']),
     order(id) {
       if (this.$refs.form.validate) {
-        this.$store.dispatch('addShoppingCart', {
-          id,
-          thumbnail: this.room.photoGrid.defaultImage,
-          roomName: this.room.roomName,
+        const { prices, photoGrid, roomName } = this.room
+        const price = prices.find((price) => price.id === id)
+
+        this.addShoppingCart({
+          price,
+          photoGrid,
+          roomName,
           roomCount: this.roomCount,
           guestCount: this.guestCount,
         })

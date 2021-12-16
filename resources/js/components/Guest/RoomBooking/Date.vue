@@ -1,4 +1,5 @@
 <script>
+import { mapActions } from 'vuex'
 import dayjs from 'dayjs'
 
 import Paragraph from '@/shared/Paragraph.vue'
@@ -9,27 +10,37 @@ export default {
   },
   data() {
     return {
-      checkin: dayjs().toISOString().substring(0, 10),
-      checkinMin: dayjs().toISOString(),
-      checkout: null,
+      checkIn: dayjs().toISOString().substring(0, 10),
+      checkOut: null,
     }
+  },
+  methods: {
+    ...mapActions(['setCheckIn', 'setCheckOut', 'setNightCount']),
   },
   computed: {
     nightCount() {
-      return dayjs(this.checkout).diff(this.checkin, 'day')
+      const dr = dayjs(this.checkOut).diff(this.checkIn, 'day')
+      this.setNightCount(dr)
+      return dr
     },
-    checkoutMin() {
-      const d = new Date(this.checkin)
+    checkInMin() {
+      return dayjs().toISOString()
+    },
+    checkOutMin() {
+      const d = new Date(this.checkIn)
       return dayjs(d).add(1, 'day').toISOString()
     },
-    checkinDateFormatted() {
-      const d = new Date(this.checkin)
-      this.checkout = dayjs(d).add(1, 'day').toISOString().substring(0, 10)
-
-      return this.checkin ? dayjs(this.checkin).format('ddd, DD MMM YYYY') : ''
+    checkInDateFormatted() {
+      const d = new Date(this.checkIn)
+      const df = this.checkIn ? dayjs(this.checkIn).format('ddd, DD MMM YYYY') : ''
+      this.checkOut = dayjs(d).add(1, 'day').toISOString().substring(0, 10)
+      this.setCheckIn(df)
+      return df
     },
-    checkoutDateFormatted() {
-      return this.checkout ? dayjs(this.checkout).format('ddd, DD MMM YYYY') : ''
+    checkOutDateFormatted() {
+      const df = this.checkOut ? dayjs(this.checkOut).format('ddd, DD MMM YYYY') : ''
+      this.setCheckOut(df)
+      return df
     },
   },
 }
@@ -47,7 +58,7 @@ export default {
                   <Paragraph class="text-caption text-md-body-2">Checkin</Paragraph>
                   <v-text-field
                     class="text-body-2"
-                    v-model="checkinDateFormatted"
+                    v-model="checkInDateFormatted"
                     v-bind="attrs"
                     v-on="on"
                     color="orange lighten-2"
@@ -60,8 +71,8 @@ export default {
               </v-row>
             </template>
             <v-date-picker
-              v-model="checkin"
-              :min="checkinMin"
+              v-model="checkIn"
+              :min="checkInMin"
               :full-width="$vuetify.breakpoint.smAndDown ? true : false"
               locale="id"
               color="orange lighten-2"
@@ -96,7 +107,7 @@ export default {
                   <Paragraph class="text-caption text-md-body-2">Checkout</Paragraph>
                   <v-text-field
                     class="text-body-2"
-                    v-model="checkoutDateFormatted"
+                    v-model="checkOutDateFormatted"
                     v-bind="attrs"
                     v-on="on"
                     color="orange lighten-2"
@@ -109,8 +120,8 @@ export default {
               </v-row>
             </template>
             <v-date-picker
-              v-model="checkout"
-              :min="checkoutMin"
+              v-model="checkOut"
+              :min="checkOutMin"
               :full-width="$vuetify.breakpoint.smAndDown ? true : false"
               locale="id"
               color="orange lighten-2"

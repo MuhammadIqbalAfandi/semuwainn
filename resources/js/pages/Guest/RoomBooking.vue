@@ -1,4 +1,5 @@
 <script>
+import { mapActions, mapState } from 'vuex'
 import { Link } from '@inertiajs/inertia-vue'
 
 import GuestLayout from '@/layouts/Guest.vue'
@@ -11,6 +12,7 @@ import PriceDetail from '@/components/Guest/RoomBooking/PriceDetail.vue'
 
 export default {
   layout: GuestLayout,
+  props: {},
   components: {
     Link,
     Button,
@@ -20,15 +22,14 @@ export default {
     PriceDetail,
     Service,
   },
+  mounted() {
+    console.log(this.service)
+  },
   methods: {
-    orderDelete(id) {
-      this.$store.dispatch('removeShoppingCart', id)
-    },
+    ...mapActions(['removeShoppingCart']),
   },
   computed: {
-    roomBooked() {
-      return this.$store.state.shoppingCart
-    },
+    ...mapState(['shoppingCart']),
   },
 }
 </script>
@@ -78,14 +79,14 @@ export default {
         <v-card-title class="text-body-2 text-md-h5">Detail Pemesanan</v-card-title>
         <v-card-text>
           <v-row dense>
-            <v-col v-for="(room, index) in roomBooked" :key="index" cols="12">
-              <RoomBooked @orderDelete="orderDelete" :room="room" />
+            <v-col v-for="(room, index) in shoppingCart" :key="index" cols="12">
+              <RoomBooked @orderDelete="removeShoppingCart" :room="room" />
             </v-col>
 
             <v-col cols="12">
               <v-row>
                 <v-col cols="12">
-                  <!-- <PriceDetail :priceDetail="roomBooking.priceDetail" /> -->
+                  <PriceDetail />
                 </v-col>
               </v-row>
             </v-col>

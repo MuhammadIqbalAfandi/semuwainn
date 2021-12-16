@@ -22,8 +22,8 @@ class RoomFacilityFactory extends Factory
     public function definition()
     {
         return [
-            'facility_id' => $this->faker->unique()->numberBetween(1, 500),
-            'room_type_id' => $this->faker->unique()->numberBetween(1, 500),
+            'facility_id' => $this->faker->unique(true)->numberBetween(1, 500),
+            'room_type_id' => $this->faker->unique(true)->numberBetween(1, 500),
         ];
     }
 }

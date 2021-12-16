@@ -14,8 +14,6 @@ class RoomTypeSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i <= 500; $i++) {
-            RoomType::factory()->count(random_int(3,5))->create();
-        }
+        RoomType::factory(500)->create();
     }
 }

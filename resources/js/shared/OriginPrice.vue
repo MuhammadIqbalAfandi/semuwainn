@@ -4,7 +4,7 @@ import mixinHelper from '@/mixins/helpers'
 
 export default {
   props: {
-    price: Number,
+    price: [String, Number],
   },
   mixins: [mixinHelper],
   components: {
@@ -15,6 +15,6 @@ export default {
 
 <template>
   <Paragraph v-if="price" class="text-md-h5 text-body-2 red--text text--lighten-2">
-    <span class="text-md-subtitle-2 text-caption">Rp</span> {{ currencyFormat(price) }}
+    <span class="text-md-subtitle-2 text-caption">Rp</span> {{ currencyFormat(Number(price)) }}
   </Paragraph>
 </template>
