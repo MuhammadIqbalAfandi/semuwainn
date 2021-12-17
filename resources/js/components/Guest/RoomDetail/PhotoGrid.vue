@@ -5,24 +5,18 @@ export default {
   },
   data() {
     return {
-      thumbnails: [],
+      images: [],
     }
   },
   computed: {
     photoGridCol() {
-      if (this.photoGrid.thumbnails.length >= 5) {
-        this.thumbnails = this.photoGrid.thumbnails.filter((_, i) => i <= 3)
+      if (this.photoGrid.images.length >= 5) {
+        this.images = this.photoGrid.images.filter((_, i) => i <= 3)
         return 'photo-grid--col-4'
-      } else if (this.photoGrid.thumbnails.length >= 3) {
-        this.thumbnails = this.photoGrid.thumbnails.filter((_, i) => i <= 1)
+      } else if (this.photoGrid.images.length >= 3) {
+        this.images = this.photoGrid.images.filter((_, i) => i <= 1)
         return 'photo-grid--col-2'
       }
-    },
-    existThumbnail() {
-      return this.photoGrid.thumbnails.length >= 1
-    },
-    mainThumbnail() {
-      return this.thumbnails[0].url
     },
   },
 }
@@ -31,13 +25,14 @@ export default {
 <template>
   <div class="photo">
     <div :class="photoGridCol" class="photo-grid">
-      <div class="photo-grid__main">
-        <img v-if="existThumbnail" :src="mainThumbnail" alt="Thumbnail image" />
-        <img v-else :src="photoGrid.defaultImage" alt="Thumbnail image" />
+      <div v-if="images.length">
+        <div v-for="(image, index) in images" :key="index" class="photo-grid__item">
+          <img :src="image" alt="Thumbnail image" />
+        </div>
       </div>
 
-      <div v-for="(thumbnail, index) in thumbnails" :key="index" class="photo-grid__item">
-        <img :src="thumbnail.url" alt="Thumbnail image" />
+      <div v-else class="photo-grid__main">
+        <img :src="photoGrid.defaultImage" alt="Thumbnail image" />
       </div>
     </div>
   </div>

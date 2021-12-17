@@ -18,7 +18,7 @@ export default {
 </script>
 
 <template>
-  <v-card outlined hover>
+  <v-card hover>
     <v-card-text>
       <ParagraphSpacing>
         <template #textLeft>

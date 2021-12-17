@@ -8,6 +8,7 @@ import TextField from '@/shared/TextField.vue'
 import PhotoGrid from '@/components/Guest/RoomDetail/PhotoGrid.vue'
 import PriceRange from '@/components/Guest/RoomDetail/PriceRange.vue'
 import Price from '@/components/Guest/RoomDetail/Price.vue'
+import Facilities from '@/components/Guest/RoomDetail/Facilities.vue'
 import mixinRules from '@/mixins/rules'
 
 export default {
@@ -15,15 +16,16 @@ export default {
   props: {
     room: Object,
   },
-  mixins: [mixinRules],
   components: {
     Paragraph,
     TextField,
     PhotoGrid,
     PriceRange,
     Price,
+    Facilities,
     Head,
   },
+  mixins: [mixinRules],
   data() {
     return {
       roomCount: 1,
@@ -35,15 +37,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['addShoppingCart']),
-    order(id) {
-      if (this.$refs.form.validate) {
-        const { prices, photoGrid, roomName } = this.room
+    ...mapActions(['addRoomCart']),
+    roomOrder(id) {
+      if (this.$refs.form.validate()) {
+        const { prices, thumbnail, roomName } = this.room
         const price = prices.find((price) => price.id === id)
-
-        this.addShoppingCart({
+        this.addRoomCart({
           price,
-          photoGrid,
+          thumbnail,
           roomName,
           roomCount: this.roomCount,
           guestCount: this.guestCount,
@@ -60,7 +61,7 @@ export default {
 
     <v-row no-gutters>
       <v-col cols="12">
-        <PhotoGrid :photoGrid="room.photoGrid" />
+        <PhotoGrid :photoGrid="room.thumbnail" />
       </v-col>
 
       <v-col cols="12">
@@ -83,13 +84,7 @@ export default {
               </v-col>
 
               <v-col cols="12">
-                <v-row class="facility-detail text-center">
-                  <v-col v-for="(facility, index) in room.facilities" :key="index" cols="auto">
-                    <Paragraph class="text-caption text-md-body-2 green--text text--lighten-2">{{
-                      facility
-                    }}</Paragraph>
-                  </v-col>
-                </v-row>
+                <Facilities :facilities="room.facilities" />
               </v-col>
             </v-row>
           </v-card-text>
@@ -108,7 +103,6 @@ export default {
                     :rules="[rules.numeric, rules.notZero, rules.lessOrEqualThanRoomAvailable]"
                     placeholder="Jumlah Kamar"
                     hint="Jumlah Kamar yang akan dipesan"
-                    outlined
                   />
                 </v-col>
 
@@ -119,7 +113,6 @@ export default {
                     :rules="[rules.numeric, rules.notZero]"
                     placeholder="Banyak Tamu"
                     hint="Tamu yang akan meginap disatu kamar"
-                    outlined
                   />
                 </v-col>
               </v-row>
@@ -129,27 +122,8 @@ export default {
       </v-col>
 
       <v-col sm="12" md="8">
-        <Price @order="order" :prices="room.prices" />
+        <Price @roomOrder="roomOrder" :prices="room.prices" />
       </v-col>
     </v-row>
   </div>
 </template>
-
-<style lang="scss">
-.facility-detail {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-}
-
-@media screen and (max-width: 960px) {
-  .facility-detail {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .facility-detail {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-</style>

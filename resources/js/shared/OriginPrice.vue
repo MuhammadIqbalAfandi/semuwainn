@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-  <Paragraph v-if="price" class="text-md-h5 text-body-2 red--text text--lighten-2">
-    <span class="text-md-subtitle-2 text-caption">Rp</span> {{ currencyFormat(Number(price)) }}
+  <Paragraph v-if="price" class="text-body-2 text-md-h5 red--text text--lighten-2">
+    <span class="text-caption text-md-subtitle-2">Rp</span> {{ currencyFormat(Number(price)) }}
   </Paragraph>
 </template>

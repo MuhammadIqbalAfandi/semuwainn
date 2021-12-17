@@ -70,6 +70,7 @@ export default {
                 </v-col>
               </v-row>
             </template>
+
             <v-date-picker
               v-model="checkIn"
               :min="checkInMin"
@@ -93,6 +94,7 @@ export default {
                 {{ nightCount }}
               </Paragraph>
             </v-col>
+
             <v-col cols="12">
               <Paragraph>Malam</Paragraph>
             </v-col>
@@ -119,6 +121,7 @@ export default {
                 </v-col>
               </v-row>
             </template>
+
             <v-date-picker
               v-model="checkOut"
               :min="checkOutMin"

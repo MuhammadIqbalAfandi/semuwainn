@@ -2,57 +2,53 @@
 import { mapState } from 'vuex'
 
 import Link from '@/shared/Link.vue'
+import mixinsLogo from '@/mixins/logo'
 
 export default {
   components: {
     Link,
   },
+  mixins: [mixinsLogo],
   computed: {
     ...mapState({
-      shoppingCartLength: (state) => state.shoppingCart.length,
+      roomCartLength: (state) => state.roomCart.length,
     }),
+    hideCart() {
+      return !this.$page.url.includes('/room-booking')
+    },
+    removeHref() {
+      return this.roomCartLength ? '/room-booking' : ''
+    },
   },
 }
 </script>
 
 <template>
   <nav>
-    <v-app-bar height="85" fixed>
-      <v-container class="navbar">
+    <v-app-bar height="65" max-height="65" fixed>
+      <v-container class="navbar" fluid>
         <v-row align="center">
-          <v-col cols="auto">
-            <Link href="/">
-              <v-row>
-                <v-img
-                  :max-width="$vuetify.breakpoint.smAndDown ? '54' : '64'"
-                  position="left center"
-                  src="/img/logo-no-title.webp"
-                  alt="Semuwainn Logo"
-                  contain
-                />
-                <h1 class="text-md-h5 text-subtitle-1 text-center ml-5">
-                  Semuwainn <span class="text-md-body-2 text-caption d-block">Sentani</span>
-                </h1>
-              </v-row>
-            </Link>
-          </v-col>
+          <img class="d-none d-md-block" :src="logo" alt="Semuwainn Logo" height="54px" />
+          <Link href="/">
+            <h1 class="text-subtitle-1 text-md-h5 text-center ml-5">
+              Semuwainn <span class="text-caption text-md-body-2 d-block">Sentani</span>
+            </h1>
+          </Link>
 
           <v-spacer />
 
-          <v-col cols="auto">
-            <Link v-if="$page.url !== '/room-booking'" :href="shoppingCartLength ? '/room-booking' : ''">
-              <v-badge
-                :content="shoppingCartLength"
-                :value="shoppingCartLength"
-                color="orange lighten-2 grey--text text--darken-4"
-                overlap
-              >
-                <v-btn icon :small="$vuetify.breakpoint.smAndDown">
-                  <v-icon :small="$vuetify.breakpoint.smAndDown">mdi-cart</v-icon>
-                </v-btn>
-              </v-badge>
-            </Link>
-          </v-col>
+          <Link v-if="hideCart" :href="removeHref">
+            <v-badge
+              :content="roomCartLength"
+              :value="roomCartLength"
+              color="orange lighten-2 grey--text text--darken-4"
+              overlap
+            >
+              <v-btn elevation="2" icon small>
+                <v-icon small>mdi-cart</v-icon>
+              </v-btn>
+            </v-badge>
+          </Link>
         </v-row>
       </v-container>
     </v-app-bar>

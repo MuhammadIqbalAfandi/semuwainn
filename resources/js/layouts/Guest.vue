@@ -14,7 +14,7 @@ export default {
   <v-app>
     <Navbar />
     <v-main>
-      <v-container class="guest">
+      <v-container class="guest" fluid>
         <slot />
       </v-container>
     </v-main>
@@ -25,6 +25,6 @@ export default {
 <style lang="scss">
 .guest {
   max-width: 1180px;
-  padding-top: 95px;
+  padding-top: 77px;
 }
 </style>

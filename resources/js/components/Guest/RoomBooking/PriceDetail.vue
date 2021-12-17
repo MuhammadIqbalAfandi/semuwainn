@@ -12,9 +12,9 @@ export default {
     OriginPrice,
   },
   computed: {
-    ...mapState(['shoppingCart', 'checkIn', 'checkOut', 'nightCount']),
+    ...mapState(['roomCart', 'checkIn', 'checkOut', 'nightCount']),
     totalPrice() {
-      const pricesRoom = this.shoppingCart.map((item) => item.price.originPrice * item.roomCount)
+      const pricesRoom = this.roomCart.map((item) => item.price.originPrice * item.roomCount)
       const totalPrice = pricesRoom.length
         ? pricesRoom.reduce((prev, current) => prev + current) * this.nightCount
         : '0'

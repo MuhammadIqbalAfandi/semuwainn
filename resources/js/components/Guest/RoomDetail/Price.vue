@@ -17,7 +17,7 @@ export default {
 
 <template>
   <v-row dense>
-    <v-col v-for="(price, index) in prices" :key="index" cols="6">
+    <v-col v-for="price in prices" :key="price.id" cols="6">
       <v-card class="d-flex flex-column align-end text-end" height="100%" hover>
         <v-card-text>
           <Paragraph class="text-caption text-md-body-2">{{ price.description }}</Paragraph>
@@ -31,8 +31,9 @@ export default {
             Sisa {{ price.roomAvailable }} kamar lagi!
           </Paragraph>
         </v-card-text>
+
         <v-card-actions>
-          <Button @click="$emit('order', price.id)">Pilih!</Button>
+          <Button @click="$emit('roomOrder', price.id)">Pilih!</Button>
         </v-card-actions>
       </v-card>
     </v-col>

@@ -27,10 +27,10 @@ export default {
     Service,
   },
   methods: {
-    ...mapActions(['removeShoppingCart', 'removeServiceCart']),
+    ...mapActions(['removeRoomCart', 'removeServiceCart']),
   },
   computed: {
-    ...mapState(['shoppingCart', 'serviceCart']),
+    ...mapState(['roomCart', 'serviceCart']),
   },
 }
 </script>
@@ -78,10 +78,11 @@ export default {
     <v-col cols="12" md="auto" order="1" order-md="2">
       <v-card :width="$vuetify.breakpoint.smAndDown ? '100%' : '390'">
         <v-card-title class="text-body-2 text-md-h5">Detail Pemesanan</v-card-title>
+
         <v-card-text>
           <v-row dense>
-            <v-col v-for="room in shoppingCart" :key="room.id" cols="12">
-              <RoomDetail @roomDelete="removeShoppingCart" :room="room" />
+            <v-col v-for="room in roomCart" :key="room.id" cols="12">
+              <RoomDetail @roomDelete="removeRoomCart" :room="room" />
             </v-col>
 
             <v-col v-for="service in serviceCart" :key="service.id" cols="12">

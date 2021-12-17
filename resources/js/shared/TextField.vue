@@ -1,3 +1,3 @@
 <template>
-  <v-text-field v-bind="$attrs" v-on="$listeners" color="orange lighten-2" persistent-hint dense />
+  <v-text-field v-bind="$attrs" v-on="$listeners" color="orange lighten-2" persistent-hint dense solo />
 </template>

@@ -20,6 +20,10 @@ class HomeController extends Controller
                 ->withQueryString()
                 ->through(fn($rooms) => [
                     'id' => $rooms->id,
+                    'thumbnail' => [
+                        'images' => [],
+                        'defaultImage' => '/img/default-room.webp',
+                    ],
                     'roomName' => $rooms->room_type_name,
                     'originPrice' => $rooms->roomPrices->max('price'),
                     'facilities' => $rooms->roomFacilities->take(3)->pluck('facility.facility_name'),

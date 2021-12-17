@@ -10,11 +10,16 @@ export default {
     room: Object,
   },
   mixins: [mixinHelper],
+  computed: {
+    thumbnail() {
+      return this.room.thumbnail.images[0] ?? this.room.thumbnail.defaultImage
+    },
+  },
 }
 </script>
 
 <template>
-  <v-card outlined hover>
+  <v-card hover>
     <v-card-text>
       <v-row>
         <v-col cols="12">
@@ -24,7 +29,7 @@ export default {
                 class="align-self-center rounded-sm"
                 :max-width="$vuetify.breakpoint.smAndDown ? 50 : 70"
                 :max-height="$vuetify.breakpoint.smAndDown ? 50 : 70"
-                :src="room.photoGrid.defaultImage"
+                :src="thumbnail"
                 alt="Thumbnail Room"
                 tile
               />
