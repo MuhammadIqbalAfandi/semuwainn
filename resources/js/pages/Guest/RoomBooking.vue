@@ -7,29 +7,30 @@ import Button from '@/shared/Button.vue'
 import Date from '@/components/Guest/RoomBooking/Date.vue'
 import GuestForm from '@/components/Guest/RoomBooking/GuestForm.vue'
 import Service from '@/components/Guest/RoomBooking/Service.vue'
-import RoomBooked from '@/components/Guest/RoomBooking/RoomBooked.vue'
+import RoomDetail from '@/components/Guest/RoomBooking/RoomDetail.vue'
 import PriceDetail from '@/components/Guest/RoomBooking/PriceDetail.vue'
+import ServiceDetail from '@/components/Guest/RoomBooking/ServiceDetail.vue'
 
 export default {
   layout: GuestLayout,
-  props: {},
+  props: {
+    services: Object,
+  },
   components: {
     Link,
     Button,
     Date,
     GuestForm,
-    RoomBooked,
+    RoomDetail,
     PriceDetail,
+    ServiceDetail,
     Service,
   },
-  mounted() {
-    console.log(this.service)
-  },
   methods: {
-    ...mapActions(['removeShoppingCart']),
+    ...mapActions(['removeShoppingCart', 'removeServiceCart']),
   },
   computed: {
-    ...mapState(['shoppingCart']),
+    ...mapState(['shoppingCart', 'serviceCart']),
   },
 }
 </script>
@@ -48,16 +49,16 @@ export default {
 
         <v-col cols="12">
           <v-card>
-            <v-card-title class="text-body-2 text-md-h5" tag="h3">Permintaan Khusus</v-card-title>
+            <v-card-title class="text-body-2 text-md-h5" tag="h3">Pelayanan tambahan</v-card-title>
             <v-card-subtitle class="mb-0 text-caption text-md-body-2" tag="p">
-              Punya permintaan khusus yang membuatmu makin nyaman? Minta di sini. Permintaanmu tergantung persediaan dan
+              Mau menambah pelayanan yang membuatmu makin nyaman? Pilih disini. Layanan tergantung persediaan dan
               mungkin dikenakan biaya tambahan.
             </v-card-subtitle>
 
             <v-divider />
 
             <v-card-text>
-              <!-- <Service :services="roomBooking.services" /> -->
+              <Service :services="services" />
             </v-card-text>
           </v-card>
         </v-col>
@@ -79,8 +80,12 @@ export default {
         <v-card-title class="text-body-2 text-md-h5">Detail Pemesanan</v-card-title>
         <v-card-text>
           <v-row dense>
-            <v-col v-for="(room, index) in shoppingCart" :key="index" cols="12">
-              <RoomBooked @orderDelete="removeShoppingCart" :room="room" />
+            <v-col v-for="room in shoppingCart" :key="room.id" cols="12">
+              <RoomDetail @roomDelete="removeShoppingCart" :room="room" />
+            </v-col>
+
+            <v-col v-for="service in serviceCart" :key="service.id" cols="12">
+              <ServiceDetail @serviceDelete="removeServiceCart" :service="service" />
             </v-col>
 
             <v-col cols="12">

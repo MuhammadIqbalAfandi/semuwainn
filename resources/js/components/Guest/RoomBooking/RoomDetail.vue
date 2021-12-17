@@ -50,7 +50,7 @@ export default {
             </v-col>
 
             <v-col cols="auto" align-self="end">
-              <Button @click="$emit('orderDelete', room.price.id)" text x-small>Hapus</Button>
+              <Button @click="$emit('roomDelete', room.price.id)" text x-small>Hapus</Button>
             </v-col>
           </v-row>
         </v-col>

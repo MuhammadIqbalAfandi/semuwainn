@@ -18,4 +18,4 @@ mix
   .webpackConfig(require('./webpack.config'))
   .version()
   .disableNotifications()
-  .browserSync('http://semuwainn-old.test/')
+  .browserSync('http://semuwainn.test/')

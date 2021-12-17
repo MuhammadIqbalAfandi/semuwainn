@@ -15,7 +15,9 @@ class RoomBookingController extends Controller
      */
     public function index()
     {
-        return inertia('Guest/RoomBooking');
+        return inertia('Guest/RoomBooking', [
+            'services' => Service::paginate(10),
+        ]);
     }
 
     /**

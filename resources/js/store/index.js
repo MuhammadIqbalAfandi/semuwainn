@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     shoppingCart: [],
+    serviceCart: [],
     checkIn: null,
     checkOut: null,
     nightCount: null,
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     removeShoppingCart({ state }, id) {
       state.shoppingCart = state.shoppingCart.filter((item) => item.price.id !== id)
     },
+    removeServiceCart({ state }, id) {
+      state.serviceCart = state.serviceCart.filter((item) => item.id !== id)
+    },
     setCheckIn({ state }, date) {
       state.checkIn = date
     },
@@ -25,6 +29,9 @@ export default new Vuex.Store({
     },
     setNightCount({ state }, night) {
       state.nightCount = night
+    },
+    setServiceCart({ state }, service) {
+      state.serviceCart = service
     },
   },
 })

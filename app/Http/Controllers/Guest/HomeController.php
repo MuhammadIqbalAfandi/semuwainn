@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use App\Models\RoomType;
 use Illuminate\Http\Request;
+
 class HomeController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class HomeController extends Controller
         return inertia('Guest/Home', [
             'rooms' => RoomType::paginate(10)
                 ->withQueryString()
-                ->through(fn ($rooms) => [
+                ->through(fn($rooms) => [
                     'id' => $rooms->id,
                     'roomName' => $rooms->room_type_name,
                     'originPrice' => $rooms->roomPrices->max('price'),
