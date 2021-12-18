@@ -13,12 +13,12 @@ export default {
 </script>
 
 <template>
-  <v-row justify="space-between" align="center" dense>
-    <v-col cols="auto">
+  <v-row v-bind="$attrs" justify="space-between" align="center" dense>
+    <v-col cols="6" class="text-left">
       <Paragraph v-if="textLeft">{{ textLeft }}</Paragraph>
       <slot name="textLeft" />
     </v-col>
-    <v-col cols="auto">
+    <v-col cols="6" class="text-right">
       <Paragraph v-if="textRight">{{ textRight }}</Paragraph>
       <slot name="textRight" />
     </v-col>

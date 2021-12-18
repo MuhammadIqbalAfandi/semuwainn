@@ -87,7 +87,7 @@ export default {
 
               <v-expansion-panel-content>
                 <v-row dense>
-                  <v-col cols="auto">
+                  <v-col cols="12">
                     <ParagraphSpacing>
                       <template #textLeft> Harga: </template>
                       <template #textRight>
@@ -99,29 +99,34 @@ export default {
                   </v-col>
 
                   <v-col cols="12">
-                    <Paragraph class="text-caption text-md-body-2">Satuan: {{ service.unit }}</Paragraph>
+                    <ParagraphSpacing>
+                      <template #textLeft>Satuan:</template>
+                      <template #textRight>
+                        <Paragraph class="text-caption text-md-body-2">{{ service.unit }}</Paragraph>
+                      </template>
+                    </ParagraphSpacing>
                   </v-col>
                 </v-row>
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-col>
         </v-row>
-
-        <v-row v-if="services.per_page !== services.total">
-          <v-col cols="12">
-            <v-pagination
-              v-model="current_page"
-              :length="services.last_page"
-              :total-visible="services.per_page"
-              @input="input()"
-              @next="next()"
-              @previous="prev()"
-              color="orange lighten-2 grey--text text--darken-4"
-              circle
-            />
-          </v-col>
-        </v-row>
       </v-expansion-panels>
+
+      <v-row v-if="services.per_page !== services.total" class="mt-2" dense>
+        <v-col cols="12">
+          <v-pagination
+            v-model="current_page"
+            :length="services.last_page"
+            :total-visible="services.per_page"
+            @input="input"
+            @next="next"
+            @previous="prev"
+            color="orange lighten-2 grey--text text--darken-4"
+            circle
+          />
+        </v-col>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>
