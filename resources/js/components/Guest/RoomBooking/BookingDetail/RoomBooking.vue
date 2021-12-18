@@ -1,4 +1,6 @@
 <script>
+import { mapActions } from 'vuex'
+
 import Paragraph from '@/shared/Paragraph.vue'
 import Button from '@/shared/Button.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
@@ -10,6 +12,12 @@ export default {
     room: Object,
   },
   mixins: [mixinHelper],
+  methods: {
+    ...mapActions(['removeRoomCart']),
+    roomDelete(id) {
+      this.removeRoomCart(id)
+    },
+  },
   computed: {
     thumbnail() {
       return this.room.thumbnail.images[0] ?? this.room.thumbnail.defaultImage
@@ -42,12 +50,14 @@ export default {
                   <Paragraph>{{ room.guestCount }} tamu</Paragraph>
                 </v-col>
               </v-row>
+
               <v-row class="text-caption" dense>
                 <v-col cols="auto">
                   <Paragraph class="text-caption red--text text--lighten-2">
                     <span class="text-caption">Rp</span> {{ currencyFormat(room.price.originPrice) }}
                   </Paragraph>
                 </v-col>
+
                 <v-col cols="auto">
                   <Paragraph>{{ room.roomCount }}x kamar</Paragraph>
                 </v-col>
@@ -55,7 +65,7 @@ export default {
             </v-col>
 
             <v-col cols="auto" align-self="end">
-              <Button @click="$emit('roomDelete', room.price.id)" text x-small>Hapus</Button>
+              <Button @click="roomDelete(room.price.id)" text x-small>Hapus</Button>
             </v-col>
           </v-row>
         </v-col>

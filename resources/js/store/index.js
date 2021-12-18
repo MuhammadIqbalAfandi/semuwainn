@@ -1,15 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import roomBooking from '@/store/modules/room-booking'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    roomBooking,
+  },
   state: {
     roomCart: [],
     serviceCart: [],
-    checkIn: null,
-    checkOut: null,
-    nightCount: null,
   },
   actions: {
     addRoomCart({ state }, room) {
@@ -18,20 +20,11 @@ export default new Vuex.Store({
     removeRoomCart({ state }, id) {
       state.roomCart = state.roomCart.filter((item) => item.price.id !== id)
     },
+    addServiceCart({ state }, service) {
+      state.serviceCart = service
+    },
     removeServiceCart({ state }, id) {
       state.serviceCart = state.serviceCart.filter((item) => item.id !== id)
-    },
-    setCheckIn({ state }, date) {
-      state.checkIn = date
-    },
-    setCheckOut({ state }, date) {
-      state.checkOut = date
-    },
-    setNightCount({ state }, night) {
-      state.nightCount = night
-    },
-    setServiceCart({ state }, service) {
-      state.serviceCart = service
     },
   },
 })

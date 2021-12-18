@@ -9,10 +9,13 @@ export default {
   props: {
     services: Object,
   },
-  mixins: [mixinHelpers],
   components: {
     Paragraph,
     ParagraphSpacing,
+  },
+  mixins: [mixinHelpers],
+  mounted() {
+    this.addService = this.serviceCart
   },
   data() {
     return {
@@ -21,71 +24,104 @@ export default {
     }
   },
   watch: {
-    addService(val, oldVal) {
-      this.setServiceCart(val)
+    addService: {
+      handler(val, oldVal) {
+        this.addServiceCart(val)
+      },
+    },
+    serviceCart: {
+      handler(val, oldVal) {
+        this.addService = val
+      },
     },
   },
+  computed: {
+    ...mapState(['serviceCart']),
+  },
   methods: {
-    ...mapActions(['setServiceCart']),
+    ...mapActions(['addServiceCart']),
     next() {
-      this.$inertia.get(this.services.next_page_url, '', { preserveScroll: true })
+      this.$inertia.get(this.services.next_page_url, '', { preserveScroll: true, preserveState: true })
     },
     prev() {
-      this.$inertia.get(this.services.prev_page_url, '', { preserveScroll: true })
+      this.$inertia.get(this.services.prev_page_url, '', { preserveScroll: true, preserveState: true })
     },
     input() {
-      this.$inertia.get(`${this.services.path}/?page=${this.current_page}`, '', { preserveScroll: true })
+      this.$inertia.get(`${this.services.path}/?page=${this.current_page}`, '', {
+        preserveScroll: true,
+        preserveState: true,
+      })
     },
   },
 }
 </script>
 
 <template>
-  <v-expansion-panels>
-    <v-row dense>
-      <v-col v-for="(service, index) in services.data" :key="index" cols="12" sm="6">
-        <v-expansion-panel>
-          <v-expansion-panel-header>
-            <v-checkbox v-model="addService" class="ma-0" :value="service" color="orange lighten-2" hide-details="true">
-              <template #label>
-                <span class="text-caption text-md-body-2">{{ service.service_name }}</span>
-              </template>
-            </v-checkbox>
-          </v-expansion-panel-header>
+  <v-card>
+    <v-card-title class="text-body-2 text-md-h5" tag="h3">Pelayanan tambahan</v-card-title>
+    <v-card-subtitle class="mb-0 text-caption text-md-body-2" tag="p">
+      Mau menambah pelayanan yang membuatmu makin nyaman? Pilih disini. Layanan tergantung persediaan dan mungkin
+      dikenakan biaya tambahan.
+    </v-card-subtitle>
 
-          <v-expansion-panel-content>
-            <v-row dense>
-              <v-col cols="auto">
-                <ParagraphSpacing>
-                  <template #textLeft> Harga: </template>
-                  <template #textRight>
-                    <Paragraph class="text-caption text-md-body-2 red--text text--lighten-2">
-                      <span class="text-caption">Rp</span> {{ currencyFormat(service.price) }}
-                    </Paragraph>
+    <v-divider />
+
+    <v-card-text>
+      <v-expansion-panels>
+        <v-row dense>
+          <v-col v-for="service in services.data" :key="service.id" cols="12" sm="6">
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                <v-checkbox
+                  v-model="addService"
+                  class="ma-0"
+                  :value="service"
+                  color="orange lighten-2"
+                  hide-details="true"
+                >
+                  <template #label>
+                    <span class="text-caption text-md-body-2">{{ service.service_name }}</span>
                   </template>
-                </ParagraphSpacing>
-              </v-col>
-              <v-col cols="12">
-                <Paragraph class="text-caption text-md-body-2">Satuan: {{ service.unit }}</Paragraph>
-              </v-col>
-            </v-row>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-col>
-    </v-row>
-    <v-row v-if="services.per_page !== services.total">
-      <v-col cols="12">
-        <v-pagination
-          v-model="current_page"
-          :length="services.last_page"
-          :total-visible="services.per_page"
-          @input="input()"
-          @next="next()"
-          @previous="prev()"
-          color="orange lighten-2 grey--text text--darken-4"
-          circle
-        />
-      </v-col>
-    </v-row>
-  </v-expansion-panels>
+                </v-checkbox>
+              </v-expansion-panel-header>
+
+              <v-expansion-panel-content>
+                <v-row dense>
+                  <v-col cols="auto">
+                    <ParagraphSpacing>
+                      <template #textLeft> Harga: </template>
+                      <template #textRight>
+                        <Paragraph class="text-caption text-md-body-2 red--text text--lighten-2">
+                          <span class="text-caption">Rp</span> {{ currencyFormat(service.price) }}
+                        </Paragraph>
+                      </template>
+                    </ParagraphSpacing>
+                  </v-col>
+
+                  <v-col cols="12">
+                    <Paragraph class="text-caption text-md-body-2">Satuan: {{ service.unit }}</Paragraph>
+                  </v-col>
+                </v-row>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="services.per_page !== services.total">
+          <v-col cols="12">
+            <v-pagination
+              v-model="current_page"
+              :length="services.last_page"
+              :total-visible="services.per_page"
+              @input="input()"
+              @next="next()"
+              @previous="prev()"
+              color="orange lighten-2 grey--text text--darken-4"
+              circle
+            />
+          </v-col>
+        </v-row>
+      </v-expansion-panels>
+    </v-card-text>
+  </v-card>
 </template>

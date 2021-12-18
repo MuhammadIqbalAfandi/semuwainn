@@ -15,7 +15,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setCheckIn', 'setCheckOut', 'setNightCount']),
+    ...mapActions('roomBooking', ['setCheckIn', 'setCheckOut', 'setNightCount']),
   },
   computed: {
     nightCount() {

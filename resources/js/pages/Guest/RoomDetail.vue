@@ -1,5 +1,4 @@
 <script>
-import { mapActions } from 'vuex'
 import { Head } from '@inertiajs/inertia-vue'
 
 import GuestLayout from '@/layouts/Guest.vue'
@@ -8,7 +7,7 @@ import TextField from '@/shared/TextField.vue'
 import PhotoGrid from '@/components/Guest/RoomDetail/PhotoGrid.vue'
 import PriceRange from '@/components/Guest/RoomDetail/PriceRange.vue'
 import Price from '@/components/Guest/RoomDetail/Price.vue'
-import Facilities from '@/components/Guest/RoomDetail/Facilities.vue'
+import Facility from '@/components/Guest/RoomDetail/Facility.vue'
 import mixinRules from '@/mixins/rules'
 
 export default {
@@ -22,7 +21,7 @@ export default {
     PhotoGrid,
     PriceRange,
     Price,
-    Facilities,
+    Facility,
     Head,
   },
   mixins: [mixinRules],
@@ -35,22 +34,6 @@ export default {
           v <= this.room.prices[0].roomAvailable || 'Nilai melebihi ruangan yang tersediah',
       },
     }
-  },
-  methods: {
-    ...mapActions(['addRoomCart']),
-    roomOrder(id) {
-      if (this.$refs.form.validate()) {
-        const { prices, thumbnail, roomName } = this.room
-        const price = prices.find((price) => price.id === id)
-        this.addRoomCart({
-          price,
-          thumbnail,
-          roomName,
-          roomCount: this.roomCount,
-          guestCount: this.guestCount,
-        })
-      }
-    },
   },
 }
 </script>
@@ -76,7 +59,7 @@ export default {
 
     <v-row dense>
       <v-col cols="12">
-        <Facilities :facilities="room.facilities" />
+        <Facility :facilities="room.facilities" />
       </v-col>
 
       <v-col cols="12" md="4">
@@ -110,7 +93,7 @@ export default {
       </v-col>
 
       <v-col sm="12" md="8">
-        <Price @roomOrder="roomOrder" :prices="room.prices" />
+        <Price :room="room" />
       </v-col>
     </v-row>
   </div>

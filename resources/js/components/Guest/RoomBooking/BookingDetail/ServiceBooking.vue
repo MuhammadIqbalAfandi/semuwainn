@@ -1,4 +1,6 @@
 <script>
+import { mapActions } from 'vuex'
+
 import ParagraphSpacing from '@/shared/ParagraphSpacing.vue'
 import Paragraph from '@/shared/Paragraph.vue'
 import Button from '@/shared/Button.vue'
@@ -13,6 +15,9 @@ export default {
     ParagraphSpacing,
     Paragraph,
     Button,
+  },
+  methods: {
+    ...mapActions(['removeServiceCart']),
   },
 }
 </script>
@@ -29,7 +34,7 @@ export default {
         </template>
 
         <template #textRight>
-          <Button @click="$emit('serviceDelete', service.id)" text x-small>Hapus</Button>
+          <Button @click="removeServiceCart(service.id)" text x-small>Hapus</Button>
         </template>
       </ParagraphSpacing>
     </v-card-text>
