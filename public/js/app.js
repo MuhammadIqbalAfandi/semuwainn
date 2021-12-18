@@ -3230,7 +3230,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return totalPrice;
     },
     totalPrice: function totalPrice() {
-      return this.roomPrice + this.servicePrice;
+      return Number(this.roomPrice) + Number(this.servicePrice) || '0';
     }
   })
 });

@@ -30,7 +30,7 @@ export default {
       return totalPrice
     },
     totalPrice() {
-      return this.roomPrice + this.servicePrice
+      return Number(this.roomPrice) + Number(this.servicePrice) || '0'
     },
   },
 }
