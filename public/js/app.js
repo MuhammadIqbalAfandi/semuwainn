@@ -3049,23 +3049,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/shared/OriginPrice.vue */ "./resources/js/shared/OriginPrice.vue");
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
 /* harmony import */ var _shared_ParagraphLeftIcon_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/ParagraphLeftIcon.vue */ "./resources/js/shared/ParagraphLeftIcon.vue");
+/* harmony import */ var _shared_Link_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/shared/Link.vue */ "./resources/js/shared/Link.vue");
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    room: Object
+    rooms: Array
   },
   components: {
     OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    ParagraphLeftIcon: _shared_ParagraphLeftIcon_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    ParagraphLeftIcon: _shared_ParagraphLeftIcon_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    Link: _shared_Link_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  computed: {
-    thumbnail: function thumbnail() {
-      var _this$room$thumbnail$;
+  methods: {
+    thumbnail: function thumbnail(id) {
+      var _room$thumbnail$image;
 
-      return (_this$room$thumbnail$ = this.room.thumbnail.images[0]) !== null && _this$room$thumbnail$ !== void 0 ? _this$room$thumbnail$ : this.room.thumbnail.defaultImage;
+      var room = this.rooms.find(function (item) {
+        return item.id === id;
+      });
+      return (_room$thumbnail$image = room.thumbnail.images[0]) !== null && _room$thumbnail$image !== void 0 ? _room$thumbnail$image : room.thumbnail.defaultImage;
     }
   }
 });
@@ -3553,22 +3559,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
-/* harmony import */ var _shared_Link_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/shared/Link.vue */ "./resources/js/shared/Link.vue");
-/* harmony import */ var _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/layouts/Guest.vue */ "./resources/js/layouts/Guest.vue");
-/* harmony import */ var _components_Guest_Home_Room_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/Guest/Home/Room.vue */ "./resources/js/components/Guest/Home/Room.vue");
-
+/* harmony import */ var _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/layouts/Guest.vue */ "./resources/js/layouts/Guest.vue");
+/* harmony import */ var _components_Guest_Home_Room_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Guest/Home/Room.vue */ "./resources/js/components/Guest/Home/Room.vue");
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+  layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   props: {
     rooms: Object
   },
   components: {
     Head: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Head,
-    Link: _shared_Link_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Room: _components_Guest_Home_Room_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    Room: _components_Guest_Home_Room_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -12637,174 +12640,220 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-card",
-    { attrs: { hover: "" } },
+    "v-row",
+    { attrs: { dense: "" } },
     [
-      _c(
-        "v-card-text",
-        [
-          _c(
-            "v-row",
-            [
-              _c(
-                "v-col",
-                { attrs: { cols: "auto" } },
-                [
-                  _c("v-img", {
-                    staticClass: "align-self-center rounded-sm",
-                    attrs: {
-                      "max-width": _vm.$vuetify.breakpoint.smAndDown
-                        ? "109"
-                        : "278",
-                      height: _vm.$vuetify.breakpoint.smAndDown ? "100" : "200",
-                      src: _vm.thumbnail,
-                      alt: "Thumbnail Room",
-                      tile: "",
-                    },
-                  }),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-col",
-                [
-                  _c(
-                    "v-row",
-                    { staticClass: "d-flex" },
-                    [
-                      _c(
-                        "v-col",
-                        [
-                          _c(
-                            "h3",
-                            { staticClass: "mb-md-4 text-body-2 text-md-h5" },
-                            [_vm._v(_vm._s(_vm.room.roomName))]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "Paragraph",
-                            {
-                              staticClass:
-                                "mb-md-2 text-caption text-md-body-2",
-                            },
-                            [_vm._v("Facility :")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-row",
-                            { attrs: { dense: "" } },
-                            [
-                              _vm._l(
-                                _vm.room.facilities,
-                                function (facility, index) {
-                                  return _c(
-                                    "v-col",
-                                    { key: index, attrs: { cols: "auto" } },
-                                    [
-                                      _c(
-                                        "Paragraph",
-                                        {
-                                          staticClass:
-                                            "green--text text--lighten-2 text-caption text-md-body-2",
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                  " +
-                                              _vm._s(facility) +
-                                              "\n                "
-                                          ),
-                                        ]
-                                      ),
-                                    ],
-                                    1
-                                  )
-                                }
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "auto" } },
-                                [
-                                  _vm.room.facilityCount
-                                    ? _c(
-                                        "v-chip",
-                                        {
-                                          staticClass: "mb-0",
-                                          attrs: { tag: "p", "x-small": "" },
-                                        },
-                                        [
-                                          _c("span", [
-                                            _vm._v(
-                                              "+" +
-                                                _vm._s(_vm.room.facilityCount)
+      _c("v-col", { attrs: { cols: "12" } }, [
+        _c("h2", { staticClass: "text-subtitle-1 text-md-h5" }, [
+          _vm._v("Kamar Tersedia"),
+        ]),
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.rooms, function (room) {
+        return _c(
+          "v-col",
+          { key: room.id, attrs: { cols: "12" } },
+          [
+            _c(
+              "Link",
+              { attrs: { href: _vm.$route("room-detail.show", room.id) } },
+              [
+                _c(
+                  "v-card",
+                  { attrs: { hover: "" } },
+                  [
+                    _c(
+                      "v-card-text",
+                      [
+                        _c(
+                          "v-row",
+                          [
+                            _c(
+                              "v-col",
+                              { attrs: { cols: "auto" } },
+                              [
+                                _c("v-img", {
+                                  staticClass: "align-self-center rounded-sm",
+                                  attrs: {
+                                    "max-width": _vm.$vuetify.breakpoint
+                                      .smAndDown
+                                      ? "109"
+                                      : "278",
+                                    height: _vm.$vuetify.breakpoint.smAndDown
+                                      ? "100"
+                                      : "200",
+                                    src: _vm.thumbnail(room.id),
+                                    alt: "Thumbnail Room",
+                                    tile: "",
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-col",
+                              [
+                                _c(
+                                  "v-row",
+                                  { staticClass: "d-flex" },
+                                  [
+                                    _c(
+                                      "v-col",
+                                      [
+                                        _c(
+                                          "h3",
+                                          {
+                                            staticClass:
+                                              "mb-md-4 text-body-2 text-md-h5",
+                                          },
+                                          [_vm._v(_vm._s(room.roomName))]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "Paragraph",
+                                          {
+                                            staticClass:
+                                              "mb-md-2 text-caption text-md-body-2",
+                                          },
+                                          [_vm._v("Facility :")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-row",
+                                          { attrs: { dense: "" } },
+                                          [
+                                            _vm._l(
+                                              room.facilities,
+                                              function (facility, index) {
+                                                return _c(
+                                                  "v-col",
+                                                  {
+                                                    key: index,
+                                                    attrs: { cols: "auto" },
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "Paragraph",
+                                                      {
+                                                        staticClass:
+                                                          "green--text text--lighten-2 text-caption text-md-body-2",
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "\n                        " +
+                                                            _vm._s(facility) +
+                                                            "\n                      "
+                                                        ),
+                                                      ]
+                                                    ),
+                                                  ],
+                                                  1
+                                                )
+                                              }
                                             ),
-                                          ]),
-                                        ]
-                                      )
-                                    : _vm._e(),
-                                ],
-                                1
-                              ),
-                            ],
-                            2
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-col",
-                        {
-                          staticClass: "text-end",
-                          attrs: {
-                            cols: "12",
-                            md: "auto",
-                            "align-self": "end",
-                          },
-                        },
-                        [
-                          _c(
-                            "Paragraph",
-                            { staticClass: "text-caption text-md-body-2" },
-                            [_vm._v("Harga mulai dari")]
-                          ),
-                          _vm._v(" "),
-                          _c("OriginPrice", {
-                            attrs: { price: _vm.room.originPrice },
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "Paragraph",
-                            {
-                              staticClass:
-                                "text-caption red--text text--lighten-2",
-                            },
-                            [
-                              _vm._v(
-                                "\n              Sisa " +
-                                  _vm._s(_vm.room.roomAvailable) +
-                                  " kamar lagi!\n            "
-                              ),
-                            ]
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "v-col",
+                                              { attrs: { cols: "auto" } },
+                                              [
+                                                room.facilityCount
+                                                  ? _c(
+                                                      "v-chip",
+                                                      {
+                                                        staticClass: "mb-0",
+                                                        attrs: {
+                                                          tag: "p",
+                                                          "x-small": "",
+                                                        },
+                                                      },
+                                                      [
+                                                        _c("span", [
+                                                          _vm._v(
+                                                            "+" +
+                                                              _vm._s(
+                                                                room.facilityCount
+                                                              )
+                                                          ),
+                                                        ]),
+                                                      ]
+                                                    )
+                                                  : _vm._e(),
+                                              ],
+                                              1
+                                            ),
+                                          ],
+                                          2
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-col",
+                                      {
+                                        staticClass: "text-end",
+                                        attrs: {
+                                          cols: "12",
+                                          md: "auto",
+                                          "align-self": "end",
+                                        },
+                                      },
+                                      [
+                                        _c(
+                                          "Paragraph",
+                                          {
+                                            staticClass:
+                                              "text-caption text-md-body-2",
+                                          },
+                                          [_vm._v("Harga mulai dari")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("OriginPrice", {
+                                          attrs: { price: room.originPrice },
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "Paragraph",
+                                          {
+                                            staticClass:
+                                              "text-caption red--text text--lighten-2",
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                    Sisa " +
+                                                _vm._s(room.roomAvailable) +
+                                                " kamar lagi!\n                  "
+                                            ),
+                                          ]
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                  ],
+                                  1
+                                ),
+                              ],
+                              1
+                            ),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ],
+              1
+            ),
+          ],
+          1
+        )
+      }),
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -13872,25 +13921,63 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-row",
-    { staticClass: "facility-detail text-center" },
-    _vm._l(_vm.facilities, function (facility, index) {
-      return _c(
-        "v-col",
-        { key: index, attrs: { cols: "auto" } },
+    "v-card",
+    [
+      _c(
+        "v-card-text",
         [
           _c(
-            "Paragraph",
-            {
-              staticClass:
-                "text-caption text-md-body-2 green--text text--lighten-2",
-            },
-            [_vm._v(_vm._s(facility))]
+            "v-row",
+            [
+              _c(
+                "v-col",
+                { attrs: { cols: "12" } },
+                [
+                  _c(
+                    "Paragraph",
+                    { staticClass: "text-body-2 text-md-h5 font-weight-bold" },
+                    [_vm._v("Fasilitas")]
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                { attrs: { cols: "12" } },
+                [
+                  _c(
+                    "v-row",
+                    { staticClass: "facility-detail text-center" },
+                    _vm._l(_vm.facilities, function (facility, index) {
+                      return _c(
+                        "v-col",
+                        { key: index, attrs: { cols: "auto" } },
+                        [
+                          _c(
+                            "Paragraph",
+                            {
+                              staticClass:
+                                "text-caption text-md-body-2 green--text text--lighten-2",
+                            },
+                            [_vm._v(_vm._s(facility))]
+                          ),
+                        ],
+                        1
+                      )
+                    }),
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
           ),
         ],
         1
-      )
-    }),
+      ),
+    ],
     1
   )
 }
@@ -14264,73 +14351,31 @@ var render = function () {
     [
       _c("Head", { attrs: { title: "Halaman Utama" } }),
       _vm._v(" "),
+      _c("Room", { attrs: { rooms: _vm.rooms.data } }),
+      _vm._v(" "),
       _c(
         "v-row",
-        { attrs: { dense: "" } },
         [
           _c(
             "v-col",
+            { attrs: { cols: "12" } },
             [
-              _c(
-                "v-row",
-                { attrs: { dense: "" } },
-                [
-                  _c("v-col", { attrs: { cols: "12" } }, [
-                    _c("h2", { staticClass: "text-subtitle-1 text-md-h5" }, [
-                      _vm._v("Kamar Tersedia"),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.rooms.data, function (room) {
-                    return _c(
-                      "v-col",
-                      { key: room.id, attrs: { cols: "12" } },
-                      [
-                        _c(
-                          "Link",
-                          {
-                            attrs: {
-                              href: _vm.$route("room-detail.show", room.id),
-                            },
-                          },
-                          [_c("Room", { attrs: { room: room } })],
-                          1
-                        ),
-                      ],
-                      1
-                    )
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "v-col",
-                    { attrs: { cols: "12" } },
-                    [
-                      _c("v-pagination", {
-                        attrs: {
-                          length: _vm.rooms.last_page,
-                          "total-visible": _vm.rooms.per_page,
-                          color: "orange lighten-2 grey--text text--darken-4",
-                          circle: "",
-                        },
-                        on: {
-                          input: _vm.input,
-                          next: _vm.next,
-                          previous: _vm.prev,
-                        },
-                        model: {
-                          value: _vm.current_page,
-                          callback: function ($$v) {
-                            _vm.current_page = $$v
-                          },
-                          expression: "current_page",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                ],
-                2
-              ),
+              _c("v-pagination", {
+                attrs: {
+                  length: _vm.rooms.last_page,
+                  "total-visible": _vm.rooms.per_page,
+                  color: "orange lighten-2 grey--text text--darken-4",
+                  circle: "",
+                },
+                on: { input: _vm.input, next: _vm.next, previous: _vm.prev },
+                model: {
+                  value: _vm.current_page,
+                  callback: function ($$v) {
+                    _vm.current_page = $$v
+                  },
+                  expression: "current_page",
+                },
+              }),
             ],
             1
           ),
@@ -14611,52 +14656,7 @@ var render = function () {
           _c(
             "v-col",
             { attrs: { cols: "12" } },
-            [
-              _c(
-                "v-card",
-                [
-                  _c(
-                    "v-card-text",
-                    [
-                      _c(
-                        "v-row",
-                        [
-                          _c(
-                            "v-col",
-                            { attrs: { cols: "12" } },
-                            [
-                              _c(
-                                "Paragraph",
-                                {
-                                  staticClass:
-                                    "text-body-2 text-md-h5 font-weight-bold",
-                                },
-                                [_vm._v("Fasilitas")]
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            { attrs: { cols: "12" } },
-                            [
-                              _c("Facilities", {
-                                attrs: { facilities: _vm.room.facilities },
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
+            [_c("Facilities", { attrs: { facilities: _vm.room.facilities } })],
             1
           ),
           _vm._v(" "),

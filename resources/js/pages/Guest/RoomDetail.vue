@@ -76,19 +76,7 @@ export default {
 
     <v-row dense>
       <v-col cols="12">
-        <v-card>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12">
-                <Paragraph class="text-body-2 text-md-h5 font-weight-bold">Fasilitas</Paragraph>
-              </v-col>
-
-              <v-col cols="12">
-                <Facilities :facilities="room.facilities" />
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
+        <Facilities :facilities="room.facilities" />
       </v-col>
 
       <v-col cols="12" md="4">
