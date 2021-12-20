@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import dayjs from 'dayjs'
 
 import Paragraph from '@/shared/Paragraph.vue'
@@ -8,16 +8,27 @@ export default {
   components: {
     Paragraph,
   },
-  data() {
-    return {
-      checkIn: dayjs().toISOString().substring(0, 10),
-      checkOut: null,
-    }
-  },
   methods: {
     ...mapActions('roomBooking', ['setCheckIn', 'setCheckOut', 'setNightCount']),
   },
   computed: {
+    ...mapState('roomBooking', ['checkIn', 'checkOut']),
+    updateCheckIn: {
+      get() {
+        return this.checkIn
+      },
+      set(v) {
+        this.setCheckIn(v)
+      },
+    },
+    updateCheckOut: {
+      get() {
+        return this.checkOut
+      },
+      set(v) {
+        this.setCheckOut(v)
+      },
+    },
     nightCount() {
       const dr = dayjs(this.checkOut).diff(this.checkIn, 'day')
       this.setNightCount(dr)
@@ -31,15 +42,22 @@ export default {
       return dayjs(d).add(1, 'day').toISOString()
     },
     checkInDateFormatted() {
-      const d = new Date(this.checkIn)
       const df = this.checkIn ? dayjs(this.checkIn).format('ddd, DD MMM YYYY') : ''
-      this.checkOut = dayjs(d).add(1, 'day').toISOString().substring(0, 10)
-      this.setCheckIn(df)
+      const d = new Date(this.checkIn)
+
+      let oneMoreDay
+      if (this.nightCount > 1) {
+        oneMoreDay = dayjs(d).add(this.nightCount, 'day').toISOString().substring(0, 10)
+        this.setCheckOut(oneMoreDay)
+      } else {
+        oneMoreDay = dayjs(d).add(1, 'day').toISOString().substring(0, 10)
+        this.setCheckOut(oneMoreDay)
+      }
+
       return df
     },
     checkOutDateFormatted() {
       const df = this.checkOut ? dayjs(this.checkOut).format('ddd, DD MMM YYYY') : ''
-      this.setCheckOut(df)
       return df
     },
   },
@@ -65,14 +83,13 @@ export default {
                     prepend-icon="mdi-calendar"
                     hide-details="true"
                     readonly
-                  >
-                  </v-text-field>
+                  />
                 </v-col>
               </v-row>
             </template>
 
             <v-date-picker
-              v-model="checkIn"
+              v-model="updateCheckIn"
               :min="checkInMin"
               :full-width="$vuetify.breakpoint.smAndDown ? true : false"
               locale="id"
@@ -80,7 +97,7 @@ export default {
               show-adjacent-months
               no-title
               scrollable
-            ></v-date-picker>
+            />
           </v-menu>
         </v-col>
 
@@ -116,14 +133,13 @@ export default {
                     prepend-icon="mdi-calendar"
                     hide-details="true"
                     readonly
-                  >
-                  </v-text-field>
+                  />
                 </v-col>
               </v-row>
             </template>
 
             <v-date-picker
-              v-model="checkOut"
+              v-model="updateCheckOut"
               :min="checkOutMin"
               :full-width="$vuetify.breakpoint.smAndDown ? true : false"
               locale="id"
@@ -131,7 +147,7 @@ export default {
               show-adjacent-months
               no-title
               scrollable
-            ></v-date-picker>
+            />
           </v-menu>
         </v-col>
       </v-row>

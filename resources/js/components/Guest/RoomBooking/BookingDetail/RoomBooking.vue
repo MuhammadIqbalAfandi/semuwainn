@@ -59,7 +59,7 @@ export default {
                 </v-col>
 
                 <v-col cols="auto">
-                  <Paragraph>{{ room.roomCount }}x kamar</Paragraph>
+                  <Paragraph>x {{ room.roomCount }} kamar</Paragraph>
                 </v-col>
               </v-row>
             </v-col>

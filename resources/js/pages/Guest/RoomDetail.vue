@@ -27,11 +27,12 @@ export default {
   mixins: [mixinRules],
   data() {
     return {
+      valid: true,
       roomCount: 1,
       guestCount: 1,
       rules: {
         lessOrEqualThanRoomAvailable: (v) =>
-          v <= this.room.prices[0].roomAvailable || 'Nilai melebihi ruangan yang tersediah',
+          v <= this.room.prices[0].roomAvailable || 'Nilai melebihi ruangan yang tersediah.',
       },
     }
   },
@@ -65,7 +66,7 @@ export default {
       <v-col cols="12" md="4">
         <v-card height="fit-content">
           <v-card-text>
-            <v-form ref="form">
+            <v-form v-model="valid" lazy-validation>
               <v-row justify="center" dense>
                 <v-col cols="12">
                   <TextField
@@ -74,6 +75,7 @@ export default {
                     :rules="[rules.numeric, rules.notZero, rules.lessOrEqualThanRoomAvailable]"
                     placeholder="Jumlah Kamar"
                     hint="Jumlah Kamar yang akan dipesan"
+                    autofocus
                   />
                 </v-col>
 

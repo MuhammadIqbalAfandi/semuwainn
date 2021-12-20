@@ -4,6 +4,7 @@ import { mapState } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import ParagraphSpacing from '@/shared/ParagraphSpacing.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
+import mixinHelpers from '@/mixins/helpers'
 
 export default {
   components: {
@@ -11,6 +12,7 @@ export default {
     Paragraph,
     OriginPrice,
   },
+  mixins: [mixinHelpers],
   computed: {
     ...mapState('roomBooking', ['checkIn', 'checkOut', 'nightCount']),
     ...mapState(['roomCart', 'serviceCart']),
@@ -38,8 +40,8 @@ export default {
 
 <template>
   <div class="text-body-2 text-md-subtitle-2">
-    <ParagraphSpacing textLeft="Checkin" :textRight="checkIn" />
-    <ParagraphSpacing textLeft="Checkout" :textRight="checkOut" />
+    <ParagraphSpacing textLeft="Checkin" :textRight="dateFormat(checkIn)" />
+    <ParagraphSpacing textLeft="Checkout" :textRight="dateFormat(checkOut)" />
     <ParagraphSpacing textLeft="Lama inap" :textRight="`${nightCount} malam`" />
 
     <v-divider class="my-2" />
@@ -47,7 +49,7 @@ export default {
     <ParagraphSpacing>
       <template #textLeft>
         <Paragraph>Total harga kamar</Paragraph>
-        <Paragraph class="text-caption red--text">sudah termasuk jumlah kamar x lama menginap</Paragraph>
+        <Paragraph class="text-caption red--text">sudah termasuk jumlah kamar x lama inap</Paragraph>
       </template>
       <template #textRight>
         <OriginPrice class="text-end" :price="roomPrice" />

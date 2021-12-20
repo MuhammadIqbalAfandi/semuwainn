@@ -15,8 +15,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $rooms = RoomType::class;
         return inertia('Guest/Home', [
-            'rooms' => RoomType::paginate(10)
+            'rooms' => $rooms::paginate(10)
                 ->withQueryString()
                 ->through(fn($rooms) => [
                     'id' => $rooms->id,

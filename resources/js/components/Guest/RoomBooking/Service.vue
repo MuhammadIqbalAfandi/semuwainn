@@ -41,16 +41,13 @@ export default {
   methods: {
     ...mapActions(['addServiceCart']),
     next() {
-      this.$inertia.get(this.services.next_page_url, '', { preserveScroll: true, preserveState: true })
+      this.$inertia.get(this.services.next_page_url, '')
     },
     prev() {
-      this.$inertia.get(this.services.prev_page_url, '', { preserveScroll: true, preserveState: true })
+      this.$inertia.get(this.services.prev_page_url, '')
     },
     input() {
-      this.$inertia.get(`${this.services.path}/?page=${this.current_page}`, '', {
-        preserveScroll: true,
-        preserveState: true,
-      })
+      this.$inertia.get(`${this.services.path}/?page=${this.current_page}`, '')
     },
   },
 }

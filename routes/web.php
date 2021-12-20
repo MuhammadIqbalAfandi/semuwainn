@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\Guest\HomeController;
 use App\Http\Controllers\Guest\RoomBookingController;
 use App\Http\Controllers\Guest\RoomDetailController;
-use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RoomController;
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('room-detail/{roomType}', [RoomDetailController::class, 'show'])->name('room-detail.show');
-Route::get('room-booking', [RoomBookingController::class, 'index']);
+Route::resource('room-booking', RoomBookingController::class);
 
 Route::prefix('dashboard')->group(function () {
     Route::middleware(['auth'])->group(function () {

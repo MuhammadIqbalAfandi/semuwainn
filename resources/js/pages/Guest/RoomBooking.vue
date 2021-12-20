@@ -1,4 +1,5 @@
 <script>
+import { mapState } from 'vuex'
 import { Link } from '@inertiajs/inertia-vue'
 
 import GuestLayout from '@/layouts/Guest.vue'
@@ -13,6 +14,9 @@ export default {
   props: {
     services: Object,
   },
+  data() {
+    return {}
+  },
   components: {
     Link,
     Button,
@@ -20,6 +24,30 @@ export default {
     GuestForm,
     Service,
     BookingDetail,
+  },
+  data() {
+    return {}
+  },
+  methods: {
+    order() {
+      if (this.valid) {
+        const form = {
+          name: this.name,
+          nik: this.nik,
+          phone: this.phone,
+          email: this.email,
+          checkIn: this.checkIn,
+          checkOut: this.checkOut,
+          rooms: this.roomCart,
+          services: this.serviceCart,
+        }
+        this.$inertia.post(this.$route('room-booking.store'), form)
+      }
+    },
+  },
+  computed: {
+    ...mapState('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email']),
+    ...mapState(['roomCart', 'serviceCart']),
   },
 }
 </script>
@@ -33,7 +61,7 @@ export default {
         </v-col>
 
         <v-col cols="12">
-          <GuestForm />
+          <GuestForm ref="form" />
         </v-col>
 
         <v-col cols="12">
@@ -48,7 +76,7 @@ export default {
             <Link class="orange--text text--lighten-2">Syarat & Ketentuan kami</Link>
           </p>
 
-          <Button>Pesan sekarang</Button>
+          <Button @click="order">Pesan sekarang</Button>
         </v-col>
       </v-row>
     </v-col>
