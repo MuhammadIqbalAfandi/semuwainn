@@ -111,7 +111,7 @@
                     "ordering": true,
                     "info": true,
                     "autoWidth": false,
-                    "responsive": true,
+                    "scrollX": true,
                 })
 
                 fetchServices()
@@ -139,7 +139,7 @@
                         type: 'post',
                         url: 'service',
                         data: {
-                            service_name: serviceName,
+                            name: serviceName,
                             unit,
                             price,
                         },
@@ -179,7 +179,7 @@
                         },
                         success(res) {
                             $('#service-id').val(res.service.id)
-                            $('#service-name').val(res.service.service_name)
+                            $('#service-name').val(res.service.name)
                             $('#unit').val(res.service.unit)
                             $('#price').val(res.service.price)
                         },
@@ -203,7 +203,7 @@
                         url: `service/${id}`,
                         data: {
                             id,
-                            service_name: serviceName,
+                            name: serviceName,
                             unit,
                             price,
                         },
@@ -283,7 +283,7 @@
                                         </i>
                                     `
                                     servicesTable.row.add([
-                                        service.service_name,
+                                        service.name,
                                         service.unit,
                                         idMoneyFormat(service.price),
                                         idDateFormat(service.updated_at),

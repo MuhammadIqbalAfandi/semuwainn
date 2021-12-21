@@ -2,19 +2,18 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Database\Seeders\RoleSeeder;
-use Database\Seeders\RoomSeeder;
-use Database\Seeders\UserSeeder;
-use Database\Seeders\GuestSeeder;
-use Database\Seeders\ServiceSeeder;
 use Database\Seeders\FacilitySeeder;
-use Database\Seeders\RoomTypeSeeder;
-use Database\Seeders\RoomPriceSeeder;
-use Database\Seeders\RestaurantSeeder;
-use Database\Seeders\RoomFacilitySeeder;
-use Database\Seeders\RoomOrderStatusSeeder;
+use Database\Seeders\GuestSeeder;
 use Database\Seeders\ReservationStatusSeeder;
+use Database\Seeders\RestaurantSeeder;
+use Database\Seeders\RoleSeeder;
+use Database\Seeders\RoomFacilitySeeder;
+use Database\Seeders\RoomPriceSeeder;
+use Database\Seeders\RoomSeeder;
+use Database\Seeders\RoomTypeSeeder;
+use Database\Seeders\ServiceSeeder;
+use Database\Seeders\UserSeeder;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,7 +35,6 @@ class DatabaseSeeder extends Seeder
             RoomFacilitySeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
-            RoomOrderStatusSeeder::class,
             ReservationStatusSeeder::class,
         ]);
     }

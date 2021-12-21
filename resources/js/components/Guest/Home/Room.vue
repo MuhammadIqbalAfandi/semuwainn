@@ -62,7 +62,7 @@ export default {
               <v-col>
                 <v-row class="d-flex">
                   <v-col>
-                    <h3 class="mb-md-4 text-body-2 text-md-h5">{{ room.roomName }}</h3>
+                    <h3 class="mb-md-4 text-body-2 text-md-h5">{{ room.name }}</h3>
                     <Paragraph class="mb-md-2 text-caption text-md-body-2">Facility :</Paragraph>
                     <v-row dense>
                       <v-col cols="auto" v-for="(facility, index) in room.facilities" :key="index">

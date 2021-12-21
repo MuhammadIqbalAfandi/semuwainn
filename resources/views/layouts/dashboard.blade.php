@@ -81,7 +81,7 @@
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <!-- Scripts -->
     <script>
-        moment.locale('{{ config('app.locale') }}')
+        moment.locale("{{ config('app.locale') }}")
 
         const idMoneyFormat = (number) => {
             return new Intl.NumberFormat('id', { style: 'currency', currency: 'IDR' }).format(number)

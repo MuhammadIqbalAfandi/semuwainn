@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Guest;
+namespace App\Http\Requests\RoomBooking;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreGuestRequest extends FormRequest
+class StoreRoomBookingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,11 @@ class StoreGuestRequest extends FormRequest
         return [
             'nik' => 'required|digits:16|unique:guests,nik',
             'name' => 'required|string|max:50',
-            'phone' => 'required|digits:12|unique:guests,phone',
+            'phone' => 'required|min:12|unique:guests,phone',
             'email' => 'email:dns|unique:guests,email|nullable',
+            'checkIn' => 'required|date',
+            'checkOut' => 'required|date',
+            'rooms' => 'required',
         ];
     }
 }

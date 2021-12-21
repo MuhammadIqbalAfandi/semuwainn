@@ -15,10 +15,12 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('reserved_date');
+            $table->timestamp('reservation_time');
             $table->string('reservation_number');
-            $table->unsignedInteger('adult');
-            $table->unsignedInteger('children');
+            $table->date('checkin');
+            $table->date('checkout');
+            $table->unsignedInteger('guest_count');
+            $table->unsignedInteger('discount');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('guest_id')->constrained();
             $table->foreignId('reservation_status_id')->constrained();

@@ -26,11 +26,11 @@ class StoreReservationRequest extends FormRequest
     {
         $today = Carbon::now()->format('d/m/Y');
         return [
-            'guest_id' => 'required|numeric',
-            'adult' => 'required|numeric|min:0|max:4',
-            'children' => 'required|numeric|min:0|max:4',
             'checkin' => 'required|date_format:d/m/Y|after_or_equal:' . $today,
             'checkout' => 'required|date_format:d/m/Y|after:checkin',
+            'guest_count' => 'required|numeric',
+            'discount' => 'required|numeric',
+            'guest_id' => 'required|numeric',
         ];
     }
 }

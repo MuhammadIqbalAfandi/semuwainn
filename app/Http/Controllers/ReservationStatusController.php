@@ -38,11 +38,11 @@ class ReservationStatusController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'status_name' => 'required|unique:reservation_statuses',
+            'name' => 'required|unique:reservation_statuses',
         ]);
 
         ReservationStatus::create([
-            'status_name' => $request->status_name,
+            'name' => $request->name,
         ]);
 
         return redirect()->route('reservation-status.index')->with('success', 'Status pemesanan baru berhasil ditambahkan');

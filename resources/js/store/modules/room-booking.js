@@ -7,10 +7,10 @@ export default {
     checkOut: null,
     nightCount: null,
     valid: true,
-    name: '',
-    nik: '',
-    phone: '',
-    email: '',
+    name: 'Muhammad Iqbal Afandi',
+    nik: '1111111111111111',
+    phone: '111111111111',
+    email: 'muhammadiqbalafandi30@gmail.com',
   },
   actions: {
     setCheckIn({ state }, date) {

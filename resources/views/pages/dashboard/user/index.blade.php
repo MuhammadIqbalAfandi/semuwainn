@@ -125,7 +125,7 @@
                     "ordering": true,
                     "info": true,
                     "autoWidth": false,
-                    "responsive": true,
+                    "scrollX": true,
                 })
 
                 $('#role').select2({
@@ -210,7 +210,7 @@
                                 $('#address').val(res.user.address)
 
                                 res.roles.forEach(role => {
-                                    let newOption = new Option(role.role_name, role.id, false, res.user.role_id === role.id)
+                                    let newOption = new Option(role.name, role.id, false, res.user.role_id === role.id)
                                     $('#role').append(newOption)
                                 })
 
@@ -309,7 +309,7 @@
                             if (res.roles) {
                                 $('#role').children('option:not(:first)').remove()
                                 res.roles.forEach(role => {
-                                    let newOption = new Option(role.role_name, role.id, false, false)
+                                    let newOption = new Option(role.name, role.id, false, false)
                                     $('#role').append(newOption)
                                 })
                             }
@@ -351,7 +351,7 @@
                                         account,
                                         user.name,
                                         user.address,
-                                        user.role.role_name,
+                                        user.role.name,
                                         user.id !== res.authId ?
                                         `
                                             <span class="d-block mb-2">${statusAccount}</span>

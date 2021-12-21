@@ -26,7 +26,6 @@ class GuestFactory extends Factory
             'name' => $this->faker->name(),
             'phone' => $this->faker->unique()->phoneNumber(),
             'email' => $this->faker->unique()->email(),
-            'address' => $this->faker->address(),
         ];
     }
 }

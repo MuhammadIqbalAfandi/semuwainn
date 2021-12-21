@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Reservation;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateReservationRequest extends FormRequest
@@ -25,11 +24,11 @@ class UpdateReservationRequest extends FormRequest
     public function rules()
     {
         return [
-            'guest_id' => 'required|numeric',
-            'adult' => 'required|numeric|min:0|max:4',
-            'children' => 'required|numeric|min:0|max:4',
             'checkin' => 'required|date_format:d/m/Y',
             'checkout' => 'required|date_format:d/m/Y|after:checkin',
+            'guest_count' => 'required|numeric|min:0|max:4',
+            'discount' => 'required|numeric',
+            'guest_id' => 'required|numeric',
         ];
     }
 }

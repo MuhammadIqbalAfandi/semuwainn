@@ -24,7 +24,7 @@ class UpdateFacilityRequest extends FormRequest
     public function rules()
     {
         return [
-            'facility_name' => 'required|string|max:50|unique:facilities,facility_name,' . $this->id,
+            'name' => 'required|string|max:50|unique:facilities,name,' . $this->id,
         ];
     }
 }

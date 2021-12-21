@@ -2,23 +2,20 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Models\Reservation;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class RoomOrder extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'arrival_date',
-        'departure_date',
+        'price',
         'user_id',
         'room_id',
-        'price',
-        'discount',
-        'room_order_status_id'
+        'reservation_id',
     ];
 
     public function reservation()
@@ -53,7 +50,7 @@ class RoomOrder extends Model
      * @param date $value
      * @return date
      */
-    public function getArrivalDateAttribute($value)
+    public function getCheckinAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
     }
@@ -64,9 +61,9 @@ class RoomOrder extends Model
      * @param  string  $value
      * @return void
      */
-    public function setArrivalDateAttribute($value)
+    public function setCheckinAttribute($value)
     {
-        $this->attributes['arrival_date'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+        $this->attributes['Checkin'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
     }
 
     /**
@@ -75,7 +72,7 @@ class RoomOrder extends Model
      * @param date $value
      * @return date
      */
-    public function getDepartureDateAttribute($value)
+    public function getCheckoutAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
     }
@@ -86,8 +83,8 @@ class RoomOrder extends Model
      * @param  string  $value
      * @return void
      */
-    public function setDepartureDateAttribute($value)
+    public function setCheckoutAttribute($value)
     {
-        $this->attributes['departure_date'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+        $this->attributes['checkout'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
     }
 }

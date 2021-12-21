@@ -15,15 +15,24 @@ class ReservationStatusSeeder extends Seeder
     public function run()
     {
         ReservationStatus::create([
-            'reservation_status_name' => 'Dibayar',
+            'name' => 'Dibayar',
         ]);
 
         ReservationStatus::create([
-            'reservation_status_name' => 'Dipesan',
+            'name' => 'Dipesan',
         ]);
 
         ReservationStatus::create([
-            'reservation_status_name' => 'Dibatalkan',
+            'name' => 'Dibatalkan',
         ]);
+
+        ReservationStatus::create([
+            'name' => 'Check In',
+        ]);
+
+        ReservationStatus::create([
+            'name' => 'Check Out',
+        ]);
+
     }
 }

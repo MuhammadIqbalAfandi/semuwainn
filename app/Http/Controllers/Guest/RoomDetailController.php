@@ -49,7 +49,7 @@ class RoomDetailController extends Controller
     {
         return inertia('Guest/RoomDetail', [
             'room' => [
-                'roomName' => $roomType->room_type_name,
+                'name' => $roomType->name,
                 'thumbnail' => [
                     'images' => [],
                     'defaultImage' => '/img/default-room.webp',
@@ -58,7 +58,7 @@ class RoomDetailController extends Controller
                     'minPrice' => $roomType->roomPrices->min('price'),
                     'maxPrice' => $roomType->roomPrices->max('price'),
                 ],
-                'facilities' => $roomType->roomFacilities->pluck('facility.facility_name'),
+                'facilities' => $roomType->roomFacilities->pluck('facility.name'),
                 'prices' => $roomType->roomPrices->transform(fn($roomPrice) => [
                     'id' => $roomPrice->id,
                     'description' => $roomPrice->description,

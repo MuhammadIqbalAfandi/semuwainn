@@ -25,9 +25,9 @@ class HomeController extends Controller
                         'images' => [],
                         'defaultImage' => '/img/default-room.webp',
                     ],
-                    'roomName' => $rooms->room_type_name,
+                    'name' => $rooms->name,
                     'originPrice' => $rooms->roomPrices->max('price'),
-                    'facilities' => $rooms->roomFacilities->take(3)->pluck('facility.facility_name'),
+                    'facilities' => $rooms->roomFacilities->take(3)->pluck('facility.name'),
                     'facilityCount' => $rooms->roomFacilities->skip(3)->count(),
                     'roomAvailable' => $rooms->rooms
                         ->whereNotIn('room_type_id', $rooms->rooms->pluck('roomOrder.room_id'))

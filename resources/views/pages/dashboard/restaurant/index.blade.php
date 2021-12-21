@@ -110,7 +110,7 @@
                     "ordering": true,
                     "info": true,
                     "autoWidth": false,
-                    "responsive": true,
+                    "scrollX": true,
                 })
 
                 fetchRestaurants()
@@ -138,7 +138,7 @@
                         type: 'post',
                         url: 'restaurant',
                         data: {
-                            item_name: itemName,
+                            name: itemName,
                             unit,
                             price
                         },
@@ -178,7 +178,7 @@
                         },
                         success(res) {
                             $('#restaurant-id').val(res.restaurant.id)
-                            $('#item-name').val(res.restaurant.item_name)
+                            $('#item-name').val(res.restaurant.name)
                             $('#unit').val(res.restaurant.unit)
                             $('#price').val(res.restaurant.price)
                         },
@@ -202,7 +202,7 @@
                         url: `restaurant/${id}`,
                         data: {
                             id,
-                            item_name: itemName,
+                            name: itemName,
                             unit,
                             price,
                         },
@@ -282,7 +282,7 @@
                                         </i>
                                     `
                                     restaurantsTable.row.add([
-                                        restaurant.item_name,
+                                        restaurant.name,
                                         restaurant.unit,
                                         idMoneyFormat(restaurant.price),
                                         idDateFormat(restaurant.updated_at),

@@ -24,7 +24,7 @@ class StoreRestaurantRequest extends FormRequest
     public function rules()
     {
         return [
-            'item_name' => 'required|string|max:50|unique:restaurants,item_name',
+            'name' => 'required|string|max:50|unique:restaurants,name',
             'unit' => 'required|string|max:50',
             'price' => 'required|numeric',
         ];

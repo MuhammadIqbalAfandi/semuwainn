@@ -177,7 +177,7 @@
                     "ordering": true,
                     "info": true,
                     "autoWidth": false,
-                    "responsive": true,
+                    "scrollX": true,
                 })
 
                 fetchRoomTypes()
@@ -202,7 +202,7 @@
                         success(res) {
                             if (res.facilities) {
                                  res.facilities.forEach(facility => {
-                                    let newOption = new Option(facility.facility_name, facility.id, false, false)
+                                    let newOption = new Option(facility.name, facility.id, false, false)
                                     $('#facilities').append(newOption)
                                 })
                             }
@@ -316,7 +316,7 @@
                                 })
                                 res.facilities.forEach(facility => {
                                     let newOption = new Option(
-                                        facility.facility_name, facility.id,
+                                        facility.name, facility.id,
                                         false,
                                         optionSelected.includes(facility.id)
                                     )
@@ -489,7 +489,7 @@
                                     roomType.room_facilities.forEach((facilityRoom) => {
                                         facilities += `
                                             <span class="badge badge-pill badge-warning">
-                                                ${facilityRoom.facility.facility_name}
+                                                ${facilityRoom.facility.name}
                                             </span>
                                         `
                                     })

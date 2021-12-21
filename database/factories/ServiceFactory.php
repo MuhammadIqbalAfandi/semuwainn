@@ -23,7 +23,7 @@ class ServiceFactory extends Factory
     public function definition()
     {
         return [
-            'service_name' => $this->faker->lexify('Layanan ??????'),
+            'name' => $this->faker->lexify('Layanan ??????'),
             'unit' => 'Per orang',
             'price' => $this->faker->numberBetween(1000, 500000),
         ];

@@ -15,7 +15,6 @@ class Guest extends Model
         'name',
         'phone',
         'email',
-        'address',
     ];
 
     public function reservations()

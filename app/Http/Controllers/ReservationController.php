@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use Carbon\Carbon;
-use App\Models\Room;
-use App\Models\Guest;
-use App\Models\RoomOrder;
-use App\Models\Reservation;
-use Illuminate\Http\Request;
-use App\Models\ReservationStatus;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reservation\StoreReservationRequest;
 use App\Http\Requests\Reservation\StoreReservationServiceRequest;
 use App\Http\Requests\Reservation\UpdateReservationRequest;
 use App\Http\Requests\Reservation\UpdateReservationStatusRequest;
+use App\Models\Guest;
+use App\Models\Reservation;
+use App\Models\ReservationStatus;
+use App\Models\Room;
+use App\Models\RoomOrder;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
 {
@@ -83,23 +83,21 @@ class ReservationController extends Controller
         DB::beginTransaction();
         try {
             $reservation = Reservation::create([
-                'guest_id' => $request->guest_id,
-                'user_id' => auth()->user()->id,
-                'reservation_status_id' => 2,
                 'reservation_number' => 'OD' . Carbon::now()->format('siHdmy'),
-                'adult' => $request->adult,
-                'children' => $request->children,
+                'checkin' => $request->checkin,
+                'checkout' => $request->checkout,
+                'guest_count' => $request->guest_count,
+                'discount' => $request->discount,
+                'user_id' => auth()->user()->id,
+                'guest_id' => $request->guest_id,
+                'reservation_status_id' => 2,
             ]);
 
-            foreach($request->rooms as $index => $room) {
+            foreach ($request->rooms as $index => $room) {
                 $reservation->roomOrders()->create([
-                    'arrival_date' =>  $request->checkin,
-                    'departure_date' => $request->checkout,
+                    'price' => $request->prices[$index],
                     'user_id' => auth()->user()->id,
                     'room_id' => $request->rooms[$index],
-                    'price' => $request->prices[$index],
-                    'discount' => $request->discounts[$index],
-                    'room_order_status_id' => 1,
                 ]);
             }
 
@@ -118,7 +116,7 @@ class ReservationController extends Controller
             return response()->json(
                 [
                     'message' => 'Pemesanan tidak berhasil ditambahkan',
-                    'status' => 'failed'
+                    'status' => 'failed',
                 ],
                 400,
             );
@@ -134,15 +132,18 @@ class ReservationController extends Controller
     public function storeRoom(Request $request, Reservation $reservation)
     {
         try {
-            foreach($request->rooms as $index => $room) {
+            foreach ($request->rooms as $index => $room) {
                 $reservation->roomOrders()->create([
-                    'arrival_date' =>  $reservation->roomOrders[0]->getRawOriginal('arrival_date'),
-                    'departure_date' => $reservation->roomOrders[0]->getRawOriginal('departure_date'),
                     'user_id' => auth()->user()->id,
                     'room_id' => $request->rooms[$index],
                     'price' => $request->prices[$index],
                     'discount' => $request->discounts[$index],
                     'room_order_status_id' => 1,
+                ]);
+
+                $reservation->create([
+                    'checkin' => $reservation->roomOrders[0]->getRawOriginal('checkin'),
+                    'checkout' => $reservation->roomOrders[0]->getRawOriginal('checkout'),
                 ]);
             }
             return response()->json(
@@ -168,7 +169,7 @@ class ReservationController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-    */
+     */
     public function storeService(StoreReservationServiceRequest $request, Reservation $reservation)
     {
     }
@@ -237,8 +238,8 @@ class ReservationController extends Controller
 
             foreach ($reservation->roomOrders as $index => $roomOrder) {
                 $reservation->roomOrders[$index]->update([
-                    'arrival_date' =>  $request->checkin,
-                    'departure_date' => $request->checkout,
+                    'checkin' => $request->checkin,
+                    'checkout' => $request->checkout,
                 ]);
             }
 

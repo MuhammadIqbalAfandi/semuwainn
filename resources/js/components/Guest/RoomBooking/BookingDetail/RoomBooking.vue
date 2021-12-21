@@ -44,7 +44,7 @@ export default {
             </v-col>
 
             <v-col>
-              <Paragraph>{{ room.roomName }}</Paragraph>
+              <Paragraph>{{ room.name }}</Paragraph>
               <v-row class="text-caption" dense>
                 <v-col cols="auto">
                   <Paragraph>{{ room.guestCount }} tamu</Paragraph>

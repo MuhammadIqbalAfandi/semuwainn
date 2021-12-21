@@ -18,8 +18,7 @@ class CreateGuestsTable extends Migration
             $table->string('nik')->unique();
             $table->string('name');
             $table->string('phone')->unique();
-            $table->string('email')->unique()->nullable();
-            $table->string('address');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }

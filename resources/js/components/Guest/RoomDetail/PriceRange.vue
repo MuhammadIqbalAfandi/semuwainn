@@ -8,7 +8,6 @@ export default {
   props: {
     priceRange: Object,
     roomName: String,
-    typeBedRoom: Array,
     numberOfGuest: Number,
   },
   components: {

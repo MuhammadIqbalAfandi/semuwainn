@@ -24,7 +24,7 @@ class UpdateRestaurantRequest extends FormRequest
     public function rules()
     {
         return [
-            'item_name' => 'required|string|max:50|unique:restaurants,item_name,' . $this->id,
+            'name' => 'required|string|max:50|unique:restaurants,name,' . $this->id,
             'unit' => 'required|string|max:50',
             'price' => 'required|numeric',
         ];

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoomBooking\StoreRoomBookingRequest;
 use App\Models\Service;
+use Exception;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class RoomBookingController extends Controller
 {
@@ -17,7 +19,14 @@ class RoomBookingController extends Controller
     public function index()
     {
         return inertia('Guest/RoomBooking', [
-            'services' => Service::paginate(10),
+            'services' => Service::paginate(10)
+                ->withQueryString()
+                ->through(fn($services) => [
+                    'id' => $services->id,
+                    'name' => $services->name,
+                    'price' => $services->price,
+                    'unit' => $services->unit,
+                ]),
         ]);
     }
 
@@ -37,9 +46,15 @@ class RoomBookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRoomBookingRequest $request)
     {
-        dd($request);
+        DB::beginTransaction();
+        try {
+            dd($request);
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
     }
 
     /**

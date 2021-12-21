@@ -3215,11 +3215,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)('roomBooking', ['checkIn', 'checkOut', 'nightCount'])), (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)(['roomCart', 'serviceCart'])), {}, {
     roomPrice: function roomPrice() {
       var pricesRoom = this.roomCart.map(function (item) {
-        return item.price.originPrice * item.roomCount;
+        return Number(item.price.originPrice) * Number(item.roomCount);
       });
       var totalPrice = pricesRoom.length ? pricesRoom.reduce(function (prev, current) {
-        return prev + current;
-      }) * this.nightCount : '0';
+        return Number(prev) + Number(current);
+      }) * Number(this.nightCount) : '0';
       return totalPrice;
     },
     servicePrice: function servicePrice() {
@@ -3228,7 +3228,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         priceService.push(item.price);
       });
       var totalPrice = priceService.length ? priceService.reduce(function (prev, current) {
-        return prev + current;
+        return Number(prev) + Number(current);
       }) : '0';
       return totalPrice;
     },
@@ -3441,9 +3441,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    errors: Object
-  },
   components: {
     TextField: _shared_TextField_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -3530,36 +3527,42 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   mounted: function mounted() {
-    this.addService = this.serviceCart;
+    this.serviceOrder = this.serviceCart;
   },
   data: function data() {
     return {
-      addService: [],
+      serviceOrder: [],
       current_page: this.services.current_page
     };
   },
   watch: {
-    addService: {
+    serviceOrder: {
       handler: function handler(val, oldVal) {
         this.addServiceCart(val);
       }
     },
     serviceCart: {
       handler: function handler(val, oldVal) {
-        this.addService = val;
+        this.serviceOrder = val;
       }
     }
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)(['serviceCart'])),
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)(['addServiceCart'])), {}, {
     next: function next() {
-      this.$inertia.get(this.services.next_page_url, '');
+      this.$inertia.get(this.services.next_page_url, '', {
+        preserveScroll: true
+      });
     },
     prev: function prev() {
-      this.$inertia.get(this.services.prev_page_url, '');
+      this.$inertia.get(this.services.prev_page_url, '', {
+        preserveScroll: true
+      });
     },
     input: function input() {
-      this.$inertia.get("".concat(this.services.path, "/?page=").concat(this.current_page), '');
+      this.$inertia.get("".concat(this.services.path, "/?page=").concat(this.current_page), '', {
+        preserveScroll: true
+      });
     }
   })
 });
@@ -3669,14 +3672,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var _this$room = this.room,
             prices = _this$room.prices,
             thumbnail = _this$room.thumbnail,
-            roomName = _this$room.roomName;
+            name = _this$room.name;
         var price = prices.find(function (price) {
           return price.id === id;
         });
         this.addRoomCart({
           price: price,
           thumbnail: thumbnail,
-          roomName: roomName,
+          name: name,
           roomCount: this.$parent.roomCount,
           guestCount: this.$parent.guestCount
         });
@@ -3710,7 +3713,6 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     priceRange: Object,
     roomName: String,
-    typeBedRoom: Array,
     numberOfGuest: Number
   },
   components: {
@@ -3796,8 +3798,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Guest_RoomBooking_GuestForm_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/Guest/RoomBooking/GuestForm.vue */ "./resources/js/components/Guest/RoomBooking/GuestForm.vue");
 /* harmony import */ var _components_Guest_RoomBooking_Service_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Guest/RoomBooking/Service.vue */ "./resources/js/components/Guest/RoomBooking/Service.vue");
 /* harmony import */ var _components_Guest_RoomBooking_BookingDetail_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Guest/RoomBooking/BookingDetail.vue */ "./resources/js/components/Guest/RoomBooking/BookingDetail.vue");
-var _layout$props$data$co;
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -3812,13 +3812,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_layout$props$data$co = {
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   props: {
-    services: Object
-  },
-  data: function data() {
-    return {};
+    services: Object,
+    errors: Object
   },
   components: {
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Link,
@@ -3827,26 +3825,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     GuestForm: _components_Guest_RoomBooking_GuestForm_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     Service: _components_Guest_RoomBooking_Service_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     BookingDetail: _components_Guest_RoomBooking_BookingDetail_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
-  }
-}, _defineProperty(_layout$props$data$co, "data", function data() {
-  return {};
-}), _defineProperty(_layout$props$data$co, "methods", {
-  order: function order() {
-    if (this.valid) {
-      var form = {
-        name: this.name,
-        nik: this.nik,
-        phone: this.phone,
-        email: this.email,
-        checkIn: this.checkIn,
-        checkOut: this.checkOut,
-        rooms: this.roomCart,
-        services: this.serviceCart
-      };
-      this.$inertia.post(this.$route('room-booking.store'), form);
+  },
+  methods: {
+    order: function order() {
+      if (this.valid) {
+        var form = {
+          name: this.name,
+          nik: this.nik,
+          phone: this.phone,
+          email: this.email,
+          checkIn: this.checkIn,
+          checkOut: this.checkOut,
+          rooms: this.roomCart,
+          services: this.serviceCart
+        }; // this.$inertia.post(this.$route('room-booking.store'), form)
+      }
     }
-  }
-}), _defineProperty(_layout$props$data$co, "computed", _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)(['roomCart', 'serviceCart']))), _layout$props$data$co);
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)(['roomCart', 'serviceCart']))
+});
 
 /***/ }),
 
@@ -3864,12 +3861,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/layouts/Guest.vue */ "./resources/js/layouts/Guest.vue");
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
-/* harmony import */ var _shared_TextField_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/shared/TextField.vue */ "./resources/js/shared/TextField.vue");
-/* harmony import */ var _components_Guest_RoomDetail_PhotoGrid_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/Guest/RoomDetail/PhotoGrid.vue */ "./resources/js/components/Guest/RoomDetail/PhotoGrid.vue");
-/* harmony import */ var _components_Guest_RoomDetail_PriceRange_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Guest/RoomDetail/PriceRange.vue */ "./resources/js/components/Guest/RoomDetail/PriceRange.vue");
-/* harmony import */ var _components_Guest_RoomDetail_Price_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Guest/RoomDetail/Price.vue */ "./resources/js/components/Guest/RoomDetail/Price.vue");
-/* harmony import */ var _components_Guest_RoomDetail_Facility_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/Guest/RoomDetail/Facility.vue */ "./resources/js/components/Guest/RoomDetail/Facility.vue");
-/* harmony import */ var _mixins_rules__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/mixins/rules */ "./resources/js/mixins/rules.js");
+/* harmony import */ var _shared_ParagraphLeftIcon_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/shared/ParagraphLeftIcon.vue */ "./resources/js/shared/ParagraphLeftIcon.vue");
+/* harmony import */ var _shared_TextField_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/shared/TextField.vue */ "./resources/js/shared/TextField.vue");
+/* harmony import */ var _components_Guest_RoomDetail_PhotoGrid_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Guest/RoomDetail/PhotoGrid.vue */ "./resources/js/components/Guest/RoomDetail/PhotoGrid.vue");
+/* harmony import */ var _components_Guest_RoomDetail_PriceRange_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Guest/RoomDetail/PriceRange.vue */ "./resources/js/components/Guest/RoomDetail/PriceRange.vue");
+/* harmony import */ var _components_Guest_RoomDetail_Price_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/Guest/RoomDetail/Price.vue */ "./resources/js/components/Guest/RoomDetail/Price.vue");
+/* harmony import */ var _components_Guest_RoomDetail_Facility_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/components/Guest/RoomDetail/Facility.vue */ "./resources/js/components/Guest/RoomDetail/Facility.vue");
+/* harmony import */ var _mixins_rules__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/mixins/rules */ "./resources/js/mixins/rules.js");
+
 
 
 
@@ -3886,14 +3885,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    TextField: _shared_TextField_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    PhotoGrid: _components_Guest_RoomDetail_PhotoGrid_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    PriceRange: _components_Guest_RoomDetail_PriceRange_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    Price: _components_Guest_RoomDetail_Price_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    Facility: _components_Guest_RoomDetail_Facility_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    ParagraphLeftIcon: _shared_ParagraphLeftIcon_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    TextField: _shared_TextField_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    PhotoGrid: _components_Guest_RoomDetail_PhotoGrid_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    PriceRange: _components_Guest_RoomDetail_PriceRange_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    Price: _components_Guest_RoomDetail_Price_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    Facility: _components_Guest_RoomDetail_Facility_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
     Head: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Head
   },
-  mixins: [_mixins_rules__WEBPACK_IMPORTED_MODULE_8__["default"]],
+  mixins: [_mixins_rules__WEBPACK_IMPORTED_MODULE_9__["default"]],
   data: function data() {
     var _this = this;
 
@@ -3997,11 +3997,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     icon: String,
+    warning: Boolean,
     text: String,
     multiText: Array
   },
   components: {
     Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: {
+    warningText: function warningText() {
+      return this.warning ? 'orange--text text--lighten-2' : '';
+    },
+    warningIcon: function warningIcon() {
+      return this.warning ? 'orange lighten-2' : '';
+    }
   }
 });
 
@@ -4288,10 +4297,10 @@ __webpack_require__.r(__webpack_exports__);
     checkOut: null,
     nightCount: null,
     valid: true,
-    name: '',
-    nik: '',
-    phone: '',
-    email: ''
+    name: 'Muhammad Iqbal Afandi',
+    nik: '1111111111111111',
+    phone: '111111111111',
+    email: 'muhammadiqbalafandi30@gmail.com'
   },
   actions: {
     setCheckIn: function setCheckIn(_ref, date) {
@@ -13015,7 +13024,7 @@ var render = function () {
                                             staticClass:
                                               "mb-md-4 text-body-2 text-md-h5",
                                           },
-                                          [_vm._v(_vm._s(room.roomName))]
+                                          [_vm._v(_vm._s(room.name))]
                                         ),
                                         _vm._v(" "),
                                         _c(
@@ -13573,7 +13582,7 @@ var render = function () {
                       _c(
                         "v-col",
                         [
-                          _c("Paragraph", [_vm._v(_vm._s(_vm.room.roomName))]),
+                          _c("Paragraph", [_vm._v(_vm._s(_vm.room.name))]),
                           _vm._v(" "),
                           _c(
                             "v-row",
@@ -13729,7 +13738,7 @@ var render = function () {
                 fn: function () {
                   return [
                     _c("Paragraph", [
-                      _vm._v(" " + _vm._s(_vm.service.service_name) + " "),
+                      _vm._v(" " + _vm._s(_vm.service.name) + " "),
                     ]),
                     _vm._v(" "),
                     _c(
@@ -14106,7 +14115,6 @@ var render = function () {
   return _c(
     "v-form",
     {
-      attrs: { "lazy-validation": "" },
       model: {
         value: _vm.updateValid,
         callback: function ($$v) {
@@ -14296,11 +14304,7 @@ var render = function () {
                                               staticClass:
                                                 "text-caption text-md-body-2",
                                             },
-                                            [
-                                              _vm._v(
-                                                _vm._s(service.service_name)
-                                              ),
-                                            ]
+                                            [_vm._v(_vm._s(service.name))]
                                           ),
                                         ]
                                       },
@@ -14311,11 +14315,11 @@ var render = function () {
                                   true
                                 ),
                                 model: {
-                                  value: _vm.addService,
+                                  value: _vm.serviceOrder,
                                   callback: function ($$v) {
-                                    _vm.addService = $$v
+                                    _vm.serviceOrder = $$v
                                   },
-                                  expression: "addService",
+                                  expression: "serviceOrder",
                                 },
                               }),
                             ],
@@ -14986,12 +14990,7 @@ var render = function () {
             [
               _c("v-col", { attrs: { cols: "12" } }, [_c("Date")], 1),
               _vm._v(" "),
-              _c(
-                "v-col",
-                { attrs: { cols: "12" } },
-                [_c("GuestForm", { ref: "form" })],
-                1
-              ),
+              _c("v-col", { attrs: { cols: "12" } }, [_c("GuestForm")], 1),
               _vm._v(" "),
               _c(
                 "v-col",
@@ -15095,8 +15094,7 @@ var render = function () {
               _c("PriceRange", {
                 attrs: {
                   priceRange: _vm.room.priceRange,
-                  roomName: _vm.room.roomName,
-                  typeBedRoom: _vm.room.typeBedRoom,
+                  roomName: _vm.room.name,
                   numberOfGuest: _vm.room.numberOfGuest,
                 },
               }),
@@ -15132,7 +15130,6 @@ var render = function () {
                       _c(
                         "v-form",
                         {
-                          attrs: { "lazy-validation": "" },
                           model: {
                             value: _vm.valid,
                             callback: function ($$v) {
@@ -15169,6 +15166,22 @@ var render = function () {
                                         _vm.roomCount = $$v
                                       },
                                       expression: "roomCount",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [
+                                  _c("ParagraphLeftIcon", {
+                                    staticClass: "text-caption",
+                                    attrs: {
+                                      icon: "mdi-information",
+                                      text: "Tamu umur berapapun dianggap sebagai\n                  dewasa.",
+                                      warning: true,
                                     },
                                   }),
                                 ],
@@ -15425,14 +15438,20 @@ var render = function () {
   return _c(
     "Paragraph",
     [
-      _c("v-icon", { attrs: { left: "", small: "" } }, [
+      _c("v-icon", { attrs: { left: "", small: "", color: _vm.warningIcon } }, [
         _vm._v(_vm._s(_vm.icon)),
       ]),
       _vm._v(" "),
-      _vm.text ? _c("span", [_vm._v(_vm._s(_vm.text) + " ")]) : _vm._e(),
+      _vm.text
+        ? _c("span", { class: _vm.warningText }, [
+            _vm._v(_vm._s(_vm.text) + " "),
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _vm._l(_vm.multiText, function (text, index) {
-        return _c("span", { key: index }, [_vm._v(_vm._s(text) + "  ")])
+        return _c("span", { key: index, class: _vm.warningText }, [
+          _vm._v(_vm._s(text) + "  "),
+        ])
       }),
     ],
     2

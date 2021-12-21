@@ -116,7 +116,7 @@
                     "ordering": true,
                     "info": true,
                     "autoWidth": false,
-                    "responsive": true,
+                    "scrollX": true,
                 })
 
                 fetchRooms()
@@ -139,7 +139,7 @@
                         success(res) {
                             if (res.roomTypes) {
                                 res.roomTypes.forEach((roomType) => {
-                                    let newOption = new Option(roomType.room_type_name, roomType.id, false, false)
+                                    let newOption = new Option(roomType.name, roomType.id, false, false)
                                     $('#room-type-id').append(newOption)
                                 })
                             }
@@ -203,7 +203,7 @@
 
                             res.roomTypes.forEach( roomType => {
                                 let newOption = new Option(
-                                    roomType.room_type_name,
+                                    roomType.name,
                                     roomType.id,
                                     false,
                                     res.room.room_type.id === roomType.id
@@ -317,7 +317,7 @@
 
                                     roomsTable.row.add([
                                         room.room_number,
-                                        room.room_type.room_type_name,
+                                        room.room_type.name,
                                         roomStatus,
                                         btnAction
                                     ]).draw(false)

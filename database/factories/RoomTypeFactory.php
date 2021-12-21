@@ -22,7 +22,7 @@ class RoomTypeFactory extends Factory
     public function definition()
     {
         return [
-            'room_type_name' => $this->faker->lexify('Ruangan ??????'),
+            'name' => $this->faker->lexify('Ruangan ??????'),
         ];
     }
 }

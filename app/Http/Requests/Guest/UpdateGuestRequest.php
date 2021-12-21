@@ -28,7 +28,6 @@ class UpdateGuestRequest extends FormRequest
             'name' => 'required|string',
             'phone' => 'required|digits:12|unique:guests,phone,' . $this->id,
             'email' => 'email|nullable|unique:guests,email,' . $this->id,
-            'address' => 'required|max:50',
         ];
     }
 }

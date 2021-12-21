@@ -27,7 +27,7 @@ export default {
     <v-card-text>
       <ParagraphSpacing>
         <template #textLeft>
-          <Paragraph> {{ service.service_name }} </Paragraph>
+          <Paragraph> {{ service.name }} </Paragraph>
           <Paragraph class="text-caption red--text text--lighten-2">
             <span class="text-caption">Rp</span> {{ currencyFormat(service.price) }}
           </Paragraph>

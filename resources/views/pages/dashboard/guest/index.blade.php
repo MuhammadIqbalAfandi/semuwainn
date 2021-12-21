@@ -17,7 +17,6 @@
                                 <tr>
                                     <th>NIK / No. HP / Email</th>
                                     <th>Nama</th>
-                                    <th>Alamat</th>
                                     <th>Jlh. Pemesanan</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -62,15 +61,6 @@
                 <span class="phone-error msg-error text-danger"></span>
             </div>
 
-            <!-- Address -->
-            <div class="form-group">
-                <label for="address">Alamat</label>
-                <input type="address" name="address" id="address" value="{{ old('address') }}" class="form-control"
-                    placeholder="Tulis alamat disini">
-
-                <span class="address-error msg-error text-danger"></span>
-            </div>
-
             <!-- Email -->
             <div class="form-group">
                 <label for="email">Email</label>
@@ -112,7 +102,7 @@
                     "ordering": true,
                     "info": true,
                     "autoWidth": false,
-                    "responsive": true,
+                    "scrollX": true,
                 })
 
                 fetchGuest()
@@ -138,7 +128,6 @@
                             $('#name').val(res.guest.name)
                             $('#nik').val(res.guest.nik)
                             $('#phone').val(res.guest.phone)
-                            $('#address').val(res.guest.address)
                             $('#email').val(res.guest.email)
                         }
                     })
@@ -153,7 +142,6 @@
                     const name = $('#name').val()
                     const nik = $('#nik').val()
                     const phone = $('#phone').val()
-                    const address = $('#address').val()
                     const email = $('#email').val()
 
                     $.ajax({
@@ -168,7 +156,6 @@
                             name,
                             nik,
                             phone,
-                            address,
                             email,
                         },
                         success(res) {
@@ -251,7 +238,6 @@
                                             <span class="d-block text-secondary">${guest.email}</span>
                                         `,
                                         guest.name,
-                                        guest.address,
                                         guest.reservations.length,
                                         btnAction
                                     ]).draw(false)

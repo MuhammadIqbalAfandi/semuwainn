@@ -11,7 +11,7 @@ class ReservationStatus extends Model
     use HasFactory;
 
     protected $fillable = [
-        'reservation_status_name',
+        'name',
     ];
 
     public function reservations()

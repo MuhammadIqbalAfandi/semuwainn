@@ -15,23 +15,23 @@ export default {
   },
   mixins: [mixinHelpers],
   mounted() {
-    this.addService = this.serviceCart
+    this.serviceOrder = this.serviceCart
   },
   data() {
     return {
-      addService: [],
+      serviceOrder: [],
       current_page: this.services.current_page,
     }
   },
   watch: {
-    addService: {
+    serviceOrder: {
       handler(val, oldVal) {
         this.addServiceCart(val)
       },
     },
     serviceCart: {
       handler(val, oldVal) {
-        this.addService = val
+        this.serviceOrder = val
       },
     },
   },
@@ -41,13 +41,13 @@ export default {
   methods: {
     ...mapActions(['addServiceCart']),
     next() {
-      this.$inertia.get(this.services.next_page_url, '')
+      this.$inertia.get(this.services.next_page_url, '', { preserveScroll: true })
     },
     prev() {
-      this.$inertia.get(this.services.prev_page_url, '')
+      this.$inertia.get(this.services.prev_page_url, '', { preserveScroll: true })
     },
     input() {
-      this.$inertia.get(`${this.services.path}/?page=${this.current_page}`, '')
+      this.$inertia.get(`${this.services.path}/?page=${this.current_page}`, '', { preserveScroll: true })
     },
   },
 }
@@ -70,14 +70,14 @@ export default {
             <v-expansion-panel>
               <v-expansion-panel-header>
                 <v-checkbox
-                  v-model="addService"
+                  v-model="serviceOrder"
                   class="ma-0"
                   :value="service"
                   color="orange lighten-2"
                   hide-details="true"
                 >
                   <template #label>
-                    <span class="text-caption text-md-body-2">{{ service.service_name }}</span>
+                    <span class="text-caption text-md-body-2">{{ service.name }}</span>
                   </template>
                 </v-checkbox>
               </v-expansion-panel-header>

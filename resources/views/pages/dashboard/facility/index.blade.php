@@ -86,7 +86,7 @@
                     "ordering": true,
                     "info": true,
                     "autoWidth": false,
-                    "responsive": true,
+                    "scrollX": true,
                 })
 
                 fetchFacilities()
@@ -112,7 +112,7 @@
                         type: 'post',
                         url: 'facility',
                         data: {
-                            facility_name: facilityName,
+                            name: facilityName,
                         },
                         beforeSend() {
                             $('.msg-error').text('')
@@ -150,7 +150,7 @@
                         },
                         success(res) {
                             $('#facility-id').val(res.facility.id)
-                            $('#facility-name').val(res.facility.facility_name)
+                            $('#facility-name').val(res.facility.name)
                         },
                     })
                 })
@@ -170,7 +170,7 @@
                         url: `facility/${id}`,
                         data: {
                             id,
-                            facility_name: facilityName,
+                            name: facilityName,
                         },
                         beforeSend() {
                             $('.msg-error').text('')
@@ -246,7 +246,7 @@
                                         </i>
                                     `
                                     facilitiesTable.row.add([
-                                        facility.facility_name,
+                                        facility.name,
                                         facility.room_facilities.length,
                                         btnAction
                                     ]).draw(false)

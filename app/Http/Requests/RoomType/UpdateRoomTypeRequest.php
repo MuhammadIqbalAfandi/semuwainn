@@ -24,7 +24,7 @@ class UpdateRoomTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'room_type_name' => 'required|string|max:50|unique:room_types,room_type_name,' . $this->id,
+            'name' => 'required|string|max:50|unique:room_types,name,' . $this->id,
             'facilities' => 'required',
             'prices.*' => 'required|numeric',
             'descriptions.*' => 'required|string|max:100',

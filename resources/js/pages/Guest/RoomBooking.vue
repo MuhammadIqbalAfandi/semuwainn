@@ -13,9 +13,7 @@ export default {
   layout: GuestLayout,
   props: {
     services: Object,
-  },
-  data() {
-    return {}
+    errors: Object,
   },
   components: {
     Link,
@@ -24,9 +22,6 @@ export default {
     GuestForm,
     Service,
     BookingDetail,
-  },
-  data() {
-    return {}
   },
   methods: {
     order() {
@@ -41,7 +36,7 @@ export default {
           rooms: this.roomCart,
           services: this.serviceCart,
         }
-        this.$inertia.post(this.$route('room-booking.store'), form)
+        // this.$inertia.post(this.$route('room-booking.store'), form)
       }
     },
   },
@@ -61,7 +56,7 @@ export default {
         </v-col>
 
         <v-col cols="12">
-          <GuestForm ref="form" />
+          <GuestForm />
         </v-col>
 
         <v-col cols="12">

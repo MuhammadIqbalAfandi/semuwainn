@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/inertia-vue'
 
 import GuestLayout from '@/layouts/Guest.vue'
 import Paragraph from '@/shared/Paragraph.vue'
+import ParagraphLeftIcon from '@/shared/ParagraphLeftIcon.vue'
 import TextField from '@/shared/TextField.vue'
 import PhotoGrid from '@/components/Guest/RoomDetail/PhotoGrid.vue'
 import PriceRange from '@/components/Guest/RoomDetail/PriceRange.vue'
@@ -17,6 +18,7 @@ export default {
   },
   components: {
     Paragraph,
+    ParagraphLeftIcon,
     TextField,
     PhotoGrid,
     PriceRange,
@@ -49,12 +51,7 @@ export default {
       </v-col>
 
       <v-col cols="12">
-        <PriceRange
-          :priceRange="room.priceRange"
-          :roomName="room.roomName"
-          :typeBedRoom="room.typeBedRoom"
-          :numberOfGuest="room.numberOfGuest"
-        />
+        <PriceRange :priceRange="room.priceRange" :roomName="room.name" :numberOfGuest="room.numberOfGuest" />
       </v-col>
     </v-row>
 
@@ -66,7 +63,7 @@ export default {
       <v-col cols="12" md="4">
         <v-card height="fit-content">
           <v-card-text>
-            <v-form v-model="valid" lazy-validation>
+            <v-form v-model="valid">
               <v-row justify="center" dense>
                 <v-col cols="12">
                   <TextField
@@ -76,6 +73,16 @@ export default {
                     placeholder="Jumlah Kamar"
                     hint="Jumlah Kamar yang akan dipesan"
                     autofocus
+                  />
+                </v-col>
+
+                <v-col cols="12">
+                  <ParagraphLeftIcon
+                    class="text-caption"
+                    icon="mdi-information"
+                    text="Tamu umur berapapun dianggap sebagai
+                    dewasa."
+                    :warning="true"
                   />
                 </v-col>
 

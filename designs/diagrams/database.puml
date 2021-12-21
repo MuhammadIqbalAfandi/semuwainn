@@ -2,27 +2,31 @@
   entity Reservation {
     * id
     __
-    * reserved_date
+    * reservation_time
     * reservation_number
-    * adult
-    * children
+    * check_in
+    * check_out
+    * guest_count
+    discount
     * user_id
     * guest_id
     * reservation_status_id
+  }
+
+  entity ReservationStatus {
+    * id
+    __
+    * name
   }
 
   entity RoomOrder {
     * id
     __
     * order_time
-    * arrival_date
-    * departure_date
     * price
-    discount
     * user_id
     * room_id
     * reservation_id
-    * room_order_status_id
   }
 
   entity ServiceOrder {
@@ -40,15 +44,9 @@
   entity Service {
     * id
     __
-    * service_name
+    * name
     * price
     * unit
-  }
-
-  entity ReservationStatus {
-    * id
-    __
-    * reservation_status_name
   }
 
   entity Guest {
@@ -58,7 +56,6 @@
     * name
     * phone
     email
-    * address
   }
 
   entity User {
@@ -76,7 +73,7 @@
   entity Role {
     * id
     __
-    * role_name
+    * name
   }
 
   entity RestaurantOrder {
@@ -94,21 +91,9 @@
   entity Restaurant {
     * id
     __
-    * item_name
+    * name
     * price
     * unit
-  }
-
-  entity Facility {
-    * id
-    __
-    * facility_name
-  }
-
-  entity RoomType {
-    * id
-    __
-    * room_type_name
   }
 
   entity RoomFacility {
@@ -116,6 +101,19 @@
     __
     * room_type_id
     * facility_id
+  }
+
+  entity Room {
+    * id
+    __
+    * room_number
+    * room_type_id
+  }
+
+  entity RoomType {
+    * id
+    __
+    * name
   }
 
   entity RoomPrice {
@@ -126,36 +124,28 @@
     * room_type_id
   }
 
-  entity Room {
+  entity Facility {
     * id
     __
-    * room_number
-    * room_type_id
+    * name
   }
 
-  entity RoomOrderStatus {
-    * id
-    __
-    * room_order_status_name
-  }
-
+  Reservation ||--|{ ReservationStatus
   Reservation }|--|| RestaurantOrder
   Reservation }|--|| ServiceOrder
-  Reservation ||--|{ ReservationStatus
   Reservation ||--|{ User
   Reservation ||--|{ Guest
-  ServiceOrder ||--|{ Service
-  ServiceOrder ||--|{ User
-  User ||--|{ Role
-  RestaurantOrder ||--|{ Restaurant
-  RestaurantOrder ||--|{ User
-  RoomOrder ||--|{ RoomOrderStatus
-  RoomOrder ||--|{ Room
+  Reservation }|--|| RoomOrder
   RoomOrder ||--|{ User
-  RoomOrder ||--|{ Reservation
-  RoomFacility ||--|{ Facility
-  RoomFacility ||--|{ RoomType
-  RoomType }|--|| RoomPrice
+  RoomOrder ||--|{ Room
   Room ||-|{ RoomType
+  RoomType }|--|| RoomPrice
+  RoomType }|--|| RoomFacility
+  RoomFacility ||--|{ Facility
+  ServiceOrder ||--|{ Service
+  RestaurantOrder ||--|{ Restaurant
+  User ||--|{ Role
+  ServiceOrder ||--|{ User
+  RestaurantOrder ||--|{ User
 
 @enduml

@@ -16,14 +16,10 @@ class CreateRoomOrdersTable extends Migration
         Schema::create('room_orders', function (Blueprint $table) {
             $table->id();
             $table->timestamp('order_time');
-            $table->datetime('arrival_date');
-            $table->datetime('departure_date');
             $table->unsignedInteger('price');
-            $table->unsignedInteger('discount');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('room_id')->constrained();
             $table->foreignId('reservation_id')->constrained();
-            $table->foreignId('room_order_status_id')->constrained();
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@ class FacilityFactory extends Factory
     public function definition()
     {
         return [
-            'facility_name' => $this->faker->lexify('fasilitas ??????'),
+            'name' => $this->faker->lexify('fasilitas ??????'),
         ];
     }
 }

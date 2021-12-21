@@ -10,7 +10,7 @@ class Facility extends Model
     use HasFactory;
 
     protected $fillable = [
-        'facility_name',
+        'name',
     ];
 
     public function roomFacilities()

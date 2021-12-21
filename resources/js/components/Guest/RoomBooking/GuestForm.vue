@@ -5,9 +5,6 @@ import TextField from '@/shared/TextField.vue'
 import mixinRules from '@/mixins/rules'
 
 export default {
-  props: {
-    errors: Object,
-  },
   components: {
     TextField,
   },
@@ -62,7 +59,7 @@ export default {
 </script>
 
 <template>
-  <v-form v-model="updateValid" lazy-validation>
+  <v-form v-model="updateValid">
     <v-card>
       <v-card-title class="text-body-2 text-md-h5">Detail Pemesanan</v-card-title>
 

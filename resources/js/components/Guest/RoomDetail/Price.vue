@@ -18,12 +18,12 @@ export default {
     ...mapActions(['addRoomCart']),
     roomOrder(id) {
       if (this.$parent.valid) {
-        const { prices, thumbnail, roomName } = this.room
+        const { prices, thumbnail, name } = this.room
         const price = prices.find((price) => price.id === id)
         this.addRoomCart({
           price,
           thumbnail,
-          roomName,
+          name,
           roomCount: this.$parent.roomCount,
           guestCount: this.$parent.guestCount,
         })
