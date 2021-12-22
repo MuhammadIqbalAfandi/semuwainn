@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     order() {
-      if (this.valid) {
+      if (this.$children[1].$refs.form.validate() && this.roomCart.length) {
         const form = {
           name: this.name,
           nik: this.nik,
@@ -36,7 +36,8 @@ export default {
           rooms: this.roomCart,
           services: this.serviceCart,
         }
-        // this.$inertia.post(this.$route('room-booking.store'), form)
+
+        this.$inertia.post(this.$route('room-booking.store'), form)
       }
     },
   },
@@ -60,7 +61,7 @@ export default {
         </v-col>
 
         <v-col cols="12">
-          <Service :services="services" />
+          <Service v-once :services="services" />
         </v-col>
 
         <v-col class="text-end" cols="12">
@@ -71,7 +72,7 @@ export default {
             <Link class="orange--text text--lighten-2">Syarat & Ketentuan kami</Link>
           </p>
 
-          <Button @click="order">Pesan sekarang</Button>
+          <Button @click="order" :disabled="!this.roomCart.length">Pesan sekarang</Button>
         </v-col>
       </v-row>
     </v-col>

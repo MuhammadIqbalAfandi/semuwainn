@@ -14,14 +14,6 @@ export default {
   },
   computed: {
     ...mapState('roomBooking', ['valid', 'name', 'nik', 'phone', 'email']),
-    updateValid: {
-      get() {
-        return this.valid
-      },
-      set(v) {
-        this.setValid(v)
-      },
-    },
     updateName: {
       get() {
         return this.name
@@ -59,17 +51,17 @@ export default {
 </script>
 
 <template>
-  <v-form v-model="updateValid">
+  <v-form ref="form">
     <v-card>
       <v-card-title class="text-body-2 text-md-h5">Detail Pemesanan</v-card-title>
 
       <v-card-text>
         <TextField
           v-model="updateName"
-          counter="50"
           :rules="[rules.required, rules.lessThan50]"
+          :error-messages="$parent.errors.name"
           class="text-caption text-sm-subtitle-1"
-          placeholder="Nama"
+          label="Nama"
           hint="Seperti di KTP/Paspor/SIM (tanpa tanda baca dan gelar)"
           autofocus
         />
@@ -78,24 +70,27 @@ export default {
           v-model="updateNik"
           counter="16"
           :rules="[rules.required, rules.numeric, rules.lessThan16]"
+          :error-messages="$parent.errors.nik"
           class="text-caption text-sm-subtitle-1"
-          placeholder="Nik"
+          label="Nik"
           hint="NIK (kami menjamin kerahasiaan nik)"
         />
 
         <TextField
           v-model="updatePhone"
           :rules="[rules.required, rules.numeric, rules.lessThan12]"
+          :error-messages="$parent.errors.phone"
           class="text-caption text-sm-subtitle-1"
-          placeholder="Nomor Telepon"
+          label="Nomor Telepon"
           hint="Nomor Telepon"
         />
 
         <TextField
           v-model="updateEmail"
           :rules="[rules.required, rules.email]"
+          :error-messages="$parent.errors.email"
           class="text-caption text-sm-subtitle-1"
-          placeholder="Email"
+          label="Email"
           hint="E-ticket akan dikirim ke alamat Email ini, simpan sebagai bukti pemesanan."
         />
       </v-card-text>

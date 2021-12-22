@@ -3447,14 +3447,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mixins: [_mixins_rules__WEBPACK_IMPORTED_MODULE_1__["default"]],
   methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('roomBooking', ['setValid', 'setName', 'setNik', 'setPhone', 'setEmail'])),
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)('roomBooking', ['valid', 'name', 'nik', 'phone', 'email'])), {}, {
-    updateValid: {
-      get: function get() {
-        return this.valid;
-      },
-      set: function set(v) {
-        this.setValid(v);
-      }
-    },
     updateName: {
       get: function get() {
         return this.name;
@@ -3668,7 +3660,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)(['addRoomCart'])), {}, {
     roomOrder: function roomOrder(id) {
-      if (this.$parent.valid) {
+      if (this.$parent.$refs.form.validate() && this.$parent.roomCount && this.$parent.guestCount) {
         var _this$room = this.room,
             prices = _this$room.prices,
             thumbnail = _this$room.thumbnail,
@@ -3828,7 +3820,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     order: function order() {
-      if (this.valid) {
+      if (this.$children[1].$refs.form.validate() && this.roomCart.length) {
         var form = {
           name: this.name,
           nik: this.nik,
@@ -3838,7 +3830,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           checkOut: this.checkOut,
           rooms: this.roomCart,
           services: this.serviceCart
-        }; // this.$inertia.post(this.$route('room-booking.store'), form)
+        };
+        this.$inertia.post(this.$route('room-booking.store'), form);
       }
     }
   },
@@ -3901,9 +3894,10 @@ __webpack_require__.r(__webpack_exports__);
       valid: true,
       roomCount: 1,
       guestCount: 1,
+      field: null,
       rules: {
         lessOrEqualThanRoomAvailable: function lessOrEqualThanRoomAvailable(v) {
-          return v <= _this.room.prices[0].roomAvailable || 'Nilai melebihi ruangan yang tersediah.';
+          return v <= _this.room.prices[0].roomAvailable || "Nilai melebihi ruangan yang tersediah.";
         }
       }
     };
@@ -4174,7 +4168,7 @@ __webpack_require__.r(__webpack_exports__);
           return v.length === 16 || 'Nilai harus 16 angka.';
         },
         lessThan12: function lessThan12(v) {
-          return v.length >= 12 || 'Nilai harus 12 angka.';
+          return v.length >= 12 || 'Nilai mininal 12 angka.';
         },
         numeric: function numeric(v) {
           var pattern = /^[0-9\b]+$/;
@@ -4296,7 +4290,6 @@ __webpack_require__.r(__webpack_exports__);
     checkIn: dayjs__WEBPACK_IMPORTED_MODULE_0___default()().toISOString().substring(0, 10),
     checkOut: null,
     nightCount: null,
-    valid: true,
     name: 'Muhammad Iqbal Afandi',
     nik: '1111111111111111',
     phone: '111111111111',
@@ -14114,15 +14107,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "v-form",
-    {
-      model: {
-        value: _vm.updateValid,
-        callback: function ($$v) {
-          _vm.updateValid = $$v
-        },
-        expression: "updateValid",
-      },
-    },
+    { ref: "form" },
     [
       _c(
         "v-card",
@@ -14137,9 +14122,9 @@ var render = function () {
               _c("TextField", {
                 staticClass: "text-caption text-sm-subtitle-1",
                 attrs: {
-                  counter: "50",
                   rules: [_vm.rules.required, _vm.rules.lessThan50],
-                  placeholder: "Nama",
+                  "error-messages": _vm.$parent.errors.name,
+                  label: "Nama",
                   hint: "Seperti di KTP/Paspor/SIM (tanpa tanda baca dan gelar)",
                   autofocus: "",
                 },
@@ -14161,7 +14146,8 @@ var render = function () {
                     _vm.rules.numeric,
                     _vm.rules.lessThan16,
                   ],
-                  placeholder: "Nik",
+                  "error-messages": _vm.$parent.errors.nik,
+                  label: "Nik",
                   hint: "NIK (kami menjamin kerahasiaan nik)",
                 },
                 model: {
@@ -14181,7 +14167,8 @@ var render = function () {
                     _vm.rules.numeric,
                     _vm.rules.lessThan12,
                   ],
-                  placeholder: "Nomor Telepon",
+                  "error-messages": _vm.$parent.errors.phone,
+                  label: "Nomor Telepon",
                   hint: "Nomor Telepon",
                 },
                 model: {
@@ -14197,7 +14184,8 @@ var render = function () {
                 staticClass: "text-caption text-sm-subtitle-1",
                 attrs: {
                   rules: [_vm.rules.required, _vm.rules.email],
-                  placeholder: "Email",
+                  "error-messages": _vm.$parent.errors.email,
+                  label: "Email",
                   hint: "E-ticket akan dikirim ke alamat Email ini, simpan sebagai bukti pemesanan.",
                 },
                 model: {
@@ -14992,12 +14980,7 @@ var render = function () {
               _vm._v(" "),
               _c("v-col", { attrs: { cols: "12" } }, [_c("GuestForm")], 1),
               _vm._v(" "),
-              _c(
-                "v-col",
-                { attrs: { cols: "12" } },
-                [_c("Service", { attrs: { services: _vm.services } })],
-                1
-              ),
+              _c("v-col", { attrs: { cols: "12" } }, [_vm._m(0)], 1),
               _vm._v(" "),
               _c(
                 "v-col",
@@ -15025,9 +15008,14 @@ var render = function () {
                     1
                   ),
                   _vm._v(" "),
-                  _c("Button", { on: { click: _vm.order } }, [
-                    _vm._v("Pesan sekarang"),
-                  ]),
+                  _c(
+                    "Button",
+                    {
+                      attrs: { disabled: !this.roomCart.length },
+                      on: { click: _vm.order },
+                    },
+                    [_vm._v("Pesan sekarang")]
+                  ),
                 ],
                 1
               ),
@@ -15048,7 +15036,14 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("Service", { attrs: { services: _vm.services } })
+  },
+]
 render._withStripped = true
 
 
@@ -15129,15 +15124,7 @@ var render = function () {
                     [
                       _c(
                         "v-form",
-                        {
-                          model: {
-                            value: _vm.valid,
-                            callback: function ($$v) {
-                              _vm.valid = $$v
-                            },
-                            expression: "valid",
-                          },
-                        },
+                        { ref: "form" },
                         [
                           _c(
                             "v-row",
@@ -15156,7 +15143,7 @@ var render = function () {
                                         _vm.rules.notZero,
                                         _vm.rules.lessOrEqualThanRoomAvailable,
                                       ],
-                                      placeholder: "Jumlah Kamar",
+                                      label: "Jumlah kamar",
                                       hint: "Jumlah Kamar yang akan dipesan",
                                       autofocus: "",
                                     },
@@ -15200,7 +15187,7 @@ var render = function () {
                                         _vm.rules.numeric,
                                         _vm.rules.notZero,
                                       ],
-                                      placeholder: "Banyak Tamu",
+                                      label: "Banyak Tamu",
                                       hint: "Tamu yang akan meginap disatu kamar",
                                     },
                                     model: {
@@ -15546,12 +15533,7 @@ var render = function () {
     _vm._g(
       _vm._b(
         {
-          attrs: {
-            color: "orange lighten-2",
-            "persistent-hint": "",
-            dense: "",
-            solo: "",
-          },
+          attrs: { color: "orange lighten-2", "persistent-hint": "", solo: "" },
         },
         "v-text-field",
         _vm.$attrs,

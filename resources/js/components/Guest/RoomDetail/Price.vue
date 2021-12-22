@@ -17,9 +17,10 @@ export default {
   methods: {
     ...mapActions(['addRoomCart']),
     roomOrder(id) {
-      if (this.$parent.valid) {
+      if (this.$parent.$refs.form.validate() && this.$parent.roomCount && this.$parent.guestCount) {
         const { prices, thumbnail, name } = this.room
         const price = prices.find((price) => price.id === id)
+
         this.addRoomCart({
           price,
           thumbnail,

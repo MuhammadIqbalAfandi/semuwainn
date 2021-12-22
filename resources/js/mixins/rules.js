@@ -7,7 +7,7 @@ export default {
         lessThan50: (v) => v.length <= 50 || 'Nilai tidak boleh lebih dari 50.',
         lessThan250: (v) => v.length <= 250 || 'Nilai tidak boleh lebih dari 255.',
         lessThan16: (v) => v.length === 16 || 'Nilai harus 16 angka.',
-        lessThan12: (v) => v.length >= 12 || 'Nilai harus 12 angka.',
+        lessThan12: (v) => v.length >= 12 || 'Nilai mininal 12 angka.',
         numeric: (v) => {
           const pattern = /^[0-9\b]+$/
           return pattern.test(v) || 'Nilai harus angka.'

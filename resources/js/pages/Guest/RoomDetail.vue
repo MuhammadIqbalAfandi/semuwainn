@@ -32,9 +32,11 @@ export default {
       valid: true,
       roomCount: 1,
       guestCount: 1,
+      field: null,
       rules: {
-        lessOrEqualThanRoomAvailable: (v) =>
-          v <= this.room.prices[0].roomAvailable || 'Nilai melebihi ruangan yang tersediah.',
+        lessOrEqualThanRoomAvailable: (v) => {
+          return v <= this.room.prices[0].roomAvailable || `Nilai melebihi ruangan yang tersediah.`
+        },
       },
     }
   },
@@ -63,14 +65,14 @@ export default {
       <v-col cols="12" md="4">
         <v-card height="fit-content">
           <v-card-text>
-            <v-form v-model="valid">
+            <v-form ref="form">
               <v-row justify="center" dense>
                 <v-col cols="12">
                   <TextField
                     v-model="roomCount"
                     class="text-caption text-sm-subtitle-1"
                     :rules="[rules.numeric, rules.notZero, rules.lessOrEqualThanRoomAvailable]"
-                    placeholder="Jumlah Kamar"
+                    label="Jumlah kamar"
                     hint="Jumlah Kamar yang akan dipesan"
                     autofocus
                   />
@@ -91,7 +93,7 @@ export default {
                     v-model="guestCount"
                     class="text-caption text-sm-subtitle-1"
                     :rules="[rules.numeric, rules.notZero]"
-                    placeholder="Banyak Tamu"
+                    label="Banyak Tamu"
                     hint="Tamu yang akan meginap disatu kamar"
                   />
                 </v-col>

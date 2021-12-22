@@ -30,7 +30,6 @@ class StoreRoomBookingRequest extends FormRequest
             'email' => 'email:dns|unique:guests,email|nullable',
             'checkIn' => 'required|date',
             'checkOut' => 'required|date',
-            'rooms' => 'required',
         ];
     }
 }
