@@ -36,6 +36,9 @@ export default {
     totalPrice() {
       return Number(this.roomPrice) + Number(this.servicePrice) || '0'
     },
+    hideTotalPrice() {
+      return this.roomCart.length || this.serviceCart.length
+    },
   },
 }
 </script>
@@ -48,7 +51,7 @@ export default {
 
     <v-divider class="my-2" />
 
-    <ParagraphSpacing>
+    <ParagraphSpacing v-if="roomCart.length">
       <template #textLeft>
         <Paragraph>Total harga kamar</Paragraph>
         <Paragraph class="text-caption red--text">sudah termasuk jumlah kamar x lama inap</Paragraph>
@@ -58,7 +61,7 @@ export default {
       </template>
     </ParagraphSpacing>
 
-    <ParagraphSpacing>
+    <ParagraphSpacing v-if="serviceCart.length">
       <template #textLeft>
         <Paragraph>Total harga layanan</Paragraph>
       </template>
@@ -67,7 +70,7 @@ export default {
       </template>
     </ParagraphSpacing>
 
-    <ParagraphSpacing>
+    <ParagraphSpacing v-if="hideTotalPrice">
       <template #textLeft>
         <Paragraph>Total harga </Paragraph>
         <Paragraph class="text-caption red--text">harga yang anda harus bayar ketika checkin</Paragraph>

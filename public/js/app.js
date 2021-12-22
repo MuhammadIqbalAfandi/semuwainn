@@ -3227,6 +3227,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     totalPrice: function totalPrice() {
       return Number(this.roomPrice) + Number(this.servicePrice) || '0';
+    },
+    hideTotalPrice: function hideTotalPrice() {
+      return this.roomCart.length || this.serviceCart.length;
     }
   })
 });
@@ -3438,8 +3441,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     TextField: _shared_TextField_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mixins: [_mixins_rules__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mounted: function mounted() {
+    this.$refs.form.validate();
+  },
   methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)('roomBooking', ['setValid', 'setName', 'setNik', 'setPhone', 'setEmail'])),
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)('roomBooking', ['valid', 'name', 'nik', 'phone', 'email'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)('roomBooking', ['valid', 'name', 'nik', 'phone', 'email', 'valid'])), {}, {
+    updateValid: {
+      get: function get() {
+        return this.valid;
+      },
+      set: function set(v) {
+        this.setValid(v);
+      }
+    },
     updateName: {
       get: function get() {
         return this.name;
@@ -3653,7 +3667,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)(['addRoomCart'])), {}, {
     roomOrder: function roomOrder(id) {
-      if (this.$parent.$refs.form.validate() && this.$parent.roomCount && this.$parent.guestCount) {
+      if (this.$parent.roomCount && this.$parent.guestCount) {
         var _this$room = this.room,
             prices = _this$room.prices,
             thumbnail = _this$room.thumbnail,
@@ -3813,7 +3827,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     order: function order() {
-      if (this.$children[1].$refs.form.validate() && this.roomCart.length) {
+      if (this.valid && this.roomCart.length) {
         var form = {
           name: this.name,
           nik: this.nik,
@@ -3828,7 +3842,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)(['roomCart', 'serviceCart']))
+  computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email', 'valid'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)(['roomCart', 'serviceCart'])), {}, {
+    hideSubmitButton: function hideSubmitButton() {
+      return !this.roomCart.length || !this.valid;
+    }
+  })
 });
 
 /***/ }),
@@ -4283,10 +4301,11 @@ __webpack_require__.r(__webpack_exports__);
     checkIn: dayjs__WEBPACK_IMPORTED_MODULE_0___default()().toISOString().substring(0, 10),
     checkOut: null,
     nightCount: null,
-    name: 'Muhammad Iqbal Afandi',
-    nik: '1111111111111111',
-    phone: '111111111111',
-    email: 'muhammadiqbalafandi30@gmail.com'
+    valid: false,
+    name: '',
+    nik: '',
+    phone: '',
+    email: ''
   },
   actions: {
     setCheckIn: function setCheckIn(_ref, date) {
@@ -13416,89 +13435,114 @@ var render = function () {
       _vm._v(" "),
       _c("v-divider", { staticClass: "my-2" }),
       _vm._v(" "),
-      _c("ParagraphSpacing", {
-        scopedSlots: _vm._u([
-          {
-            key: "textLeft",
-            fn: function () {
-              return [
-                _c("Paragraph", [_vm._v("Total harga kamar")]),
-                _vm._v(" "),
-                _c("Paragraph", { staticClass: "text-caption red--text" }, [
-                  _vm._v("sudah termasuk jumlah kamar x lama inap"),
-                ]),
-              ]
-            },
-            proxy: true,
-          },
-          {
-            key: "textRight",
-            fn: function () {
-              return [
-                _c("OriginPrice", {
-                  staticClass: "text-end",
-                  attrs: { price: _vm.roomPrice },
-                }),
-              ]
-            },
-            proxy: true,
-          },
-        ]),
-      }),
+      _vm.roomCart.length
+        ? _c("ParagraphSpacing", {
+            scopedSlots: _vm._u(
+              [
+                {
+                  key: "textLeft",
+                  fn: function () {
+                    return [
+                      _c("Paragraph", [_vm._v("Total harga kamar")]),
+                      _vm._v(" "),
+                      _c(
+                        "Paragraph",
+                        { staticClass: "text-caption red--text" },
+                        [_vm._v("sudah termasuk jumlah kamar x lama inap")]
+                      ),
+                    ]
+                  },
+                  proxy: true,
+                },
+                {
+                  key: "textRight",
+                  fn: function () {
+                    return [
+                      _c("OriginPrice", {
+                        staticClass: "text-end",
+                        attrs: { price: _vm.roomPrice },
+                      }),
+                    ]
+                  },
+                  proxy: true,
+                },
+              ],
+              null,
+              false,
+              955068170
+            ),
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("ParagraphSpacing", {
-        scopedSlots: _vm._u([
-          {
-            key: "textLeft",
-            fn: function () {
-              return [_c("Paragraph", [_vm._v("Total harga layanan")])]
-            },
-            proxy: true,
-          },
-          {
-            key: "textRight",
-            fn: function () {
-              return [
-                _c("OriginPrice", {
-                  staticClass: "text-end",
-                  attrs: { price: _vm.servicePrice },
-                }),
-              ]
-            },
-            proxy: true,
-          },
-        ]),
-      }),
+      _vm.serviceCart.length
+        ? _c("ParagraphSpacing", {
+            scopedSlots: _vm._u(
+              [
+                {
+                  key: "textLeft",
+                  fn: function () {
+                    return [_c("Paragraph", [_vm._v("Total harga layanan")])]
+                  },
+                  proxy: true,
+                },
+                {
+                  key: "textRight",
+                  fn: function () {
+                    return [
+                      _c("OriginPrice", {
+                        staticClass: "text-end",
+                        attrs: { price: _vm.servicePrice },
+                      }),
+                    ]
+                  },
+                  proxy: true,
+                },
+              ],
+              null,
+              false,
+              450799554
+            ),
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("ParagraphSpacing", {
-        scopedSlots: _vm._u([
-          {
-            key: "textLeft",
-            fn: function () {
-              return [
-                _c("Paragraph", [_vm._v("Total harga ")]),
-                _vm._v(" "),
-                _c("Paragraph", { staticClass: "text-caption red--text" }, [
-                  _vm._v("harga yang anda harus bayar ketika checkin"),
-                ]),
-              ]
-            },
-            proxy: true,
-          },
-          {
-            key: "textRight",
-            fn: function () {
-              return [
-                _c("OriginPrice", {
-                  staticClass: "text-end",
-                  attrs: { price: _vm.totalPrice },
-                }),
-              ]
-            },
-            proxy: true,
-          },
-        ]),
-      }),
+      _vm.hideTotalPrice
+        ? _c("ParagraphSpacing", {
+            scopedSlots: _vm._u(
+              [
+                {
+                  key: "textLeft",
+                  fn: function () {
+                    return [
+                      _c("Paragraph", [_vm._v("Total harga ")]),
+                      _vm._v(" "),
+                      _c(
+                        "Paragraph",
+                        { staticClass: "text-caption red--text" },
+                        [_vm._v("harga yang anda harus bayar ketika checkin")]
+                      ),
+                    ]
+                  },
+                  proxy: true,
+                },
+                {
+                  key: "textRight",
+                  fn: function () {
+                    return [
+                      _c("OriginPrice", {
+                        staticClass: "text-end",
+                        attrs: { price: _vm.totalPrice },
+                      }),
+                    ]
+                  },
+                  proxy: true,
+                },
+              ],
+              null,
+              false,
+              352461324
+            ),
+          })
+        : _vm._e(),
     ],
     1
   )
@@ -14100,7 +14144,16 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "v-form",
-    { ref: "form" },
+    {
+      ref: "form",
+      model: {
+        value: _vm.updateValid,
+        callback: function ($$v) {
+          _vm.updateValid = $$v
+        },
+        expression: "updateValid",
+      },
+    },
     [
       _c(
         "v-card",
@@ -14133,7 +14186,6 @@ var render = function () {
               _c("TextField", {
                 staticClass: "text-caption text-sm-subtitle-1",
                 attrs: {
-                  counter: "16",
                   rules: [
                     _vm.rules.required,
                     _vm.rules.numeric,
@@ -15004,7 +15056,7 @@ var render = function () {
                   _c(
                     "Button",
                     {
-                      attrs: { disabled: !this.roomCart.length },
+                      attrs: { disabled: _vm.hideSubmitButton },
                       on: { click: _vm.order },
                     },
                     [_vm._v("Pesan sekarang")]
@@ -15117,7 +15169,6 @@ var render = function () {
                     [
                       _c(
                         "v-form",
-                        { ref: "form" },
                         [
                           _c(
                             "v-row",

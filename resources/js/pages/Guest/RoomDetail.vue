@@ -65,7 +65,7 @@ export default {
       <v-col cols="12" md="4">
         <v-card height="fit-content">
           <v-card-text>
-            <v-form ref="form">
+            <v-form>
               <v-row justify="center" dense>
                 <v-col cols="12">
                   <TextField

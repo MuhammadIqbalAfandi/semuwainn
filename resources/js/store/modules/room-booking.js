@@ -6,10 +6,11 @@ export default {
     checkIn: dayjs().toISOString().substring(0, 10),
     checkOut: null,
     nightCount: null,
-    name: 'Muhammad Iqbal Afandi',
-    nik: '1111111111111111',
-    phone: '111111111111',
-    email: 'muhammadiqbalafandi30@gmail.com',
+    valid: false,
+    name: '',
+    nik: '',
+    phone: '',
+    email: '',
   },
   actions: {
     setCheckIn({ state }, date) {

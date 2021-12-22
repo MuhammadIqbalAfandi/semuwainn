@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     order() {
-      if (this.$children[1].$refs.form.validate() && this.roomCart.length) {
+      if (this.valid && this.roomCart.length) {
         const form = {
           name: this.name,
           nik: this.nik,
@@ -36,14 +36,16 @@ export default {
           rooms: this.roomCart,
           services: this.serviceCart,
         }
-
         this.$inertia.post(this.$route('room-booking.store'), form)
       }
     },
   },
   computed: {
-    ...mapState('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email']),
+    ...mapState('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email', 'valid']),
     ...mapState(['roomCart', 'serviceCart']),
+    hideSubmitButton() {
+      return !this.roomCart.length || !this.valid
+    },
   },
 }
 </script>
@@ -72,7 +74,7 @@ export default {
             <Link class="orange--text text--lighten-2">Syarat & Ketentuan kami</Link>
           </p>
 
-          <Button @click="order" :disabled="!this.roomCart.length">Pesan sekarang</Button>
+          <Button @click="order" :disabled="hideSubmitButton">Pesan sekarang</Button>
         </v-col>
       </v-row>
     </v-col>

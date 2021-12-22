@@ -9,11 +9,22 @@ export default {
     TextField,
   },
   mixins: [mixinRules],
+  mounted() {
+    this.$refs.form.validate()
+  },
   methods: {
     ...mapActions('roomBooking', ['setValid', 'setName', 'setNik', 'setPhone', 'setEmail']),
   },
   computed: {
-    ...mapState('roomBooking', ['valid', 'name', 'nik', 'phone', 'email']),
+    ...mapState('roomBooking', ['valid', 'name', 'nik', 'phone', 'email', 'valid']),
+    updateValid: {
+      get() {
+        return this.valid
+      },
+      set(v) {
+        this.setValid(v)
+      },
+    },
     updateName: {
       get() {
         return this.name
@@ -51,7 +62,7 @@ export default {
 </script>
 
 <template>
-  <v-form ref="form">
+  <v-form ref="form" v-model="updateValid">
     <v-card>
       <v-card-title class="text-body-2 text-md-h5">Detail Pemesanan</v-card-title>
 
@@ -68,7 +79,6 @@ export default {
 
         <TextField
           v-model="updateNik"
-          counter="16"
           :rules="[rules.required, rules.numeric, rules.lessThan16]"
           :error-messages="$parent.errors.nik"
           class="text-caption text-sm-subtitle-1"
