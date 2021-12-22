@@ -16,7 +16,35 @@ class RoomSeeder extends Seeder
     {
         for ($i = 1; $i <= 500; $i++) {
             Room::create([
-                'room_number' => $i+'0000',
+                'room_number' => $i+'1234',
+                'room_type_id' => $i,
+            ]);
+        }
+
+        for ($i = 1; $i <= 500; $i++) {
+            Room::create([
+                'room_number' => $i+'5678',
+                'room_type_id' => $i,
+            ]);
+        }
+
+        for ($i = 1; $i <= 500; $i++) {
+            Room::create([
+                'room_number' => $i+'9123',
+                'room_type_id' => $i,
+            ]);
+        }
+
+        for ($i = 1; $i <= 500; $i++) {
+            Room::create([
+                'room_number' => $i+'0123',
+                'room_type_id' => $i,
+            ]);
+        }
+
+        for ($i = 1; $i <= 300; $i++) {
+            Room::create([
+                'room_number' => $i+'4567',
                 'room_type_id' => $i,
             ]);
         }
