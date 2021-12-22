@@ -3667,7 +3667,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)(['addRoomCart'])), {}, {
     roomOrder: function roomOrder(id) {
-      if (this.$parent.roomCount && this.$parent.guestCount) {
+      if (this.$parent.valid) {
         var _this$room = this.room,
             prices = _this$room.prices,
             thumbnail = _this$room.thumbnail,
@@ -3908,7 +3908,10 @@ __webpack_require__.r(__webpack_exports__);
       field: null,
       rules: {
         lessOrEqualThanRoomAvailable: function lessOrEqualThanRoomAvailable(v) {
-          return v <= _this.room.prices[0].roomAvailable || "Nilai melebihi ruangan yang tersediah.";
+          return v <= _this.room.prices[0].roomAvailable || "Jumlah kamar melebihi kamar yang tersediah.";
+        },
+        lessOrEqualThanNumberOfGuestAvailable: function lessOrEqualThanNumberOfGuestAvailable(v) {
+          return v <= _this.room.numberOfGuest || "Jumlah tamu melebihi jumlah yang diperbolehkan.";
         }
       }
     };
@@ -13107,6 +13110,13 @@ var render = function () {
                                           ],
                                           2
                                         ),
+                                        _vm._v(" "),
+                                        _c("ParagraphLeftIcon", {
+                                          attrs: {
+                                            icon: "mdi-account-multiple",
+                                            text: room.numberOfGuest + " tamu",
+                                          },
+                                        }),
                                       ],
                                       1
                                     ),
@@ -14815,6 +14825,20 @@ var render = function () {
                         ],
                         1
                       ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12" } },
+                        [
+                          _c("ParagraphLeftIcon", {
+                            attrs: {
+                              icon: "mdi-account-multiple",
+                              text: _vm.numberOfGuest + " tamu",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
                     ],
                     1
                   ),
@@ -15169,11 +15193,36 @@ var render = function () {
                     [
                       _c(
                         "v-form",
+                        {
+                          model: {
+                            value: _vm.valid,
+                            callback: function ($$v) {
+                              _vm.valid = $$v
+                            },
+                            expression: "valid",
+                          },
+                        },
                         [
                           _c(
                             "v-row",
                             { attrs: { justify: "center", dense: "" } },
                             [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [
+                                  _c("ParagraphLeftIcon", {
+                                    staticClass: "text-caption",
+                                    attrs: {
+                                      icon: "mdi-information",
+                                      text: "Tamu umur berapapun dianggap sebagai\n                  dewasa.",
+                                      warning: true,
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
                               _c(
                                 "v-col",
                                 { attrs: { cols: "12" } },
@@ -15207,22 +15256,6 @@ var render = function () {
                                 "v-col",
                                 { attrs: { cols: "12" } },
                                 [
-                                  _c("ParagraphLeftIcon", {
-                                    staticClass: "text-caption",
-                                    attrs: {
-                                      icon: "mdi-information",
-                                      text: "Tamu umur berapapun dianggap sebagai\n                  dewasa.",
-                                      warning: true,
-                                    },
-                                  }),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "12" } },
-                                [
                                   _c("TextField", {
                                     staticClass:
                                       "text-caption text-sm-subtitle-1",
@@ -15230,6 +15263,8 @@ var render = function () {
                                       rules: [
                                         _vm.rules.numeric,
                                         _vm.rules.notZero,
+                                        _vm.rules
+                                          .lessOrEqualThanNumberOfGuestAvailable,
                                       ],
                                       label: "Banyak Tamu",
                                       hint: "Tamu yang akan meginap disatu kamar",

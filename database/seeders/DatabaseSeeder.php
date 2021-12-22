@@ -33,7 +33,6 @@ class DatabaseSeeder extends Seeder
             RoomTypeSeeder::class,
             RoomPriceSeeder::class,
             FacilitySeeder::class,
-            NumberOfRoomGuestSeeder::class,
             RoomFacilitySeeder::class,
             RoleSeeder::class,
             UserSeeder::class,

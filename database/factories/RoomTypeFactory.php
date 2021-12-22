@@ -23,6 +23,7 @@ class RoomTypeFactory extends Factory
     {
         return [
             'name' => $this->faker->lexify('Ruangan ??????'),
+            'number_of_guest_id' => $this->faker->numberBetween(1, 2),
         ];
     }
 }

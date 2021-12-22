@@ -35,7 +35,10 @@ export default {
       field: null,
       rules: {
         lessOrEqualThanRoomAvailable: (v) => {
-          return v <= this.room.prices[0].roomAvailable || `Nilai melebihi ruangan yang tersediah.`
+          return v <= this.room.prices[0].roomAvailable || `Jumlah kamar melebihi kamar yang tersediah.`
+        },
+        lessOrEqualThanNumberOfGuestAvailable: (v) => {
+          return v <= this.room.numberOfGuest || `Jumlah tamu melebihi jumlah yang diperbolehkan.`
         },
       },
     }
@@ -65,19 +68,8 @@ export default {
       <v-col cols="12" md="4">
         <v-card height="fit-content">
           <v-card-text>
-            <v-form>
+            <v-form v-model="valid">
               <v-row justify="center" dense>
-                <v-col cols="12">
-                  <TextField
-                    v-model="roomCount"
-                    class="text-caption text-sm-subtitle-1"
-                    :rules="[rules.numeric, rules.notZero, rules.lessOrEqualThanRoomAvailable]"
-                    label="Jumlah kamar"
-                    hint="Jumlah Kamar yang akan dipesan"
-                    autofocus
-                  />
-                </v-col>
-
                 <v-col cols="12">
                   <ParagraphLeftIcon
                     class="text-caption"
@@ -90,9 +82,20 @@ export default {
 
                 <v-col cols="12">
                   <TextField
+                    v-model="roomCount"
+                    class="text-caption text-sm-subtitle-1"
+                    :rules="[rules.numeric, rules.notZero, rules.lessOrEqualThanRoomAvailable]"
+                    label="Jumlah kamar"
+                    hint="Jumlah Kamar yang akan dipesan"
+                    autofocus
+                  />
+                </v-col>
+
+                <v-col cols="12">
+                  <TextField
                     v-model="guestCount"
                     class="text-caption text-sm-subtitle-1"
-                    :rules="[rules.numeric, rules.notZero]"
+                    :rules="[rules.numeric, rules.notZero, rules.lessOrEqualThanNumberOfGuestAvailable]"
                     label="Banyak Tamu"
                     hint="Tamu yang akan meginap disatu kamar"
                   />

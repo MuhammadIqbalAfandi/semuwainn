@@ -77,6 +77,8 @@ export default {
                         </v-chip>
                       </v-col>
                     </v-row>
+
+                    <ParagraphLeftIcon icon="mdi-account-multiple" :text="room.numberOfGuest + ' tamu'" />
                   </v-col>
 
                   <v-col class="text-end" cols="12" md="auto" align-self="end">

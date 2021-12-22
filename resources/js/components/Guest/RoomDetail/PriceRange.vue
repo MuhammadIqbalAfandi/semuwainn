@@ -28,6 +28,9 @@ export default {
             <v-col cols="12">
               <Paragraph class="text-body-2 text-md-h5 font-weight-bold">{{ roomName }}</Paragraph>
             </v-col>
+            <v-col cols="12">
+              <ParagraphLeftIcon icon="mdi-account-multiple" :text="numberOfGuest + ' tamu'" />
+            </v-col>
           </v-row>
         </v-col>
 

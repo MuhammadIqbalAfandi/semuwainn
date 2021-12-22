@@ -29,6 +29,7 @@ class HomeController extends Controller
                     'originPrice' => $rooms->roomPrices->max('price'),
                     'facilities' => $rooms->roomFacilities->take(3)->pluck('facility.name'),
                     'facilityCount' => $rooms->roomFacilities->skip(3)->count(),
+                    'numberOfGuest' => $rooms->numberOfGuest->guest,
                     'roomAvailable' => $rooms->rooms
                         ->whereNotIn('room_type_id', $rooms->rooms->pluck('roomOrder.room_id'))
                         ->count(),
