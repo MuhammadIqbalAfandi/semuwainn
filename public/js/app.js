@@ -3126,16 +3126,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Link: _shared_Link_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mixins: [_mixins_logo__WEBPACK_IMPORTED_MODULE_1__["default"]],
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
-    roomCartLength: function roomCartLength(state) {
-      return state.roomCart.length;
-    }
-  })), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)(['roomCart'])), {}, {
     hideCart: function hideCart() {
       return !this.$page.url.includes('/room-booking');
-    },
-    removeHref: function removeHref() {
-      return this.roomCartLength ? '/room-booking' : '';
     }
   })
 });
@@ -13262,14 +13255,14 @@ var render = function () {
                   _vm.hideCart
                     ? _c(
                         "Link",
-                        { attrs: { href: _vm.removeHref } },
+                        { attrs: { href: _vm.$route("room-booking.index") } },
                         [
                           _c(
                             "v-badge",
                             {
                               attrs: {
-                                content: _vm.roomCartLength,
-                                value: _vm.roomCartLength,
+                                content: _vm.roomCart.length,
+                                value: _vm.roomCart.length,
                                 color:
                                   "orange lighten-2 grey--text text--darken-4",
                                 overlap: "",

@@ -10,14 +10,9 @@ export default {
   },
   mixins: [mixinsLogo],
   computed: {
-    ...mapState({
-      roomCartLength: (state) => state.roomCart.length,
-    }),
+    ...mapState(['roomCart']),
     hideCart() {
       return !this.$page.url.includes('/room-booking')
-    },
-    removeHref() {
-      return this.roomCartLength ? '/room-booking' : ''
     },
   },
 }
@@ -37,10 +32,10 @@ export default {
 
           <v-spacer />
 
-          <Link v-if="hideCart" :href="removeHref">
+          <Link v-if="hideCart" :href="$route('room-booking.index')">
             <v-badge
-              :content="roomCartLength"
-              :value="roomCartLength"
+              :content="roomCart.length"
+              :value="roomCart.length"
               color="orange lighten-2 grey--text text--darken-4"
               overlap
             >
