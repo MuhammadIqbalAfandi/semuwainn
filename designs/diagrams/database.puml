@@ -130,6 +130,19 @@
     * name
   }
 
+  entity NumberOfRoomGuest {
+    * id
+    __
+    * room_type_id
+    * number_of_guest_id
+  }
+
+  entity NumberOfGuest {
+    * id
+    __
+    * guest
+  }
+
   Reservation ||--|{ ReservationStatus
   Reservation }|--|| RestaurantOrder
   Reservation }|--|| ServiceOrder
@@ -141,7 +154,9 @@
   Room ||-|{ RoomType
   RoomType }|--|| RoomPrice
   RoomType }|--|| RoomFacility
+  RoomType }|--|| NumberOfRoomGuest
   RoomFacility ||--|{ Facility
+  NumberOfRoomGuest ||--|{ NumberOfGuest
   ServiceOrder ||--|{ Service
   RestaurantOrder ||--|{ Restaurant
   User ||--|{ Role

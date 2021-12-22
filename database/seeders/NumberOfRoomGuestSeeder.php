@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Room;
+use App\Models\NumberOfRoomGuest;
 use Illuminate\Database\Seeder;
 
-class RoomSeeder extends Seeder
+class NumberOfRoomGuestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,10 +14,11 @@ class RoomSeeder extends Seeder
      */
     public function run()
     {
+
         for ($i = 1; $i <= 500; $i++) {
-            Room::create([
-                'room_number' => $i+'0000',
+            NumberOfRoomGuest::create([
                 'room_type_id' => $i,
+                'number_of_guest_id' => random_int(1, 2),
             ]);
         }
     }

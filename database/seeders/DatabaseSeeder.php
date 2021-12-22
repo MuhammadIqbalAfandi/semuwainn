@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            NumberOfGuestSeeder::class,
             RestaurantSeeder::class,
             ServiceSeeder::class,
             GuestSeeder::class,
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
             RoomTypeSeeder::class,
             RoomPriceSeeder::class,
             FacilitySeeder::class,
+            NumberOfRoomGuestSeeder::class,
             RoomFacilitySeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
