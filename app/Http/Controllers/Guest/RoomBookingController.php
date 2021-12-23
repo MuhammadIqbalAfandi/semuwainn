@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoomBooking\StoreRoomBookingRequest;
+use App\Models\Guest;
 use App\Models\Service;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class RoomBookingController extends Controller
@@ -50,6 +52,30 @@ class RoomBookingController extends Controller
     {
         DB::beginTransaction();
         try {
+            $request = $request->collect();
+            dd($request);
+            $guest = Guest::create($request);
+            $reservation = $guest->reservations->create([
+                'reservation_number' => 'OD' . Carbon::now()->format('ssmmHHDDMMY'),
+                'checkin' => $request->checkin,
+                'checkout' => $request->checkout,
+            ]);
+            $request->get('rooms')->each(function ($room) use ($reservation) {
+                $reservation->roomOrders->create([
+                    'price' => $room->price,
+                    'guest_count' => $room->guestCount,
+                    'quantity' => $room->roomCount,
+                    'room_id' => $room->id,
+                ]);
+            });
+            $request->get('services')->each(function ($service) use ($reservation) {
+                $reservation->serviceOrders->create([
+                    'price' => $service->price,
+                    'quantity' => $service->roomCount,
+                    'service_id' => $service->id,
+                ]);
+            });
+
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();

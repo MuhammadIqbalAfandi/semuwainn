@@ -18,19 +18,19 @@ class HomeController extends Controller
         return inertia('Guest/Home', [
             'rooms' => RoomType::paginate(10)
                 ->withQueryString()
-                ->through(fn($rooms) => [
-                    'id' => $rooms->id,
+                ->through(fn($roomType) => [
+                    'id' => $roomType->id,
                     'thumbnail' => [
                         'images' => [],
                         'defaultImage' => '/img/default-room.webp',
                     ],
-                    'name' => $rooms->name,
-                    'originPrice' => $rooms->roomPrices->max('price'),
-                    'facilities' => $rooms->roomFacilities->take(3)->pluck('facility.name'),
-                    'facilityCount' => $rooms->roomFacilities->skip(3)->count(),
-                    'numberOfGuest' => $rooms->numberOfGuest->guest,
-                    'roomAvailable' => $rooms->rooms
-                        ->whereNotIn('room_type_id', $rooms->rooms->pluck('roomOrder.room_id'))
+                    'name' => $roomType->name,
+                    'price' => $roomType->roomPrices->min('price'),
+                    'facilities' => $roomType->roomFacilities->take(3)->pluck('facility.name'),
+                    'facilityCount' => $roomType->roomFacilities->skip(3)->count(),
+                    'numberOfGuest' => $roomType->numberOfGuest->guest,
+                    'roomAvailable' => $roomType->rooms
+                        ->whereNotIn('id', $roomType->rooms->pluck('roomOrder.room_id'))
                         ->count(),
                 ]),
         ]);

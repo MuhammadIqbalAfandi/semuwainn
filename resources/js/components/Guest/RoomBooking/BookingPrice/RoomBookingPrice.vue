@@ -54,7 +54,7 @@ export default {
               <v-row class="text-caption" dense>
                 <v-col cols="auto">
                   <Paragraph class="text-caption red--text text--lighten-2">
-                    <span class="text-caption">Rp</span> {{ currencyFormat(room.price.originPrice) }}
+                    <span class="text-caption">Rp</span> {{ currencyFormat(room.price) }}
                   </Paragraph>
                 </v-col>
 
@@ -65,7 +65,7 @@ export default {
             </v-col>
 
             <v-col cols="auto" align-self="end">
-              <Button @click="roomDelete(room.price.id)" text x-small>Hapus</Button>
+              <Button @click="roomDelete(room.id)" text x-small>Hapus</Button>
             </v-col>
           </v-row>
         </v-col>

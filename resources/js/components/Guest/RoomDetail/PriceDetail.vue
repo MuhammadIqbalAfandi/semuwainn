@@ -20,10 +20,12 @@ export default {
       if (this.$parent.valid) {
         const { prices, thumbnail, name } = this.room
         const price = prices.find((price) => price.id === id)
+
         this.addRoomCart({
-          price,
-          thumbnail,
+          id: price.id,
           name,
+          thumbnail,
+          price: price.price,
           roomCount: this.$parent.roomCount,
           guestCount: this.$parent.guestCount,
         })
@@ -44,7 +46,7 @@ export default {
         <v-spacer />
 
         <v-card-text>
-          <OriginPrice :price="price.originPrice" />
+          <OriginPrice :price="price.price" />
           <Paragraph class="text-caption red--text text--lighten-2">
             Sisa {{ price.roomAvailable }} kamar lagi!
           </Paragraph>

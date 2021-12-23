@@ -17,7 +17,7 @@ export default {
     ...mapState('roomBooking', ['checkIn', 'checkOut', 'nightCount']),
     ...mapState(['roomCart', 'serviceCart']),
     roomPrice() {
-      const pricesRoom = this.roomCart.map((item) => Number(item.price.originPrice) * Number(item.roomCount))
+      const pricesRoom = this.roomCart.map((item) => Number(item.price) * Number(item.roomCount))
       const totalPrice = pricesRoom.length
         ? pricesRoom.reduce((prev, current) => Number(prev) + Number(current)) * Number(this.nightCount)
         : '0'

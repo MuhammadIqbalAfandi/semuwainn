@@ -26,6 +26,22 @@ export default {
   methods: {
     order() {
       if (this.valid && this.roomCart.length) {
+        const rooms = this.roomCart.map((room) => {
+          return {
+            id: room.id,
+            price: room.price,
+            roomCount: room.roomCount,
+            guestCount: room.guestCount,
+          }
+        })
+
+        const services = this.serviceCart.map((service) => {
+          return {
+            id: service.id,
+            price: service.price,
+          }
+        })
+
         const form = {
           name: this.name,
           nik: this.nik,
@@ -33,8 +49,8 @@ export default {
           email: this.email,
           checkIn: this.checkIn,
           checkOut: this.checkOut,
-          rooms: this.roomCart,
-          services: this.serviceCart,
+          rooms,
+          services,
         }
         this.$inertia.post(this.$route('room-booking.store'), form)
       }

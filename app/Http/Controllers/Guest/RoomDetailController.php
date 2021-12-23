@@ -64,7 +64,7 @@ class RoomDetailController extends Controller
                 'prices' => $roomType->roomPrices->transform(fn($roomPrice) => [
                     'id' => $roomPrice->id,
                     'description' => $roomPrice->description,
-                    'originPrice' => $roomPrice->price,
+                    'price' => $roomPrice->price,
                     'roomAvailable' => $roomType->rooms
                         ->whereNotIn('room_type_id', $roomType->rooms->pluck('roomOrder.room_id'))
                         ->count(),

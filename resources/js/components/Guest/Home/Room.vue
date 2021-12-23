@@ -83,7 +83,7 @@ export default {
 
                   <v-col class="text-end" cols="12" md="auto" align-self="end">
                     <Paragraph class="text-caption text-md-body-2">Harga mulai dari</Paragraph>
-                    <OriginPrice :price="room.originPrice" />
+                    <OriginPrice :price="room.price" />
                     <Paragraph class="text-caption red--text text--lighten-2">
                       Sisa {{ room.roomAvailable }} kamar lagi!
                     </Paragraph>
