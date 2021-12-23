@@ -5,10 +5,10 @@ import GuestLayout from '@/layouts/Guest.vue'
 import Paragraph from '@/shared/Paragraph.vue'
 import ParagraphLeftIcon from '@/shared/ParagraphLeftIcon.vue'
 import TextField from '@/shared/TextField.vue'
-import PhotoGrid from '@/components/Guest/RoomDetail/PhotoGrid.vue'
-import PriceRange from '@/components/Guest/RoomDetail/PriceRange.vue'
-import Price from '@/components/Guest/RoomDetail/Price.vue'
-import Facility from '@/components/Guest/RoomDetail/Facility.vue'
+import PhotoGridDetail from '@/components/Guest/Detail/PhotoGridDetail.vue'
+import PriceRangeDetail from '@/components/Guest/Detail/PriceRangeDetail.vue'
+import PriceDetail from '@/components/Guest/Detail/PriceDetail.vue'
+import FacilityDetail from '@/components/Guest/Detail/FacilityDetail.vue'
 import mixinRules from '@/mixins/rules'
 
 export default {
@@ -20,10 +20,10 @@ export default {
     Paragraph,
     ParagraphLeftIcon,
     TextField,
-    PhotoGrid,
-    PriceRange,
-    Price,
-    Facility,
+    PhotoGridDetail,
+    PriceRangeDetail,
+    PriceDetail,
+    FacilityDetail,
     Head,
   },
   mixins: [mixinRules],
@@ -32,7 +32,6 @@ export default {
       valid: true,
       roomCount: 1,
       guestCount: 1,
-      field: null,
       rules: {
         lessOrEqualThanRoomAvailable: (v) => {
           return v <= this.room.prices[0].roomAvailable || `Jumlah kamar melebihi kamar yang tersediah.`
@@ -52,17 +51,17 @@ export default {
 
     <v-row no-gutters>
       <v-col cols="12">
-        <PhotoGrid :photoGrid="room.thumbnail" />
+        <PhotoGridDetail :photoGrid="room.thumbnail" />
       </v-col>
 
       <v-col cols="12">
-        <PriceRange :priceRange="room.priceRange" :roomName="room.name" :numberOfGuest="room.numberOfGuest" />
+        <PriceRangeDetail :priceRange="room.priceRange" :roomName="room.name" :numberOfGuest="room.numberOfGuest" />
       </v-col>
     </v-row>
 
     <v-row dense>
       <v-col cols="12">
-        <Facility :facilities="room.facilities" />
+        <FacilityDetail :facilities="room.facilities" />
       </v-col>
 
       <v-col cols="12" md="4">
@@ -107,7 +106,7 @@ export default {
       </v-col>
 
       <v-col sm="12" md="8">
-        <Price :room="room" />
+        <PriceDetail :room="room" />
       </v-col>
     </v-row>
   </div>

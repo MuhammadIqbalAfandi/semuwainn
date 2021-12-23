@@ -4,10 +4,10 @@ import { Link } from '@inertiajs/inertia-vue'
 
 import GuestLayout from '@/layouts/Guest.vue'
 import Button from '@/shared/Button.vue'
-import Date from '@/components/Guest/RoomBooking/Date.vue'
-import GuestForm from '@/components/Guest/RoomBooking/GuestForm.vue'
-import Service from '@/components/Guest/RoomBooking/Service.vue'
-import BookingDetail from '@/components/Guest/RoomBooking/BookingDetail.vue'
+import BookingDate from '@/components/Guest/Booking/BookingDate.vue'
+import GuestBookingForm from '@/components/Guest/Booking/GuestBookingForm.vue'
+import ServiceBooking from '@/components/Guest/Booking/ServiceBooking.vue'
+import BookingPrice from '@/components/Guest/Booking/BookingPrice.vue'
 
 export default {
   layout: GuestLayout,
@@ -18,10 +18,10 @@ export default {
   components: {
     Link,
     Button,
-    Date,
-    GuestForm,
-    Service,
-    BookingDetail,
+    BookingDate,
+    GuestBookingForm,
+    ServiceBooking,
+    BookingPrice,
   },
   methods: {
     order() {
@@ -51,19 +51,19 @@ export default {
 </script>
 
 <template>
-  <v-row class="room-booking" dense>
+  <v-row dense>
     <v-col order="2" order-md="1">
       <v-row dense>
         <v-col cols="12">
-          <Date />
+          <BookingDate />
         </v-col>
 
         <v-col cols="12">
-          <GuestForm />
+          <GuestBookingForm />
         </v-col>
 
         <v-col cols="12">
-          <Service v-once :services="services" />
+          <ServiceBooking v-once :services="services" />
         </v-col>
 
         <v-col class="text-end" cols="12">
@@ -80,7 +80,7 @@ export default {
     </v-col>
 
     <v-col cols="12" md="auto" order="1" order-md="2">
-      <BookingDetail />
+      <BookingPrice />
     </v-col>
   </v-row>
 </template>

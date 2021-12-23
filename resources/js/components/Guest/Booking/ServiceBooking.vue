@@ -15,23 +15,23 @@ export default {
   },
   mixins: [mixinHelpers],
   mounted() {
-    this.serviceOrder = this.serviceCart
+    this.addService = this.serviceCart
   },
   data() {
     return {
-      serviceOrder: [],
+      addService: [],
       current_page: this.services.current_page,
     }
   },
   watch: {
-    serviceOrder: {
+    addService: {
       handler(val, oldVal) {
         this.addServiceCart(val)
       },
     },
     serviceCart: {
       handler(val, oldVal) {
-        this.serviceOrder = val
+        this.addService = val
       },
     },
   },
@@ -70,7 +70,7 @@ export default {
             <v-expansion-panel>
               <v-expansion-panel-header>
                 <v-checkbox
-                  v-model="serviceOrder"
+                  v-model="addService"
                   class="ma-0"
                   :value="service"
                   color="orange lighten-2"

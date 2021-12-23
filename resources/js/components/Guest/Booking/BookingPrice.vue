@@ -1,15 +1,15 @@
 <script>
 import { mapState } from 'vuex'
 
-import RoomBooking from '@/components/Guest/RoomBooking/BookingDetail/RoomBooking.vue'
-import ServiceBooking from '@/components/Guest/RoomBooking/BookingDetail/ServiceBooking.vue'
-import BookingPrice from '@/components/Guest/RoomBooking/BookingDetail/BookingPrice.vue'
+import RoomBookingPrice from '@/components/Guest/Booking/BookingPrice/RoomBookingPrice.vue'
+import ServiceBookingPrice from '@/components/Guest/Booking/BookingPrice/ServiceBookingPrice.vue'
+import BookingPriceTotal from '@/components/Guest/Booking/BookingPrice/BookingPriceTotal.vue'
 
 export default {
   components: {
-    RoomBooking,
-    ServiceBooking,
-    BookingPrice,
+    RoomBookingPrice,
+    ServiceBookingPrice,
+    BookingPriceTotal,
   },
   computed: {
     ...mapState(['roomCart', 'serviceCart']),
@@ -24,15 +24,15 @@ export default {
     <v-card-text>
       <v-row dense>
         <v-col v-for="room in roomCart" :key="room.id" cols="12">
-          <RoomBooking :room="room" />
+          <RoomBookingPrice :room="room" />
         </v-col>
 
         <v-col v-for="service in serviceCart" :key="service.id" cols="12">
-          <ServiceBooking :service="service" />
+          <ServiceBookingPrice :service="service" />
         </v-col>
 
         <v-col cols="12">
-          <BookingPrice />
+          <BookingPriceTotal />
         </v-col>
       </v-row>
     </v-card-text>
