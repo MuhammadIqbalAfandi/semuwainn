@@ -15,7 +15,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('room-detail/{roomType}', [RoomDetailController::class, 'show'])->name('room-detail.show');
+Route::resource('room-details', RoomDetailController::class);
 Route::resource('room-booking', RoomBookingController::class);
 
 Route::prefix('dashboard')->group(function () {

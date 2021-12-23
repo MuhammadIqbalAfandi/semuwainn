@@ -44,7 +44,7 @@ export default {
     </v-col>
 
     <v-col v-for="room in rooms.data" :key="room.id" cols="12">
-      <Link :href="$route('room-detail.show', room.id)">
+      <Link :href="$route('room-details.show', room.id)">
         <v-card hover>
           <v-card-text>
             <v-row>

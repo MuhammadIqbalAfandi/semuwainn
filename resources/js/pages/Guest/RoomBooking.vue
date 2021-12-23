@@ -4,10 +4,10 @@ import { Link } from '@inertiajs/inertia-vue'
 
 import GuestLayout from '@/layouts/Guest.vue'
 import Button from '@/shared/Button.vue'
-import BookingDate from '@/components/Guest/Booking/BookingDate.vue'
-import GuestBookingForm from '@/components/Guest/Booking/GuestBookingForm.vue'
-import ServiceBooking from '@/components/Guest/Booking/ServiceBooking.vue'
-import BookingPrice from '@/components/Guest/Booking/BookingPrice.vue'
+import BookingDate from '@/components/Guest/RoomBooking/BookingDate.vue'
+import GuestBookingForm from '@/components/Guest/RoomBooking/GuestBookingForm.vue'
+import ServiceBooking from '@/components/Guest/RoomBooking/ServiceBooking.vue'
+import BookingPrice from '@/components/Guest/RoomBooking/BookingPrice.vue'
 
 export default {
   layout: GuestLayout,

@@ -1,9 +1,9 @@
 <script>
 import { mapState } from 'vuex'
 
-import RoomBookingPrice from '@/components/Guest/Booking/BookingPrice/RoomBookingPrice.vue'
-import ServiceBookingPrice from '@/components/Guest/Booking/BookingPrice/ServiceBookingPrice.vue'
-import BookingPriceTotal from '@/components/Guest/Booking/BookingPrice/BookingPriceTotal.vue'
+import RoomBookingPrice from '@/components/Guest/RoomBooking/BookingPrice/RoomBookingPrice.vue'
+import ServiceBookingPrice from '@/components/Guest/RoomBooking/BookingPrice/ServiceBookingPrice.vue'
+import BookingPriceTotal from '@/components/Guest/RoomBooking/BookingPrice/BookingPriceTotal.vue'
 
 export default {
   components: {
