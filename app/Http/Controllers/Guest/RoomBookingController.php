@@ -50,7 +50,6 @@ class RoomBookingController extends Controller
     {
         DB::beginTransaction();
         try {
-            dd($request);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();

@@ -12,4 +12,9 @@ class NumberOfGuest extends Model
     protected $fillable = [
         'guest',
     ];
+
+    public function roomTypes()
+    {
+        return $this->hasMany(RoomType::class);
+    }
 }

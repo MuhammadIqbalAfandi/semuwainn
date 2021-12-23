@@ -12,8 +12,17 @@ class ServiceOrder extends Model
     protected $fillable = [
         'price',
         'quantity',
-        'user_id',
         'reservation_id',
         'service_id',
     ];
+
+    public function reservation()
+    {
+        return $this->belongsTo(Reservation::class);
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
 }

@@ -3,9 +3,6 @@
 namespace App\Models;
 
 use App\Models\Guest;
-use App\Models\ReservationStatus;
-use App\Models\Room;
-use App\Models\RoomPrice;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +16,6 @@ class Reservation extends Model
         'reservation_number',
         'checkin',
         'checkout',
-        'guest_count',
         'discount',
         'user_id',
         'guest_id',
@@ -37,33 +33,33 @@ class Reservation extends Model
         return Carbon::parse($value)->format('d/m/Y');
     }
 
-    public function guest()
-    {
-        return $this->belongsTo(Guest::class);
-    }
-
     public function reservationStatus()
     {
         return $this->belongsTo(ReservationStatus::class);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function roomPrice()
-    {
-        return $this->belongsTo(RoomPrice::class);
-    }
-
-    public function room()
-    {
-        return $this->belongsTo(Room::class);
-    }
-
     public function roomOrders()
     {
         return $this->hasMany(RoomOrder::class);
+    }
+
+    public function serviceOrders()
+    {
+        return $this->hasMany(ServiceOrder::class);
+    }
+
+    public function restaurantOrders()
+    {
+        return $this->hasMany(RestaurantOrder::class);
+    }
+
+    public function guest()
+    {
+        return $this->belongsTo(Guest::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

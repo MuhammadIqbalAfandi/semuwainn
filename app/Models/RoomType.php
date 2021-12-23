@@ -12,7 +12,13 @@ class RoomType extends Model
 
     protected $fillable = [
         'name',
+        'number_of_guest_id',
     ];
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 
     public function roomFacilities()
     {
@@ -22,11 +28,6 @@ class RoomType extends Model
     public function roomPrices()
     {
         return $this->hasMany(RoomPrice::class);
-    }
-
-    public function rooms()
-    {
-        return $this->hasMany(Room::class);
     }
 
     public function numberOfGuest()

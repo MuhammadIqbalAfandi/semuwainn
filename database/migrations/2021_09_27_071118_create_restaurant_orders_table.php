@@ -18,8 +18,6 @@ class CreateRestaurantOrdersTable extends Migration
             $table->timestamp('order_time');
             $table->unsignedInteger('price');
             $table->unsignedInteger('quantity');
-            $table->unsignedInteger('discount');
-            $table->foreignId('user_id')->constrained();
             $table->foreignId('reservation_id')->constrained();
             $table->foreignId('restaurant_id')->constrained();
             $table->timestamps();

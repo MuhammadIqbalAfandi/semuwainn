@@ -13,9 +13,10 @@ class RoomOrder extends Model
 
     protected $fillable = [
         'price',
-        'user_id',
-        'room_id',
+        'guest_count',
+        'quantity',
         'reservation_id',
+        'room_id',
     ];
 
     public function reservation()

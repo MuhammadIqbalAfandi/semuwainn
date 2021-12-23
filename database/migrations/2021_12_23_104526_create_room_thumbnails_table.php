@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoomOrdersTable extends Migration
+class CreateRoomThumbnailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateRoomOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('room_orders', function (Blueprint $table) {
+        Schema::create('room_thumbnails', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('order_time');
-            $table->unsignedInteger('price');
-            $table->unsignedInteger('quantity');
-            $table->foreignId('reservation_id')->constrained();
-            $table->foreignId('room_id')->constrained();
+            $table->foreignId('room_type_id')->constrained();
+            $table->foreignId('thumbnail')->constrained();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateRoomOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('room_orders');
+        Schema::dropIfExists('room_thumbnails');
     }
 }

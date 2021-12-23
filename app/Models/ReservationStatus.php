@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Reservation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +13,7 @@ class ReservationStatus extends Model
         'name',
     ];
 
-    public function reservations()
+    public function reservation()
     {
         return $this->hasMany(Reservation::class);
     }

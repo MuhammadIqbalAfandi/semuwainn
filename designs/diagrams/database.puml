@@ -4,9 +4,8 @@
     __
     * reservation_time
     * reservation_number
-    * check_in
-    * check_out
-    * guest_count
+    * checkin
+    * checkout
     discount
     * user_id
     * guest_id
@@ -24,9 +23,10 @@
     __
     * order_time
     * price
-    * user_id
-    * room_id
+    * guest_count
+    * quantity
     * reservation_id
+    * room_id
   }
 
   entity ServiceOrder {
@@ -35,13 +35,29 @@
     * order_time
     * price
     * quantity
-    discount
-    * user_id
     * reservation_id
     * service_id
   }
 
   entity Service {
+    * id
+    __
+    * name
+    * price
+    * unit
+  }
+
+    entity RestaurantOrder {
+    * id
+    __
+    * order_time
+    * price
+    * quantity
+    * reservation_id
+    * restaurant_id
+  }
+
+  entity Restaurant {
     * id
     __
     * name
@@ -74,26 +90,6 @@
     * id
     __
     * name
-  }
-
-  entity RestaurantOrder {
-    * id
-    __
-    * order_time
-    * price
-    * quantity
-    discount
-    * user_id
-    * reservation_id
-    * restaurant_id
-  }
-
-  entity Restaurant {
-    * id
-    __
-    * name
-    * price
-    * unit
   }
 
   entity RoomFacility {
@@ -137,23 +133,35 @@
     * guest
   }
 
+  entity RoomThumbnail {
+    * id
+    __
+    * room_type_id
+    * thumbnail_id
+  }
+
+  entity Thumbnail {
+    * id
+    __
+    * path
+  }
+
   Reservation ||--|{ ReservationStatus
   Reservation }|--|| RestaurantOrder
   Reservation }|--|| ServiceOrder
   Reservation ||--|{ User
   Reservation ||--|{ Guest
   Reservation }|--|| RoomOrder
-  RoomOrder ||--|{ User
   RoomOrder ||--|{ Room
   Room ||-|{ RoomType
   RoomType }|--|| RoomPrice
   RoomType }|--|| RoomFacility
   RoomType ||--|{ NumberOfGuest
+  RoomType }|--|| RoomThumbnail
   RoomFacility ||--|{ Facility
+  RoomThumbnail ||--|{ Thumbnail
   ServiceOrder ||--|{ Service
   RestaurantOrder ||--|{ Restaurant
   User ||--|{ Role
-  ServiceOrder ||--|{ User
-  RestaurantOrder ||--|{ User
 
 @enduml
