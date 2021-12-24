@@ -13936,116 +13936,59 @@ var render = function () {
         [
           _c(
             "v-row",
+            { attrs: { align: "center", dense: "" } },
             [
               _c(
                 "v-col",
-                { attrs: { cols: "12" } },
+                { attrs: { cols: "auto" } },
                 [
+                  _c("v-img", {
+                    staticClass: "align-self-center rounded-sm",
+                    attrs: {
+                      "max-width": _vm.$vuetify.breakpoint.smAndDown ? 50 : 70,
+                      "max-height": _vm.$vuetify.breakpoint.smAndDown ? 50 : 70,
+                      src: _vm.thumbnail,
+                      alt: "Thumbnail Room",
+                      tile: "",
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                [
+                  _c("Paragraph", [_vm._v(_vm._s(_vm.room.name))]),
+                  _vm._v(" "),
+                  _c("Paragraph", [
+                    _vm._v(_vm._s(_vm.room.guestCount) + " tamu"),
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "v-row",
+                    { attrs: { dense: "" } },
                     [
                       _c(
                         "v-col",
                         { attrs: { cols: "auto" } },
                         [
-                          _c("v-img", {
-                            staticClass: "align-self-center rounded-sm",
-                            attrs: {
-                              "max-width": _vm.$vuetify.breakpoint.smAndDown
-                                ? 50
-                                : 70,
-                              "max-height": _vm.$vuetify.breakpoint.smAndDown
-                                ? 50
-                                : 70,
-                              src: _vm.thumbnail,
-                              alt: "Thumbnail Room",
-                              tile: "",
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-col",
-                        [
-                          _c("Paragraph", [_vm._v(_vm._s(_vm.room.name))]),
-                          _vm._v(" "),
                           _c(
-                            "v-row",
+                            "Paragraph",
                             {
-                              staticClass: "text-caption",
-                              attrs: { dense: "" },
+                              staticClass:
+                                "text-caption red--text text--lighten-2",
                             },
                             [
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "auto" } },
-                                [
-                                  _c("Paragraph", [
-                                    _vm._v(
-                                      _vm._s(_vm.room.guestCount) + " tamu"
-                                    ),
-                                  ]),
-                                ],
-                                1
+                              _c("span", { staticClass: "text-caption" }, [
+                                _vm._v("Rp"),
+                              ]),
+                              _vm._v(
+                                " " +
+                                  _vm._s(_vm.currencyFormat(_vm.room.price)) +
+                                  "\n            "
                               ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-row",
-                            {
-                              staticClass: "text-caption",
-                              attrs: { dense: "" },
-                            },
-                            [
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "auto" } },
-                                [
-                                  _c(
-                                    "Paragraph",
-                                    {
-                                      staticClass:
-                                        "text-caption red--text text--lighten-2",
-                                    },
-                                    [
-                                      _c(
-                                        "span",
-                                        { staticClass: "text-caption" },
-                                        [_vm._v("Rp")]
-                                      ),
-                                      _vm._v(
-                                        " " +
-                                          _vm._s(
-                                            _vm.currencyFormat(_vm.room.price)
-                                          ) +
-                                          "\n                "
-                                      ),
-                                    ]
-                                  ),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "auto" } },
-                                [
-                                  _c("Paragraph", [
-                                    _vm._v(
-                                      "(x " +
-                                        _vm._s(_vm.room.roomCount) +
-                                        " kamar)"
-                                    ),
-                                  ]),
-                                ],
-                                1
-                              ),
-                            ],
-                            1
+                            ]
                           ),
                         ],
                         1
@@ -14053,25 +13996,40 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "v-col",
-                        { attrs: { cols: "auto", "align-self": "end" } },
+                        { attrs: { cols: "auto" } },
                         [
-                          _c(
-                            "Button",
-                            {
-                              attrs: { text: "", "x-small": "" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.roomDelete(_vm.room.priceId)
-                                },
-                              },
-                            },
-                            [_vm._v("Hapus")]
-                          ),
+                          _c("Paragraph", [
+                            _c("span", [
+                              _vm._v(
+                                "(x " + _vm._s(_vm.room.roomCount) + " kamar)"
+                              ),
+                            ]),
+                          ]),
                         ],
                         1
                       ),
                     ],
                     1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                { attrs: { cols: "auto" } },
+                [
+                  _c(
+                    "Button",
+                    {
+                      attrs: { text: "", "x-small": "" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.roomDelete(_vm.room.priceId)
+                        },
+                      },
+                    },
+                    [_vm._v("Hapus")]
                   ),
                 ],
                 1
@@ -14172,8 +14130,6 @@ var render = function () {
                 ],
                 1
               ),
-              _vm._v(" "),
-              _c("v-spacer"),
               _vm._v(" "),
               _c(
                 "v-col",

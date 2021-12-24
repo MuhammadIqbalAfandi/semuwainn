@@ -32,45 +32,39 @@ export default {
 <template>
   <v-card hover>
     <v-card-text>
-      <v-row>
-        <v-col cols="12">
-          <v-row>
+      <v-row align="center" dense>
+        <v-col cols="auto">
+          <v-img
+            class="align-self-center rounded-sm"
+            :max-width="$vuetify.breakpoint.smAndDown ? 50 : 70"
+            :max-height="$vuetify.breakpoint.smAndDown ? 50 : 70"
+            :src="thumbnail"
+            alt="Thumbnail Room"
+            tile
+          />
+        </v-col>
+
+        <v-col>
+          <Paragraph>{{ room.name }}</Paragraph>
+          <Paragraph>{{ room.guestCount }} tamu</Paragraph>
+
+          <v-row dense>
             <v-col cols="auto">
-              <v-img
-                class="align-self-center rounded-sm"
-                :max-width="$vuetify.breakpoint.smAndDown ? 50 : 70"
-                :max-height="$vuetify.breakpoint.smAndDown ? 50 : 70"
-                :src="thumbnail"
-                alt="Thumbnail Room"
-                tile
-              />
+              <Paragraph class="text-caption red--text text--lighten-2">
+                <span class="text-caption">Rp</span> {{ currencyFormat(room.price) }}
+              </Paragraph>
             </v-col>
 
-            <v-col>
-              <Paragraph>{{ room.name }}</Paragraph>
-              <v-row class="text-caption" dense>
-                <v-col cols="auto">
-                  <Paragraph>{{ room.guestCount }} tamu</Paragraph>
-                </v-col>
-              </v-row>
-
-              <v-row class="text-caption" dense>
-                <v-col cols="auto">
-                  <Paragraph class="text-caption red--text text--lighten-2">
-                    <span class="text-caption">Rp</span> {{ currencyFormat(room.price) }}
-                  </Paragraph>
-                </v-col>
-
-                <v-col cols="auto">
-                  <Paragraph>(x {{ room.roomCount }} kamar)</Paragraph>
-                </v-col>
-              </v-row>
-            </v-col>
-
-            <v-col cols="auto" align-self="end">
-              <Button @click="roomDelete(room.priceId)" text x-small>Hapus</Button>
+            <v-col cols="auto">
+              <Paragraph>
+                <span>(x {{ room.roomCount }} kamar)</span>
+              </Paragraph>
             </v-col>
           </v-row>
+        </v-col>
+
+        <v-col cols="auto">
+          <Button @click="roomDelete(room.priceId)" text x-small>Hapus</Button>
         </v-col>
       </v-row>
     </v-card-text>

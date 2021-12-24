@@ -44,8 +44,6 @@ export default {
           </v-col>
         </v-row>
 
-        <v-spacer />
-
         <v-col cols="auto">
           <Button @click="removeServiceCart(service.id)" text x-small>Hapus</Button>
         </v-col>
