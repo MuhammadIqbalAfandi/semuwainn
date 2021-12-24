@@ -1,6 +1,6 @@
 <script>
+import { mapState } from 'vuex'
 import { Head } from '@inertiajs/inertia-vue'
-
 import GuestLayout from '@/layouts/Guest.vue'
 import Paragraph from '@/shared/Paragraph.vue'
 import ParagraphLeftIcon from '@/shared/ParagraphLeftIcon.vue'
@@ -27,6 +27,13 @@ export default {
     Head,
   },
   mixins: [mixinRules],
+  mounted() {
+    // const roomCart = this.roomCart.filter((item) => item.id === this.room.id)
+    // const roomCounts = roomCart.map((item) => item.roomCount)
+    // const roomCountTotal = roomCounts.reduce((prev, current) => prev + current)
+    // console.log('🚀 ~ file: RoomDetail.vue ~ line 33 ~ mounted ~ roomCounts', roomCounts)
+    // console.log('🚀 ~ file: RoomDetail.vue ~ line 34 ~ room', this.room)
+  },
   data() {
     return {
       valid: true,
@@ -34,13 +41,16 @@ export default {
       guestCount: 1,
       rules: {
         lessOrEqualThanRoomAvailable: (v) => {
-          return v <= this.room.prices[0].roomAvailable || `Jumlah kamar melebihi kamar yang tersediah.`
+          return v <= this.room.roomAvailable || `Jumlah kamar melebihi kamar yang tersediah.`
         },
         lessOrEqualThanNumberOfGuestAvailable: (v) => {
           return v <= this.room.numberOfGuest || `Jumlah tamu melebihi jumlah yang diperbolehkan.`
         },
       },
     }
+  },
+  computed: {
+    ...mapState(['roomCart']),
   },
 }
 </script>

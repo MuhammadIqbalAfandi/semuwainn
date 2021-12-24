@@ -1,6 +1,5 @@
 <script>
 import { Head } from '@inertiajs/inertia-vue'
-
 import GuestLayout from '@/layouts/Guest.vue'
 import Room from '@/components/Guest/Home/Room.vue'
 

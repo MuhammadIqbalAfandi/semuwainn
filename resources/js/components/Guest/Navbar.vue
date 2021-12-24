@@ -1,6 +1,5 @@
 <script>
 import { mapState } from 'vuex'
-
 import Link from '@/shared/Link.vue'
 import mixinsLogo from '@/mixins/logo'
 

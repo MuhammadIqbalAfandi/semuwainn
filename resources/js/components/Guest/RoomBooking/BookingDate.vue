@@ -1,7 +1,6 @@
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 import dayjs from 'dayjs'
-
 import Paragraph from '@/shared/Paragraph.vue'
 
 export default {
@@ -9,7 +8,7 @@ export default {
     Paragraph,
   },
   methods: {
-    ...mapActions('roomBooking', ['setCheckIn', 'setCheckOut', 'setNightCount']),
+    ...mapMutations('roomBooking', ['setCheckIn', 'setCheckOut', 'setNightCount']),
   },
   computed: {
     ...mapState('roomBooking', ['checkIn', 'checkOut']),

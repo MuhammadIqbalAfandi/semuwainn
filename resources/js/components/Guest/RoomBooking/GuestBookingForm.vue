@@ -1,6 +1,5 @@
 <script>
-import { mapActions, mapState } from 'vuex'
-
+import { mapMutations, mapState } from 'vuex'
 import TextField from '@/shared/TextField.vue'
 import mixinRules from '@/mixins/rules'
 
@@ -13,7 +12,7 @@ export default {
     this.$refs.form.validate()
   },
   methods: {
-    ...mapActions('roomBooking', ['setValid', 'setName', 'setNik', 'setPhone', 'setEmail']),
+    ...mapMutations('roomBooking', ['setValid', 'setName', 'setNik', 'setPhone', 'setEmail']),
   },
   computed: {
     ...mapState('roomBooking', ['valid', 'name', 'nik', 'phone', 'email', 'valid']),

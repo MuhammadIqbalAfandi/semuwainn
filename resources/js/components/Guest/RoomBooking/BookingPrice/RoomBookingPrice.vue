@@ -1,6 +1,5 @@
 <script>
-import { mapActions } from 'vuex'
-
+import { mapMutations, mapState } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import Button from '@/shared/Button.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
@@ -12,15 +11,19 @@ export default {
     room: Object,
   },
   mixins: [mixinHelper],
-  methods: {
-    ...mapActions(['removeRoomCart']),
-    roomDelete(id) {
-      this.removeRoomCart(id)
-    },
-  },
   computed: {
+    ...mapState(['roomCart']),
     thumbnail() {
       return this.room.thumbnail.images[0] ?? this.room.thumbnail.defaultImage
+    },
+  },
+  methods: {
+    ...mapMutations(['removeRoomCart', 'addServiceCart']),
+    roomDelete(priceId) {
+      this.removeRoomCart(priceId)
+      if (!this.roomCart.length) {
+        this.addServiceCart([])
+      }
     },
   },
 }
@@ -59,13 +62,13 @@ export default {
                 </v-col>
 
                 <v-col cols="auto">
-                  <Paragraph>x {{ room.roomCount }} kamar</Paragraph>
+                  <Paragraph>(x {{ room.roomCount }} kamar)</Paragraph>
                 </v-col>
               </v-row>
             </v-col>
 
             <v-col cols="auto" align-self="end">
-              <Button @click="roomDelete(room.id)" text x-small>Hapus</Button>
+              <Button @click="roomDelete(room.priceId)" text x-small>Hapus</Button>
             </v-col>
           </v-row>
         </v-col>

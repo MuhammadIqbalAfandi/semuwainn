@@ -1,6 +1,5 @@
 <script>
-import { mapActions } from 'vuex'
-
+import { mapMutations } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
 import Button from '@/shared/Button.vue'
@@ -15,19 +14,20 @@ export default {
     Button,
   },
   methods: {
-    ...mapActions(['addRoomCart']),
-    roomOrder(id) {
+    ...mapMutations(['addRoomCart']),
+    roomOrder(priceId) {
       if (this.$parent.valid) {
-        const { prices, thumbnail, name } = this.room
-        const price = prices.find((price) => price.id === id)
+        const { id, prices, thumbnail, name } = this.room
+        const price = prices.find((price) => price.id === priceId)
 
         this.addRoomCart({
-          id: price.id,
+          id,
           name,
           thumbnail,
-          price: price.price,
-          roomCount: this.$parent.roomCount,
-          guestCount: this.$parent.guestCount,
+          priceId: Number(price.id),
+          price: Number(price.price),
+          roomCount: Number(this.$parent.roomCount),
+          guestCount: Number(this.$parent.guestCount),
         })
       }
     },
@@ -48,7 +48,7 @@ export default {
         <v-card-text>
           <OriginPrice :price="price.price" />
           <Paragraph class="text-caption red--text text--lighten-2">
-            Sisa {{ price.roomAvailable }} kamar lagi!
+            Sisa {{ room.roomAvailable }} kamar lagi!
           </Paragraph>
         </v-card-text>
 

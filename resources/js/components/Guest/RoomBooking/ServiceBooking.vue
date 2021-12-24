@@ -1,6 +1,5 @@
 <script>
-import { mapActions, mapState } from 'vuex'
-
+import { mapMutations, mapState } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import ParagraphSpacing from '@/shared/ParagraphSpacing.vue'
 import mixinHelpers from '@/mixins/helpers'
@@ -14,32 +13,24 @@ export default {
     ParagraphSpacing,
   },
   mixins: [mixinHelpers],
-  mounted() {
-    this.addService = this.serviceCart
-  },
   data() {
     return {
-      addService: [],
       current_page: this.services.current_page,
     }
   },
-  watch: {
-    addService: {
-      handler(val, oldVal) {
-        this.addServiceCart(val)
-      },
-    },
-    serviceCart: {
-      handler(val, oldVal) {
-        this.addService = val
-      },
-    },
-  },
   computed: {
     ...mapState(['serviceCart']),
+    updateService: {
+      get() {
+        return this.serviceCart
+      },
+      set(v) {
+        this.addServiceCart(v)
+      },
+    },
   },
   methods: {
-    ...mapActions(['addServiceCart']),
+    ...mapMutations(['addServiceCart']),
     next() {
       this.$inertia.get(this.services.next_page_url, '', { preserveScroll: true })
     },
@@ -70,7 +61,7 @@ export default {
             <v-expansion-panel>
               <v-expansion-panel-header>
                 <v-checkbox
-                  v-model="addService"
+                  v-model="updateService"
                   class="ma-0"
                   :value="service"
                   color="orange lighten-2"

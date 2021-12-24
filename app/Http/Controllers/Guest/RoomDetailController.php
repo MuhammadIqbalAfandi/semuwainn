@@ -50,6 +50,7 @@ class RoomDetailController extends Controller
         $roomType = RoomType::find($id);
         return inertia('Guest/RoomDetail', [
             'room' => [
+                'id' => $roomType->id,
                 'name' => $roomType->name,
                 'thumbnail' => [
                     'images' => [],
@@ -61,13 +62,13 @@ class RoomDetailController extends Controller
                     'maxPrice' => $roomType->roomPrices->max('price'),
                 ],
                 'facilities' => $roomType->roomFacilities->pluck('facility.name'),
+                'roomAvailable' => $roomType->rooms
+                    ->whereNotIn('room_type_id', $roomType->rooms->pluck('roomOrder.room_id'))
+                    ->count(),
                 'prices' => $roomType->roomPrices->transform(fn($roomPrice) => [
                     'id' => $roomPrice->id,
                     'description' => $roomPrice->description,
                     'price' => $roomPrice->price,
-                    'roomAvailable' => $roomType->rooms
-                        ->whereNotIn('room_type_id', $roomType->rooms->pluck('roomOrder.room_id'))
-                        ->count(),
                 ]),
             ],
         ]);

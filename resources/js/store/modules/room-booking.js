@@ -12,29 +12,29 @@ export default {
     phone: '111111111111',
     email: 'muhammadiqbalafandi30@gmail.com',
   },
-  actions: {
-    setCheckIn({ state }, date) {
+  mutations: {
+    setCheckIn(state, date) {
       state.checkIn = date
     },
-    setCheckOut({ state }, date) {
+    setCheckOut(state, date) {
       state.checkOut = date
     },
-    setNightCount({ state }, night) {
+    setNightCount(state, night) {
       state.nightCount = night
     },
-    setValid({ state }, valid) {
+    setValid(state, valid) {
       state.valid = valid
     },
-    setName({ state }, name) {
+    setName(state, name) {
       state.name = name
     },
-    setNik({ state }, nik) {
+    setNik(state, nik) {
       state.nik = nik
     },
-    setPhone({ state }, phone) {
+    setPhone(state, phone) {
       state.phone = phone
     },
-    setEmail({ state }, email) {
+    setEmail(state, email) {
       state.email = email
     },
   },

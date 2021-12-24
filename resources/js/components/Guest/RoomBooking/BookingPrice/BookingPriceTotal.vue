@@ -1,6 +1,5 @@
 <script>
-import { mapState } from 'vuex'
-
+import { mapState, mapGetters } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import ParagraphSpacing from '@/shared/ParagraphSpacing.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
@@ -16,25 +15,19 @@ export default {
   computed: {
     ...mapState('roomBooking', ['checkIn', 'checkOut', 'nightCount']),
     ...mapState(['roomCart', 'serviceCart']),
+    ...mapGetters(['getRoomCount']),
     roomPrice() {
-      const pricesRoom = this.roomCart.map((item) => Number(item.price) * Number(item.roomCount))
-      const totalPrice = pricesRoom.length
-        ? pricesRoom.reduce((prev, current) => Number(prev) + Number(current)) * Number(this.nightCount)
-        : '0'
-      return totalPrice
+      const roomPrice = this.roomCart.map((item) => item.price * item.roomCount)
+      return roomPrice.reduce((prev, current) => prev + current) * this.nightCount || 0
     },
     servicePrice() {
-      const priceService = []
-      this.serviceCart.forEach((item) => {
-        priceService.push(item.price)
-      })
-      const totalPrice = priceService.length
-        ? priceService.reduce((prev, current) => Number(prev) + Number(current))
-        : '0'
-      return totalPrice
+      const roomPrice = this.serviceCart.map((item) => item.price)
+      return roomPrice.length
+        ? roomPrice.reduce((prev, current) => prev + current) * this.getRoomCount * this.nightCount
+        : 0
     },
     totalPrice() {
-      return Number(this.roomPrice) + Number(this.servicePrice) || '0'
+      return this.roomPrice + this.servicePrice
     },
     hideTotalPrice() {
       return this.roomCart.length || this.serviceCart.length
@@ -54,7 +47,7 @@ export default {
     <ParagraphSpacing v-if="roomCart.length">
       <template #textLeft>
         <Paragraph>Total harga kamar</Paragraph>
-        <Paragraph class="text-caption red--text">sudah termasuk jumlah kamar x lama inap</Paragraph>
+        <Paragraph class="text-caption red--text">* sudah termasuk jumlah kamar x lama inap</Paragraph>
       </template>
       <template #textRight>
         <OriginPrice class="text-end" :price="roomPrice" />
@@ -64,6 +57,7 @@ export default {
     <ParagraphSpacing v-if="serviceCart.length">
       <template #textLeft>
         <Paragraph>Total harga layanan</Paragraph>
+        <Paragraph class="text-caption red--text">* sudah termasuk jumlah kamar x lama inap</Paragraph>
       </template>
       <template #textRight>
         <OriginPrice class="text-end" :price="servicePrice" />
@@ -73,7 +67,7 @@ export default {
     <ParagraphSpacing v-if="hideTotalPrice">
       <template #textLeft>
         <Paragraph>Total harga </Paragraph>
-        <Paragraph class="text-caption red--text">harga yang anda harus bayar ketika checkin</Paragraph>
+        <Paragraph class="text-caption red--text">* harga yang anda harus bayar ketika checkin</Paragraph>
       </template>
       <template #textRight>
         <OriginPrice class="text-end" :price="totalPrice" />

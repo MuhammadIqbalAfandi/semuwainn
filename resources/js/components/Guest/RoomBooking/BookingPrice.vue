@@ -1,6 +1,5 @@
 <script>
 import { mapState } from 'vuex'
-
 import RoomBookingPrice from '@/components/Guest/RoomBooking/BookingPrice/RoomBookingPrice.vue'
 import ServiceBookingPrice from '@/components/Guest/RoomBooking/BookingPrice/ServiceBookingPrice.vue'
 import BookingPriceTotal from '@/components/Guest/RoomBooking/BookingPrice/BookingPriceTotal.vue'
@@ -23,11 +22,11 @@ export default {
 
     <v-card-text>
       <v-row dense>
-        <v-col v-for="room in roomCart" :key="room.id" cols="12">
+        <v-col v-for="room in roomCart" :key="`room ${room.priceId}`" cols="12">
           <RoomBookingPrice :room="room" />
         </v-col>
 
-        <v-col v-for="service in serviceCart" :key="service.id" cols="12">
+        <v-col v-for="service in serviceCart" :key="`service ${service.id}`" cols="12">
           <ServiceBookingPrice :service="service" />
         </v-col>
 

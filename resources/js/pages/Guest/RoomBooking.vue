@@ -1,7 +1,6 @@
 <script>
 import { mapState } from 'vuex'
 import { Link } from '@inertiajs/inertia-vue'
-
 import GuestLayout from '@/layouts/Guest.vue'
 import Button from '@/shared/Button.vue'
 import BookingDate from '@/components/Guest/RoomBooking/BookingDate.vue'
@@ -79,7 +78,7 @@ export default {
         </v-col>
 
         <v-col cols="12">
-          <ServiceBooking v-once :services="services" />
+          <ServiceBooking v-if="roomCart.length" v-once :services="services" />
         </v-col>
 
         <v-col class="text-end" cols="12">
