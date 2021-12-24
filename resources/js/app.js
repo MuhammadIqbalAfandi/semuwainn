@@ -3,7 +3,6 @@ import { createInertiaApp } from '@inertiajs/inertia-vue'
 import { InertiaProgress } from '@inertiajs/progress'
 import dayjs from 'dayjs'
 import id from 'dayjs/locale/id'
-
 import vuetify from '@/plugins/vuetify'
 import store from '@/store'
 

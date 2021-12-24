@@ -4272,36 +4272,50 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
     roomCart: [],
     serviceCart: []
   },
-  actions: {
-    addRoomCart: function addRoomCart(_ref, room) {
-      var state = _ref.state;
-      //   const roomDuplicate = state.roomCart.find((item) => item.id === room.id)
-      //   const newRoom = state.roomCart.filter((item) => item.id !== room.id)
-      //   if (roomDuplicate !== undefined) {
-      //     const roomCount = room.roomCount + roomDuplicate.roomCount
-      //     const guestCount = room.guestCount + roomDuplicate.guestCount
-      //     console.log(newRoom)
-      //     state.roomCart.push({ ...newRoom, ...room, roomCount, guestCount })
-      //   } else {
-      //     state.roomCart.push(room)
-      //   }
+  mutations: {
+    addRoomCart: function addRoomCart(state, room) {
+      // const roomDuplicate = state.roomCart.find((item) => item.id === room.id)
+      // const newRoom = state.roomCart.filter((item) => item.id !== room.id)
+      // if (roomDuplicate !== undefined) {
+      //   const roomCount = room.roomCount + roomDuplicate.roomCount
+      //   const guestCount = room.guestCount + roomDuplicate.guestCount
+      //   console.log(newRoom)
+      //   state.roomCart.push({ ...newRoom, ...room, roomCount, guestCount })
+      // } else {
+      //   state.roomCart.push(room)
+      // }
       state.roomCart.push(room);
     },
-    removeRoomCart: function removeRoomCart(_ref2, id) {
-      var state = _ref2.state;
+    removeRoomCart: function removeRoomCart(state, id) {
       state.roomCart = state.roomCart.filter(function (item) {
         return item.id !== id;
       });
     },
-    addServiceCart: function addServiceCart(_ref3, service) {
-      var state = _ref3.state;
-      state.serviceCart = service;
+    addServiceCart: function addServiceCart(state, service) {
+      state.serviceCart.push(service);
     },
-    removeServiceCart: function removeServiceCart(_ref4, id) {
-      var state = _ref4.state;
+    removeServiceCart: function removeServiceCart(state, id) {
       state.serviceCart = state.serviceCart.filter(function (item) {
         return item.id !== id;
       });
+    }
+  },
+  actions: {
+    addRoomCart: function addRoomCart(_ref, room) {
+      var commit = _ref.commit;
+      commit('addRoomCart', room);
+    },
+    removeRoomCart: function removeRoomCart(_ref2, id) {
+      var commit = _ref2.commit;
+      commit('removeRoomCart', id);
+    },
+    addServiceCart: function addServiceCart(_ref3, service) {
+      var commit = _ref3.commit;
+      commit('addServiceCart', service);
+    },
+    removeServiceCart: function removeServiceCart(_ref4, id) {
+      var commit = _ref4.commit;
+      commit('removeServiceCart', id);
     }
   }
 }));
