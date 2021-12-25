@@ -12,10 +12,10 @@ export default {
           const pattern = /^[0-9\b]+$/
           return pattern.test(v) || 'Nilai harus angka.'
         },
-        email: (value) => {
+        email: (v) => {
           const pattern =
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          return pattern.test(value) || 'Format e-mail salah.'
+          return pattern.test(v) || 'Format e-mail salah.'
         },
         digitsLessThan100: (v) => v <= 100 || 'Nilai tidak boleh lebih dari 100.',
       },

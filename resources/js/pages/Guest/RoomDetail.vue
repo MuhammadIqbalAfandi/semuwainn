@@ -1,5 +1,5 @@
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { Head } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
 import Paragraph from '@/shared/Paragraph.vue'
@@ -10,6 +10,7 @@ import PriceRangeDetail from '@/components/Guest/RoomDetail/PriceRangeDetail.vue
 import PriceDetail from '@/components/Guest/RoomDetail/PriceDetail.vue'
 import FacilityDetail from '@/components/Guest/RoomDetail/FacilityDetail.vue'
 import mixinRules from '@/mixins/rules'
+import mixinRoomStatus from '@/mixins/room-status'
 
 export default {
   layout: GuestLayout,
@@ -26,14 +27,7 @@ export default {
     FacilityDetail,
     Head,
   },
-  mixins: [mixinRules],
-  mounted() {
-    // const roomCart = this.roomCart.filter((item) => item.id === this.room.id)
-    // const roomCounts = roomCart.map((item) => item.roomCount)
-    // const roomCountTotal = roomCounts.reduce((prev, current) => prev + current)
-    // console.log('🚀 ~ file: RoomDetail.vue ~ line 33 ~ mounted ~ roomCounts', roomCounts)
-    // console.log('🚀 ~ file: RoomDetail.vue ~ line 34 ~ room', this.room)
-  },
+  mixins: [mixinRules, mixinRoomStatus],
   data() {
     return {
       valid: true,
@@ -41,16 +35,17 @@ export default {
       guestCount: 1,
       rules: {
         lessOrEqualThanRoomAvailable: (v) => {
-          return v <= this.room.roomAvailable || `Jumlah kamar melebihi kamar yang tersediah.`
+          return v <= this.getRoomAvailable(this.room) || `Jumlah kamar melebihi kamar yang tersediah.`
         },
         lessOrEqualThanNumberOfGuestAvailable: (v) => {
-          return v <= this.room.numberOfGuest || `Jumlah tamu melebihi jumlah yang diperbolehkan.`
+          return v <= this.getRoomAvailable(this.room) || `Jumlah tamu melebihi jumlah yang diperbolehkan.`
         },
       },
     }
   },
   computed: {
     ...mapState(['roomCart']),
+    ...mapGetters(['getRoomAvailable']),
   },
 }
 </script>
@@ -92,6 +87,7 @@ export default {
                 <v-col cols="12">
                   <TextField
                     v-model="roomCount"
+                    :disabled="!getRoomAvailable(room)"
                     class="text-caption text-sm-subtitle-1"
                     :rules="[rules.numeric, rules.notZero, rules.lessOrEqualThanRoomAvailable]"
                     label="Jumlah kamar"
@@ -103,6 +99,7 @@ export default {
                 <v-col cols="12">
                   <TextField
                     v-model="guestCount"
+                    :disabled="!getRoomAvailable(room)"
                     class="text-caption text-sm-subtitle-1"
                     :rules="[rules.numeric, rules.notZero, rules.lessOrEqualThanNumberOfGuestAvailable]"
                     label="Banyak Tamu"

@@ -3046,10 +3046,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/shared/OriginPrice.vue */ "./resources/js/shared/OriginPrice.vue");
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
 /* harmony import */ var _shared_ParagraphLeftIcon_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/ParagraphLeftIcon.vue */ "./resources/js/shared/ParagraphLeftIcon.vue");
 /* harmony import */ var _shared_Link_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/shared/Link.vue */ "./resources/js/shared/Link.vue");
+/* harmony import */ var _mixins_room_status__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/mixins/room-status */ "./resources/js/mixins/room-status.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
 
 
 
@@ -3064,11 +3074,13 @@ __webpack_require__.r(__webpack_exports__);
     ParagraphLeftIcon: _shared_ParagraphLeftIcon_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     Link: _shared_Link_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
+  mixins: [_mixins_room_status__WEBPACK_IMPORTED_MODULE_4__["default"]],
   data: function data() {
     return {
       current_page: this.rooms.current_page
     };
   },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)(['getRoomAvailable'])),
   methods: {
     next: function next() {
       this.$inertia.get(this.rooms.next_page_url, '', {
@@ -3637,15 +3649,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
 /* harmony import */ var _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/shared/OriginPrice.vue */ "./resources/js/shared/OriginPrice.vue");
 /* harmony import */ var _shared_Button_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/Button.vue */ "./resources/js/shared/Button.vue");
+/* harmony import */ var _mixins_room_status__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/mixins/room-status */ "./resources/js/mixins/room-status.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -3660,7 +3674,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapMutations)(['addRoomCart'])), {}, {
+  mixins: [_mixins_room_status__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['getRoomAvailable'])),
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapMutations)(['addRoomCart'])), {}, {
     roomOrder: function roomOrder(priceId) {
       if (this.$parent.valid) {
         var _this$room = this.room,
@@ -3671,15 +3687,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var price = prices.find(function (price) {
           return price.id === priceId;
         });
-        this.addRoomCart({
-          id: id,
-          name: name,
-          thumbnail: thumbnail,
-          priceId: Number(price.id),
-          price: Number(price.price),
-          roomCount: Number(this.$parent.roomCount),
-          guestCount: Number(this.$parent.guestCount)
-        });
+
+        if (this.getRoomAvailable(this.room) >= 1) {
+          this.addRoomCart({
+            id: id,
+            name: name,
+            thumbnail: thumbnail,
+            priceId: Number(price.id),
+            price: Number(price.price),
+            roomCount: Number(this.$parent.roomCount),
+            guestCount: Number(this.$parent.guestCount)
+          });
+        }
       }
     }
   })
@@ -3874,7 +3893,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/layouts/Guest.vue */ "./resources/js/layouts/Guest.vue");
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
@@ -3885,11 +3904,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Guest_RoomDetail_PriceDetail_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/Guest/RoomDetail/PriceDetail.vue */ "./resources/js/components/Guest/RoomDetail/PriceDetail.vue");
 /* harmony import */ var _components_Guest_RoomDetail_FacilityDetail_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/components/Guest/RoomDetail/FacilityDetail.vue */ "./resources/js/components/Guest/RoomDetail/FacilityDetail.vue");
 /* harmony import */ var _mixins_rules__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/mixins/rules */ "./resources/js/mixins/rules.js");
+/* harmony import */ var _mixins_room_status__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/mixins/room-status */ "./resources/js/mixins/room-status.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -3917,13 +3938,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     FacilityDetail: _components_Guest_RoomDetail_FacilityDetail_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
     Head: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Head
   },
-  mixins: [_mixins_rules__WEBPACK_IMPORTED_MODULE_9__["default"]],
-  mounted: function mounted() {// const roomCart = this.roomCart.filter((item) => item.id === this.room.id)
-    // const roomCounts = roomCart.map((item) => item.roomCount)
-    // const roomCountTotal = roomCounts.reduce((prev, current) => prev + current)
-    // console.log('🚀 ~ file: RoomDetail.vue ~ line 33 ~ mounted ~ roomCounts', roomCounts)
-    // console.log('🚀 ~ file: RoomDetail.vue ~ line 34 ~ room', this.room)
-  },
+  mixins: [_mixins_rules__WEBPACK_IMPORTED_MODULE_9__["default"], _mixins_room_status__WEBPACK_IMPORTED_MODULE_10__["default"]],
   data: function data() {
     var _this = this;
 
@@ -3933,15 +3948,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       guestCount: 1,
       rules: {
         lessOrEqualThanRoomAvailable: function lessOrEqualThanRoomAvailable(v) {
-          return v <= _this.room.roomAvailable || "Jumlah kamar melebihi kamar yang tersediah.";
+          return v <= _this.getRoomAvailable(_this.room) || "Jumlah kamar melebihi kamar yang tersediah.";
         },
         lessOrEqualThanNumberOfGuestAvailable: function lessOrEqualThanNumberOfGuestAvailable(v) {
-          return v <= _this.room.numberOfGuest || "Jumlah tamu melebihi jumlah yang diperbolehkan.";
+          return v <= _this.getRoomAvailable(_this.room) || "Jumlah tamu melebihi jumlah yang diperbolehkan.";
         }
       }
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_10__.mapState)(['roomCart']))
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_11__.mapState)(['roomCart'])), (0,vuex__WEBPACK_IMPORTED_MODULE_11__.mapGetters)(['getRoomAvailable']))
 });
 
 /***/ }),
@@ -4177,6 +4192,27 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/mixins/room-status.js":
+/*!********************************************!*\
+  !*** ./resources/js/mixins/room-status.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  methods: {
+    roomStatus: function roomStatus(room) {
+      return this.getRoomAvailable(room) ? "Sisa ".concat(this.getRoomAvailable(room), " kamar lagi!") : 'Kamar penuh!';
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/mixins/rules.js":
 /*!**************************************!*\
   !*** ./resources/js/mixins/rules.js ***!
@@ -4214,9 +4250,9 @@ __webpack_require__.r(__webpack_exports__);
           var pattern = /^[0-9\b]+$/;
           return pattern.test(v) || 'Nilai harus angka.';
         },
-        email: function email(value) {
+        email: function email(v) {
           var pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || 'Format e-mail salah.';
+          return pattern.test(v) || 'Format e-mail salah.';
         },
         digitsLessThan100: function digitsLessThan100(v) {
           return v <= 100 || 'Nilai tidak boleh lebih dari 100.';
@@ -4289,9 +4325,23 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
       var roomCounts = state.roomCart.map(function (item) {
         return item.roomCount;
       });
-      return roomCounts.reduce(function (prev, current) {
+      return roomCounts.length ? roomCounts.reduce(function (prev, current) {
         return prev + current;
-      });
+      }) : 0;
+    },
+    getRoomAvailable: function getRoomAvailable(state) {
+      return function (room) {
+        var filteredRoom = state.roomCart.filter(function (item) {
+          return item.id === room.id;
+        });
+        var roomCounts = filteredRoom.map(function (item) {
+          return item.roomCount;
+        });
+        var roomCountTotal = roomCounts.length ? roomCounts.reduce(function (prev, current) {
+          return prev + current;
+        }) : 0;
+        return room.roomAvailable - roomCountTotal;
+      };
     }
   },
   mutations: {
@@ -13184,13 +13234,7 @@ var render = function () {
                                             staticClass:
                                               "text-caption red--text text--lighten-2",
                                           },
-                                          [
-                                            _vm._v(
-                                              "\n                    Sisa " +
-                                                _vm._s(room.roomAvailable) +
-                                                " kamar lagi!\n                  "
-                                            ),
-                                          ]
+                                          [_vm._v(_vm._s(_vm.roomStatus(room)))]
                                         ),
                                       ],
                                       1
@@ -14781,9 +14825,9 @@ var render = function () {
                     { staticClass: "text-caption red--text text--lighten-2" },
                     [
                       _vm._v(
-                        "\n          Sisa " +
-                          _vm._s(_vm.room.roomAvailable) +
-                          " kamar lagi!\n        "
+                        "\n          " +
+                          _vm._s(_vm.roomStatus(_vm.room)) +
+                          "\n        "
                       ),
                     ]
                   ),
@@ -15299,6 +15343,7 @@ var render = function () {
                                     staticClass:
                                       "text-caption text-sm-subtitle-1",
                                     attrs: {
+                                      disabled: !_vm.getRoomAvailable(_vm.room),
                                       rules: [
                                         _vm.rules.numeric,
                                         _vm.rules.notZero,
@@ -15328,6 +15373,7 @@ var render = function () {
                                     staticClass:
                                       "text-caption text-sm-subtitle-1",
                                     attrs: {
+                                      disabled: !_vm.getRoomAvailable(_vm.room),
                                       rules: [
                                         _vm.rules.numeric,
                                         _vm.rules.notZero,

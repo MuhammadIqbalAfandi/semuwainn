@@ -1,8 +1,10 @@
 <script>
+import { mapGetters } from 'vuex'
 import OriginPrice from '@/shared/OriginPrice.vue'
 import Paragraph from '@/shared/Paragraph.vue'
 import ParagraphLeftIcon from '@/shared/ParagraphLeftIcon.vue'
 import Link from '@/shared/Link.vue'
+import mixinRoomStatus from '@/mixins/room-status'
 
 export default {
   props: {
@@ -14,10 +16,14 @@ export default {
     ParagraphLeftIcon,
     Link,
   },
+  mixins: [mixinRoomStatus],
   data() {
     return {
       current_page: this.rooms.current_page,
     }
+  },
+  computed: {
+    ...mapGetters(['getRoomAvailable']),
   },
   methods: {
     next() {
@@ -84,9 +90,7 @@ export default {
                   <v-col class="text-end" cols="12" md="auto" align-self="end">
                     <Paragraph class="text-caption text-md-body-2">Harga mulai dari</Paragraph>
                     <OriginPrice :price="room.price" />
-                    <Paragraph class="text-caption red--text text--lighten-2">
-                      Sisa {{ room.roomAvailable }} kamar lagi!
-                    </Paragraph>
+                    <Paragraph class="text-caption red--text text--lighten-2">{{ roomStatus(room) }}</Paragraph>
                   </v-col>
                 </v-row>
               </v-col>

@@ -1,8 +1,9 @@
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
 import Button from '@/shared/Button.vue'
+import mixinRoomStatus from '@/mixins/room-status'
 
 export default {
   props: {
@@ -13,6 +14,10 @@ export default {
     OriginPrice,
     Button,
   },
+  mixins: [mixinRoomStatus],
+  computed: {
+    ...mapGetters(['getRoomAvailable']),
+  },
   methods: {
     ...mapMutations(['addRoomCart']),
     roomOrder(priceId) {
@@ -20,15 +25,17 @@ export default {
         const { id, prices, thumbnail, name } = this.room
         const price = prices.find((price) => price.id === priceId)
 
-        this.addRoomCart({
-          id,
-          name,
-          thumbnail,
-          priceId: Number(price.id),
-          price: Number(price.price),
-          roomCount: Number(this.$parent.roomCount),
-          guestCount: Number(this.$parent.guestCount),
-        })
+        if (this.getRoomAvailable(this.room) >= 1) {
+          this.addRoomCart({
+            id,
+            name,
+            thumbnail,
+            priceId: Number(price.id),
+            price: Number(price.price),
+            roomCount: Number(this.$parent.roomCount),
+            guestCount: Number(this.$parent.guestCount),
+          })
+        }
       }
     },
   },
@@ -48,7 +55,7 @@ export default {
         <v-card-text>
           <OriginPrice :price="price.price" />
           <Paragraph class="text-caption red--text text--lighten-2">
-            Sisa {{ room.roomAvailable }} kamar lagi!
+            {{ roomStatus(room) }}
           </Paragraph>
         </v-card-text>
 
