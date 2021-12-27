@@ -1,5 +1,5 @@
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { Link } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
 import Button from '@/shared/Button.vue'
@@ -22,12 +22,20 @@ export default {
     ServiceBooking,
     BookingPrice,
   },
+  computed: {
+    ...mapState('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email', 'valid']),
+    ...mapState(['roomCart', 'serviceCart']),
+    ...mapGetters(['getRoomCount']),
+    hideSubmitButton() {
+      return !this.roomCart.length || !this.valid
+    },
+  },
   methods: {
     order() {
       if (this.valid && this.roomCart.length) {
         const rooms = this.roomCart.map((room) => {
           return {
-            id: room.id,
+            roomId: room.roomId,
             price: room.price,
             roomCount: room.roomCount,
             guestCount: room.guestCount,
@@ -38,6 +46,7 @@ export default {
           return {
             id: service.id,
             price: service.price,
+            roomCount: this.getRoomCount,
           }
         })
 
@@ -53,13 +62,6 @@ export default {
         }
         this.$inertia.post(this.$route('room-booking.store'), form)
       }
-    },
-  },
-  computed: {
-    ...mapState('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email', 'valid']),
-    ...mapState(['roomCart', 'serviceCart']),
-    hideSubmitButton() {
-      return !this.roomCart.length || !this.valid
     },
   },
 }

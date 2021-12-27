@@ -53,30 +53,39 @@ class RoomBookingController extends Controller
         DB::beginTransaction();
         try {
             $request = $request->collect();
-            dd($request);
-            $guest = Guest::create($request);
-            $reservation = $guest->reservations->create([
-                'reservation_number' => 'OD' . Carbon::now()->format('ssmmHHDDMMY'),
-                'checkin' => $request->checkin,
-                'checkout' => $request->checkout,
+
+            $guest = Guest::create([
+                'nik' => $request->get('nik'),
+                'name' => $request->get('name'),
+                'phone' => $request->get('phone'),
+                'email' => $request->get('email'),
             ]);
-            $request->get('rooms')->each(function ($room) use ($reservation) {
-                $reservation->roomOrders->create([
-                    'price' => $room->price,
-                    'guest_count' => $room->guestCount,
-                    'quantity' => $room->roomCount,
-                    'room_id' => $room->id,
+            $reservation = $guest->reservations()->create([
+                'reservation_number' => 'OD' . Carbon::now()->format('YmdHs'),
+                'checkin' => $request->get('checkIn'),
+                'checkout' => $request->get('checkOut'),
+            ]);
+            foreach ($request->get('rooms') as $room) {
+                foreach ($room['roomId'] as $roomId) {
+                    $reservation->roomOrders()->create([
+                        'price' => $room['price'],
+                        'guest_count' => $room['guestCount'],
+                        'quantity' => $room['roomCount'],
+                        'room_id' => $roomId,
+                    ]);
+                }
+            }
+            foreach ($request->get('services') as $service) {
+                $reservation->serviceOrders()->create([
+                    'price' => $service['price'],
+                    'quantity' => $service['roomCount'],
+                    'service_id' => $service['id'],
                 ]);
-            });
-            $request->get('services')->each(function ($service) use ($reservation) {
-                $reservation->serviceOrders->create([
-                    'price' => $service->price,
-                    'quantity' => $service->roomCount,
-                    'service_id' => $service->id,
-                ]);
-            });
+            }
 
             DB::commit();
+
+            return redirect()->back();
         } catch (Exception $e) {
             DB::rollBack();
         }

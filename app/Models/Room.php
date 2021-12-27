@@ -14,7 +14,7 @@ class Room extends Model
         'room_type_id',
     ];
 
-    public function roomOrder()
+    public function roomOrders()
     {
         return $this->hasMany(RoomOrder::class);
     }

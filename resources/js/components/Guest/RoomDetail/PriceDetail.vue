@@ -1,5 +1,8 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex'
+import difference from 'lodash/difference'
+import head from 'lodash/head'
+import flattenDeep from 'lodash/flattenDeep'
 import Paragraph from '@/shared/Paragraph.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
 import Button from '@/shared/Button.vue'
@@ -16,18 +19,20 @@ export default {
   },
   mixins: [mixinRoomStatus],
   computed: {
-    ...mapGetters(['getRoomAvailable']),
+    ...mapGetters(['getRoomAvailable', 'getRoomId']),
   },
   methods: {
     ...mapMutations(['addRoomCart']),
     roomOrder(priceId) {
       if (this.$parent.valid) {
-        const { id, prices, thumbnail, name } = this.room
+        const { id, prices, thumbnail, name, rooms } = this.room
         const price = prices.find((price) => price.id === priceId)
+        const roomId = [head(difference(rooms, flattenDeep(this.getRoomId)))]
 
         if (this.getRoomAvailable(this.room) >= 1) {
           this.addRoomCart({
             id,
+            roomId,
             name,
             thumbnail,
             priceId: Number(price.id),

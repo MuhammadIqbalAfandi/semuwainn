@@ -30,7 +30,7 @@ class HomeController extends Controller
                     'facilityCount' => $roomType->roomFacilities->skip(3)->count(),
                     'numberOfGuest' => $roomType->numberOfGuest->guest,
                     'roomAvailable' => $roomType->rooms
-                        ->whereNotIn('id', $roomType->rooms->pluck('roomOrder.room_id'))
+                        ->whereNotIn('id', $roomType->rooms->pluck('roomOrders.room_id'))
                         ->count(),
                 ]),
         ]);

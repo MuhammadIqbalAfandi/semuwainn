@@ -13,6 +13,9 @@ export default new Vuex.Store({
     serviceCart: [],
   },
   getters: {
+    getRoomId: (state) => {
+      return state.roomCart.map((room) => room.roomId)
+    },
     getRoomCount: (state) => {
       const roomCounts = state.roomCart.map((item) => item.roomCount)
       return roomCounts.length ? roomCounts.reduce((prev, current) => prev + current) : 0
@@ -30,6 +33,7 @@ export default new Vuex.Store({
       if (roomFound) {
         roomFound.roomCount += room.roomCount
         roomFound.guestCount += room.guestCount
+        roomFound.roomId.push(...room.roomId)
       } else {
         state.roomCart.push(room)
       }

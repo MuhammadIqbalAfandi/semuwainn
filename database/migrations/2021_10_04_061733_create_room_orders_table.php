@@ -17,6 +17,7 @@ class CreateRoomOrdersTable extends Migration
             $table->id();
             $table->timestamp('order_time');
             $table->unsignedInteger('price');
+            $table->unsignedInteger('guest_count');
             $table->unsignedInteger('quantity');
             $table->foreignId('reservation_id')->constrained();
             $table->foreignId('room_id')->constrained();
