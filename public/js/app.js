@@ -3966,7 +3966,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           return v <= _this.getRoomAvailable(_this.room) || "Jumlah kamar melebihi kamar yang tersediah.";
         },
         lessOrEqualThanNumberOfGuestAvailable: function lessOrEqualThanNumberOfGuestAvailable(v) {
-          return v <= _this.getRoomAvailable(_this.room) || "Jumlah tamu melebihi jumlah yang diperbolehkan.";
+          return v <= _this.room.numberOfGuest || "Jumlah tamu melebihi jumlah yang diperbolehkan.";
         }
       }
     };

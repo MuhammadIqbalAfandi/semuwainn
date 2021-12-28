@@ -38,7 +38,7 @@ export default {
           return v <= this.getRoomAvailable(this.room) || `Jumlah kamar melebihi kamar yang tersediah.`
         },
         lessOrEqualThanNumberOfGuestAvailable: (v) => {
-          return v <= this.getRoomAvailable(this.room) || `Jumlah tamu melebihi jumlah yang diperbolehkan.`
+          return v <= this.room.numberOfGuest || `Jumlah tamu melebihi jumlah yang diperbolehkan.`
         },
       },
     }
