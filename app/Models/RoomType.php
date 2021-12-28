@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\NumberOfGuest;
+use App\Models\Room;
+use App\Models\RoomFacility;
+use App\Models\RoomOrder;
 use App\Models\RoomPrice;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +22,11 @@ class RoomType extends Model
     public function rooms()
     {
         return $this->hasMany(Room::class);
+    }
+
+    public function roomOrders()
+    {
+        return $this->hasManyThrough(RoomOrder::class, Room::class);
     }
 
     public function roomFacilities()
