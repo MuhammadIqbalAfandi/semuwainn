@@ -3458,6 +3458,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.$refs.form.validate();
   },
+  watch: {
+    updateName: function updateName(val, oldVal) {
+      if (val !== oldVal) {
+        this.$parent.errors.name = '';
+      }
+    },
+    updateNik: function updateNik(val, oldVal) {
+      if (val !== oldVal) {
+        this.$parent.errors.nik = '';
+      }
+    },
+    updatePhone: function updatePhone(val, oldVal) {
+      if (val !== oldVal) {
+        this.$parent.errors.phone = '';
+      }
+    },
+    updateEmail: function updateEmail(val, oldVal) {
+      if (val !== oldVal) {
+        this.$parent.errors.email = '';
+      }
+    }
+  },
   methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapMutations)('roomBooking', ['setValid', 'setName', 'setNik', 'setPhone', 'setEmail'])),
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)('roomBooking', ['valid', 'name', 'nik', 'phone', 'email', 'valid'])), {}, {
     updateValid: {

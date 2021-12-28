@@ -11,6 +11,28 @@ export default {
   mounted() {
     this.$refs.form.validate()
   },
+  watch: {
+    updateName(val, oldVal) {
+      if (val !== oldVal) {
+        this.$parent.errors.name = ''
+      }
+    },
+    updateNik(val, oldVal) {
+      if (val !== oldVal) {
+        this.$parent.errors.nik = ''
+      }
+    },
+    updatePhone(val, oldVal) {
+      if (val !== oldVal) {
+        this.$parent.errors.phone = ''
+      }
+    },
+    updateEmail(val, oldVal) {
+      if (val !== oldVal) {
+        this.$parent.errors.email = ''
+      }
+    },
+  },
   methods: {
     ...mapMutations('roomBooking', ['setValid', 'setName', 'setNik', 'setPhone', 'setEmail']),
   },
