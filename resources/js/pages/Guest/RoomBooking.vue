@@ -1,6 +1,6 @@
 <script>
-import { mapGetters, mapState } from 'vuex'
-import { Link } from '@inertiajs/inertia-vue'
+import { mapGetters, mapState, mapMutations } from 'vuex'
+import { Link, Head } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
 import Button from '@/shared/Button.vue'
 import BookingDate from '@/components/Guest/RoomBooking/BookingDate.vue'
@@ -12,10 +12,10 @@ export default {
   layout: GuestLayout,
   props: {
     services: Object,
-    errors: Object,
   },
   components: {
     Link,
+    Head,
     Button,
     BookingDate,
     GuestBookingForm,
@@ -31,6 +31,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(['removeRoomCart', 'addServiceCart', 'addRoomCart']),
     order() {
       if (this.valid && this.roomCart.length) {
         const rooms = this.roomCart.map((room) => {
@@ -68,36 +69,40 @@ export default {
 </script>
 
 <template>
-  <v-row dense>
-    <v-col order="2" order-md="1">
-      <v-row dense>
-        <v-col cols="12">
-          <BookingDate />
-        </v-col>
+  <div>
+    <Head title="Detail Pemesanan" />
 
-        <v-col cols="12">
-          <GuestBookingForm />
-        </v-col>
+    <v-row dense>
+      <v-col order="2" order-md="1">
+        <v-row dense>
+          <v-col cols="12">
+            <BookingDate />
+          </v-col>
 
-        <v-col cols="12">
-          <ServiceBooking v-if="roomCart.length" v-once :services="services" />
-        </v-col>
+          <v-col cols="12">
+            <GuestBookingForm />
+          </v-col>
 
-        <v-col class="text-end" cols="12">
-          <p class="text-caption text-sm-body-2">
-            Dengan menekan tombol, kamu menyetujui
-            <Link class="orange--text text--lighten-2">Kebijakan Privasi</Link>
-            dan
-            <Link class="orange--text text--lighten-2">Syarat & Ketentuan kami</Link>
-          </p>
+          <v-col cols="12">
+            <ServiceBooking v-if="roomCart.length" v-once :services="services" />
+          </v-col>
 
-          <Button @click="order" :disabled="hideSubmitButton">Pesan sekarang</Button>
-        </v-col>
-      </v-row>
-    </v-col>
+          <v-col class="text-end" cols="12">
+            <p class="text-caption text-sm-body-2">
+              Dengan menekan tombol, kamu menyetujui
+              <Link class="orange--text text--lighten-2">Kebijakan Privasi</Link>
+              dan
+              <Link class="orange--text text--lighten-2">Syarat & Ketentuan kami</Link>
+            </p>
 
-    <v-col cols="12" md="auto" order="1" order-md="2">
-      <BookingPrice />
-    </v-col>
-  </v-row>
+            <Button @click="order" :disabled="hideSubmitButton">Pesan sekarang</Button>
+          </v-col>
+        </v-row>
+      </v-col>
+
+      <v-col cols="12" md="auto" order="1" order-md="2">
+        <BookingPrice />
+      </v-col>
+    </v-row>
+  </div>
 </template>

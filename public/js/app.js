@@ -3461,22 +3461,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   watch: {
     updateName: function updateName(val, oldVal) {
       if (val !== oldVal) {
-        this.$parent.errors.name = '';
+        this.$page.props.errors.name = '';
       }
     },
     updateNik: function updateNik(val, oldVal) {
       if (val !== oldVal) {
-        this.$parent.errors.nik = '';
+        this.$page.props.errors.nik = '';
       }
     },
     updatePhone: function updatePhone(val, oldVal) {
       if (val !== oldVal) {
-        this.$parent.errors.phone = '';
+        this.$page.props.errors.phone = '';
       }
     },
     updateEmail: function updateEmail(val, oldVal) {
       if (val !== oldVal) {
-        this.$parent.errors.email = '';
+        this.$page.props.errors.email = '';
       }
     }
   },
@@ -3865,11 +3865,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   props: {
-    services: Object,
-    errors: Object
+    services: Object
   },
   components: {
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Link,
+    Head: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Head,
     Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     BookingDate: _components_Guest_RoomBooking_BookingDate_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     GuestBookingForm: _components_Guest_RoomBooking_GuestBookingForm_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -3881,7 +3881,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return !this.roomCart.length || !this.valid;
     }
   }),
-  methods: {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapMutations)(['removeRoomCart', 'addServiceCart', 'addRoomCart'])), {}, {
     order: function order() {
       var _this = this;
 
@@ -3914,7 +3914,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.$inertia.post(this.$route('room-booking.store'), form);
       }
     }
-  }
+  })
 });
 
 /***/ }),
@@ -4394,7 +4394,12 @@ vue__WEBPACK_IMPORTED_MODULE_1__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_2_
         var roomCountTotal = roomCounts.length ? roomCounts.reduce(function (prev, current) {
           return prev + current;
         }) : 0;
-        return room.roomAvailable - roomCountTotal;
+
+        if (!state.roomCart.length) {
+          return room.roomAvailable;
+        } else {
+          return room.roomAvailable - roomCountTotal;
+        }
       };
     }
   },
@@ -16750,7 +16755,7 @@ var render = function () {
                 staticClass: "text-caption text-sm-subtitle-1",
                 attrs: {
                   rules: [_vm.rules.required, _vm.rules.lessThan50],
-                  "error-messages": _vm.$parent.errors.name,
+                  "error-messages": _vm.$page.props.errors.name,
                   label: "Nama",
                   hint: "Seperti di KTP/Paspor/SIM (tanpa tanda baca dan gelar)",
                   autofocus: "",
@@ -16772,7 +16777,7 @@ var render = function () {
                     _vm.rules.numeric,
                     _vm.rules.lessThan16,
                   ],
-                  "error-messages": _vm.$parent.errors.nik,
+                  "error-messages": _vm.$page.props.errors.nik,
                   label: "Nik",
                   hint: "NIK (kami menjamin kerahasiaan nik)",
                 },
@@ -16793,7 +16798,7 @@ var render = function () {
                     _vm.rules.numeric,
                     _vm.rules.lessThan12,
                   ],
-                  "error-messages": _vm.$parent.errors.phone,
+                  "error-messages": _vm.$page.props.errors.phone,
                   label: "Nomor Telepon",
                   hint: "Nomor Telepon",
                 },
@@ -16810,7 +16815,7 @@ var render = function () {
                 staticClass: "text-caption text-sm-subtitle-1",
                 attrs: {
                   rules: [_vm.rules.required, _vm.rules.email],
-                  "error-messages": _vm.$parent.errors.email,
+                  "error-messages": _vm.$page.props.errors.email,
                   label: "Email",
                   hint: "E-ticket akan dikirim ke alamat Email ini, simpan sebagai bukti pemesanan.",
                 },
@@ -17605,66 +17610,79 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-row",
-    { attrs: { dense: "" } },
+    "div",
     [
+      _c("Head", { attrs: { title: "Detail Pemesanan" } }),
+      _vm._v(" "),
       _c(
-        "v-col",
-        { attrs: { order: "2", "order-md": "1" } },
+        "v-row",
+        { attrs: { dense: "" } },
         [
           _c(
-            "v-row",
-            { attrs: { dense: "" } },
+            "v-col",
+            { attrs: { order: "2", "order-md": "1" } },
             [
-              _c("v-col", { attrs: { cols: "12" } }, [_c("BookingDate")], 1),
-              _vm._v(" "),
               _c(
-                "v-col",
-                { attrs: { cols: "12" } },
-                [_c("GuestBookingForm")],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-col",
-                { attrs: { cols: "12" } },
-                [_vm.roomCart.length ? _vm._m(0) : _vm._e()],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-col",
-                { staticClass: "text-end", attrs: { cols: "12" } },
+                "v-row",
+                { attrs: { dense: "" } },
                 [
                   _c(
-                    "p",
-                    { staticClass: "text-caption text-sm-body-2" },
-                    [
-                      _vm._v(
-                        "\n          Dengan menekan tombol, kamu menyetujui\n          "
-                      ),
-                      _c(
-                        "Link",
-                        { staticClass: "orange--text text--lighten-2" },
-                        [_vm._v("Kebijakan Privasi")]
-                      ),
-                      _vm._v("\n          dan\n          "),
-                      _c(
-                        "Link",
-                        { staticClass: "orange--text text--lighten-2" },
-                        [_vm._v("Syarat & Ketentuan kami")]
-                      ),
-                    ],
+                    "v-col",
+                    { attrs: { cols: "12" } },
+                    [_c("BookingDate")],
                     1
                   ),
                   _vm._v(" "),
                   _c(
-                    "Button",
-                    {
-                      attrs: { disabled: _vm.hideSubmitButton },
-                      on: { click: _vm.order },
-                    },
-                    [_vm._v("Pesan sekarang")]
+                    "v-col",
+                    { attrs: { cols: "12" } },
+                    [_c("GuestBookingForm")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "12" } },
+                    [_vm.roomCart.length ? _vm._m(0) : _vm._e()],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "text-end", attrs: { cols: "12" } },
+                    [
+                      _c(
+                        "p",
+                        { staticClass: "text-caption text-sm-body-2" },
+                        [
+                          _vm._v(
+                            "\n            Dengan menekan tombol, kamu menyetujui\n            "
+                          ),
+                          _c(
+                            "Link",
+                            { staticClass: "orange--text text--lighten-2" },
+                            [_vm._v("Kebijakan Privasi")]
+                          ),
+                          _vm._v("\n            dan\n            "),
+                          _c(
+                            "Link",
+                            { staticClass: "orange--text text--lighten-2" },
+                            [_vm._v("Syarat & Ketentuan kami")]
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "Button",
+                        {
+                          attrs: { disabled: _vm.hideSubmitButton },
+                          on: { click: _vm.order },
+                        },
+                        [_vm._v("Pesan sekarang")]
+                      ),
+                    ],
+                    1
                   ),
                 ],
                 1
@@ -17672,14 +17690,14 @@ var render = function () {
             ],
             1
           ),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "12", md: "auto", order: "1", "order-md": "2" } },
+            [_c("BookingPrice")],
+            1
+          ),
         ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-col",
-        { attrs: { cols: "12", md: "auto", order: "1", "order-md": "2" } },
-        [_c("BookingPrice")],
         1
       ),
     ],

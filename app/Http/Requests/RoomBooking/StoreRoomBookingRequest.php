@@ -24,10 +24,10 @@ class StoreRoomBookingRequest extends FormRequest
     public function rules()
     {
         return [
-            'nik' => 'required|digits:16|unique:guests,nik',
+            'nik' => 'required|digits:16',
             'name' => 'required|string|max:50',
-            'phone' => 'required|min:12|unique:guests,phone',
-            'email' => 'email:dns|unique:guests,email|nullable',
+            'phone' => 'required|min:12',
+            'email' => 'email:dns|nullable',
             'checkIn' => 'required|date',
             'checkOut' => 'required|date',
         ];

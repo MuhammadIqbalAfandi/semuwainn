@@ -14,22 +14,22 @@ export default {
   watch: {
     updateName(val, oldVal) {
       if (val !== oldVal) {
-        this.$parent.errors.name = ''
+        this.$page.props.errors.name = ''
       }
     },
     updateNik(val, oldVal) {
       if (val !== oldVal) {
-        this.$parent.errors.nik = ''
+        this.$page.props.errors.nik = ''
       }
     },
     updatePhone(val, oldVal) {
       if (val !== oldVal) {
-        this.$parent.errors.phone = ''
+        this.$page.props.errors.phone = ''
       }
     },
     updateEmail(val, oldVal) {
       if (val !== oldVal) {
-        this.$parent.errors.email = ''
+        this.$page.props.errors.email = ''
       }
     },
   },
@@ -91,7 +91,7 @@ export default {
         <TextField
           v-model="updateName"
           :rules="[rules.required, rules.lessThan50]"
-          :error-messages="$parent.errors.name"
+          :error-messages="$page.props.errors.name"
           class="text-caption text-sm-subtitle-1"
           label="Nama"
           hint="Seperti di KTP/Paspor/SIM (tanpa tanda baca dan gelar)"
@@ -101,7 +101,7 @@ export default {
         <TextField
           v-model="updateNik"
           :rules="[rules.required, rules.numeric, rules.lessThan16]"
-          :error-messages="$parent.errors.nik"
+          :error-messages="$page.props.errors.nik"
           class="text-caption text-sm-subtitle-1"
           label="Nik"
           hint="NIK (kami menjamin kerahasiaan nik)"
@@ -110,7 +110,7 @@ export default {
         <TextField
           v-model="updatePhone"
           :rules="[rules.required, rules.numeric, rules.lessThan12]"
-          :error-messages="$parent.errors.phone"
+          :error-messages="$page.props.errors.phone"
           class="text-caption text-sm-subtitle-1"
           label="Nomor Telepon"
           hint="Nomor Telepon"
@@ -119,7 +119,7 @@ export default {
         <TextField
           v-model="updateEmail"
           :rules="[rules.required, rules.email]"
-          :error-messages="$parent.errors.email"
+          :error-messages="$page.props.errors.email"
           class="text-caption text-sm-subtitle-1"
           label="Email"
           hint="E-ticket akan dikirim ke alamat Email ini, simpan sebagai bukti pemesanan."

@@ -54,7 +54,7 @@ class RoomBookingController extends Controller
         try {
             $request = $request->collect();
 
-            $guest = Guest::create([
+            $guest = Guest::firstOrCreate([
                 'nik' => $request->get('nik'),
                 'name' => $request->get('name'),
                 'phone' => $request->get('phone'),
@@ -84,10 +84,10 @@ class RoomBookingController extends Controller
             }
 
             DB::commit();
-
-            return redirect()->back();
+            return redirect()->back()->with('success', __('messages.success.store.room_booking'));
         } catch (Exception $e) {
             DB::rollBack();
+            return redirect()->back()->with('error', __('messages.error.store.room_booking'));
         }
     }
 

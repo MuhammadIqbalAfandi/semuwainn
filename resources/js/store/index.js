@@ -24,7 +24,11 @@ export default new Vuex.Store({
       const filteredRoom = state.roomCart.filter((item) => item.id === room.id)
       const roomCounts = filteredRoom.map((item) => item.roomCount)
       const roomCountTotal = roomCounts.length ? roomCounts.reduce((prev, current) => prev + current) : 0
-      return room.roomAvailable - roomCountTotal
+      if (!state.roomCart.length) {
+        return room.roomAvailable
+      } else {
+        return room.roomAvailable - roomCountTotal
+      }
     },
   },
   mutations: {
