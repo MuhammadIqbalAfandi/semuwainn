@@ -24,19 +24,6 @@ export default {
     ServiceBooking,
     BookingPrice,
   },
-  watch: {
-    '$page.props.flash.success': {
-      handler(v) {
-        if (v) {
-          this.hideFlashMessage()
-          this.$nextTick(() => {
-            this.setText(v)
-            this.showFlashMessage()
-          })
-        }
-      },
-    },
-  },
   computed: {
     ...mapState('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email', 'valid']),
     ...mapState(['roomCart', 'serviceCart']),
@@ -46,8 +33,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['removeRoomCart', 'addServiceCart', 'addRoomCart']),
-    ...mapMutations('flashMessage', ['showFlashMessage', 'hideFlashMessage', 'setText']),
+    ...mapMutations(['removeRoomCart', 'addRoomCart']),
     order() {
       if (this.valid && this.roomCart.length) {
         const rooms = this.roomCart.map((room) => {

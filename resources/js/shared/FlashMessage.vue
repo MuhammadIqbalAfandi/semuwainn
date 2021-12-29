@@ -13,10 +13,8 @@ export default {
   },
   watch: {
     '$page.url': {
-      handler(v) {
+      handler() {
         this.snackbar = false
-        this.setIcon('')
-        this.setText('')
       },
     },
     flashMessage: {

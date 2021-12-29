@@ -12,11 +12,14 @@ export default {
     hideFlashMessage(state) {
       state.flashMessage = false
     },
-    setText(state, text) {
+    setText(state, { text, icon }) {
+      if (!icon) {
+        state.flashIcon = null
+      } else {
+        state.flashIcon = icon
+      }
+
       state.flashText = text
-    },
-    setIcon(state, icon) {
-      state.flashIcon = icon
     },
   },
 }
