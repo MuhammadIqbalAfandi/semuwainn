@@ -13,6 +13,10 @@ export default {
   watch: {
     roomCart: {
       handler(val, oldVal) {
+        if (this.$page.props.flash.success) {
+          return false
+        }
+
         if (val.length < oldVal.length) {
           this.hideFlashMessage()
           this.$nextTick(() => {
