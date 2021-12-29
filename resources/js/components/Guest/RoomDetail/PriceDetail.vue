@@ -23,24 +23,29 @@ export default {
   },
   methods: {
     ...mapMutations(['addRoomCart']),
+    ...mapMutations('flashMessage', ['showFlashMessage', 'hideFlashMessage', 'setIcon', 'setText']),
     roomOrder(priceId) {
-      if (this.$parent.valid) {
+      if (this.$parent.valid && this.getRoomAvailable(this.room) >= 1) {
         const { id, prices, thumbnail, name, rooms } = this.room
         const price = prices.find((price) => price.id === priceId)
         const roomId = [head(difference(rooms, flattenDeep(this.getRoomId)))]
+        this.addRoomCart({
+          id,
+          roomId,
+          name,
+          thumbnail,
+          priceId: Number(price.id),
+          price: Number(price.price),
+          roomCount: Number(this.$parent.roomCount),
+          guestCount: Number(this.$parent.guestCount),
+        })
 
-        if (this.getRoomAvailable(this.room) >= 1) {
-          this.addRoomCart({
-            id,
-            roomId,
-            name,
-            thumbnail,
-            priceId: Number(price.id),
-            price: Number(price.price),
-            roomCount: Number(this.$parent.roomCount),
-            guestCount: Number(this.$parent.guestCount),
-          })
-        }
+        this.hideFlashMessage()
+        this.$nextTick(() => {
+          this.setText('Berhasil ditambahkan ke keranjang')
+          this.setIcon('mdi-cart')
+          this.showFlashMessage()
+        })
       }
     },
   },

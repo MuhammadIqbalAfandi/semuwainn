@@ -18,6 +18,7 @@ export default {
       <Paragraph v-if="textLeft">{{ textLeft }}</Paragraph>
       <slot name="textLeft" />
     </v-col>
+
     <v-col cols="6" class="text-right">
       <Paragraph v-if="textRight">{{ textRight }}</Paragraph>
       <slot name="textRight" />

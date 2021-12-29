@@ -1,5 +1,5 @@
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 import { Head } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
 import Paragraph from '@/shared/Paragraph.vue'
@@ -18,6 +18,7 @@ export default {
     room: Object,
   },
   components: {
+    Head,
     Paragraph,
     ParagraphLeftIcon,
     TextField,
@@ -25,7 +26,6 @@ export default {
     PriceRangeDetail,
     PriceDetail,
     FacilityDetail,
-    Head,
   },
   mixins: [mixinRules, mixinRoomStatus],
   data() {

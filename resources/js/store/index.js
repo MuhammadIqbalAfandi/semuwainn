@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import roomBooking from '@/store/modules/room-booking'
+import flashMessage from '@/store/modules/flash-message'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     roomBooking,
+    flashMessage,
   },
   state: {
     roomCart: [],

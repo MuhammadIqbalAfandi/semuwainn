@@ -3,6 +3,7 @@ import { mapGetters, mapState, mapMutations } from 'vuex'
 import { Link, Head } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
 import Button from '@/shared/Button.vue'
+import FlashMessage from '@/shared/FlashMessage.vue'
 import BookingDate from '@/components/Guest/RoomBooking/BookingDate.vue'
 import GuestBookingForm from '@/components/Guest/RoomBooking/GuestBookingForm.vue'
 import ServiceBooking from '@/components/Guest/RoomBooking/ServiceBooking.vue'
@@ -17,10 +18,24 @@ export default {
     Link,
     Head,
     Button,
+    FlashMessage,
     BookingDate,
     GuestBookingForm,
     ServiceBooking,
     BookingPrice,
+  },
+  watch: {
+    '$page.props.flash.success': {
+      handler(v) {
+        if (v) {
+          this.hideFlashMessage()
+          this.$nextTick(() => {
+            this.setText(v)
+            this.showFlashMessage()
+          })
+        }
+      },
+    },
   },
   computed: {
     ...mapState('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email', 'valid']),
@@ -32,6 +47,7 @@ export default {
   },
   methods: {
     ...mapMutations(['removeRoomCart', 'addServiceCart', 'addRoomCart']),
+    ...mapMutations('flashMessage', ['showFlashMessage', 'hideFlashMessage', 'setText']),
     order() {
       if (this.valid && this.roomCart.length) {
         const rooms = this.roomCart.map((room) => {
