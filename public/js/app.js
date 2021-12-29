@@ -3717,11 +3717,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             prices = _this$room.prices,
             thumbnail = _this$room.thumbnail,
             name = _this$room.name,
-            rooms = _this$room.rooms;
+            rooms = _this$room.rooms,
+            roomsBooking = _this$room.roomsBooking;
+        var roomsAvailable = lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(rooms, roomsBooking);
         var price = prices.find(function (price) {
           return price.id === priceId;
         });
-        var roomId = [lodash_head__WEBPACK_IMPORTED_MODULE_1___default()(lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(rooms, lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_2___default()(this.getRoomId)))];
+        var roomId = [lodash_head__WEBPACK_IMPORTED_MODULE_1___default()(lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(roomsAvailable, lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_2___default()(this.getRoomId)))];
         this.addRoomCart({
           id: id,
           roomId: roomId,

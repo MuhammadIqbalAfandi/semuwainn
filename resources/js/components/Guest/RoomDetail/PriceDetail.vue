@@ -26,9 +26,10 @@ export default {
     ...mapMutations('flashMessage', ['showFlashMessage', 'hideFlashMessage', 'setIcon', 'setText']),
     roomOrder(priceId) {
       if (this.$parent.valid && this.getRoomAvailable(this.room) >= 1) {
-        const { id, prices, thumbnail, name, rooms } = this.room
+        const { id, prices, thumbnail, name, rooms, roomsBooking } = this.room
+        const roomsAvailable = difference(rooms, roomsBooking)
         const price = prices.find((price) => price.id === priceId)
-        const roomId = [head(difference(rooms, flattenDeep(this.getRoomId)))]
+        const roomId = [head(difference(roomsAvailable, flattenDeep(this.getRoomId)))]
         this.addRoomCart({
           id,
           roomId,
