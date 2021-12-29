@@ -3371,13 +3371,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return (_this$room$thumbnail$ = this.room.thumbnail.images[0]) !== null && _this$room$thumbnail$ !== void 0 ? _this$room$thumbnail$ : this.room.thumbnail.defaultImage;
     }
   }),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapMutations)(['removeRoomCart', 'addServiceCart'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapMutations)(['removeRoomCart', 'clearServiceCart'])), {}, {
     roomDelete: function roomDelete(priceId) {
       this.removeRoomCart(priceId);
-
-      if (!this.roomCart.length) {
-        this.addServiceCart([]);
-      }
     }
   })
 });
@@ -3837,6 +3833,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       handler: function handler(val, oldVal) {
         var _this2 = this;
 
+        if (!this.roomCart.length) {
+          return false;
+        }
+
         if (val.length < oldVal.length) {
           this.hideFlashMessage();
           this.$nextTick(function () {
@@ -3868,7 +3868,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.hideFlashMessage();
           this.$nextTick(function () {
             _this3.setText({
-              text: text
+              text: flash.success
             });
 
             _this3.showFlashMessage();
@@ -3879,7 +3879,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this.hideFlashMessage();
           this.$nextTick(function () {
             _this3.setText({
-              text: text
+              text: flash.error
             });
 
             _this3.showFlashMessage();
@@ -3936,21 +3936,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/layouts/Guest.vue */ "./resources/js/layouts/Guest.vue");
 /* harmony import */ var _shared_Button_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/Button.vue */ "./resources/js/shared/Button.vue");
-/* harmony import */ var _shared_FlashMessage_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/shared/FlashMessage.vue */ "./resources/js/shared/FlashMessage.vue");
-/* harmony import */ var _components_Guest_RoomBooking_BookingDate_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/Guest/RoomBooking/BookingDate.vue */ "./resources/js/components/Guest/RoomBooking/BookingDate.vue");
-/* harmony import */ var _components_Guest_RoomBooking_GuestBookingForm_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Guest/RoomBooking/GuestBookingForm.vue */ "./resources/js/components/Guest/RoomBooking/GuestBookingForm.vue");
-/* harmony import */ var _components_Guest_RoomBooking_ServiceBooking_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Guest/RoomBooking/ServiceBooking.vue */ "./resources/js/components/Guest/RoomBooking/ServiceBooking.vue");
-/* harmony import */ var _components_Guest_RoomBooking_BookingPrice_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/Guest/RoomBooking/BookingPrice.vue */ "./resources/js/components/Guest/RoomBooking/BookingPrice.vue");
+/* harmony import */ var _components_Guest_RoomBooking_BookingDate_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/Guest/RoomBooking/BookingDate.vue */ "./resources/js/components/Guest/RoomBooking/BookingDate.vue");
+/* harmony import */ var _components_Guest_RoomBooking_GuestBookingForm_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/Guest/RoomBooking/GuestBookingForm.vue */ "./resources/js/components/Guest/RoomBooking/GuestBookingForm.vue");
+/* harmony import */ var _components_Guest_RoomBooking_ServiceBooking_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Guest/RoomBooking/ServiceBooking.vue */ "./resources/js/components/Guest/RoomBooking/ServiceBooking.vue");
+/* harmony import */ var _components_Guest_RoomBooking_BookingPrice_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/components/Guest/RoomBooking/BookingPrice.vue */ "./resources/js/components/Guest/RoomBooking/BookingPrice.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -3969,18 +3967,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Link,
     Head: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Head,
     Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    FlashMessage: _shared_FlashMessage_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    BookingDate: _components_Guest_RoomBooking_BookingDate_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    GuestBookingForm: _components_Guest_RoomBooking_GuestBookingForm_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    ServiceBooking: _components_Guest_RoomBooking_ServiceBooking_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    BookingPrice: _components_Guest_RoomBooking_BookingPrice_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+    BookingDate: _components_Guest_RoomBooking_BookingDate_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    GuestBookingForm: _components_Guest_RoomBooking_GuestBookingForm_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    ServiceBooking: _components_Guest_RoomBooking_ServiceBooking_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    BookingPrice: _components_Guest_RoomBooking_BookingPrice_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
-  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapState)('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email', 'valid'])), (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapState)(['roomCart', 'serviceCart'])), (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapGetters)(['getRoomCount'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email', 'valid'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)(['roomCart', 'serviceCart'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)(['getRoomCount'])), {}, {
     hideSubmitButton: function hideSubmitButton() {
       return !this.roomCart.length || !this.valid;
     }
   }),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_8__.mapMutations)(['removeRoomCart', 'addRoomCart'])), {}, {
+  watch: {
+    '$page.props.flash': {
+      handler: function handler(flash) {
+        if (flash.success) {
+          this.clearRoomCart();
+          this.clearGuestBookingForm();
+        }
+      }
+    }
+  },
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapMutations)(['clearRoomCart'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapMutations)('roomBooking', ['clearGuestBookingForm'])), {}, {
     order: function order() {
       var _this = this;
 
@@ -4574,6 +4581,17 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_3_
       state.roomCart = state.roomCart.filter(function (item) {
         return item.priceId !== priceId;
       });
+
+      if (!state.roomCart.length) {
+        state.serviceCart = [];
+      }
+    },
+    clearRoomCart: function clearRoomCart(state) {
+      state.roomCart = [];
+
+      if (!state.roomCart.length) {
+        state.serviceCart = [];
+      }
     },
     addServiceCart: function addServiceCart(state, service) {
       state.serviceCart = service;
@@ -4651,10 +4669,10 @@ __webpack_require__.r(__webpack_exports__);
     checkOut: null,
     nightCount: null,
     valid: false,
-    name: 'Muhammad Iqbal Afandi',
-    nik: '1111111111111111',
-    phone: '111111111111',
-    email: 'muhammadiqbalafandi30@gmail.com'
+    name: '',
+    nik: '',
+    phone: '',
+    email: ''
   },
   mutations: {
     setCheckIn: function setCheckIn(state, date) {
@@ -4680,6 +4698,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     setEmail: function setEmail(state, email) {
       state.email = email;
+    },
+    clearGuestBookingForm: function clearGuestBookingForm(state) {
+      state.name = '';
+      state.nik = '';
+      state.phone = '';
+      state.email = '';
     }
   }
 });

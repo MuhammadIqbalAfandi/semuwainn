@@ -46,6 +46,15 @@ export default new Vuex.Store({
     },
     removeRoomCart(state, priceId) {
       state.roomCart = state.roomCart.filter((item) => item.priceId !== priceId)
+      if (!state.roomCart.length) {
+        state.serviceCart = []
+      }
+    },
+    clearRoomCart(state) {
+      state.roomCart = []
+      if (!state.roomCart.length) {
+        state.serviceCart = []
+      }
     },
     addServiceCart(state, service) {
       state.serviceCart = service

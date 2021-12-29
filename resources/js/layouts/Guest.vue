@@ -31,6 +31,10 @@ export default {
     },
     serviceCart: {
       handler(val, oldVal) {
+        if (!this.roomCart.length) {
+          return false
+        }
+
         if (val.length < oldVal.length) {
           this.hideFlashMessage()
           this.$nextTick(() => {
@@ -52,7 +56,7 @@ export default {
         if (flash.success) {
           this.hideFlashMessage()
           this.$nextTick(() => {
-            this.setText({ text })
+            this.setText({ text: flash.success })
             this.showFlashMessage()
           })
         }
@@ -60,7 +64,7 @@ export default {
         if (flash.error) {
           this.hideFlashMessage()
           this.$nextTick(() => {
-            this.setText({ text })
+            this.setText({ text: flash.error })
             this.showFlashMessage()
           })
         }
