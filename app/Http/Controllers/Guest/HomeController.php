@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\RoomType;
 use Illuminate\Support\Facades\Request;
 
-class RoomController extends Controller
+class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        return inertia('Guest/Room', [
+        return inertia('Guest/Home/Index', [
             'rooms' => RoomType::filter()
                 ->paginate(10)
                 ->withQueryString()

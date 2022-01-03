@@ -1,7 +1,7 @@
 <script>
 import { Head } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
-import Room from '@/components/Guest/Room/RoomList.vue'
+import RoomList from '@/components/Guest/Home/RoomList.vue'
 
 export default {
   layout: GuestLayout,
@@ -10,7 +10,7 @@ export default {
   },
   components: {
     Head,
-    Room,
+    RoomList,
   },
 }
 </script>
@@ -19,6 +19,6 @@ export default {
   <div>
     <Head title="Halaman Utama" />
 
-    <Room :rooms="rooms" />
+    <RoomList :rooms="rooms" />
   </div>
 </template>
