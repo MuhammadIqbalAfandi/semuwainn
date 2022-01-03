@@ -3371,7 +3371,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return (_this$room$thumbnail$ = this.room.thumbnail.images[0]) !== null && _this$room$thumbnail$ !== void 0 ? _this$room$thumbnail$ : this.room.thumbnail.defaultImage;
     }
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapMutations)(['removeRoomCart', 'clearServiceCart'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)(['removeRoomCart', 'clearServiceCart'])), {}, {
     roomDelete: function roomDelete(priceId) {
       this.removeRoomCart(priceId);
     }
@@ -3418,7 +3418,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['getRoomCount'])),
-  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapMutations)(['removeServiceCart']))
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)(['removeServiceCart']))
 });
 
 /***/ }),
@@ -3572,7 +3572,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapMutations)(['addServiceCart'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)(['addServiceCart'])), {}, {
     next: function next() {
       this.$inertia.get(this.services.next_page_url, '', {
         preserveScroll: true
@@ -3992,7 +3992,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   },
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapMutations)(['clearRoomCart'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapMutations)('roomBooking', ['clearGuestBookingForm'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapActions)(['clearRoomCart'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapMutations)('roomBooking', ['clearGuestBookingForm'])), {}, {
     order: function order() {
       var _this = this;
 
@@ -4095,9 +4095,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       roomCount: 1,
       guestCount: 1,
       rules: {
-        lessOrEqualThanRoomAvailable: function lessOrEqualThanRoomAvailable(v) {
-          return v <= _this.getRoomAvailable(_this.room) || "Jumlah kamar melebihi kamar yang tersediah.";
-        },
         lessOrEqualThanNumberOfGuestAvailable: function lessOrEqualThanNumberOfGuestAvailable(v) {
           return v <= _this.room.numberOfGuest || "Jumlah tamu melebihi jumlah yang diperbolehkan.";
         }
@@ -4567,6 +4564,7 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_5_
       state.roomCart.push(room);
     },
     addRoomCartView: function addRoomCartView(state, room) {
+      // FIXME: room cart changes
       var roomFound = state.roomCartView.find(function (item) {
         return item.priceId === room.priceId;
       });
@@ -4616,6 +4614,22 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_5_
       var commit = _ref.commit;
       commit('addRoomCart', room);
       commit('addRoomCartView', room);
+    },
+    removeRoomCart: function removeRoomCart(_ref2, priceId) {
+      var commit = _ref2.commit;
+      commit('removeRoomCart', priceId);
+    },
+    clearRoomCart: function clearRoomCart(_ref3) {
+      var commit = _ref3.commit;
+      commit('clearRoomCart');
+    },
+    addServiceCart: function addServiceCart(_ref4, service) {
+      var commit = _ref4.commit;
+      commit('addServiceCart', service);
+    },
+    removeServiceCart: function removeServiceCart(_ref5, id) {
+      var commit = _ref5.commit;
+      commit('removeServiceCart', id);
     }
   }
 }));
@@ -18131,36 +18145,6 @@ var render = function () {
                                       icon: "mdi-information",
                                       text: "Tamu umur berapapun dianggap sebagai\n                  dewasa.",
                                       warning: true,
-                                    },
-                                  }),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "12" } },
-                                [
-                                  _c("TextField", {
-                                    staticClass:
-                                      "text-caption text-sm-subtitle-1",
-                                    attrs: {
-                                      disabled: !_vm.getRoomAvailable(_vm.room),
-                                      rules: [
-                                        _vm.rules.numeric,
-                                        _vm.rules.notZero,
-                                        _vm.rules.lessOrEqualThanRoomAvailable,
-                                      ],
-                                      label: "Jumlah kamar",
-                                      hint: "Jumlah Kamar yang akan dipesan",
-                                      autofocus: "",
-                                    },
-                                    model: {
-                                      value: _vm.roomCount,
-                                      callback: function ($$v) {
-                                        _vm.roomCount = $$v
-                                      },
-                                      expression: "roomCount",
                                     },
                                   }),
                                 ],

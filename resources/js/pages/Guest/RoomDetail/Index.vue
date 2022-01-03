@@ -34,9 +34,6 @@ export default {
       roomCount: 1,
       guestCount: 1,
       rules: {
-        lessOrEqualThanRoomAvailable: (v) => {
-          return v <= this.getRoomAvailable(this.room) || `Jumlah kamar melebihi kamar yang tersediah.`
-        },
         lessOrEqualThanNumberOfGuestAvailable: (v) => {
           return v <= this.room.numberOfGuest || `Jumlah tamu melebihi jumlah yang diperbolehkan.`
         },
@@ -81,18 +78,6 @@ export default {
                     text="Tamu umur berapapun dianggap sebagai
                     dewasa."
                     :warning="true"
-                  />
-                </v-col>
-
-                <v-col cols="12">
-                  <TextField
-                    v-model="roomCount"
-                    :disabled="!getRoomAvailable(room)"
-                    class="text-caption text-sm-subtitle-1"
-                    :rules="[rules.numeric, rules.notZero, rules.lessOrEqualThanRoomAvailable]"
-                    label="Jumlah kamar"
-                    hint="Jumlah Kamar yang akan dipesan"
-                    autofocus
                   />
                 </v-col>
 

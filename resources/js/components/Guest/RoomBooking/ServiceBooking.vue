@@ -1,5 +1,5 @@
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import ParagraphSpacing from '@/shared/ParagraphSpacing.vue'
 import mixinHelpers from '@/mixins/helpers'
@@ -30,7 +30,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['addServiceCart']),
+    ...mapActions(['addServiceCart']),
     next() {
       this.$inertia.get(this.services.next_page_url, '', { preserveScroll: true })
     },

@@ -37,6 +37,7 @@ export default new Vuex.Store({
       state.roomCart.push(room)
     },
     addRoomCartView(state, room) {
+      // FIXME: room cart changes
       const roomFound = state.roomCartView.find((item) => item.priceId === room.priceId)
       if (roomFound) {
         roomFound.roomCount += room.roomCount
@@ -71,6 +72,18 @@ export default new Vuex.Store({
     addRoomCart({ commit }, room) {
       commit('addRoomCart', room)
       commit('addRoomCartView', room)
+    },
+    removeRoomCart({ commit }, priceId) {
+      commit('removeRoomCart', priceId)
+    },
+    clearRoomCart({ commit }) {
+      commit('clearRoomCart')
+    },
+    addServiceCart({ commit }, service) {
+      commit('addServiceCart', service)
+    },
+    removeServiceCart({ commit }, id) {
+      commit('removeServiceCart', id)
     },
   },
 })

@@ -1,5 +1,5 @@
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import Button from '@/shared/Button.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
@@ -17,7 +17,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['removeRoomCart', 'clearServiceCart']),
+    ...mapActions(['removeRoomCart', 'clearServiceCart']),
     roomDelete(priceId) {
       this.removeRoomCart(priceId)
     },

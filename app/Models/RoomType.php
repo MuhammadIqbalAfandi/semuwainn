@@ -51,6 +51,7 @@ class RoomType extends Model
 
     public function scopeFilter($query)
     {
+        // FIXME: filter has bug
         $roomId = $query->get()->transform(fn($roomType) => [$roomType->roomOrders->pluck('room_id')])->flatten();
         $roomTypeId = $query->get()->transform(fn($roomType) => [$roomType->rooms->whereIn('id', $roomId)->pluck('room_type_id')])->flatten();
         $query->whereNotIn('id', $roomTypeId);

@@ -1,5 +1,5 @@
 <script>
-import { mapGetters, mapState, mapMutations } from 'vuex'
+import { mapGetters, mapState, mapMutations, mapActions } from 'vuex'
 import { Link, Head } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
 import Button from '@/shared/Button.vue'
@@ -41,7 +41,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['clearRoomCart']),
+    ...mapActions(['clearRoomCart']),
     ...mapMutations('roomBooking', ['clearGuestBookingForm']),
     order() {
       if (this.valid && this.roomCart.length) {

@@ -1,5 +1,5 @@
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import ParagraphSpacing from '@/shared/ParagraphSpacing.vue'
 import Button from '@/shared/Button.vue'
@@ -19,7 +19,7 @@ export default {
     ...mapGetters(['getRoomCount']),
   },
   methods: {
-    ...mapMutations(['removeServiceCart']),
+    ...mapActions(['removeServiceCart']),
   },
 }
 </script>
