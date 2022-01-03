@@ -20,7 +20,7 @@ class CreateReservationsTable extends Migration
             $table->date('checkin');
             $table->date('checkout');
             $table->unsignedInteger('discount')->default(0);
-            $table->foreignId('user_id')->nullable()->constrained()->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('guest_id')->constrained();
             $table->foreignId('reservation_status_id')->default(2)->constrained();
             $table->timestamps();

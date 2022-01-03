@@ -6,11 +6,11 @@ import id from 'dayjs/locale/id'
 import vuetify from '@/plugins/vuetify'
 import store from '@/store'
 
-dayjs.locale(id)
-
 InertiaProgress.init({
   color: '#bdad8f',
 })
+
+dayjs.locale(id)
 
 Vue.prototype.$route = route
 

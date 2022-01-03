@@ -23,7 +23,7 @@ export default {
     BookingPrice,
   },
   computed: {
-    ...mapState('roomBooking', ['checkIn', 'checkOut', 'valid', 'name', 'nik', 'phone', 'email', 'valid']),
+    ...mapState('roomBooking', ['checkIn', 'checkOut', 'valid', 'nik', 'name', 'phone', 'email', 'valid']),
     ...mapState(['roomCart', 'serviceCart']),
     ...mapGetters(['getRoomCount']),
     hideSubmitButton() {
@@ -63,8 +63,8 @@ export default {
         })
 
         const form = {
-          name: this.name,
           nik: this.nik,
+          name: this.name,
           phone: this.phone,
           email: this.email,
           checkIn: this.checkIn,

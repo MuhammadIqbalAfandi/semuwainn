@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
 use App\Models\RoomType;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
-class HomeController extends Controller
+class RoomController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return inertia('Guest/Home', [
-            'rooms' => RoomType::paginate(10)
+        return inertia('Guest/Room', [
+            'rooms' => RoomType::filter()
+                ->paginate(10)
                 ->withQueryString()
                 ->through(fn($roomType) => [
                     'id' => $roomType->id,

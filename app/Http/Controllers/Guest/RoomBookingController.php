@@ -52,20 +52,18 @@ class RoomBookingController extends Controller
     {
         DB::beginTransaction();
         try {
-            $request = $request->collect();
 
-            $guest = Guest::firstOrCreate([
-                'nik' => $request->get('nik'),
-                'name' => $request->get('name'),
-                'phone' => $request->get('phone'),
-                'email' => $request->get('email'),
-            ]);
+            $guest = Guest::firstWhere('nik', $request->nik);
+            if (!$guest) {
+                $guest = Guest::firstOrCreate($request->safe()->except(['checkIn', 'checkOut']));
+            }
+
             $reservation = $guest->reservations()->create([
                 'reservation_number' => 'OD' . Carbon::now()->format('YmdHs'),
-                'checkin' => $request->get('checkIn'),
-                'checkout' => $request->get('checkOut'),
+                'checkin' => $request->checkIn,
+                'checkout' => $request->checkOut,
             ]);
-            foreach ($request->get('rooms') as $room) {
+            foreach ($request->rooms as $room) {
                 foreach ($room['roomId'] as $roomId) {
                     $reservation->roomOrders()->create([
                         'price' => $room['price'],
@@ -75,7 +73,7 @@ class RoomBookingController extends Controller
                     ]);
                 }
             }
-            foreach ($request->get('services') as $service) {
+            foreach ($request->services as $service) {
                 $reservation->serviceOrders()->create([
                     'price' => $service['price'],
                     'quantity' => $service['roomCount'],
@@ -87,6 +85,7 @@ class RoomBookingController extends Controller
             return redirect()->back()->with('success', __('messages.success.store.room_booking'));
         } catch (Exception $e) {
             DB::rollBack();
+            dd($e);
             return redirect()->back()->with('error', __('messages.error.store.room_booking'));
         }
     }

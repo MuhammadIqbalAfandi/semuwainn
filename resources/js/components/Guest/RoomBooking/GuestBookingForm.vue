@@ -12,14 +12,14 @@ export default {
     this.$refs.form.validate()
   },
   watch: {
-    updateName(val, oldVal) {
-      if (val !== oldVal) {
-        this.$page.props.errors.name = ''
-      }
-    },
     updateNik(val, oldVal) {
       if (val !== oldVal) {
         this.$page.props.errors.nik = ''
+      }
+    },
+    updateName(val, oldVal) {
+      if (val !== oldVal) {
+        this.$page.props.errors.name = ''
       }
     },
     updatePhone(val, oldVal) {
@@ -46,20 +46,20 @@ export default {
         this.setValid(v)
       },
     },
-    updateName: {
-      get() {
-        return this.name
-      },
-      set(v) {
-        this.setName(v)
-      },
-    },
     updateNik: {
       get() {
         return this.nik
       },
       set(v) {
         this.setNik(v)
+      },
+    },
+    updateName: {
+      get() {
+        return this.name
+      },
+      set(v) {
+        this.setName(v)
       },
     },
     updatePhone: {
@@ -89,6 +89,15 @@ export default {
 
       <v-card-text>
         <TextField
+          v-model="updateNik"
+          :rules="[rules.required, rules.numeric, rules.lessThan16]"
+          :error-messages="$page.props.errors.nik"
+          class="text-caption text-sm-subtitle-1"
+          label="Nik"
+          hint="NIK (kami menjamin kerahasiaan nik)"
+        />
+
+        <TextField
           v-model="updateName"
           :rules="[rules.required, rules.lessThan50]"
           :error-messages="$page.props.errors.name"
@@ -96,15 +105,6 @@ export default {
           label="Nama"
           hint="Seperti di KTP/Paspor/SIM (tanpa tanda baca dan gelar)"
           autofocus
-        />
-
-        <TextField
-          v-model="updateNik"
-          :rules="[rules.required, rules.numeric, rules.lessThan16]"
-          :error-messages="$page.props.errors.nik"
-          class="text-caption text-sm-subtitle-1"
-          label="Nik"
-          hint="NIK (kami menjamin kerahasiaan nik)"
         />
 
         <TextField

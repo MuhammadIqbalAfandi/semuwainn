@@ -29,6 +29,7 @@ export default {
         const roomsAvailable = difference(rooms, roomsBooking)
         const price = prices.find((price) => price.id === priceId)
         const roomId = [head(difference(roomsAvailable, flattenDeep(this.getRoomId)))]
+
         this.addRoomCart({
           id,
           roomId,

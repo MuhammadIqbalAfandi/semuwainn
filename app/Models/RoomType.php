@@ -14,6 +14,11 @@ class RoomType extends Model
 {
     use HasFactory;
 
+    protected $with = [
+        'roomOrders',
+        'rooms',
+    ];
+
     protected $fillable = [
         'name',
         'number_of_guest_id',
@@ -42,5 +47,12 @@ class RoomType extends Model
     public function numberOfGuest()
     {
         return $this->belongsTo(NumberOfGuest::class);
+    }
+
+    public function scopeFilter($query)
+    {
+        $roomId = $query->get()->transform(fn($roomType) => [$roomType->roomOrders->pluck('room_id')])->flatten();
+        $roomTypeId = $query->get()->transform(fn($roomType) => [$roomType->rooms->whereIn('id', $roomId)->pluck('room_type_id')])->flatten();
+        $query->whereNotIn('id', $roomTypeId);
     }
 }

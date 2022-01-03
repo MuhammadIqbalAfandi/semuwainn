@@ -24,7 +24,7 @@ class StoreRoomBookingRequest extends FormRequest
     public function rules()
     {
         return [
-            'nik' => 'required|digits:16',
+            'nik' => 'required|numeric|digits:16',
             'name' => 'required|string|max:50',
             'phone' => 'required|min:12',
             'email' => 'email:dns|nullable',
