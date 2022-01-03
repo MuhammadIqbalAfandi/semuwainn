@@ -52,10 +52,9 @@ class RoomBookingController extends Controller
     {
         DB::beginTransaction();
         try {
-
             $guest = Guest::firstWhere('nik', $request->nik);
             if (!$guest) {
-                $guest = Guest::firstOrCreate($request->safe()->except(['checkIn', 'checkOut']));
+                $guest = Guest::create($request->safe()->except(['checkIn', 'checkOut']));
             }
 
             $reservation = $guest->reservations()->create([
@@ -64,14 +63,13 @@ class RoomBookingController extends Controller
                 'checkout' => $request->checkOut,
             ]);
             foreach ($request->rooms as $room) {
-                foreach ($room['roomId'] as $roomId) {
-                    $reservation->roomOrders()->create([
-                        'price' => $room['price'],
-                        'guest_count' => $room['guestCount'],
-                        'quantity' => $room['roomCount'],
-                        'room_id' => $roomId,
-                    ]);
-                }
+                $reservation->roomOrders()->create([
+                    'price' => $room['price'],
+                    'guest_count' => $room['guestCount'],
+                    'quantity' => $room['roomCount'],
+                    'room_id' => $room['roomId'],
+                ]);
+
             }
             foreach ($request->services as $service) {
                 $reservation->serviceOrders()->create([
@@ -85,7 +83,6 @@ class RoomBookingController extends Controller
             return redirect()->back()->with('success', __('messages.success.store.room_booking'));
         } catch (Exception $e) {
             DB::rollBack();
-            dd($e);
             return redirect()->back()->with('error', __('messages.error.store.room_booking'));
         }
     }

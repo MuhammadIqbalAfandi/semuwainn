@@ -11,7 +11,7 @@ export default {
     BookingPriceTotal,
   },
   computed: {
-    ...mapState(['roomCart', 'serviceCart']),
+    ...mapState(['roomCartView', 'serviceCart']),
   },
 }
 </script>
@@ -22,7 +22,7 @@ export default {
 
     <v-card-text>
       <v-row dense>
-        <v-col v-for="room in roomCart" :key="`room ${room.priceId}`" cols="12">
+        <v-col v-for="room in roomCartView" :key="`room ${room.priceId}`" cols="12">
           <RoomBookingPrice :room="room" />
         </v-col>
 

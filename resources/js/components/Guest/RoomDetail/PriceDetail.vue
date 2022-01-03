@@ -1,5 +1,5 @@
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import difference from 'lodash/difference'
 import head from 'lodash/head'
 import flattenDeep from 'lodash/flattenDeep'
@@ -22,15 +22,14 @@ export default {
     ...mapGetters(['getRoomAvailable', 'getRoomId']),
   },
   methods: {
-    ...mapMutations(['addRoomCart']),
+    ...mapActions(['addRoomCart']),
     roomOrder(priceId) {
       if (this.$parent.valid && this.getRoomAvailable(this.room) >= 1) {
         const { id, prices, thumbnail, name, rooms, roomsBooking } = this.room
-        const roomsAvailable = difference(rooms, roomsBooking)
         const price = prices.find((price) => price.id === priceId)
+        const roomsAvailable = difference(rooms, roomsBooking)
         const roomId = [head(difference(roomsAvailable, flattenDeep(this.getRoomId)))]
-
-        this.addRoomCart({
+        const data = {
           id,
           roomId,
           name,
@@ -39,7 +38,9 @@ export default {
           price: Number(price.price),
           roomCount: Number(this.$parent.roomCount),
           guestCount: Number(this.$parent.guestCount),
-        })
+        }
+
+        this.addRoomCart(data)
       }
     },
   },

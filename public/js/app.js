@@ -3260,7 +3260,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ServiceBookingPrice: _components_Guest_RoomBooking_BookingPrice_ServiceBookingPrice_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     BookingPriceTotal: _components_Guest_RoomBooking_BookingPrice_BookingPriceTotal_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)(['roomCart', 'serviceCart']))
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)(['roomCartView', 'serviceCart']))
 });
 
 /***/ }),
@@ -3364,13 +3364,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     room: Object
   },
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)(['roomCart'])), {}, {
+  computed: {
     thumbnail: function thumbnail() {
       var _this$room$thumbnail$;
 
       return (_this$room$thumbnail$ = this.room.thumbnail.images[0]) !== null && _this$room$thumbnail$ !== void 0 ? _this$room$thumbnail$ : this.room.thumbnail.defaultImage;
     }
-  }),
+  },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapMutations)(['removeRoomCart', 'clearServiceCart'])), {}, {
     roomDelete: function roomDelete(priceId) {
       this.removeRoomCart(priceId);
@@ -3703,7 +3703,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mixins: [_mixins_room_status__WEBPACK_IMPORTED_MODULE_6__["default"]],
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)(['getRoomAvailable', 'getRoomId'])),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapMutations)(['addRoomCart'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapActions)(['addRoomCart'])), {}, {
     roomOrder: function roomOrder(priceId) {
       if (this.$parent.valid && this.getRoomAvailable(this.room) >= 1) {
         var _this$room = this.room,
@@ -3713,12 +3713,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             name = _this$room.name,
             rooms = _this$room.rooms,
             roomsBooking = _this$room.roomsBooking;
-        var roomsAvailable = lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(rooms, roomsBooking);
         var price = prices.find(function (price) {
           return price.id === priceId;
         });
+        var roomsAvailable = lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(rooms, roomsBooking);
         var roomId = [lodash_head__WEBPACK_IMPORTED_MODULE_1___default()(lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(roomsAvailable, lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_2___default()(this.getRoomId)))];
-        this.addRoomCart({
+        var data = {
           id: id,
           roomId: roomId,
           name: name,
@@ -3727,7 +3727,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           price: Number(price.price),
           roomCount: Number(this.$parent.roomCount),
           guestCount: Number(this.$parent.guestCount)
-        });
+        };
+        this.addRoomCart(data);
       }
     }
   })
@@ -3998,7 +3999,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.valid && this.roomCart.length) {
         var rooms = this.roomCart.map(function (room) {
           return {
-            roomId: room.roomId,
+            roomId: room.roomId[0],
             price: room.price,
             roomCount: room.roomCount,
             guestCount: room.guestCount
@@ -4500,10 +4501,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _store_modules_room_booking__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/store/modules/room-booking */ "./resources/js/store/modules/room-booking.js");
-/* harmony import */ var _store_modules_flash_message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store/modules/flash-message */ "./resources/js/store/modules/flash-message.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var lodash_difference__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/difference */ "./node_modules/lodash/difference.js");
+/* harmony import */ var lodash_difference__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_difference__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/flattenDeep */ "./node_modules/lodash/flattenDeep.js");
+/* harmony import */ var lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store_modules_room_booking__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/store/modules/room-booking */ "./resources/js/store/modules/room-booking.js");
+/* harmony import */ var _store_modules_flash_message__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/store/modules/flash-message */ "./resources/js/store/modules/flash-message.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -4520,20 +4525,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_3__["default"]);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_3__["default"].Store({
+
+
+vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_5__["default"]);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
   modules: {
-    roomBooking: _store_modules_room_booking__WEBPACK_IMPORTED_MODULE_0__["default"],
-    flashMessage: _store_modules_flash_message__WEBPACK_IMPORTED_MODULE_1__["default"]
+    roomBooking: _store_modules_room_booking__WEBPACK_IMPORTED_MODULE_2__["default"],
+    flashMessage: _store_modules_flash_message__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   state: {
     roomCart: [],
+    roomCartView: [],
     serviceCart: []
   },
   getters: {
     getRoomId: function getRoomId(state) {
-      return state.roomCart.map(function (room) {
-        return room.roomId;
+      return state.roomCart.map(function (item) {
+        return item.roomId;
       });
     },
     getRoomCount: function getRoomCount(state) {
@@ -4544,29 +4552,22 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_3_
         return prev + current;
       }) : 0;
     },
-    getRoomAvailable: function getRoomAvailable(state) {
+    getRoomAvailable: function getRoomAvailable(state, getters) {
       return function (room) {
-        var filteredRoom = state.roomCart.filter(function (item) {
-          return item.id === room.id;
-        });
-        var roomCounts = filteredRoom.map(function (item) {
-          return item.roomCount;
-        });
-        var roomCountTotal = roomCounts.length ? roomCounts.reduce(function (prev, current) {
-          return prev + current;
-        }) : 0;
-
-        if (!state.roomCart.length) {
-          return room.roomAvailable;
-        } else {
-          return room.roomAvailable - roomCountTotal;
-        }
+        var rooms = room.rooms,
+            roomsBooking = room.roomsBooking;
+        var roomsAvailable = lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(rooms, roomsBooking);
+        var roomAvailableTotal = lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(roomsAvailable, lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_1___default()(getters.getRoomId));
+        return roomAvailableTotal.length;
       };
     }
   },
   mutations: {
     addRoomCart: function addRoomCart(state, room) {
-      var roomFound = state.roomCart.find(function (item) {
+      state.roomCart.push(room);
+    },
+    addRoomCartView: function addRoomCartView(state, room) {
+      var roomFound = state.roomCartView.find(function (item) {
         return item.priceId === room.priceId;
       });
 
@@ -4578,11 +4579,14 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_3_
 
         (_roomFound$roomId = roomFound.roomId).push.apply(_roomFound$roomId, _toConsumableArray(room.roomId));
       } else {
-        state.roomCart.push(room);
+        state.roomCartView.push(room);
       }
     },
     removeRoomCart: function removeRoomCart(state, priceId) {
       state.roomCart = state.roomCart.filter(function (item) {
+        return item.priceId !== priceId;
+      });
+      state.roomCartView = state.roomCartView.filter(function (item) {
         return item.priceId !== priceId;
       });
 
@@ -4592,6 +4596,7 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_3_
     },
     clearRoomCart: function clearRoomCart(state) {
       state.roomCart = [];
+      state.roomCartView = [];
 
       if (!state.roomCart.length) {
         state.serviceCart = [];
@@ -4604,6 +4609,13 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_3_
       state.serviceCart = state.serviceCart.filter(function (item) {
         return item.id !== id;
       });
+    }
+  },
+  actions: {
+    addRoomCart: function addRoomCart(_ref, room) {
+      var commit = _ref.commit;
+      commit('addRoomCart', room);
+      commit('addRoomCartView', room);
     }
   }
 }));
@@ -16524,7 +16536,7 @@ var render = function () {
             "v-row",
             { attrs: { dense: "" } },
             [
-              _vm._l(_vm.roomCart, function (room) {
+              _vm._l(_vm.roomCartView, function (room) {
                 return _c(
                   "v-col",
                   { key: "room " + room.priceId, attrs: { cols: "12" } },
@@ -17054,6 +17066,7 @@ var render = function () {
                   "error-messages": _vm.$page.props.errors.nik,
                   label: "Nik",
                   hint: "NIK (kami menjamin kerahasiaan nik)",
+                  autofocus: "",
                 },
                 model: {
                   value: _vm.updateNik,
@@ -17071,7 +17084,6 @@ var render = function () {
                   "error-messages": _vm.$page.props.errors.name,
                   label: "Nama",
                   hint: "Seperti di KTP/Paspor/SIM (tanpa tanda baca dan gelar)",
-                  autofocus: "",
                 },
                 model: {
                   value: _vm.updateName,
@@ -17701,7 +17713,8 @@ var render = function () {
                           _c("ParagraphLeftIcon", {
                             attrs: {
                               icon: "mdi-account-multiple",
-                              text: _vm.numberOfGuest + " tamu",
+                              text:
+                                _vm.numberOfGuest + " tamu (untuk satu kamar)",
                             },
                           }),
                         ],

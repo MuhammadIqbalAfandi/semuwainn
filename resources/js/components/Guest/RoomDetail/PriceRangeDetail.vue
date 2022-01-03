@@ -29,7 +29,7 @@ export default {
               <Paragraph class="text-body-2 text-md-h5 font-weight-bold">{{ roomName }}</Paragraph>
             </v-col>
             <v-col cols="12">
-              <ParagraphLeftIcon icon="mdi-account-multiple" :text="numberOfGuest + ' tamu'" />
+              <ParagraphLeftIcon icon="mdi-account-multiple" :text="numberOfGuest + ' tamu (untuk satu kamar)'" />
             </v-col>
           </v-row>
         </v-col>

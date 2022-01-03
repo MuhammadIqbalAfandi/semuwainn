@@ -1,5 +1,5 @@
 <script>
-import { mapGetters, mapMutations, mapState } from 'vuex'
+import { mapMutations } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import Button from '@/shared/Button.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
@@ -12,7 +12,6 @@ export default {
   },
   mixins: [mixinHelper],
   computed: {
-    ...mapState(['roomCart']),
     thumbnail() {
       return this.room.thumbnail.images[0] ?? this.room.thumbnail.defaultImage
     },

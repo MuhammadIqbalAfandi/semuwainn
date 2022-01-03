@@ -95,6 +95,7 @@ export default {
           class="text-caption text-sm-subtitle-1"
           label="Nik"
           hint="NIK (kami menjamin kerahasiaan nik)"
+          autofocus
         />
 
         <TextField
@@ -104,7 +105,6 @@ export default {
           class="text-caption text-sm-subtitle-1"
           label="Nama"
           hint="Seperti di KTP/Paspor/SIM (tanpa tanda baca dan gelar)"
-          autofocus
         />
 
         <TextField
