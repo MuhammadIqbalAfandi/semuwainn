@@ -3605,13 +3605,17 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     photoGridCol: function photoGridCol() {
       if (this.photoGrid.images.length >= 5) {
-        this.images = this.photoGrid.images.filter(function (_, i) {
-          return i <= 3;
+        this.images = this.photoGrid.images.filter(function (item, index) {
+          if (index > 0 && index <= 4) {
+            return item;
+          }
         });
         return 'photo-grid--col-4';
       } else if (this.photoGrid.images.length >= 3) {
-        this.images = this.photoGrid.images.filter(function (_, i) {
-          return i <= 1;
+        this.images = this.photoGrid.images.filter(function (item, index) {
+          if (index > 0 && index <= 2) {
+            return item;
+          }
         });
         return 'photo-grid--col-2';
       }
@@ -17443,28 +17447,34 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "photo" }, [
-    _c("div", { staticClass: "photo-grid", class: _vm.photoGridCol }, [
-      _vm.images.length
-        ? _c(
-            "div",
-            _vm._l(_vm.images, function (image, index) {
-              return _c(
-                "div",
-                { key: index, staticClass: "photo-grid__item" },
-                [_c("img", { attrs: { src: image, alt: "Thumbnail image" } })]
-              )
-            }),
-            0
-          )
-        : _c("div", { staticClass: "photo-grid__main" }, [
-            _c("img", {
-              attrs: {
-                src: _vm.photoGrid.defaultImage,
-                alt: "Thumbnail image",
-              },
-            }),
-          ]),
-    ]),
+    _c(
+      "div",
+      { staticClass: "photo-grid", class: _vm.photoGridCol },
+      [
+        _vm.images.length
+          ? [
+              _c("div", { staticClass: "photo-grid__main" }, [
+                _c("img", {
+                  attrs: { src: _vm.photoGrid.images[0], alt: "Main image" },
+                }),
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.images, function (image, index) {
+                return _c(
+                  "div",
+                  { key: index, staticClass: "photo-grid__item" },
+                  [_c("img", { attrs: { src: image, alt: "Item image" } })]
+                )
+              }),
+            ]
+          : _c("div", { staticClass: "photo-grid__main" }, [
+              _c("img", {
+                attrs: { src: _vm.photoGrid.defaultImage, alt: "Main image" },
+              }),
+            ]),
+      ],
+      2
+    ),
   ])
 }
 var staticRenderFns = []

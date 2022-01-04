@@ -11,10 +11,18 @@ export default {
   computed: {
     photoGridCol() {
       if (this.photoGrid.images.length >= 5) {
-        this.images = this.photoGrid.images.filter((_, i) => i <= 3)
+        this.images = this.photoGrid.images.filter((item, index) => {
+          if (index > 0 && index <= 4) {
+            return item
+          }
+        })
         return 'photo-grid--col-4'
       } else if (this.photoGrid.images.length >= 3) {
-        this.images = this.photoGrid.images.filter((_, i) => i <= 1)
+        this.images = this.photoGrid.images.filter((item, index) => {
+          if (index > 0 && index <= 2) {
+            return item
+          }
+        })
         return 'photo-grid--col-2'
       }
     },
@@ -25,14 +33,18 @@ export default {
 <template>
   <div class="photo">
     <div :class="photoGridCol" class="photo-grid">
-      <div v-if="images.length">
-        <div v-for="(image, index) in images" :key="index" class="photo-grid__item">
-          <img :src="image" alt="Thumbnail image" />
+      <template v-if="images.length">
+        <div class="photo-grid__main">
+          <img :src="photoGrid.images[0]" alt="Main image" />
         </div>
-      </div>
+
+        <div v-for="(image, index) in images" :key="index" class="photo-grid__item">
+          <img :src="image" alt="Item image" />
+        </div>
+      </template>
 
       <div v-else class="photo-grid__main">
-        <img :src="photoGrid.defaultImage" alt="Thumbnail image" />
+        <img :src="photoGrid.defaultImage" alt="Main image" />
       </div>
     </div>
   </div>
