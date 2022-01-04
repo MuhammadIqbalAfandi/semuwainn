@@ -30,8 +30,7 @@ class RoomDetailController extends Controller
                     'maxPrice' => $roomType->roomPrices->max('price'),
                 ],
                 'facilities' => $roomType->roomFacilities->pluck('facility.name'),
-                'rooms' => $roomType->rooms->pluck('id'),
-                'roomsBooking' => $roomType->roomOrders->pluck('room_id'),
+                'roomsId' => $roomType->rooms->whereNotIn('id', $roomType->roomOrders->pluck('room_id'))->pluck('id'),
                 'prices' => $roomType->roomPrices->transform(fn($roomPrice) => [
                     'id' => $roomPrice->id,
                     'description' => $roomPrice->description,

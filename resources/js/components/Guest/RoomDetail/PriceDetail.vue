@@ -6,7 +6,7 @@ import flattenDeep from 'lodash/flattenDeep'
 import Paragraph from '@/shared/Paragraph.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
 import Button from '@/shared/Button.vue'
-import mixinRoomStatus from '@/mixins/room-status'
+import mixinRooms from '@/mixins/rooms'
 
 export default {
   props: {
@@ -17,18 +17,17 @@ export default {
     OriginPrice,
     Button,
   },
-  mixins: [mixinRoomStatus],
+  mixins: [mixinRooms],
   computed: {
-    ...mapGetters(['getRoomAvailable', 'getRoomId']),
+    ...mapGetters(['getRoomId']),
   },
   methods: {
     ...mapActions(['addRoomCart']),
     roomOrder(priceId) {
-      if (this.$parent.valid && this.getRoomAvailable(this.room) >= 1) {
-        const { id, prices, thumbnail, name, rooms, roomsBooking } = this.room
+      if (this.$parent.valid && this.roomAvailable >= 1) {
+        const { id, prices, thumbnail, name, roomsId } = this.room
         const price = prices.find((price) => price.id === priceId)
-        const roomsAvailable = difference(rooms, roomsBooking)
-        const roomId = [head(difference(roomsAvailable, flattenDeep(this.getRoomId)))]
+        const roomId = [head(difference(roomsId, flattenDeep(this.getRoomId)))]
         const data = {
           id,
           roomId,
@@ -60,12 +59,12 @@ export default {
         <v-card-text>
           <OriginPrice :price="price.price" />
           <Paragraph class="text-caption red--text text--lighten-2">
-            {{ roomStatus(room) }}
+            {{ roomStatus }}
           </Paragraph>
         </v-card-text>
 
         <v-card-actions>
-          <Button @click="roomOrder(price.id)">Pilih!</Button>
+          <Button :disabled="!roomAvailable" @click="roomOrder(price.id)">Pilih!</Button>
         </v-card-actions>
       </v-card>
     </v-col>

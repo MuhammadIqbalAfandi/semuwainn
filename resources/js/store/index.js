@@ -25,10 +25,8 @@ export default new Vuex.Store({
       const roomCounts = state.roomCart.map((item) => item.roomCount)
       return roomCounts.length ? roomCounts.reduce((prev, current) => prev + current) : 0
     },
-    getRoomAvailable: (state, getters) => (room) => {
-      const { rooms, roomsBooking } = room
-      const roomsAvailable = difference(rooms, roomsBooking)
-      const roomAvailableTotal = difference(roomsAvailable, flattenDeep(getters.getRoomId))
+    getRoomAvailable: (state, getters) => (roomsId) => {
+      const roomAvailableTotal = difference(roomsId, flattenDeep(getters.getRoomId))
       return roomAvailableTotal.length
     },
   },

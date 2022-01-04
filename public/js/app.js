@@ -3046,64 +3046,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/shared/OriginPrice.vue */ "./resources/js/shared/OriginPrice.vue");
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
 /* harmony import */ var _shared_ParagraphLeftIcon_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/ParagraphLeftIcon.vue */ "./resources/js/shared/ParagraphLeftIcon.vue");
-/* harmony import */ var _shared_Link_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/shared/Link.vue */ "./resources/js/shared/Link.vue");
-/* harmony import */ var _mixins_room_status__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/mixins/room-status */ "./resources/js/mixins/room-status.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
+/* harmony import */ var _mixins_rooms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/mixins/rooms */ "./resources/js/mixins/rooms.js");
 
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    rooms: Object
+    room: Object
   },
   components: {
     OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    ParagraphLeftIcon: _shared_ParagraphLeftIcon_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    Link: _shared_Link_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    ParagraphLeftIcon: _shared_ParagraphLeftIcon_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  mixins: [_mixins_room_status__WEBPACK_IMPORTED_MODULE_4__["default"]],
-  data: function data() {
-    return {
-      current_page: this.rooms.current_page
-    };
-  },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)(['getRoomAvailable'])),
-  methods: {
-    next: function next() {
-      this.$inertia.get(this.rooms.next_page_url, '', {
-        preserveScroll: true
-      });
-    },
-    prev: function prev() {
-      this.$inertia.get(this.rooms.prev_page_url, '', {
-        preserveScroll: true
-      });
-    },
-    input: function input() {
-      this.$inertia.get("".concat(this.rooms.path, "/?page=").concat(this.current_page), '', {
-        preserveScroll: true
-      });
-    },
-    thumbnail: function thumbnail(id) {
-      var _room$thumbnail$image;
+  mixins: [_mixins_rooms__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  computed: {
+    thumbnail: function thumbnail() {
+      var _this$room$thumbnail$;
 
-      var room = this.rooms.data.find(function (item) {
-        return item.id === id;
-      });
-      return (_room$thumbnail$image = room.thumbnail.images[0]) !== null && _room$thumbnail$image !== void 0 ? _room$thumbnail$image : room.thumbnail.defaultImage;
+      return (_this$room$thumbnail$ = this.room.thumbnail.images[0]) !== null && _this$room$thumbnail$ !== void 0 ? _this$room$thumbnail$ : this.room.thumbnail.defaultImage;
     }
   }
 });
@@ -3677,7 +3642,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
 /* harmony import */ var _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/shared/OriginPrice.vue */ "./resources/js/shared/OriginPrice.vue");
 /* harmony import */ var _shared_Button_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/shared/Button.vue */ "./resources/js/shared/Button.vue");
-/* harmony import */ var _mixins_room_status__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/mixins/room-status */ "./resources/js/mixins/room-status.js");
+/* harmony import */ var _mixins_rooms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/mixins/rooms */ "./resources/js/mixins/rooms.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -3701,23 +3666,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  mixins: [_mixins_room_status__WEBPACK_IMPORTED_MODULE_6__["default"]],
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)(['getRoomAvailable', 'getRoomId'])),
+  mixins: [_mixins_rooms__WEBPACK_IMPORTED_MODULE_6__["default"]],
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)(['getRoomId'])),
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapActions)(['addRoomCart'])), {}, {
     roomOrder: function roomOrder(priceId) {
-      if (this.$parent.valid && this.getRoomAvailable(this.room) >= 1) {
+      if (this.$parent.valid && this.roomAvailable >= 1) {
         var _this$room = this.room,
             id = _this$room.id,
             prices = _this$room.prices,
             thumbnail = _this$room.thumbnail,
             name = _this$room.name,
-            rooms = _this$room.rooms,
-            roomsBooking = _this$room.roomsBooking;
+            roomsId = _this$room.roomsId;
         var price = prices.find(function (price) {
           return price.id === priceId;
         });
-        var roomsAvailable = lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(rooms, roomsBooking);
-        var roomId = [lodash_head__WEBPACK_IMPORTED_MODULE_1___default()(lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(roomsAvailable, lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_2___default()(this.getRoomId)))];
+        var roomId = [lodash_head__WEBPACK_IMPORTED_MODULE_1___default()(lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(roomsId, lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_2___default()(this.getRoomId)))];
         var data = {
           id: id,
           roomId: roomId,
@@ -3782,15 +3745,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _components_Guest_Navbar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/components/Guest/Navbar.vue */ "./resources/js/components/Guest/Navbar.vue");
 /* harmony import */ var _components_Guest_Footer_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Guest/Footer.vue */ "./resources/js/components/Guest/Footer.vue");
 /* harmony import */ var _shared_FlashMessage_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/FlashMessage.vue */ "./resources/js/shared/FlashMessage.vue");
+/* harmony import */ var _mixins_flash_message__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/mixins/flash-message */ "./resources/js/mixins/flash-message.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -3802,33 +3767,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Footer: _components_Guest_Footer_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     FlashMessage: _shared_FlashMessage_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
+  mixins: [_mixins_flash_message__WEBPACK_IMPORTED_MODULE_3__["default"]],
   watch: {
     roomCart: {
       handler: function handler(val, oldVal) {
-        var _this = this;
-
         if (this.$page.props.flash.success) {
           return false;
         }
 
         if (val.length < oldVal.length) {
-          this.hideFlashMessage();
-          this.$nextTick(function () {
-            _this.setText({
-              text: 'Ruangan berhasil dihapus'
-            });
-
-            _this.showFlashMessage();
+          this.activeFlashMessage({
+            text: 'Ruangan berhasil dihapus'
           });
         } else {
-          this.hideFlashMessage();
-          this.$nextTick(function () {
-            _this.setText({
-              text: 'Ruagan berhasil ditambahkan',
-              icon: 'mdi-cart'
-            });
-
-            _this.showFlashMessage();
+          this.activeFlashMessage({
+            text: 'Ruagan berhasil ditambahkan',
+            icon: 'mdi-cart'
           });
         }
       },
@@ -3836,30 +3790,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     serviceCart: {
       handler: function handler(val, oldVal) {
-        var _this2 = this;
-
         if (!this.roomCart.length) {
           return false;
         }
 
         if (val.length < oldVal.length) {
-          this.hideFlashMessage();
-          this.$nextTick(function () {
-            _this2.setText({
-              text: 'Layanan berhasil dihapus'
-            });
-
-            _this2.showFlashMessage();
+          this.activeFlashMessage({
+            text: 'Layanan berhasil dihapus'
           });
         } else {
-          this.hideFlashMessage();
-          this.$nextTick(function () {
-            _this2.setText({
-              text: 'Layanan berhasil ditambahkan',
-              icon: 'mdi-cart'
-            });
-
-            _this2.showFlashMessage();
+          this.activeFlashMessage({
+            text: 'Layanan berhasil ditambahkan',
+            icon: 'mdi-cart'
           });
         }
       },
@@ -3867,35 +3809,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     '$page.props.flash': {
       handler: function handler(flash) {
-        var _this3 = this;
-
         if (flash.success) {
-          this.hideFlashMessage();
-          this.$nextTick(function () {
-            _this3.setText({
-              text: flash.success
-            });
-
-            _this3.showFlashMessage();
+          this.activeFlashMessage({
+            text: flash.success
           });
         }
 
         if (flash.error) {
-          this.hideFlashMessage();
-          this.$nextTick(function () {
-            _this3.setText({
-              text: flash.error
-            });
-
-            _this3.showFlashMessage();
+          this.activeFlashMessage({
+            text: flash.success
           });
         }
       },
       deep: true
     }
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)(['roomCart', 'serviceCart'])),
-  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapMutations)('flashMessage', ['hideFlashMessage', 'showFlashMessage', 'setText']))
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)(['roomCart', 'serviceCart']))
 });
 
 /***/ }),
@@ -3914,6 +3843,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/layouts/Guest.vue */ "./resources/js/layouts/Guest.vue");
 /* harmony import */ var _components_Guest_Home_RoomList_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Guest/Home/RoomList.vue */ "./resources/js/components/Guest/Home/RoomList.vue");
+/* harmony import */ var _shared_Link_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/shared/Link.vue */ "./resources/js/shared/Link.vue");
+
 
 
 
@@ -3924,7 +3855,30 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     Head: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Head,
-    RoomList: _components_Guest_Home_RoomList_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    RoomList: _components_Guest_Home_RoomList_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    Link: _shared_Link_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      current_page: this.rooms.current_page
+    };
+  },
+  methods: {
+    next: function next() {
+      this.$inertia.get(this.rooms.next_page_url, '', {
+        preserveScroll: true
+      });
+    },
+    prev: function prev() {
+      this.$inertia.get(this.rooms.prev_page_url, '', {
+        preserveScroll: true
+      });
+    },
+    input: function input() {
+      this.$inertia.get("".concat(this.rooms.path, "/?page=").concat(this.current_page), '', {
+        preserveScroll: true
+      });
+    }
   }
 });
 
@@ -4041,7 +3995,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/layouts/Guest.vue */ "./resources/js/layouts/Guest.vue");
 /* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
@@ -4052,14 +4005,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Guest_RoomDetail_PriceDetail_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/components/Guest/RoomDetail/PriceDetail.vue */ "./resources/js/components/Guest/RoomDetail/PriceDetail.vue");
 /* harmony import */ var _components_Guest_RoomDetail_FacilityDetail_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/components/Guest/RoomDetail/FacilityDetail.vue */ "./resources/js/components/Guest/RoomDetail/FacilityDetail.vue");
 /* harmony import */ var _mixins_rules__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/mixins/rules */ "./resources/js/mixins/rules.js");
-/* harmony import */ var _mixins_room_status__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/mixins/room-status */ "./resources/js/mixins/room-status.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
+/* harmony import */ var _mixins_rooms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/mixins/rooms */ "./resources/js/mixins/rooms.js");
 
 
 
@@ -4086,7 +4032,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     PriceDetail: _components_Guest_RoomDetail_PriceDetail_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     FacilityDetail: _components_Guest_RoomDetail_FacilityDetail_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
   },
-  mixins: [_mixins_rules__WEBPACK_IMPORTED_MODULE_9__["default"], _mixins_room_status__WEBPACK_IMPORTED_MODULE_10__["default"]],
+  mixins: [_mixins_rules__WEBPACK_IMPORTED_MODULE_9__["default"], _mixins_rooms__WEBPACK_IMPORTED_MODULE_10__["default"]],
   data: function data() {
     var _this = this;
 
@@ -4100,8 +4046,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
     };
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_11__.mapState)(['roomCart'])), (0,vuex__WEBPACK_IMPORTED_MODULE_11__.mapGetters)(['getRoomAvailable']))
+  }
 });
 
 /***/ }),
@@ -4332,6 +4277,42 @@ vue__WEBPACK_IMPORTED_MODULE_6__["default"].prototype.$route = route;
 
 /***/ }),
 
+/***/ "./resources/js/mixins/flash-message.js":
+/*!**********************************************!*\
+  !*** ./resources/js/mixins/flash-message.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('flashMessage', ['hideFlashMessage', 'showFlashMessage', 'setText'])), {}, {
+    activeFlashMessage: function activeFlashMessage(data) {
+      var _this = this;
+
+      this.hideFlashMessage();
+      this.$nextTick(function () {
+        _this.setText(data);
+
+        _this.showFlashMessage();
+      });
+    }
+  })
+});
+
+/***/ }),
+
 /***/ "./resources/js/mixins/helpers.js":
 /*!****************************************!*\
   !*** ./resources/js/mixins/helpers.js ***!
@@ -4385,10 +4366,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/mixins/room-status.js":
-/*!********************************************!*\
-  !*** ./resources/js/mixins/room-status.js ***!
-  \********************************************/
+/***/ "./resources/js/mixins/rooms.js":
+/*!**************************************!*\
+  !*** ./resources/js/mixins/rooms.js ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -4396,12 +4377,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  methods: {
-    roomStatus: function roomStatus(room) {
-      return this.getRoomAvailable(room) ? "Sisa ".concat(this.getRoomAvailable(room), " kamar lagi!") : 'Kamar penuh!';
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['getRoomAvailable'])), {}, {
+    roomAvailable: function roomAvailable() {
+      return this.getRoomAvailable(this.room.roomsId);
+    },
+    roomStatus: function roomStatus() {
+      return this.getRoomAvailable(this.room.roomsId) ? "Sisa ".concat(this.getRoomAvailable(this.room.roomsId), " kamar lagi!") : 'Kamar penuh!';
     }
-  }
+  })
 });
 
 /***/ }),
@@ -4550,11 +4542,8 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_5_
       }) : 0;
     },
     getRoomAvailable: function getRoomAvailable(state, getters) {
-      return function (room) {
-        var rooms = room.rooms,
-            roomsBooking = room.roomsBooking;
-        var roomsAvailable = lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(rooms, roomsBooking);
-        var roomAvailableTotal = lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(roomsAvailable, lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_1___default()(getters.getRoomId));
+      return function (roomsId) {
+        var roomAvailableTotal = lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(roomsId, lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_1___default()(getters.getRoomId));
         return roomAvailableTotal.length;
       };
     }
@@ -4661,9 +4650,9 @@ __webpack_require__.r(__webpack_exports__);
     hideFlashMessage: function hideFlashMessage(state) {
       state.flashMessage = false;
     },
-    setText: function setText(state, _ref) {
-      var text = _ref.text,
-          icon = _ref.icon;
+    setText: function setText(state, data) {
+      var text = data.text,
+          icon = data.icon;
 
       if (!icon) {
         state.flashIcon = null;
@@ -4672,6 +4661,20 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       state.flashText = text;
+    }
+  },
+  actions: {
+    showFlashMessage: function showFlashMessage(_ref) {
+      var commit = _ref.commit;
+      commit('showFlashMessage');
+    },
+    hideFlashMessage: function hideFlashMessage(_ref2) {
+      var commit = _ref2.commit;
+      commit('hideFlashMessage');
+    },
+    setText: function setText(_ref3, data) {
+      var commit = _ref3.commit;
+      commit('setText', data);
     }
   }
 });
@@ -15848,245 +15851,175 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-row",
-    { attrs: { dense: "" } },
+    "v-card",
+    { attrs: { hover: "" } },
     [
-      _c("v-col", { attrs: { cols: "12" } }, [
-        _c("h2", { staticClass: "text-subtitle-1 text-md-h5" }, [
-          _vm._v("Kamar Tersedia"),
-        ]),
-      ]),
-      _vm._v(" "),
-      _vm._l(_vm.rooms.data, function (room) {
-        return _c(
-          "v-col",
-          { key: room.id, attrs: { cols: "12" } },
-          [
-            _c(
-              "Link",
-              { attrs: { href: _vm.$route("room-details.show", room.id) } },
-              [
-                _c(
-                  "v-card",
-                  { attrs: { hover: "" } },
-                  [
-                    _c(
-                      "v-card-text",
-                      [
-                        _c(
-                          "v-row",
-                          [
-                            _c(
-                              "v-col",
-                              { attrs: { cols: "auto" } },
-                              [
-                                _c("v-img", {
-                                  staticClass: "align-self-center rounded-sm",
-                                  attrs: {
-                                    "max-width": _vm.$vuetify.breakpoint
-                                      .smAndDown
-                                      ? "109"
-                                      : "278",
-                                    height: _vm.$vuetify.breakpoint.smAndDown
-                                      ? "100"
-                                      : "200",
-                                    src: _vm.thumbnail(room.id),
-                                    alt: "Thumbnail Room",
-                                    tile: "",
-                                  },
-                                }),
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-col",
-                              [
-                                _c(
-                                  "v-row",
-                                  { staticClass: "d-flex" },
-                                  [
-                                    _c(
-                                      "v-col",
-                                      [
-                                        _c(
-                                          "h3",
-                                          {
-                                            staticClass:
-                                              "mb-md-4 text-body-2 text-md-h5",
-                                          },
-                                          [_vm._v(_vm._s(room.name))]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "Paragraph",
-                                          {
-                                            staticClass:
-                                              "mb-md-2 text-caption text-md-body-2",
-                                          },
-                                          [_vm._v("Facility :")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "v-row",
-                                          { attrs: { dense: "" } },
-                                          [
-                                            _vm._l(
-                                              room.facilities,
-                                              function (facility, index) {
-                                                return _c(
-                                                  "v-col",
-                                                  {
-                                                    key: index,
-                                                    attrs: { cols: "auto" },
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "Paragraph",
-                                                      {
-                                                        staticClass:
-                                                          "green--text text--lighten-2 text-caption text-md-body-2",
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          "\n                        " +
-                                                            _vm._s(facility) +
-                                                            "\n                      "
-                                                        ),
-                                                      ]
-                                                    ),
-                                                  ],
-                                                  1
-                                                )
-                                              }
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "v-col",
-                                              { attrs: { cols: "auto" } },
-                                              [
-                                                room.facilityCount
-                                                  ? _c(
-                                                      "v-chip",
-                                                      {
-                                                        staticClass: "mb-0",
-                                                        attrs: {
-                                                          tag: "p",
-                                                          "x-small": "",
-                                                        },
-                                                      },
-                                                      [
-                                                        _c("span", [
-                                                          _vm._v(
-                                                            "+" +
-                                                              _vm._s(
-                                                                room.facilityCount
-                                                              )
-                                                          ),
-                                                        ]),
-                                                      ]
-                                                    )
-                                                  : _vm._e(),
-                                              ],
-                                              1
-                                            ),
-                                          ],
-                                          2
-                                        ),
-                                        _vm._v(" "),
-                                        _c("ParagraphLeftIcon", {
-                                          attrs: {
-                                            icon: "mdi-account-multiple",
-                                            text: room.numberOfGuest + " tamu",
-                                          },
-                                        }),
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-col",
-                                      {
-                                        staticClass: "text-end",
-                                        attrs: {
-                                          cols: "12",
-                                          md: "auto",
-                                          "align-self": "end",
-                                        },
-                                      },
-                                      [
-                                        _c(
-                                          "Paragraph",
-                                          {
-                                            staticClass:
-                                              "text-caption text-md-body-2",
-                                          },
-                                          [_vm._v("Harga mulai dari")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("OriginPrice", {
-                                          attrs: { price: room.price },
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "Paragraph",
-                                          {
-                                            staticClass:
-                                              "text-caption red--text text--lighten-2",
-                                          },
-                                          [_vm._v(_vm._s(_vm.roomStatus(room)))]
-                                        ),
-                                      ],
-                                      1
-                                    ),
-                                  ],
-                                  1
-                                ),
-                              ],
-                              1
-                            ),
-                          ],
-                          1
-                        ),
-                      ],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-              ],
-              1
-            ),
-          ],
-          1
-        )
-      }),
-      _vm._v(" "),
       _c(
-        "v-col",
-        { attrs: { cols: "12" } },
+        "v-card-text",
         [
-          _c("v-pagination", {
-            attrs: {
-              length: _vm.rooms.last_page,
-              "total-visible": _vm.rooms.per_page,
-              color: "orange lighten-2 grey--text text--darken-4",
-              circle: "",
-            },
-            on: { input: _vm.input, next: _vm.next, previous: _vm.prev },
-            model: {
-              value: _vm.current_page,
-              callback: function ($$v) {
-                _vm.current_page = $$v
-              },
-              expression: "current_page",
-            },
-          }),
+          _c(
+            "v-row",
+            [
+              _c(
+                "v-col",
+                { attrs: { cols: "auto" } },
+                [
+                  _c("v-img", {
+                    staticClass: "align-self-center rounded-sm",
+                    attrs: {
+                      "max-width": _vm.$vuetify.breakpoint.smAndDown
+                        ? "109"
+                        : "278",
+                      height: _vm.$vuetify.breakpoint.smAndDown ? "100" : "200",
+                      src: _vm.thumbnail,
+                      alt: "Thumbnail Room",
+                      tile: "",
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                [
+                  _c(
+                    "v-row",
+                    { staticClass: "d-flex" },
+                    [
+                      _c(
+                        "v-col",
+                        [
+                          _c(
+                            "h3",
+                            { staticClass: "mb-md-4 text-body-2 text-md-h5" },
+                            [_vm._v(_vm._s(_vm.room.name))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "Paragraph",
+                            {
+                              staticClass:
+                                "mb-md-2 text-caption text-md-body-2",
+                            },
+                            [_vm._v("Facility :")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-row",
+                            { attrs: { dense: "" } },
+                            [
+                              _vm._l(
+                                _vm.room.facilities,
+                                function (facility, index) {
+                                  return _c(
+                                    "v-col",
+                                    { key: index, attrs: { cols: "auto" } },
+                                    [
+                                      _c(
+                                        "Paragraph",
+                                        {
+                                          staticClass:
+                                            "green--text text--lighten-2 text-caption text-md-body-2",
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                  " +
+                                              _vm._s(facility) +
+                                              "\n                "
+                                          ),
+                                        ]
+                                      ),
+                                    ],
+                                    1
+                                  )
+                                }
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "auto" } },
+                                [
+                                  _vm.room.facilityCount
+                                    ? _c(
+                                        "v-chip",
+                                        {
+                                          staticClass: "mb-0",
+                                          attrs: { tag: "p", "x-small": "" },
+                                        },
+                                        [
+                                          _c("span", [
+                                            _vm._v(
+                                              "+" +
+                                                _vm._s(_vm.room.facilityCount)
+                                            ),
+                                          ]),
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                ],
+                                1
+                              ),
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c("ParagraphLeftIcon", {
+                            attrs: {
+                              icon: "mdi-account-multiple",
+                              text: _vm.room.numberOfGuest + " tamu",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        {
+                          staticClass: "text-end",
+                          attrs: {
+                            cols: "12",
+                            md: "auto",
+                            "align-self": "end",
+                          },
+                        },
+                        [
+                          _c(
+                            "Paragraph",
+                            { staticClass: "text-caption text-md-body-2" },
+                            [_vm._v("Harga mulai dari")]
+                          ),
+                          _vm._v(" "),
+                          _c("OriginPrice", {
+                            attrs: { price: _vm.room.price },
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "Paragraph",
+                            {
+                              staticClass:
+                                "text-caption red--text text--lighten-2",
+                            },
+                            [_vm._v(_vm._s(_vm.roomStatus))]
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
         ],
         1
       ),
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -17625,9 +17558,7 @@ var render = function () {
                     { staticClass: "text-caption red--text text--lighten-2" },
                     [
                       _vm._v(
-                        "\n          " +
-                          _vm._s(_vm.roomStatus(_vm.room)) +
-                          "\n        "
+                        "\n          " + _vm._s(_vm.roomStatus) + "\n        "
                       ),
                     ]
                   ),
@@ -17641,6 +17572,7 @@ var render = function () {
                   _c(
                     "Button",
                     {
+                      attrs: { disabled: !_vm.roomAvailable },
                       on: {
                         click: function ($event) {
                           return _vm.roomOrder(price.id)
@@ -17902,7 +17834,58 @@ var render = function () {
     [
       _c("Head", { attrs: { title: "Halaman Utama" } }),
       _vm._v(" "),
-      _c("RoomList", { attrs: { rooms: _vm.rooms } }),
+      _c(
+        "v-row",
+        { attrs: { dense: "" } },
+        [
+          _c("v-col", { attrs: { cols: "12" } }, [
+            _c("h2", { staticClass: "text-subtitle-1 text-md-h5" }, [
+              _vm._v("Kamar Tersedia"),
+            ]),
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.rooms.data, function (room) {
+            return _c(
+              "v-col",
+              { key: room.id, attrs: { cols: "12" } },
+              [
+                _c(
+                  "Link",
+                  { attrs: { href: _vm.$route("room-details.show", room.id) } },
+                  [_c("RoomList", { attrs: { room: room } })],
+                  1
+                ),
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _c(
+            "v-col",
+            { attrs: { cols: "12" } },
+            [
+              _c("v-pagination", {
+                attrs: {
+                  length: _vm.rooms.last_page,
+                  "total-visible": _vm.rooms.per_page,
+                  color: "orange lighten-2 grey--text text--darken-4",
+                  circle: "",
+                },
+                on: { input: _vm.input, next: _vm.next, previous: _vm.prev },
+                model: {
+                  value: _vm.current_page,
+                  callback: function ($$v) {
+                    _vm.current_page = $$v
+                  },
+                  expression: "current_page",
+                },
+              }),
+            ],
+            1
+          ),
+        ],
+        2
+      ),
     ],
     1
   )
@@ -18159,7 +18142,7 @@ var render = function () {
                                     staticClass:
                                       "text-caption text-sm-subtitle-1",
                                     attrs: {
-                                      disabled: !_vm.getRoomAvailable(_vm.room),
+                                      disabled: !_vm.roomAvailable,
                                       rules: [
                                         _vm.rules.numeric,
                                         _vm.rules.notZero,

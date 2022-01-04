@@ -1,8 +1,9 @@
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import Navbar from '@/components/Guest/Navbar.vue'
 import Footer from '@/components/Guest/Footer.vue'
 import FlashMessage from '@/shared/FlashMessage.vue'
+import mixinFlashMessage from '@/mixins/flash-message'
 
 export default {
   components: {
@@ -10,6 +11,7 @@ export default {
     Footer,
     FlashMessage,
   },
+  mixins: [mixinFlashMessage],
   watch: {
     roomCart: {
       handler(val, oldVal) {
@@ -18,17 +20,9 @@ export default {
         }
 
         if (val.length < oldVal.length) {
-          this.hideFlashMessage()
-          this.$nextTick(() => {
-            this.setText({ text: 'Ruangan berhasil dihapus' })
-            this.showFlashMessage()
-          })
+          this.activeFlashMessage({ text: 'Ruangan berhasil dihapus' })
         } else {
-          this.hideFlashMessage()
-          this.$nextTick(() => {
-            this.setText({ text: 'Ruagan berhasil ditambahkan', icon: 'mdi-cart' })
-            this.showFlashMessage()
-          })
+          this.activeFlashMessage({ text: 'Ruagan berhasil ditambahkan', icon: 'mdi-cart' })
         }
       },
       deep: true,
@@ -40,17 +34,9 @@ export default {
         }
 
         if (val.length < oldVal.length) {
-          this.hideFlashMessage()
-          this.$nextTick(() => {
-            this.setText({ text: 'Layanan berhasil dihapus' })
-            this.showFlashMessage()
-          })
+          this.activeFlashMessage({ text: 'Layanan berhasil dihapus' })
         } else {
-          this.hideFlashMessage()
-          this.$nextTick(() => {
-            this.setText({ text: 'Layanan berhasil ditambahkan', icon: 'mdi-cart' })
-            this.showFlashMessage()
-          })
+          this.activeFlashMessage({ text: 'Layanan berhasil ditambahkan', icon: 'mdi-cart' })
         }
       },
       deep: true,
@@ -58,19 +44,11 @@ export default {
     '$page.props.flash': {
       handler(flash) {
         if (flash.success) {
-          this.hideFlashMessage()
-          this.$nextTick(() => {
-            this.setText({ text: flash.success })
-            this.showFlashMessage()
-          })
+          this.activeFlashMessage({ text: flash.success })
         }
 
         if (flash.error) {
-          this.hideFlashMessage()
-          this.$nextTick(() => {
-            this.setText({ text: flash.error })
-            this.showFlashMessage()
-          })
+          this.activeFlashMessage({ text: flash.success })
         }
       },
       deep: true,
@@ -78,9 +56,6 @@ export default {
   },
   computed: {
     ...mapState(['roomCart', 'serviceCart']),
-  },
-  methods: {
-    ...mapMutations('flashMessage', ['hideFlashMessage', 'showFlashMessage', 'setText']),
   },
 }
 </script>

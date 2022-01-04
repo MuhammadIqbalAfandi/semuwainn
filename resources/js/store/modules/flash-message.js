@@ -12,7 +12,8 @@ export default {
     hideFlashMessage(state) {
       state.flashMessage = false
     },
-    setText(state, { text, icon }) {
+    setText(state, data) {
+      const { text, icon } = data
       if (!icon) {
         state.flashIcon = null
       } else {
@@ -20,6 +21,17 @@ export default {
       }
 
       state.flashText = text
+    },
+  },
+  actions: {
+    showFlashMessage({ commit }) {
+      commit('showFlashMessage')
+    },
+    hideFlashMessage({ commit }) {
+      commit('hideFlashMessage')
+    },
+    setText({ commit }, data) {
+      commit('setText', data)
     },
   },
 }

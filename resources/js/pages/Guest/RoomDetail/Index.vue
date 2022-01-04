@@ -1,5 +1,4 @@
 <script>
-import { mapGetters, mapState } from 'vuex'
 import { Head } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
 import Paragraph from '@/shared/Paragraph.vue'
@@ -10,7 +9,7 @@ import PriceRangeDetail from '@/components/Guest/RoomDetail/PriceRangeDetail.vue
 import PriceDetail from '@/components/Guest/RoomDetail/PriceDetail.vue'
 import FacilityDetail from '@/components/Guest/RoomDetail/FacilityDetail.vue'
 import mixinRules from '@/mixins/rules'
-import mixinRoomStatus from '@/mixins/room-status'
+import mixinRooms from '@/mixins/rooms'
 
 export default {
   layout: GuestLayout,
@@ -27,7 +26,7 @@ export default {
     PriceDetail,
     FacilityDetail,
   },
-  mixins: [mixinRules, mixinRoomStatus],
+  mixins: [mixinRules, mixinRooms],
   data() {
     return {
       valid: true,
@@ -39,10 +38,6 @@ export default {
         },
       },
     }
-  },
-  computed: {
-    ...mapState(['roomCart']),
-    ...mapGetters(['getRoomAvailable']),
   },
 }
 </script>
@@ -84,7 +79,7 @@ export default {
                 <v-col cols="12">
                   <TextField
                     v-model="guestCount"
-                    :disabled="!getRoomAvailable(room)"
+                    :disabled="!roomAvailable"
                     class="text-caption text-sm-subtitle-1"
                     :rules="[rules.numeric, rules.notZero, rules.lessOrEqualThanNumberOfGuestAvailable]"
                     label="Banyak Tamu"
