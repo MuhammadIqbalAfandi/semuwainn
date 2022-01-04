@@ -27,7 +27,7 @@ export default {
       if (this.$parent.valid && this.roomAvailable >= 1) {
         const { id, prices, thumbnail, name, roomsId } = this.room
         const price = prices.find((price) => price.id === priceId)
-        const roomId = [head(difference(roomsId, flattenDeep(this.getRoomId)))]
+        const roomId = head(difference(roomsId, this.getRoomId))
         const data = {
           id,
           roomId,

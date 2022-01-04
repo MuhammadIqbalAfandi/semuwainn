@@ -14,7 +14,6 @@ export default new Vuex.Store({
   },
   state: {
     roomCart: [],
-    roomCartView: [],
     serviceCart: [],
   },
   getters: {
@@ -29,32 +28,22 @@ export default new Vuex.Store({
       const roomAvailableTotal = difference(roomsId, flattenDeep(getters.getRoomId))
       return roomAvailableTotal.length
     },
+    getRoomView(state) {
+      return state.roomCart
+    },
   },
   mutations: {
     addRoomCart(state, room) {
       state.roomCart.push(room)
     },
-    addRoomCartView(state, room) {
-      // FIXME: room cart changes
-      const roomFound = state.roomCartView.find((item) => item.priceId === room.priceId)
-      if (roomFound) {
-        roomFound.roomCount += room.roomCount
-        roomFound.guestCount += room.guestCount
-        roomFound.roomId.push(...room.roomId)
-      } else {
-        state.roomCartView.push(room)
-      }
-    },
-    removeRoomCart(state, priceId) {
-      state.roomCart = state.roomCart.filter((item) => item.priceId !== priceId)
-      state.roomCartView = state.roomCartView.filter((item) => item.priceId !== priceId)
+    removeRoomCart(state, roomId) {
+      state.roomCart = state.roomCart.filter((item) => item.roomId !== roomId)
       if (!state.roomCart.length) {
         state.serviceCart = []
       }
     },
     clearRoomCart(state) {
       state.roomCart = []
-      state.roomCartView = []
       if (!state.roomCart.length) {
         state.serviceCart = []
       }
@@ -69,7 +58,6 @@ export default new Vuex.Store({
   actions: {
     addRoomCart({ commit }, room) {
       commit('addRoomCart', room)
-      commit('addRoomCartView', room)
     },
     removeRoomCart({ commit }, priceId) {
       commit('removeRoomCart', priceId)

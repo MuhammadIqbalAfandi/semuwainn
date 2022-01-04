@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoomBooking\StoreRoomBookingRequest;
 use App\Models\Guest;
+use App\Models\RoomPrice;
 use App\Models\Service;
 use Exception;
 use Illuminate\Support\Carbon;
@@ -41,8 +42,6 @@ class RoomBookingController extends Controller
     {
         DB::beginTransaction();
         try {
-            dd($request);
-
             $guest = Guest::firstWhere('nik', $request->nik);
             if (!$guest) {
                 $guest = Guest::create($request->safe()->except(['checkIn', 'checkOut']));
@@ -55,17 +54,15 @@ class RoomBookingController extends Controller
             ]);
             foreach ($request->rooms as $room) {
                 $reservation->roomOrders()->create([
-                    // FIXME: get price from database
-                    'price' => $room['price'],
+                    'price' => RoomPrice::find($room['priceId'])->price,
                     'guest_count' => $room['guestCount'],
                     'quantity' => $room['roomCount'],
-                    'room_id' => $room['roomId'],
+                    'room_id' => $room['id'],
                 ]);
-
             }
             foreach ($request->services as $service) {
                 $reservation->serviceOrders()->create([
-                    'price' => $service['price'],
+                    'price' => Service::find($service['id'])->price,
                     'quantity' => $service['roomCount'],
                     'service_id' => $service['id'],
                 ]);

@@ -48,7 +48,7 @@ export default {
         }
 
         if (flash.error) {
-          this.activeFlashMessage({ text: flash.success })
+          this.activeFlashMessage({ text: flash.error })
         }
       },
       deep: true,

@@ -47,7 +47,8 @@ export default {
       if (this.valid && this.roomCart.length) {
         const rooms = this.roomCart.map((room) => {
           return {
-            roomId: room.roomId[0],
+            id: room.roomId,
+            priceId: room.priceId,
             price: room.price,
             roomCount: room.roomCount,
             guestCount: room.guestCount,

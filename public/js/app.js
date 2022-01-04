@@ -3225,7 +3225,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ServiceBookingPrice: _components_Guest_RoomBooking_BookingPrice_ServiceBookingPrice_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     BookingPriceTotal: _components_Guest_RoomBooking_BookingPrice_BookingPriceTotal_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)(['roomCartView', 'serviceCart']))
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)(['roomCart', 'serviceCart']))
 });
 
 /***/ }),
@@ -3680,7 +3680,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var price = prices.find(function (price) {
           return price.id === priceId;
         });
-        var roomId = [lodash_head__WEBPACK_IMPORTED_MODULE_1___default()(lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(roomsId, lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_2___default()(this.getRoomId)))];
+        var roomId = lodash_head__WEBPACK_IMPORTED_MODULE_1___default()(lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(roomsId, this.getRoomId));
         var data = {
           id: id,
           roomId: roomId,
@@ -3817,7 +3817,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (flash.error) {
           this.activeFlashMessage({
-            text: flash.success
+            text: flash.error
           });
         }
       },
@@ -3953,7 +3953,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.valid && this.roomCart.length) {
         var rooms = this.roomCart.map(function (room) {
           return {
-            roomId: room.roomId[0],
+            id: room.roomId,
+            priceId: room.priceId,
             price: room.price,
             roomCount: room.roomCount,
             guestCount: room.guestCount
@@ -4498,18 +4499,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _store_modules_room_booking__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/store/modules/room-booking */ "./resources/js/store/modules/room-booking.js");
 /* harmony import */ var _store_modules_flash_message__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/store/modules/flash-message */ "./resources/js/store/modules/flash-message.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 
 
 
@@ -4524,7 +4513,6 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_5_
   },
   state: {
     roomCart: [],
-    roomCartView: [],
     serviceCart: []
   },
   getters: {
@@ -4546,35 +4534,18 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_5_
         var roomAvailableTotal = lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(roomsId, lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_1___default()(getters.getRoomId));
         return roomAvailableTotal.length;
       };
+    },
+    getRoomView: function getRoomView(state) {
+      return state.roomCart;
     }
   },
   mutations: {
     addRoomCart: function addRoomCart(state, room) {
       state.roomCart.push(room);
     },
-    addRoomCartView: function addRoomCartView(state, room) {
-      // FIXME: room cart changes
-      var roomFound = state.roomCartView.find(function (item) {
-        return item.priceId === room.priceId;
-      });
-
-      if (roomFound) {
-        var _roomFound$roomId;
-
-        roomFound.roomCount += room.roomCount;
-        roomFound.guestCount += room.guestCount;
-
-        (_roomFound$roomId = roomFound.roomId).push.apply(_roomFound$roomId, _toConsumableArray(room.roomId));
-      } else {
-        state.roomCartView.push(room);
-      }
-    },
-    removeRoomCart: function removeRoomCart(state, priceId) {
+    removeRoomCart: function removeRoomCart(state, roomId) {
       state.roomCart = state.roomCart.filter(function (item) {
-        return item.priceId !== priceId;
-      });
-      state.roomCartView = state.roomCartView.filter(function (item) {
-        return item.priceId !== priceId;
+        return item.roomId !== roomId;
       });
 
       if (!state.roomCart.length) {
@@ -4583,7 +4554,6 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_5_
     },
     clearRoomCart: function clearRoomCart(state) {
       state.roomCart = [];
-      state.roomCartView = [];
 
       if (!state.roomCart.length) {
         state.serviceCart = [];
@@ -4602,7 +4572,6 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_5_
     addRoomCart: function addRoomCart(_ref, room) {
       var commit = _ref.commit;
       commit('addRoomCart', room);
-      commit('addRoomCartView', room);
     },
     removeRoomCart: function removeRoomCart(_ref2, priceId) {
       var commit = _ref2.commit;
@@ -16483,10 +16452,10 @@ var render = function () {
             "v-row",
             { attrs: { dense: "" } },
             [
-              _vm._l(_vm.roomCartView, function (room) {
+              _vm._l(_vm.roomCart, function (room) {
                 return _c(
                   "v-col",
-                  { key: "room " + room.priceId, attrs: { cols: "12" } },
+                  { key: "room " + room.roomId, attrs: { cols: "12" } },
                   [_c("RoomBookingPrice", { attrs: { room: room } })],
                   1
                 )
@@ -16802,7 +16771,7 @@ var render = function () {
                       attrs: { text: "", "x-small": "" },
                       on: {
                         click: function ($event) {
-                          return _vm.roomDelete(_vm.room.priceId)
+                          return _vm.roomDelete(_vm.room.roomId)
                         },
                       },
                     },

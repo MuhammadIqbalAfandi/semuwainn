@@ -60,7 +60,7 @@ export default {
         </v-col>
 
         <v-col cols="auto">
-          <Button @click="roomDelete(room.priceId)" text x-small>Hapus</Button>
+          <Button @click="roomDelete(room.roomId)" text x-small>Hapus</Button>
         </v-col>
       </v-row>
     </v-card-text>
