@@ -42,6 +42,8 @@ export default {
       state.nik = ''
       state.phone = ''
       state.email = ''
+      state.checkIn = dayjs().toISOString().substring(0, 10)
+      state.checkOut = null
     },
   },
 }

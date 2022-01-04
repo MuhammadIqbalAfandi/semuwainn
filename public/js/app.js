@@ -4706,6 +4706,8 @@ __webpack_require__.r(__webpack_exports__);
       state.nik = '';
       state.phone = '';
       state.email = '';
+      state.checkIn = dayjs__WEBPACK_IMPORTED_MODULE_0___default()().toISOString().substring(0, 10);
+      state.checkOut = null;
     }
   }
 });
