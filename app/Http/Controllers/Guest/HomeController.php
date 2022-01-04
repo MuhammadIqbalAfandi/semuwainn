@@ -16,6 +16,7 @@ class HomeController extends Controller
     {
         return inertia('Guest/Home/Index', [
             'rooms' => RoomType::filter()
+                ->latest()
                 ->paginate(10)
                 ->withQueryString()
                 ->through(fn($roomType) => [

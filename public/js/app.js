@@ -16999,7 +16999,7 @@ var render = function () {
                   rules: [_vm.rules.required, _vm.rules.lessThan50],
                   "error-messages": _vm.$page.props.errors.name,
                   label: "Nama",
-                  hint: "Seperti di KTP/Paspor/SIM (tanpa tanda baca dan gelar)",
+                  hint: "Nama (seperti di KTP/Paspor/SIM, tanpa tanda baca dan gelar)",
                 },
                 model: {
                   value: _vm.updateName,

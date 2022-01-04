@@ -104,7 +104,7 @@ export default {
           :error-messages="$page.props.errors.name"
           class="text-caption text-sm-subtitle-1"
           label="Nama"
-          hint="Seperti di KTP/Paspor/SIM (tanpa tanda baca dan gelar)"
+          hint="Nama (seperti di KTP/Paspor/SIM, tanpa tanda baca dan gelar)"
         />
 
         <TextField
