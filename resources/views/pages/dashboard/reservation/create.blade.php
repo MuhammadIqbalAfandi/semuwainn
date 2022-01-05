@@ -1,16 +1,16 @@
 <x-dashboard-layout title="Pemesanan Kamar">
     <!-- Reservation Add -->
-    <x-dashboard-content-wrapper id="pemesanan-kamar">
-        <x-dashboard-content-header title="Tambah Pemesanan Kamar">
+    <x-shared.content-wrapper id="pemesanan-kamar">
+        <x-shared.content-header title="Tambah Pemesanan Kamar">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">Tambah Pemesanan</li>
             </x-slot>
-        </x-dashboard-content-header>
+        </x-shared.content-header>
 
-        <x-dashboard-content>
-            <x-dashboard-card title="Form Data Pemesanan">
+        <x-shared.content>
+            <x-shared.card title="Form Data Pemesanan">
                 <form id="reservation-form">
                     <div class="row">
                         <!-- Guest -->
@@ -157,12 +157,12 @@
                         <button type="submit" id="btn-save" class="btn btn-sm btn-warning ml-auto">Simpan</button>
                     </div>
                 </form>
-            </x-dashboard-card>
-        </x-dashboard-content>
-    </x-dashboard-content-wrapper>
+            </x-shared.card>
+        </x-shared.content>
+    </x-shared.content-wrapper>
 
     <!-- Modal Add Guest -->
-    <x-dashboard-modal title="Tambah Akun user" id="modal-add-guest">
+    <x-shared.modal title="Tambah Akun user" id="modal-add-guest">
         <form>
             <!-- Nik -->
             <div class="form-group">
@@ -211,10 +211,10 @@
 
             <button type="submit" id="btn-add-guest" class="btn btn-block btn-warning">Simpan</button>
         </form>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Modal Alert -->
-    <x-dashboard-modal id="modal-alert">
+    <x-shared.modal id="modal-alert">
         <x-slot name="title">
             <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
         </x-slot>
@@ -223,7 +223,7 @@
             <span class="font-weight-bold">Opps!</span> <span id="text-alert"
                 class="font-weight-bold text-warning"></span>
         </p>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <x-slot name="script">
         <script>

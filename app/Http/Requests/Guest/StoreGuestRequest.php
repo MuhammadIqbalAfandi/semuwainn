@@ -26,8 +26,8 @@ class StoreGuestRequest extends FormRequest
         return [
             'nik' => 'required|digits:16|unique:guests,nik',
             'name' => 'required|string|max:50',
-            'phone' => 'required|digits:12|unique:guests,phone',
-            'email' => 'email:dns|unique:guests,email|nullable',
+            'phone' => 'required|digits:12',
+            'email' => 'required|email:dns',
         ];
     }
 }

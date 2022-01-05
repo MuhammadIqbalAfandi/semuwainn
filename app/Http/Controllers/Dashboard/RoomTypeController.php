@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoomType\StoreRoomTypeRequest;
 use App\Http\Requests\RoomType\UpdateRoomTypeRequest;
 use App\Models\Facility;
-use App\Models\RoomPrice;
 use App\Models\RoomType;
 use Exception;
 use Illuminate\Support\Facades\DB;

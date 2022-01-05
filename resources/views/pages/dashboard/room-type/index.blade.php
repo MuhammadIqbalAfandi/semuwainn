@@ -1,15 +1,15 @@
 <x-dashboard-layout title="Jenis Kamar">
     <!-- Room Type List -->
-    <x-dashboard-content-wrapper id="room-type-list">
-        <x-dashboard-content-header title="Jenis Kamar">
+    <x-shared.content-wrapper id="room-type-list">
+        <x-shared.content-header title="Jenis Kamar">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Jenis Kamar</li>
             </x-slot>
-        </x-dashboard-content-header>
+        </x-shared.content-header>
 
-        <x-dashboard-content>
-            <x-dashboard-card title="Daftar Jenis Kamar">
+        <x-shared.content>
+            <x-shared.card title="Daftar Jenis Kamar">
                 <div class="row mb-2">
                     <div class="col">
                         <!-- Add Button -->
@@ -33,23 +33,23 @@
                         </table>
                     </div>
                 </div>
-            </x-dashboard-card>
-        </x-dashboard-content>
-    </x-dashboard-content-wrapper>
+            </x-shared.card>
+        </x-shared.content>
+    </x-shared.content-wrapper>
 
     <!-- Modal Add and Edit -->
-    <x-dashboard-content-wrapper id="room-type-add-edit">
-        <x-dashboard-content-header title="Tambah Tipe Kamar">
+    <x-shared.content-wrapper id="room-type-add-edit">
+        <x-shared.content-header title="Tambah Tipe Kamar">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('room-type.index') }}" class="text-warning">Jenis
                         Kamar</a></li>
                 <li class="breadcrumb-item active">Tambah Jenis Kamar</li>
             </x-slot>
-        </x-dashboard-content-header>
+        </x-shared.content-header>
 
-        <x-dashboard-content>
-            <x-dashboard-card title="Form Data Tipe Kamar">
+        <x-shared.content>
+            <x-shared.card title="Form Data Tipe Kamar">
                 <form>
                     <!-- Room Type Id -->
                     <input type="hidden" name="room_type_id" id="room-type-id" value="{{ old('room_type_id') }}">
@@ -126,12 +126,12 @@
                     <button id="btn-save" type="submit" class="btn btn-block btn-warning">Simpan</button>
                     <button id="btn-edit" type="submit" class="btn btn-block btn-warning">Simpan</button>
                 </form>
-            </x-dashboard-card>
-        </x-dashboard-content>
-    </x-dashboard-content-wrapper>
+            </x-shared.card>
+        </x-shared.content>
+    </x-shared.content-wrapper>
 
     <!-- Delete -->
-    <x-dashboard-modal id="modal-delete">
+    <x-shared.modal id="modal-delete">
         <x-slot name="title">
             <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
         </x-slot>
@@ -145,10 +145,10 @@
                 <button type="submit" id="btn-delete" class="btn btn-warning float-right btn-rounded w-139">Ya</button>
             </form>
         </x-slot>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Alert -->
-    {{-- <x-dashboard-modal id="modal-alert">
+    {{-- <x-shared.modal id="modal-alert">
         <x-slot name="title">
             <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
         </x-slot>
@@ -159,7 +159,7 @@
         </h1>
 
         <a class="btn btn-sm btn-warning mt-3 block" href="{{ route('facility.index') }}">Tambah Fasilitas</a>
-    </x-dashboard-modal> --}}
+    </x-shared.modal> --}}
 
     <x-slot name="script">
         <script>

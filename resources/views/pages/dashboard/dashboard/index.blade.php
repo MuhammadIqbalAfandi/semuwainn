@@ -1,13 +1,13 @@
 <x-dashboard-layout title="Dashboard">
-    <x-dashboard-content-wrapper>
-        <x-dashboard-content-header title="Dashboard">
+    <x-shared.content-wrapper>
+        <x-shared.content-header title="Dashboard">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="/" class="text-warning">Home</a></li>
                 <li class="breadcrumb-item active">Dashboard</li>
             </x-slot>
-        </x-dashboard-content-header>
+        </x-shared.content-header>
 
-        <x-dashboard-content>
+        <x-shared.content>
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-12">
                     <!-- Room Type -->
@@ -20,7 +20,7 @@
                         <div class="icon">
                             <i class="fas fa-door-open"></i>
                         </div>
-                        <a href="{{ route('room-type.index') }}" class="small-box-footer">
+                        <a href="{{ route('room-types.index') }}" class="small-box-footer">
                             Lihat detailnya <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -36,7 +36,7 @@
                         <div class="icon">
                             <i class="fas fa-bed"></i>
                         </div>
-                        <a href="{{ route('room.index') }}" class="small-box-footer">
+                        <a href="{{ route('rooms.index') }}" class="small-box-footer">
                             Lihat detailnya <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -52,7 +52,7 @@
                         <div class="icon">
                             <i class="fas fa-concierge-bell"></i>
                         </div>
-                        <a href="{{ route('service.index') }}" class="small-box-footer">
+                        <a href="{{ route('services.index') }}" class="small-box-footer">
                             Lihat detailnya <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -68,7 +68,7 @@
                         <div class="icon">
                             <i class="fas fa-utensils"></i>
                         </div>
-                        <a href="{{ route('restaurant.index') }}" class="small-box-footer">
+                        <a href="{{ route('restaurants.index') }}" class="small-box-footer">
                             Lihat detailnya <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -84,12 +84,12 @@
                         <div class="icon">
                             <i class="fas fa-users"></i>
                         </div>
-                        <a href="{{ route('guest.index') }}" class="small-box-footer">
+                        <a href="{{ route('guests.index') }}" class="small-box-footer">
                             Lihat detailnya <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
                 </div>
             </div>
-        </x-dashboard-content>
-    </x-dashboard-content-wrapper>
+        </x-shared.content>
+    </x-shared.content-wrapper>
 </x-dashboard-layout>

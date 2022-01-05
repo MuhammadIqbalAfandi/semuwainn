@@ -1,15 +1,15 @@
 <x-dashboard-layout title="Akun User">
     <!-- User List -->
-    <x-dashboard-content-wrapper>
-        <x-dashboard-content-header title="Akun User">
+    <x-shared.content-wrapper>
+        <x-shared.content-header title="Akun User">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Akun User</li>
             </x-slot>
-        </x-dashboard-content-header>
+        </x-shared.content-header>
 
-        <x-dashboard-content>
-            <x-dashboard-card title="Daftar Akun User">
+        <x-shared.content>
+            <x-shared.card title="Daftar Akun User">
                 <div class="row mb-2">
                     <div class="col">
                         <!-- Add Button -->
@@ -36,12 +36,12 @@
                         </table>
                     </div>
                 </div>
-            </x-dashboard-card>
-        </x-dashboard-content>
-    </x-dashboard-content-wrapper>
+            </x-shared.card>
+        </x-shared.content>
+    </x-shared.content-wrapper>
 
     <!-- Modal Add & Edit -->
-    <x-dashboard-modal title="Tambah Akun user" id="modal-add">
+    <x-shared.modal title="Tambah Akun user" id="modal-add">
         <form>
             <!-- User Id -->
             <input type="hidden" name="user_id" id="user-id" value="{{ old('user_id') }}">
@@ -95,10 +95,10 @@
             <button type="submit" id="btn-save" class="btn btn-block btn-warning">Simpan</button>
             <button type="submit" id="btn-edit" class="btn btn-block btn-warning">Simpan</button>
         </form>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Modal Block -->
-    <x-dashboard-modal id="modal-block">
+    <x-shared.modal id="modal-block">
         <x-slot name="title">
             <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
         </x-slot>
@@ -112,7 +112,7 @@
                 <button type="submit" id="btn-block" class="btn btn-warning float-right btn-rounded w-140">Ya</button>
             </form>
         </x-slot>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <x-slot name="script">
         <script>

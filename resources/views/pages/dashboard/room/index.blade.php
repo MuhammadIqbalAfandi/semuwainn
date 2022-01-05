@@ -1,15 +1,15 @@
 <x-dashboard-layout title="Kamar">
     <!-- Room List -->
-    <x-dashboard-content-wrapper>
-        <x-dashboard-content-header title="Kamar">
+    <x-shared.content-wrapper>
+        <x-shared.content-header title="Kamar">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Kamar</li>
             </x-slot>
-        </x-dashboard-content-header>
+        </x-shared.content-header>
 
-        <x-dashboard-content>
-            <x-dashboard-card title="Daftar Kamar">
+        <x-shared.content>
+            <x-shared.card title="Daftar Kamar">
                 <div class="row mb-2">
                     <div class="col">
                         <!-- Add Button -->
@@ -33,12 +33,12 @@
                         </table>
                     </div>
                 </div>
-            </x-dashboard-card>
-        </x-dashboard-content>
-    </x-dashboard-content-wrapper>
+            </x-shared.card>
+        </x-shared.content>
+    </x-shared.content-wrapper>
 
     <!-- Modal Add & Edit -->
-    <x-dashboard-modal title="Tambah Kamar" id="modal-add">
+    <x-shared.modal title="Tambah Kamar" id="modal-add">
         <form>
             <!-- Room Id -->
             <input type="hidden" name="room_id" id="room-id" value="{{ old('room_id') }}">
@@ -65,10 +65,10 @@
             <button type="submit" id="btn-save" class="btn btn-block btn-warning">Simpan</button>
             <button type="submit" id="btn-edit" class="btn btn-block btn-warning">Simpan</button>
         </form>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Modal Delete -->
-    <x-dashboard-modal id="modal-delete">
+    <x-shared.modal id="modal-delete">
         <x-slot name="title">
             <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
         </x-slot>
@@ -82,7 +82,7 @@
                 <button type="submit" id="btn-delete" class="btn btn-warning float-right btn-rounded w-140">Ya</button>
             </form>
         </x-slot>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Alert -->
     {{-- <x-dashboard-modal id="add-modal">
@@ -111,7 +111,7 @@
 
                 const roomsTable = $('.table').DataTable({
                     "paging": true,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": true,
                     "ordering": true,
                     "info": true,
@@ -131,7 +131,6 @@
                         url: 'room-type/room-types',
                         beforeSend() {
                             clearForm()
-                            $('.modal-title').text('Tambah Ruangan')
                             $('#btn-save').show()
                             $('#btn-edit').hide()
                             $('#modal-add').modal('show')
@@ -174,7 +173,7 @@
                             fetchRooms()
                         },
                         error(res) {
-                            const errors = res.responseJSON.errors
+                            const { errors } = res.responseJSON
                             for (const key in errors) {
                                $(`.${key}-error`).text(errors[key])
                             }
@@ -189,10 +188,9 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'get',
-                        url: `room/${id}/edit`,
+                        url: `rooms/${id}/edit`,
                         beforeSend() {
                             $('.msg-error').text('')
-                            $('.modal-title').text('Ubah Ruangan')
                             $('#btn-save').hide()
                             $('#btn-edit').show()
                             $('#modal-add').modal('show')
@@ -229,7 +227,7 @@
                         },
                         dataType: 'json',
                         type: 'patch',
-                        url: `room/${id}`,
+                        url: `rooms/${id}`,
                         data: {
                             id,
                             room_number: roomNumber,
@@ -241,7 +239,7 @@
                             fetchRooms()
                         },
                         error(res) {
-                            const errors = res.responseJSON.errors
+                            const { errors } = res.responseJSON
                             for (const key in errors) {
                                 $(`.${key}-error`).text(errors[key])
                             }
@@ -266,7 +264,7 @@
                         },
                         dataType: 'json',
                         type: 'delete',
-                        url: `room/${id}`,
+                        url: `rooms/${id}`,
                         success(res) {
                             alert(res.message, res.status)
                             $('#modal-delete').modal('hide')
@@ -289,12 +287,12 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: 'room/rooms',
+                        url: 'rooms/rooms',
                         success(res) {
-                            if (res.rooms) {
+                            if (res.data) {
                                 roomsTable.clear().draw()
 
-                                res.rooms.forEach(room => {
+                                res.data.forEach(room => {
                                     let btnAction = `
                                         <!-- Button Edit -->
                                         <i class="fas fa-edit mr-1 btn-show-edit text-primary" id="${room.id}">
@@ -305,7 +303,7 @@
                                         </i>
                                     `
 
-                                    let roomStatus = room.room_order.length ?
+                                    let roomStatus = room.room_orders.length ?
                                     `
                                         <span class="d-block">Terisi</span>
                                         <span class="d-block text-secondary">Kosong</span>

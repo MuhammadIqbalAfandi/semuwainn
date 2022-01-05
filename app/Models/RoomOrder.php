@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Models\Reservation;
-use Carbon\Carbon;
+use App\Models\Room;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class RoomOrder extends Model
 {
@@ -18,6 +19,31 @@ class RoomOrder extends Model
         'reservation_id',
         'room_id',
     ];
+
+    public function getOrderTimeAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function getCheckinAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function setCheckinAttribute($value)
+    {
+        $this->attributes['Checkin'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+    }
+
+    public function getCheckoutAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function setCheckoutAttribute($value)
+    {
+        $this->attributes['checkout'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+    }
 
     public function reservation()
     {
@@ -32,60 +58,5 @@ class RoomOrder extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get date indonesia format
-     *
-     * @param date $value
-     * @return date
-     */
-    public function getOrderTimeAttribute($value)
-    {
-        return Carbon::parse($value)->format('d/m/Y');
-    }
-
-    /**
-     * Get date indonesia format
-     *
-     * @param date $value
-     * @return date
-     */
-    public function getCheckinAttribute($value)
-    {
-        return Carbon::parse($value)->format('d/m/Y');
-    }
-
-    /**
-     * Set date indonesia format
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setCheckinAttribute($value)
-    {
-        $this->attributes['Checkin'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
-    }
-
-    /**
-     * Get date indonesia format
-     *
-     * @param date $value
-     * @return date
-     */
-    public function getCheckoutAttribute($value)
-    {
-        return Carbon::parse($value)->format('d/m/Y');
-    }
-
-    /**
-     * Set date indonesia format
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setCheckoutAttribute($value)
-    {
-        $this->attributes['checkout'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
     }
 }

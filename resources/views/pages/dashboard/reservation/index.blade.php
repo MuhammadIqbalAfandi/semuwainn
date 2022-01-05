@@ -1,16 +1,16 @@
 <x-dashboard-layout title="Daftar Pemesanan Kamar">
     <!-- Reservation List -->
-    <x-dashboard-content-wrapper>
-        <x-dashboard-content-header title="Daftar Pemesanan Kamar">
+    <x-shared.content-wrapper>
+        <x-shared.content-header title="Daftar Pemesanan Kamar">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">Daftar Pemesanan Kamar</li>
             </x-slot>
-        </x-dashboard-content-header>
+        </x-shared.content-header>
 
-        <x-dashboard-content>
-            <x-dashboard-card title="Daftar Pemesanan Kamar">
+        <x-shared.content>
+            <x-shared.card title="Daftar Pemesanan Kamar">
                 <div class="row">
                     <div class="col">
                         <table id="reservation-list-table" class="table table-bordered">
@@ -31,12 +31,12 @@
                         </table>
                     </div>
                 </div>
-            </x-dashboard-card>
-        </x-dashboard-content>
-    </x-dashboard-content-wrapper>
+            </x-shared.card>
+        </x-shared.content>
+    </x-shared.content-wrapper>
 
     <!-- Modal Edit Status -->
-    <x-dashboard-modal title="Ubah Status Pemesanan" id="modal-edit-status">
+    <x-shared.modal title="Ubah Status Pemesanan" id="modal-edit-status">
         <form>
             <!-- Reservation Id -->
             <input type="hidden" name="reservation_id" id="reservation-id" value="{{ old('reservation-id') }}">
@@ -51,10 +51,10 @@
 
             <button type="submit" id="btn-edit-status" class="btn btn-block btn-warning">Simpan</button>
         </form>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Modal Edit -->
-    <x-dashboard-modal title="Edit Pemesanan" id="modal-edit">
+    <x-shared.modal title="Edit Pemesanan" id="modal-edit">
         <form>
             <!-- Reservation Id -->
             <input type="hidden" name="reservation_id" id="reservation-id" value="{{ old('reservation-id') }}">
@@ -137,10 +137,10 @@
 
             <button id="btn-edit" type="submit" class="btn btn-block btn-warning">Simpan</button>
         </form>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Modal Add Room -->
-    <x-dashboard-modal title="Tambah Kamar" id="modal-add-room" size="modal-xl">
+    <x-shared.modal title="Tambah Kamar" id="modal-add-room" size="modal-xl">
         <form id="reservation-form">
             <!-- Reservation Id -->
             <input type="hidden" name="reservation_id" id="reservation-id" value="{{ old('reservation-id') }}">
@@ -202,10 +202,10 @@
                 <button type="submit" id="btn-add-room" class="btn btn-sm btn-warning ml-auto">Simpan</button>
             </div>
         </form>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Modal Delete -->
-    <x-dashboard-modal id="modal-delete">
+    <x-shared.modal id="modal-delete">
         <x-slot name="title">
             <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
         </x-slot>
@@ -220,10 +220,10 @@
                 <button type="submit" id="btn-delete" class="btn btn-warning float-right btn-rounded w-140">Ya</button>
             </form>
         </x-slot>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Modal Alert -->
-    <x-dashboard-modal id="modal-alert">
+    <x-shared.modal id="modal-alert">
         <x-slot name="title">
             <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
         </x-slot>
@@ -232,7 +232,7 @@
             <span class="font-weight-bold">Opps!</span> <span id="text-alert"
                 class="font-weight-bold text-warning"></span>
         </p>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <x-slot name="script">
         <script>

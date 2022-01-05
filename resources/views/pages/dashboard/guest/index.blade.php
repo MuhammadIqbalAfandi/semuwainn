@@ -1,15 +1,15 @@
 <x-dashboard-layout title="Kamar">
     <!-- Guest List -->
-    <x-dashboard-content-wrapper>
-        <x-dashboard-content-header title="Kamar">
+    <x-shared.content-wrapper>
+        <x-shared.content-header title="Kamar">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Tamu</li>
             </x-slot>
-        </x-dashboard-content-header>
+        </x-shared.content-header>
 
-        <x-dashboard-content>
-            <x-dashboard-card title="Daftar Kamar">
+        <x-shared.content>
+            <x-shared.card title="Daftar Kamar">
                 <div class="row">
                     <div class="col">
                         <table class="table table-bordered table-hover">
@@ -24,12 +24,12 @@
                         </table>
                     </div>
                 </div>
-            </x-dashboard-card>
-        </x-dashboard-content>
-    </x-dashboard-content-wrapper>
+            </x-shared.card>
+        </x-shared.content>
+    </x-shared.content-wrapper>
 
     <!-- Modal Edit -->
-    <x-dashboard-modal title="Ubah Data Tamu" id="modal-edit">
+    <x-shared.modal title="Ubah Data Tamu" id="modal-edit">
         <form>
             <!-- guest Id -->
             <input type="hidden" name="guest_id" id="guest-id" value="{{ old('guest_id') }}">
@@ -40,7 +40,7 @@
                 <input type="text" name="nik" id="nik" value="{{ old('nik') }}" class="form-control"
                     placeholder="Tulis nik disini">
 
-                <span class="nik-add-error msg-error text-danger"></span>
+                <span class="nik-error msg-error text-danger"></span>
             </div>
 
             <!-- Name -->
@@ -72,10 +72,10 @@
 
             <button type="submit" id="btn-edit" class="btn btn-block btn-warning">Simpan</button>
         </form>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Modal Delete -->
-    <x-dashboard-modal id="modal-delete">
+    <x-shared.modal id="modal-delete">
         <x-slot name="title">
             <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
         </x-slot>
@@ -89,7 +89,7 @@
                 <button type="submit" id="btn-delete" class="btn btn-warning float-right btn-rounded w-140">Ya</button>
             </form>
         </x-slot>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <x-slot name="script">
         <script>
@@ -97,7 +97,7 @@
                 // Mounted
                 const guestTable = $('.table').DataTable({
                     "paging": true,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": true,
                     "ordering": true,
                     "info": true,
@@ -116,10 +116,9 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'get',
-                        url: `guest/${id}/edit`,
+                        url: `guests/${id}/edit`,
                         beforeSend() {
                             $('.msg-error').text('')
-                            $('.modal-title').text('Ubah Data Tamu')
                             $('#btn-edit').show()
                             $('#modal-edit').modal('show')
                         },
@@ -150,7 +149,7 @@
                         },
                         dataType: 'json',
                         type: 'patch',
-                        url: `guest/${id}`,
+                        url: `guests/${id}`,
                         data: {
                             id,
                             name,
@@ -164,7 +163,7 @@
                             fetchGuest()
                         },
                         error(res) {
-                            const errors = res.responseJSON.errors
+                            const { errors } = res.responseJSON
                             for (const key in errors) {
                                 $(`.${key}-error`).text(errors[key])
                             }
@@ -189,12 +188,17 @@
                         },
                         dataType: 'json',
                         type: 'delete',
-                        url: `guest/${id}`,
+                        url: `guests/${id}`,
                         success(res) {
                             alert(res.message, res.status)
                             $('#modal-delete').modal('hide')
                             fetchGuest()
                         },
+                        error(res) {
+                            const { message, status } = res.responseJSON
+                            alert(message, status)
+                            $('#modal-delete').modal('hide')
+                        }
                     })
                 })
                 // end Mounted
@@ -215,12 +219,12 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: 'guest/guests',
+                        url: 'guests/guests',
                         success(res) {
-                            if (res.guests) {
+                            if (res.data) {
                                 guestTable.clear().draw()
 
-                                res.guests.forEach(guest => {
+                                res.data.forEach(guest => {
                                     let btnAction = `
                                         <!-- Button Edit -->
                                         <i class="fas fa-edit mr-1 btn-show-edit text-primary" id="${guest.id}">

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Guest\StoreGuestRequest;
 use App\Http\Requests\Guest\UpdateGuestRequest;
 use App\Models\Guest;
+use Illuminate\Database\QueryException;
 
 class GuestController extends Controller
 {
@@ -22,7 +23,7 @@ class GuestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Guest  $Guest
+     * @param  \App\Models\Guest $Guest
      * @return \Illuminate\Http\Response
      */
     public function show(Guest $guest)
@@ -38,18 +39,6 @@ class GuestController extends Controller
 
     }
 
-    public function guests()
-    {
-        $guests = Guest::with('reservations')->get();
-        if ($guests) {
-            return response()->json(
-                [
-                    'guests' => $guests,
-                ],
-            );
-        }
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -61,7 +50,7 @@ class GuestController extends Controller
         Guest::create($request->validated());
         return response()->json(
             [
-                'message' => 'Data tamu berhasil ditambahkan',
+                'message' => __('messages.success.store.guest'),
                 'status' => 'success',
             ],
             201,
@@ -98,7 +87,7 @@ class GuestController extends Controller
         $guest->update($request->validated());
         return response()->json(
             [
-                'message' => 'Akun user berhasil diubah',
+                'message' => __('messages.success.update.guest'),
                 'status' => 'success',
             ],
             201,
@@ -113,13 +102,33 @@ class GuestController extends Controller
      */
     public function destroy(Guest $guest)
     {
-        $guest->delete();
-        return response()->json(
-            [
-                'message' => 'Data Tamu berhasil dihapus',
-                'status' => 'success',
-            ],
-            200,
-        );
+        try {
+            $guest->delete();
+            return response()->json(
+                [
+                    'message' => __('messages.success.destroy.guest'),
+                    'status' => 'success',
+                ],
+                200,
+            );
+
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.error.destroy.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
+
+    }
+
+    public function guests()
+    {
+        $guests = Guest::with('reservations')->latest()->paginate(10);
+        if ($guests) {
+            return response()->json($guests, 200);
+        }
     }
 }

@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Restaurant\StoreRestaurantRequest;
 use App\Http\Requests\Restaurant\UpdateRestaurantRequest;
 use App\Models\Restaurant;
+use Illuminate\Database\QueryException;
 
 class RestaurantController extends Controller
 {
@@ -18,19 +20,6 @@ class RestaurantController extends Controller
         return view('pages.dashboard.restaurant.index');
     }
 
-    public function restaurants()
-    {
-        $restaurants = Restaurant::all();
-        if ($restaurants) {
-            return response()->json(
-                [
-                    'restaurants' => $restaurants,
-                ],
-                200,
-            );
-        };
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -42,7 +31,7 @@ class RestaurantController extends Controller
         Restaurant::create($request->validated());
         return response()->json(
             [
-                'message' => 'Hidangan restoran berhasil ditambahkan',
+                'message' => __('messages.success.store.restaurant'),
                 'status' => 'success',
             ],
             201,
@@ -60,7 +49,7 @@ class RestaurantController extends Controller
         if ($restaurant) {
             return response()->json(
                 [
-                    'restaurant' => $restaurant
+                    'restaurant' => $restaurant,
                 ],
                 200,
             );
@@ -79,7 +68,7 @@ class RestaurantController extends Controller
         $restaurant->update($request->validated());
         return response()->json(
             [
-                'message' => 'Layanan berhasil diubah',
+                'message' => __('messages.success.update.restaurant'),
                 'status' => 'success',
             ],
             201,
@@ -94,13 +83,33 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
-        $restaurant->delete();
-        return response()->json(
-            [
-                'message' => 'Layanan berhasil dihapus',
-                'status' => 'success',
-            ],
-            200,
-        );
+        try {
+            $restaurant->delete();
+            return response()->json(
+                [
+                    'message' => __('messages.success.destroy.restaurant'),
+                    'status' => 'success',
+                ],
+                200,
+            );
+
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.error.destroy.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
+
+    }
+
+    public function restaurants()
+    {
+        $restaurants = Restaurant::latest()->paginate(10);
+        if ($restaurants) {
+            return response()->json($restaurants, 200);
+        };
     }
 }

@@ -22,12 +22,6 @@ class Reservation extends Model
         'reservation_status_id',
     ];
 
-    /**
-     * Get date indonesia format
-     *
-     * @param date $value
-     * @return date
-     */
     public function getReservedDateAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');

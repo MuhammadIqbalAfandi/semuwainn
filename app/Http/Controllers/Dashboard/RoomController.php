@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Room\StoreRoomRequest;
@@ -20,19 +20,6 @@ class RoomController extends Controller
         return view('pages.dashboard.room.index');
     }
 
-    public function rooms()
-    {
-        $rooms = Room::with(['roomType.roomPrices', 'roomOrder'])->get();
-        if ($rooms) {
-            return response()->json(
-                [
-                    'rooms' => $rooms,
-                ],
-                200,
-            );
-        }
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -44,7 +31,7 @@ class RoomController extends Controller
         Room::create($request->validated());
         return response()->json(
             [
-                'message' => 'Kamar baru berhasil ditambahkan',
+                'message' => __('messages.success.store.room'),
                 'status' => 'success',
             ],
             201,
@@ -83,11 +70,11 @@ class RoomController extends Controller
     {
         $room->update($request->validated());
         return response()->json(
-           [
-               'message' => 'Kamar berhasil diubah',
-               'status' => 'success',
+            [
+                'message' => __('messages.success.update.room'),
+                'status' => 'success',
             ],
-           201,
+            201,
         );
     }
 
@@ -102,10 +89,18 @@ class RoomController extends Controller
         $room->delete();
         return response()->json(
             [
-                'message' => 'Kamar berhasil dihapus',
+                'message' => __('messages.success.destroy.room'),
                 'status' => 'success',
             ],
             200,
         );
+    }
+
+    public function rooms()
+    {
+        $rooms = Room::with(['roomType.roomPrices', 'roomOrders'])->latest()->paginate(10);
+        if ($rooms) {
+            return response()->json($rooms, 200);
+        }
     }
 }

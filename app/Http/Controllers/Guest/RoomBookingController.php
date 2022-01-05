@@ -21,7 +21,8 @@ class RoomBookingController extends Controller
     public function index()
     {
         return inertia('Guest/RoomBooking/Index', [
-            'services' => Service::paginate(10)
+            'services' => Service::latest()
+                ->paginate(10)
                 ->withQueryString()
                 ->through(fn($services) => [
                     'id' => $services->id,

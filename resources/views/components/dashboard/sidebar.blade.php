@@ -22,8 +22,8 @@
                 @php
                 $routeUri = Route::currentRouteName();
                 $routeStatus = collect([
-                'reservation.index',
-                'reservation.create'
+                'reservations.index',
+                'reservations.create'
                 ])->contains($routeUri);
                 @endphp
                 <!-- Pemesanan Kamar -->
@@ -38,16 +38,16 @@
 
                     <ul class="nav nav-treeview active">
                         <li class="nav-item">
-                            <a href="{{ route('reservation.create') }}"
-                                class="nav-link {{ Route::is('reservation.create') ? 'active' : '' }}">
+                            <a href="{{ route('reservations.create') }}"
+                                class="nav-link {{ Route::is('reservations.create') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tambah Pemesanan</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('reservation.index') }}"
-                                class="nav-link {{ Route::is('reservation.index') ? 'active' : '' }}">
+                            <a href="{{ route('reservations.index') }}"
+                                class="nav-link {{ Route::is('reservations.index') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Daftar Pemesanan</p>
                             </a>
@@ -58,13 +58,13 @@
                 @php
                 $routeUri = Route::currentRouteName();
                 $routeStatus = collect([
-                'facility.index',
-                'room-type.index',
-                'room.index',
-                'restaurant.index',
-                'service.index',
-                'user.index',
-                'guest.index',
+                'facilities.index',
+                'room-types.index',
+                'rooms.index',
+                'restaurants.index',
+                'services.index',
+                'users.index',
+                'guests.index',
                 ])->contains($routeUri);
                 @endphp
                 <!-- Master -->
@@ -80,8 +80,8 @@
                     <ul class="nav nav-treeview active">
                         <!-- Account User -->
                         <li class="nav-item">
-                            <a href="{{ route('user.index') }}"
-                                class="nav-link {{ Route::is('user.index') ? 'active' : '' }}">
+                            <a href="{{ route('users.index') }}"
+                                class="nav-link {{ Route::is('users.index') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Akun User</p>
                             </a>
@@ -90,14 +90,14 @@
                         @php
                         $routeUri = Route::currentRouteName();
                         $routeStatus = collect([
-                        'room-type.index',
-                        'room-type.create',
-                        'room-type.edit',
+                        'room-types.index',
+                        'room-types.create',
+                        'room-types.edit',
                         ])->contains($routeUri);
                         @endphp
                         <!-- Room Type -->
                         <li class="nav-item">
-                            <a href="{{ route('room-type.index') }}"
+                            <a href="{{ route('room-types.index') }}"
                                 class="nav-link {{ $routeStatus ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Jenis Kamar</p>
@@ -106,8 +106,8 @@
 
                         <!-- Facility -->
                         <li class="nav-item">
-                            <a href="{{ route('facility.index') }}"
-                                class="nav-link {{ Route::is('facility.index') ? 'active' : ''}}">
+                            <a href="{{ route('facilities.index') }}"
+                                class="nav-link {{ Route::is('facilities.index') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Fasilitas</p>
                             </a>
@@ -115,8 +115,8 @@
 
                         <!-- Room -->
                         <li class="nav-item">
-                            <a href="{{ route('room.index') }}"
-                                class="nav-link {{ Route::is('room.index') ? 'active' : ''}}">
+                            <a href="{{ route('rooms.index') }}"
+                                class="nav-link {{ Route::is('rooms.index') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kamar</p>
                             </a>
@@ -124,8 +124,8 @@
 
                         <!-- Restaurant -->
                         <li class="nav-item">
-                            <a href="{{ route('restaurant.index') }}"
-                                class="nav-link {{ Route::is('restaurant.index') ? 'active' : ''}}">
+                            <a href="{{ route('restaurants.index') }}"
+                                class="nav-link {{ Route::is('restaurants.index') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Hidangan Restoran</p>
                             </a>
@@ -133,8 +133,8 @@
 
                         <!-- Service -->
                         <li class="nav-item">
-                            <a href="{{ route('service.index') }}"
-                                class="nav-link {{ Route::is('service.index') ? 'active' : ''}}">
+                            <a href="{{ route('services.index') }}"
+                                class="nav-link {{ Route::is('services.index') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Layanan</p>
                             </a>
@@ -142,8 +142,8 @@
 
                         <!-- Guest -->
                         <li class="nav-item">
-                            <a href="{{ route('guest.index') }}"
-                                class="nav-link {{ Route::is('guest.index') ? 'active' : ''}}">
+                            <a href="{{ route('guests.index') }}"
+                                class="nav-link {{ Route::is('guests.index') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tamu</p>
                             </a>

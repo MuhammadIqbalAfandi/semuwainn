@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Requests\Service\StoreServiceRequest;
-use App\Http\Requests\Service\UpdateServiceRequest;
-use App\Models\Service;
+use App\Http\Requests\Facility\StoreFacilityRequest;
+use App\Http\Requests\Facility\UpdateFacilityRequest;
+use App\Models\Facility;
+use Illuminate\Routing\Controller;
 
-class ServiceController extends Controller
+class FacilityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,20 +16,20 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard.service.index');
+        return view('pages.dashboard.facility.index');
     }
 
-    public function services()
+    public function facilities()
     {
-        $services = Service::all();
-        if ($services) {
+        $facilities = Facility::with('roomFacilities')->get();
+        if ($facilities) {
             return response()->json(
                 [
-                    'services' => $services,
+                    'facilities' => $facilities,
                 ],
                 200,
             );
-        };
+        }
     }
 
     /**
@@ -37,12 +38,12 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreServiceRequest $request)
+    public function store(StoreFacilityRequest $request)
     {
-        Service::create($request->validated());
+        Facility::create($request->validated());
         return response()->json(
             [
-                'message' => 'Layanan berhasil ditambahkan',
+                'message' => 'Fasilitas baru berhasil ditambahkan',
                 'status' => 'success',
             ],
             201,
@@ -52,34 +53,34 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Service  $service
+     * @param  Facility  $facility
      * @return \Illuminate\Http\Response
      */
-    public function edit(Service $service)
+    public function edit(Facility $facility)
     {
-        if ($service) {
+        if ($facility) {
             return response()->json(
                 [
-                    'service' => $service,
+                    'facility' => $facility,
                 ],
                 200,
             );
-        };
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Service  $service
+     * @param  Facility  $facility
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateServiceRequest $request, Service $service)
+    public function update(UpdateFacilityRequest $request, Facility $facility)
     {
-        $service->update($request->validated());
+        $facility->update($request->validated());
         return response()->json(
             [
-                'message' => 'Layanan berhasil diubah',
+                'message' => 'Fasilitas berhasil diubah',
                 'status' => 'success',
             ],
             201,
@@ -89,16 +90,16 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Service  $service
+     * @param  facility  $facility
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Service $service)
+    public function destroy(Facility $facility)
     {
-        $service->delete();
+        $facility->delete();
         return response()->json(
             [
-               'message' => 'Layanan berhasil dihapus',
-               'status' => 'success',
+                'message' => 'Fasilitas berhasil dihapus',
+                'status' => 'success',
             ],
             200,
         );

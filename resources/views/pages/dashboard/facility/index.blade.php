@@ -1,15 +1,15 @@
 <x-dashboard-layout title="Fasilitas">
     <!-- Facility List -->
-    <x-dashboard-content-wrapper>
-        <x-dashboard-content-header title="Fasilitas">
+    <x-shared.content-wrapper>
+        <x-shared.content-header title="Fasilitas">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Fasilitas</li>
             </x-slot>
-        </x-dashboard-content-header>
+        </x-shared.content-header>
 
-        <x-dashboard-content>
-            <x-dashboard-card title="Daftar Fasilitas">
+        <x-shared.content>
+            <x-shared.card title="Daftar Fasilitas">
                 <div class="row mb-2">
                     <div class="col">
                         <!-- Add Button -->
@@ -33,12 +33,12 @@
                         </table>
                     </div>
                 </div>
-            </x-dashboard-card>
-        </x-dashboard-content>
-    </x-dashboard-content-wrapper>
+            </x-shared.card>
+        </x-shared.content>
+    </x-shared.content-wrapper>
 
     <!-- Modal Add & Edit -->
-    <x-dashboard-modal title="Tambah Fasilitas" id="modal-add">
+    <x-shared.modal title="Tambah Fasilitas" id="modal-add">
         <form>
             <!-- Facility Id -->
             <input type="hidden" name="facility_id" id="facility-id" value="{{ old('facility_id') }}">
@@ -55,10 +55,10 @@
             <button id="btn-save" type="submit" class="btn btn-block btn-warning">Simpan</button>
             <button id="btn-edit" type="submit" class="btn btn-block btn-warning">Edit</button>
         </form>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Modal Delete -->
-    <x-dashboard-modal id="modal-delete">
+    <x-shared.modal id="modal-delete">
         <x-slot name="title">
             <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
         </x-slot>
@@ -73,7 +73,7 @@
                 <button type="submit" id="btn-delete" class="btn btn-warning float-right btn-rounded w-140">Ya</button>
             </form>
         </x-slot>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <x-slot name="script">
         <script>

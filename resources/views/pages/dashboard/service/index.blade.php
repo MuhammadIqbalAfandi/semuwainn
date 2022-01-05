@@ -1,15 +1,15 @@
 <x-dashboard-layout title="Layanan">
     <!-- Service List -->
-    <x-dashboard-content-wrapper>
-        <x-dashboard-content-header title="Layanan">
+    <x-shared.content-wrapper>
+        <x-shared.content-header title="Layanan">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Layanan</li>
             </x-slot>
-        </x-dashboard-content-header>
+        </x-shared.content-header>
 
-        <x-dashboard-content>
-            <x-dashboard-card title="Daftar Layanan">
+        <x-shared.content>
+            <x-shared.card title="Daftar Layanan">
                 <div class="row mb-2">
                     <div class="col">
                         <!-- Add Button -->
@@ -28,36 +28,36 @@
                                     <th>Nama Layanan</th>
                                     <th>Satuan</th>
                                     <th>Harga</th>
-                                    <th>Tanggal Ditambahkan</th>
+                                    <th>Tanggal Diperbaharui</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
                 </div>
-            </x-dashboard-card>
-        </x-dashboard-content>
-    </x-dashboard-content-wrapper>
+            </x-shared.card>
+        </x-shared.content>
+    </x-shared.content-wrapper>
 
     <!-- Modal Add & Edit -->
-    <x-dashboard-modal title="Tambah Layanan" id="modal-add">
+    <x-shared.modal title="Tambah Layanan" id="modal-add">
         <form>
             <!-- Service Id -->
             <input type="hidden" name="service_id" id="service-id" value="{{ old('service_id') }}">
 
             <!-- Service Name -->
             <div class="form-group">
-                <label for="service-name">Nama Layanan</label>
-                <input type="text" name="service_name" id="service-name" class="form-control"
-                    value="{{ old('service_name') }}" placeholder="Tulis nama layanan disini">
+                <label for="name">Nama Layanan</label>
+                <input type="text" name="name" id="name" class="form-control"
+                    value="{{ old('name') }}" placeholder="Tulis nama layanan disini">
 
-                <span class="text-danger msg-error service_name-error"></span>
+                <span class="text-danger msg-error name-error"></span>
             </div>
 
             <!-- Unit -->
             <div class="form-group">
                 <label for="unit">Satuan</label>
-                <input type="text" name="unit" id="unit" class="form-control" alue="{{ old('unit') }}"
+                <input type="text" name="unit" id="unit" class="form-control" value="{{ old('unit') }}"
                     placeholder="Tulis nama satuan disini">
 
                 <span class="text-danger msg-error unit-error"></span>
@@ -74,17 +74,17 @@
                     <input type="text" name="price" id="price" class="form-control" value="{{ old('price') }}"
                         placeholder="Tulis harga disini">
 
+                    </div>
                     <span class="text-danger msg-error price-error"></span>
-                </div>
             </div>
 
             <button type="submit" id="btn-save" class="btn btn-block btn-warning">Simpan</button>
             <button type="submit" id="btn-edit" class="btn btn-block btn-warning">Simpan</button>
         </form>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <!-- Modal Delete -->
-    <x-dashboard-modal id="modal-delete">
+    <x-shared.modal id="modal-delete">
         <x-slot name="title">
             <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
         </x-slot>
@@ -98,7 +98,7 @@
                 <button type="submit" id="btn-delete" class="btn btn-warning float-right btn-rounded w-139">Ya</button>
             </form>
         </x-slot>
-    </x-dashboard-modal>
+    </x-shared.modal>
 
     <x-slot name="script">
         <script>
@@ -106,7 +106,7 @@
                 // Mounted
                 const servicesTable = $('.table').DataTable({
                     "paging": true,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": true,
                     "ordering": true,
                     "info": true,
@@ -119,7 +119,6 @@
                 $('#btn-add').click(() => {
                     clearForm()
                     $('.msg-error').text('')
-                    $('.modal-title').text('Tambah Fasilitas')
                     $('#btn-save').show()
                     $('#btn-edit').hide()
                     $('#modal-add').modal('show')
@@ -128,7 +127,7 @@
                 $('#btn-save').click((e) => {
                     e.preventDefault()
 
-                    const serviceName = $('#service-name').val()
+                    const name = $('#name').val()
                     const unit = $('#unit').val()
                     const price = $('#price').val()
 
@@ -137,9 +136,9 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'post',
-                        url: 'service',
+                        url: 'services',
                         data: {
-                            name: serviceName,
+                            name,
                             unit,
                             price,
                         },
@@ -152,7 +151,7 @@
                             fetchServices()
                         },
                         error(res) {
-                            const errors = res.responseJSON.errors
+                            const { errors } = res.responseJSON
                             for (const key in errors) {
                                 $(`.${key}-error`).text(errors[key])
                             }
@@ -169,17 +168,16 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: `service/${id}/edit`,
+                        url: `services/${id}/edit`,
                         beforeSend() {
                             $('.msg-error').text('')
-                            $('.modal-title').text('Ubah Fasilitas')
                             $('#btn-save').hide()
                             $('#btn-edit').show()
                             $('#modal-add').modal('show')
                         },
                         success(res) {
                             $('#service-id').val(res.service.id)
-                            $('#service-name').val(res.service.name)
+                            $('#name').val(res.service.name)
                             $('#unit').val(res.service.unit)
                             $('#price').val(res.service.price)
                         },
@@ -190,7 +188,7 @@
                     e.preventDefault()
 
                     const id = $('#service-id').val()
-                    const serviceName = $('#service-name').val()
+                    const name = $('#name').val()
                     const unit = $('#unit').val()
                     const price = $('#price').val()
 
@@ -200,10 +198,10 @@
                         },
                         dataType: 'json',
                         type: 'patch',
-                        url: `service/${id}`,
+                        url: `services/${id}`,
                         data: {
                             id,
-                            name: serviceName,
+                            name,
                             unit,
                             price,
                         },
@@ -217,7 +215,7 @@
                             clearForm()
                         },
                         error(res) {
-                            const errors = res.responseJSON.errors
+                            const { errors } = res.responseJSON
                             for (const key in errors) {
                                 $(`.${key}-error`).text(errors[key])
                             }
@@ -242,19 +240,24 @@
                         },
                         dataType: 'json',
                         type: 'delete',
-                        url: `service/${id}`,
+                        url: `services/${id}`,
                         success(res) {
                             alert(res.message, res.status)
                             $('#modal-delete').modal('hide')
                             fetchServices()
                         },
+                        error(res) {
+                            const { message, status } = res.responseJSON
+                            alert(message, status)
+                            $('#modal-delete').modal('hide')
+                        }
                     })
                 })
                 // end Mounted
 
                 // Methods
                 function clearForm() {
-                    $('#service-name').val('')
+                    $('#name').val('')
                     $('#unit').val('')
                     $('#price').val('')
                 }
@@ -266,12 +269,12 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: 'service/services',
+                        url: 'services/services',
                         success(res) {
-                            if (res.services) {
+                            if (res.data) {
                                 servicesTable.clear().draw()
 
-                                 res.services.forEach(service => {
+                                 res.data.forEach(service => {
                                     let btnAction = `
                                         <!-- Button Edit -->
                                         <i class="fas fa-edit mr-1 btn-show-edit text-primary" data-toggle="modal"
