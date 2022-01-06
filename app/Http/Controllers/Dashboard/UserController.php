@@ -7,7 +7,7 @@ use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\Role;
 use App\Models\User;
-use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -20,22 +20,6 @@ class UserController extends Controller
     public function index()
     {
         return view('pages.dashboard.user.index');
-    }
-
-    public function users()
-    {
-        $users = User::with('role')->get();
-        $roles = Role::all();
-        if ($users) {
-            return response()->json(
-                [
-                    'users' => $users,
-                    'roles' => $roles,
-                    'authId' => auth()->user()->id,
-                ],
-                200,
-            );
-        };
     }
 
     /**
@@ -54,20 +38,20 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Akun user berhasil ditambahkan',
+                    'message' => __('messages.success.store.user'),
                     'status' => 'success',
                 ],
                 201,
             );
-        } catch (Exception $e) {
+        } catch (QueryException $e) {
             DB::rollback();
 
             return response()->json(
                 [
-                    'message' => 'Akun user baru tidak berhasil ditambahkan',
+                    'message' => __('messages.errors.store.all'),
                     'status' => 'failed',
                 ],
-                400,
+                422,
             );
         }
     }
@@ -109,20 +93,20 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Akun user berhasil diubah',
+                    'message' => __('messages.success.update.user'),
                     'status' => 'success',
                 ],
                 201,
             );
-        } catch (Exception $e) {
+        } catch (QueryException $e) {
             DB::rollback();
 
             return response()->json(
                 [
-                    'message' => 'Akun user baru tidak berhasil diubah',
+                    'message' => __('messages.errors.update.all'),
                     'status' => 'failed',
                 ],
-                400,
+                422,
             );
         }
     }
@@ -139,9 +123,9 @@ class UserController extends Controller
         $user->update();
 
         if ($user->status) {
-            $msg = 'Sukses mengaktifkan user';
+            $msg = __('messages.users.active_user');
         } else {
-            $msg = 'Sukses memblokir user';
+            $msg = __('messages.users.no_active_user');
         }
 
         return response()->json(
@@ -151,5 +135,21 @@ class UserController extends Controller
             ],
             200,
         );
+    }
+
+    public function users()
+    {
+        $users = User::with('role')->latest()->paginate(10);
+        $roles = Role::all();
+        if ($users) {
+            return response()->json(
+                [
+                    'users' => $users,
+                    'roles' => $roles,
+                    'authId' => auth()->user()->id,
+                ],
+                200,
+            );
+        };
     }
 }

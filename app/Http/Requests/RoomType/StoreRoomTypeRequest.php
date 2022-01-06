@@ -25,6 +25,7 @@ class StoreRoomTypeRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:50|unique:room_types,name',
+            'number_of_guest' => 'required|numeric',
             'facilities' => 'required',
             'prices.*' => 'required|numeric',
             'descriptions.*' => 'required|string|max:100',

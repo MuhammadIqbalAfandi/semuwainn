@@ -21,5 +21,12 @@ class UserSeeder extends Seeder
             'address' => 'street',
             'role_id' => 1,
         ]);
+        User::create([
+            'name' => 'User1',
+            'phone' => '081288885566',
+            'email' => 'user@semuwainn.com',
+            'address' => 'street',
+            'role_id' => 1,
+        ]);
     }
 }

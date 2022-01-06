@@ -7,6 +7,7 @@ use App\Http\Requests\Room\StoreRoomRequest;
 use App\Http\Requests\Room\UpdateRoomRequest;
 use App\Models\Room;
 use App\Models\RoomType;
+use Illuminate\Database\QueryException;
 
 class RoomController extends Controller
 {
@@ -28,14 +29,24 @@ class RoomController extends Controller
      */
     public function store(StoreRoomRequest $request)
     {
-        Room::create($request->validated());
-        return response()->json(
-            [
-                'message' => __('messages.success.store.room'),
-                'status' => 'success',
-            ],
-            201,
-        );
+        try {
+            Room::create($request->validated());
+            return response()->json(
+                [
+                    'message' => __('messages.success.store.room'),
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.destroy.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
     }
 
     /**
@@ -68,14 +79,24 @@ class RoomController extends Controller
      */
     public function update(UpdateRoomRequest $request, Room $room)
     {
-        $room->update($request->validated());
-        return response()->json(
-            [
-                'message' => __('messages.success.update.room'),
-                'status' => 'success',
-            ],
-            201,
-        );
+        try {
+            $room->update($request->validated());
+            return response()->json(
+                [
+                    'message' => __('messages.success.update.room'),
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.destroy.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
     }
 
     /**
@@ -86,14 +107,25 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
-        $room->delete();
-        return response()->json(
-            [
-                'message' => __('messages.success.destroy.room'),
-                'status' => 'success',
-            ],
-            200,
-        );
+        try {
+            $room->delete();
+            return response()->json(
+                [
+                    'message' => __('messages.success.destroy.room'),
+                    'status' => 'success',
+                ],
+                200,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.destroy.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
+
     }
 
     public function rooms()
@@ -101,6 +133,14 @@ class RoomController extends Controller
         $rooms = Room::with(['roomType.roomPrices', 'roomOrders'])->latest()->paginate(10);
         if ($rooms) {
             return response()->json($rooms, 200);
+        }
+    }
+
+    public function roomTypes()
+    {
+        $roomTypes = RoomType::latest()->get();
+        if ($roomTypes) {
+            return response()->json($roomTypes, 200);
         }
     }
 }

@@ -28,14 +28,24 @@ class ServiceController extends Controller
      */
     public function store(StoreServiceRequest $request)
     {
-        Service::create($request->validated());
-        return response()->json(
-            [
-                'message' => __('messages.success.store.service'),
-                'status' => 'success',
-            ],
-            201,
-        );
+        try {
+            Service::create($request->validated());
+            return response()->json(
+                [
+                    'message' => __('messages.success.store.service'),
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.store.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
     }
 
     /**
@@ -65,14 +75,24 @@ class ServiceController extends Controller
      */
     public function update(UpdateServiceRequest $request, Service $service)
     {
-        $service->update($request->validated());
-        return response()->json(
-            [
-                'message' => __('messages.success.update.service'),
-                'status' => 'success',
-            ],
-            201,
-        );
+        try {
+            $service->update($request->validated());
+            return response()->json(
+                [
+                    'message' => __('messages.success.update.service'),
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.update.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
     }
 
     /**
@@ -96,12 +116,11 @@ class ServiceController extends Controller
         } catch (QueryException $e) {
             return response()->json(
                 [
-                    'message' => __('messages.error.destroy.all'),
+                    'message' => __('messages.errors.destroy.all'),
                     'status' => 'failed',
                 ],
                 422,
             );
-
         }
     }
 

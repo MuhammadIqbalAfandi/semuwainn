@@ -38,18 +38,18 @@
     </x-shared.content-wrapper>
 
     <!-- Modal Add & Edit -->
-    <x-shared.modal title="Tambah Fasilitas" id="modal-add">
+    <x-shared.modal id="modal-add">
         <form>
             <!-- Facility Id -->
             <input type="hidden" name="facility_id" id="facility-id" value="{{ old('facility_id') }}">
 
             <!-- Facility Name -->
             <div class="form-group">
-                <label for="facility-name">Nama Fasilitas</label>
-                <input type="text" name="facility_name" id="facility-name" class="form-control"
-                    value="{{ old('facility_name') }}" placeholder="Tulis nama fasilitas disini">
+                <label for="name">Nama Fasilitas</label>
+                <input type="text" name="name" id="name" class="form-control"
+                    value="{{ old('name') }}" placeholder="Tulis nama fasilitas disini">
 
-                <span class="text-danger msg-error facility_name-error"></span>
+                <span class="text-danger msg-error name-error"></span>
             </div>
 
             <button id="btn-save" type="submit" class="btn btn-block btn-warning">Simpan</button>
@@ -59,10 +59,6 @@
 
     <!-- Modal Delete -->
     <x-shared.modal id="modal-delete">
-        <x-slot name="title">
-            <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
-        </x-slot>
-
         <p>Yakin akan menghapus data ini?</p>
 
         <x-slot name="footer">
@@ -81,7 +77,7 @@
                 // Mounted
                 const facilitiesTable = $('.table').DataTable({
                     "paging": true,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": true,
                     "ordering": true,
                     "info": true,
@@ -94,25 +90,25 @@
                 $('#btn-add').click(() => {
                     clearForm()
                     $('.msg-error').text('')
-                    $('.modal-title').text('Tambah Fasilitas')
                     $('#btn-save').show()
                     $('#btn-edit').hide()
+                    $('.modal-title').text('Tambah Fasilitas')
                     $('#modal-add').modal('show')
                 })
 
                 $('#btn-save').click((e) => {
                     e.preventDefault()
 
-                    const facilityName = $('#facility-name').val()
+                    const name = $('#name').val()
 
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'post',
-                        url: 'facility',
+                        url: 'facilities',
                         data: {
-                            name: facilityName,
+                            name,
                         },
                         beforeSend() {
                             $('.msg-error').text('')
@@ -123,9 +119,13 @@
                             fetchFacilities()
                         },
                         error(res) {
-                            const errors = res.responseJSON.errors
-                            for (const key in errors) {
-                                $(`.${key}-error`).text(errors[key])
+                            const { errors, message, status } = res.responseJSON
+                            if (status === 'failed') {
+                                alert(message, status)
+                            } else {
+                                for (const key in errors) {
+                                    $(`.${key}-error`).text(errors[key])
+                                }
                             }
                         }
                     })
@@ -140,17 +140,17 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: `facility/${id}/edit`,
+                        url: `facilities/${id}/edit`,
                         beforeSend() {
                             $('.msg-error').text('')
-                            $('.modal-title').text('Ubah Fasilitas')
                             $('#btn-save').hide()
                             $('#btn-edit').show()
+                            $('.modal-title').text('Ubah Fasilitas')
                             $('#modal-add').modal('show')
                         },
                         success(res) {
                             $('#facility-id').val(res.facility.id)
-                            $('#facility-name').val(res.facility.name)
+                            $('#name').val(res.facility.name)
                         },
                     })
                 })
@@ -159,7 +159,7 @@
                     e.preventDefault()
 
                     const id = $('#facility-id').val()
-                    const facilityName = $('#facility-name').val()
+                    const name = $('#name').val()
 
                     $.ajax({
                         headers: {
@@ -167,10 +167,10 @@
                         },
                         dataType: 'json',
                         type: 'patch',
-                        url: `facility/${id}`,
+                        url: `facilities/${id}`,
                         data: {
                             id,
-                            name: facilityName,
+                            name,
                         },
                         beforeSend() {
                             $('.msg-error').text('')
@@ -182,9 +182,13 @@
                             clearForm()
                         },
                         error(res) {
-                            const errors = res.responseJSON.errors
-                            for (const key in errors) {
-                                $(`.${key}-error`).text(errors[key])
+                            const { errors, message, status } = res.responseJSON
+                            if (status === 'failed') {
+                                alert(message, status)
+                            } else {
+                                for (const key in errors) {
+                                    $(`.${key}-error`).text(errors[key])
+                                }
                             }
                         }
                     })
@@ -193,6 +197,7 @@
                 $(document).on('click', '.btn-show-delete', function() {
                     const id = $(this).attr('id')
                     $('#facility-id-delete').val(id)
+                    $('.modal-title').html(`<i class="fa fa-exclamation-triangle text-danger"></i> Peringatan`)
                     $('#modal-delete').modal('show')
                 })
 
@@ -207,19 +212,24 @@
                         },
                         dataType: 'json',
                         type: 'delete',
-                        url: `facility/${id}`,
+                        url: `facilities/${id}`,
                         success(res) {
                             alert(res.message, res.status)
                             $('#modal-delete').modal('hide')
                             fetchFacilities()
                         },
+                        error(res) {
+                            const { message, status } = res.responseJSON
+                            alert(message, status)
+                            $('#modal-delete').modal('hide')
+                        }
                     })
                 })
                 // end Mounted
 
                 // Methods
                 function clearForm() {
-                    $('#facility-name').val('')
+                    $('#name').val('')
                 }
 
                 function fetchFacilities() {
@@ -229,12 +239,12 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: 'facility/facilities',
+                        url: 'facilities/facilities',
                         success(res) {
-                            if (res.facilities) {
+                            if (res.data) {
                                 facilitiesTable.clear().draw()
 
-                                 res.facilities.forEach(facility => {
+                                 res.data.forEach(facility => {
                                     let btnAction = `
                                         <!-- Button Edit -->
                                         <i class="fas fa-edit mr-1 btn-show-edit text-primary" data-toggle="modal"

@@ -40,7 +40,7 @@
     </x-shared.content-wrapper>
 
     <!-- Modal Add & Edit -->
-    <x-shared.modal title="Tambah Hidangan Restoran" id="modal-add">
+    <x-shared.modal id="modal-add">
         <form>
             <!-- Restaurant Id -->
             <input type="hidden" name="restaurant_id" id="restaurant-id" value="{{ old('restaurant_id') }}">
@@ -84,9 +84,6 @@
 
     <!-- Modal Delete -->
     <x-shared.modal id="modal-delete">
-        <x-slot name="title">
-            <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
-        </x-slot>
 
         <p>Yakin akan menghapus data ini?</p>
 
@@ -120,6 +117,7 @@
                     $('.msg-error').text('')
                     $('#btn-save').show()
                     $('#btn-edit').hide()
+                    $('.modal-title').text('Tambah Hidangan Restoran')
                     $('#modal-add').modal('show')
                 })
 
@@ -150,9 +148,13 @@
                             fetchRestaurants()
                         },
                         error(res) {
-                            const { errors } = res.responseJSON
-                            for (const key in errors) {
-                                $(`.${key}-error`).text(errors[key])
+                            const { errors, message, status } = res.responseJSON
+                            if (status === 'failed') {
+                                alert(message, status)
+                            } else {
+                                for (const key in errors) {
+                                    $(`.${key}-error`).text(errors[key])
+                                }
                             }
                         }
                     })
@@ -172,6 +174,7 @@
                             $('.msg-error').text('')
                             $('#btn-save').hide()
                             $('#btn-edit').show()
+                            $('.modal-title').text('Ubah Hidangan Restoran')
                             $('#modal-add').modal('show')
                         },
                         success(res) {
@@ -214,9 +217,13 @@
                             clearForm()
                         },
                         error(res) {
-                            const { errors } = res.responseJSON
-                            for (const key in errors) {
-                                $(`.${key}-error`).text(errors[key])
+                            const { errors, message, status } = res.responseJSON
+                            if (status === 'failed') {
+                                alert(message, status)
+                            } else {
+                                for (const key in errors) {
+                                    $(`.${key}-error`).text(errors[key])
+                                }
                             }
                         }
                     })
@@ -225,6 +232,7 @@
                 $(document).on('click', '.btn-show-delete', function() {
                     const id = $(this).attr('id')
                     $('#restaurant-id-delete').val(id)
+                    $('.modal-title').html(`<i class="fa fa-exclamation-triangle text-danger"></i> Peringatan`)
                     $('#modal-delete').modal('show')
                 })
 

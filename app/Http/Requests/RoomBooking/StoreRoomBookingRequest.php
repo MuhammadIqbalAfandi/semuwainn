@@ -26,7 +26,7 @@ class StoreRoomBookingRequest extends FormRequest
         return [
             'nik' => 'required|numeric|digits:16',
             'name' => 'required|string|max:50',
-            'phone' => 'required|min:12',
+            'phone' => 'required|numeric|min:12',
             'email' => 'required|email:dns',
             'checkIn' => 'required|date',
             'checkOut' => 'required|date',

@@ -24,7 +24,7 @@ class GuestFactory extends Factory
         return [
             'nik' => $this->faker->unique()->nik(),
             'name' => $this->faker->name(),
-            'phone' => $this->faker->unique()->phoneNumber(),
+            'phone' => random_int(111111111111, 999999999999),
             'email' => $this->faker->unique()->email(),
         ];
     }

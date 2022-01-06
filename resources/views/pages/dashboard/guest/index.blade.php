@@ -1,7 +1,7 @@
-<x-dashboard-layout title="Kamar">
+<x-dashboard-layout title="Tamu">
     <!-- Guest List -->
     <x-shared.content-wrapper>
-        <x-shared.content-header title="Kamar">
+        <x-shared.content-header title="Tamu">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Tamu</li>
@@ -9,7 +9,7 @@
         </x-shared.content-header>
 
         <x-shared.content>
-            <x-shared.card title="Daftar Kamar">
+            <x-shared.card title="Daftar Tamu">
                 <div class="row">
                     <div class="col">
                         <table class="table table-bordered table-hover">
@@ -29,7 +29,7 @@
     </x-shared.content-wrapper>
 
     <!-- Modal Edit -->
-    <x-shared.modal title="Ubah Data Tamu" id="modal-edit">
+    <x-shared.modal id="modal-edit">
         <form>
             <!-- guest Id -->
             <input type="hidden" name="guest_id" id="guest-id" value="{{ old('guest_id') }}">
@@ -76,10 +76,6 @@
 
     <!-- Modal Delete -->
     <x-shared.modal id="modal-delete">
-        <x-slot name="title">
-            <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
-        </x-slot>
-
         <p>Yakin akan menghapus data ini?</p>
 
         <x-slot name="footer">
@@ -120,6 +116,7 @@
                         beforeSend() {
                             $('.msg-error').text('')
                             $('#btn-edit').show()
+                            $('.modal-title').text('Ubah Data Tamu')
                             $('#modal-edit').modal('show')
                         },
                         success(res) {
@@ -163,9 +160,13 @@
                             fetchGuest()
                         },
                         error(res) {
-                            const { errors } = res.responseJSON
-                            for (const key in errors) {
-                                $(`.${key}-error`).text(errors[key])
+                            const { errors, message, status } = res.responseJSON
+                            if (status === 'failed') {
+                                alert(message, status)
+                            } else {
+                                for (const key in errors) {
+                                    $(`.${key}-error`).text(errors[key])
+                                }
                             }
                         }
                     })
@@ -174,6 +175,7 @@
                 $(document).on('click', '.btn-show-delete', function() {
                     const id = $(this).attr('id')
                     $('#guest-id-delete').val(id)
+                    $('.modal-title').html(`<i class="fa fa-exclamation-triangle text-danger"></i> Peringatan`)
 
                     $('#modal-delete').modal('show')
                 })
@@ -205,11 +207,11 @@
 
                 // Methods
                 function clearForm() {
-                    $('#nik-add').val('')
-                    $('#name-add').val('')
-                    $('#phone-add').val('')
-                    $('#email-add').val('')
-                    $('#address-add').val('')
+                    $('#nik').val('')
+                    $('#name').val('')
+                    $('#phone').val('')
+                    $('#email').val('')
+                    $('#address').val('')
                 }
 
                 function fetchGuest() {
@@ -238,7 +240,7 @@
                                     guestTable.row.add([
                                         `
                                             <span class="d-block">${guest.nik}</span>
-                                            <span class="d-block text-secondary">${guest.phone}</span>
+                                            <span class="d-block text-secondary">${idPhoneFormat(guest.phone)}</span>
                                             <span class="d-block text-secondary">${guest.email}</span>
                                         `,
                                         guest.name,

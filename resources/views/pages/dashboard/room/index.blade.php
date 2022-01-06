@@ -38,7 +38,7 @@
     </x-shared.content-wrapper>
 
     <!-- Modal Add & Edit -->
-    <x-shared.modal title="Tambah Kamar" id="modal-add">
+    <x-shared.modal id="modal-add">
         <form>
             <!-- Room Id -->
             <input type="hidden" name="room_id" id="room-id" value="{{ old('room_id') }}">
@@ -69,10 +69,6 @@
 
     <!-- Modal Delete -->
     <x-shared.modal id="modal-delete">
-        <x-slot name="title">
-            <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
-        </x-slot>
-
         <p>Yakin akan menghapus data ini?</p>
 
         <x-slot name="footer">
@@ -128,16 +124,17 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: 'room-type/room-types',
+                        url: 'rooms/room-types',
                         beforeSend() {
                             clearForm()
                             $('#btn-save').show()
                             $('#btn-edit').hide()
+                            $('.modal-title').text('Tambah Ruangan')
                             $('#modal-add').modal('show')
                         },
                         success(res) {
-                            if (res.roomTypes) {
-                                res.roomTypes.forEach((roomType) => {
+                            if (res) {
+                                res.forEach((roomType) => {
                                     let newOption = new Option(roomType.name, roomType.id, false, false)
                                     $('#room-type-id').append(newOption)
                                 })
@@ -159,7 +156,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'post',
-                        url: 'room',
+                        url: 'rooms',
                         data: {
                             room_number: roomNumber,
                             room_type_id: roomTypeId ,
@@ -193,6 +190,7 @@
                             $('.msg-error').text('')
                             $('#btn-save').hide()
                             $('#btn-edit').show()
+                            $('.modal-title').text('Ubah Ruangan')
                             $('#modal-add').modal('show')
                         },
                         success(res) {
@@ -250,6 +248,7 @@
                 $(document).on('click', '.btn-show-delete', function() {
                     const id = $(this).attr('id')
                     $('#room-id-delete').val(id)
+                    $('.modal-title').html(`<i class="fa fa-exclamation-triangle text-danger"></i> Peringatan`)
 
                     $('#modal-delete').modal('show')
                 })
@@ -270,6 +269,11 @@
                             $('#modal-delete').modal('hide')
                             fetchRooms()
                         },
+                         error(res) {
+                            const { message, status } = res.responseJSON
+                            alert(message, status)
+                            $('#modal-delete').modal('hide')
+                        }
                     })
                 })
                 // end Mounted

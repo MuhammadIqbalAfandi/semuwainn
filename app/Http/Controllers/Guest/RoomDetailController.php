@@ -24,7 +24,7 @@ class RoomDetailController extends Controller
                     'images' => [],
                     'defaultImage' => '/img/default-room.webp',
                 ],
-                'numberOfGuest' => $roomType->numberOfGuest->guest,
+                'numberOfGuest' => $roomType->number_of_guest,
                 'priceRange' => [
                     'minPrice' => $roomType->roomPrices->min('price'),
                     'maxPrice' => $roomType->roomPrices->max('price'),

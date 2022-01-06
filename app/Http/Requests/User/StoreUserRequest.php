@@ -25,10 +25,10 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:50',
-            'phone' => 'required|string|digits:12|unique:users,phone',
+            'phone' => 'required|numeric|min:12|unique:users,phone',
             'address' => 'required|string|max:100',
             'email' => 'required|email|unique:users,email',
-            'role_id' => 'required|numeric'
+            'role_id' => 'required|numeric',
         ];
     }
 }

@@ -7,7 +7,7 @@ use App\Http\Requests\RoomType\StoreRoomTypeRequest;
 use App\Http\Requests\RoomType\UpdateRoomTypeRequest;
 use App\Models\Facility;
 use App\Models\RoomType;
-use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
 class RoomTypeController extends Controller
@@ -20,19 +20,6 @@ class RoomTypeController extends Controller
     public function index()
     {
         return view('pages.dashboard.room-type.index');
-    }
-
-    public function roomTypes()
-    {
-        $roomTypes = RoomType::with(['roomFacilities.facility', 'roomPrices', 'rooms'])->get();
-        if ($roomTypes) {
-            return response()->json(
-                [
-                    'roomTypes' => $roomTypes,
-                ],
-                200,
-            );
-        }
     }
 
     /**
@@ -64,20 +51,20 @@ class RoomTypeController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Ruangan baru berhasil ditambahkan',
+                    'message' => __('messages.success.store.room-type'),
                     'status' => 'success',
                 ],
                 201,
             );
-        } catch (Exception $e) {
+        } catch (QueryException $e) {
             DB::rollBack();
 
             return response()->json(
                 [
-                    'message' => 'Ruangan baru tidak berhasil ditambahkan',
+                    'message' => __('messages.errors.store.all'),
                     'status' => 'failed',
                 ],
-                400,
+                422,
             );
         }
     }
@@ -135,20 +122,20 @@ class RoomTypeController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Ruangan berhasil diubah',
+                    'message' => __('messages.success.update.room-type'),
                     'status' => 'success',
                 ],
                 201,
             );
-        } catch (Exception $e) {
+        } catch (QueryException $e) {
             DB::rollBack();
 
             return response()->json(
                 [
-                    'message' => 'Ruangan tidak berhasil diubah',
+                    'message' => __('messages.errors.update.all'),
                     'status' => 'failed',
                 ],
-                400,
+                422,
             );
         }
     }
@@ -161,13 +148,39 @@ class RoomTypeController extends Controller
      */
     public function destroy(RoomType $roomType)
     {
-        $roomType->delete();
-        return response()->json(
-            [
-                'message' => 'Ruangan berhasil dihapus',
-                'status' => 'success',
-            ],
-            200,
-        );
+        try {
+            $roomType->delete();
+            return response()->json(
+                [
+                    'message' => __('messages.success.destroy.room-type'),
+                    'status' => 'success',
+                ],
+                200,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.destroy.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
+    }
+
+    public function roomTypes()
+    {
+        $roomTypes = RoomType::with(['roomFacilities.facility', 'roomPrices', 'rooms'])->latest()->paginate(10);
+        if ($roomTypes) {
+            return response()->json($roomTypes, 200);
+        }
+    }
+
+    public function facilities()
+    {
+        $facilities = Facility::latest()->get();
+        if ($facilities) {
+            return response()->json($facilities, 200);
+        }
     }
 }

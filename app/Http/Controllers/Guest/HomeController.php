@@ -29,7 +29,7 @@ class HomeController extends Controller
                     'price' => $roomType->roomPrices->min('price'),
                     'facilities' => $roomType->roomFacilities->take(3)->pluck('facility.name'),
                     'facilityCount' => $roomType->roomFacilities->skip(3)->count(),
-                    'numberOfGuest' => $roomType->numberOfGuest->guest,
+                    'numberOfGuest' => $roomType->number_of_guest,
                     'roomsId' => $roomType->rooms->whereNotIn('id', $roomType->roomOrders->pluck('room_id'))->pluck('id'),
                 ]),
         ]);

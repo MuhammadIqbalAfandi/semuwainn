@@ -28,14 +28,24 @@ class RestaurantController extends Controller
      */
     public function store(StoreRestaurantRequest $request)
     {
-        Restaurant::create($request->validated());
-        return response()->json(
-            [
-                'message' => __('messages.success.store.restaurant'),
-                'status' => 'success',
-            ],
-            201,
-        );
+        try {
+            Restaurant::create($request->validated());
+            return response()->json(
+                [
+                    'message' => __('messages.success.store.restaurant'),
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.store.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
     }
 
     /**
@@ -65,14 +75,24 @@ class RestaurantController extends Controller
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $restaurant)
     {
-        $restaurant->update($request->validated());
-        return response()->json(
-            [
-                'message' => __('messages.success.update.restaurant'),
-                'status' => 'success',
-            ],
-            201,
-        );
+        try {
+            $restaurant->update($request->validated());
+            return response()->json(
+                [
+                    'message' => __('messages.success.update.restaurant'),
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $th) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.update.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
     }
 
     /**
@@ -96,7 +116,7 @@ class RestaurantController extends Controller
         } catch (QueryException $e) {
             return response()->json(
                 [
-                    'message' => __('messages.error.destroy.all'),
+                    'message' => __('messages.errors.destroy.all'),
                     'status' => 'failed',
                 ],
                 422,

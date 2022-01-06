@@ -46,6 +46,7 @@ Route::prefix('dashboard')->group(function () {
 
         Route::get('/room-types', [RoomTypeController::class, 'index'])->name('room-types.index');
         Route::get('/room-types/room-types', [RoomTypeController::class, 'roomTypes']);
+        Route::get('/room-types/facilities', [RoomTypeController::class, 'facilities']);
         Route::get('/room-types/{roomType}/edit', [RoomTypeController::class, 'edit']);
         Route::post('/room-types', [RoomTypeController::class, 'store']);
         Route::patch('/room-types/{roomType}', [RoomTypeController::class, 'update']);
@@ -60,6 +61,7 @@ Route::prefix('dashboard')->group(function () {
 
         Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
         Route::get('/rooms/rooms', [RoomController::class, 'rooms']);
+        Route::get('/rooms/room-types', [RoomController::class, 'roomTypes']);
         Route::get('/rooms/{room}/edit', [RoomController::class, 'edit']);
         Route::post('/rooms', [RoomController::class, 'store']);
         Route::patch('/rooms/{room}', [RoomController::class, 'update']);

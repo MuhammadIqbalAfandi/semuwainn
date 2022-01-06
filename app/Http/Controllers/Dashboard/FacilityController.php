@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Requests\Facility\StoreFacilityRequest;
 use App\Http\Requests\Facility\UpdateFacilityRequest;
 use App\Models\Facility;
+use Illuminate\Database\QueryException;
 use Illuminate\Routing\Controller;
 
 class FacilityController extends Controller
@@ -19,19 +20,6 @@ class FacilityController extends Controller
         return view('pages.dashboard.facility.index');
     }
 
-    public function facilities()
-    {
-        $facilities = Facility::with('roomFacilities')->get();
-        if ($facilities) {
-            return response()->json(
-                [
-                    'facilities' => $facilities,
-                ],
-                200,
-            );
-        }
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -40,14 +28,24 @@ class FacilityController extends Controller
      */
     public function store(StoreFacilityRequest $request)
     {
-        Facility::create($request->validated());
-        return response()->json(
-            [
-                'message' => 'Fasilitas baru berhasil ditambahkan',
-                'status' => 'success',
-            ],
-            201,
-        );
+        try {
+            Facility::create($request->validated());
+            return response()->json(
+                [
+                    'message' => __('messages.success.store.facility'),
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.store.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
     }
 
     /**
@@ -77,14 +75,24 @@ class FacilityController extends Controller
      */
     public function update(UpdateFacilityRequest $request, Facility $facility)
     {
-        $facility->update($request->validated());
-        return response()->json(
-            [
-                'message' => 'Fasilitas berhasil diubah',
-                'status' => 'success',
-            ],
-            201,
-        );
+        try {
+            $facility->update($request->validated());
+            return response()->json(
+                [
+                    'message' => __('messages.success.update.facility'),
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $th) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.update.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
     }
 
     /**
@@ -95,13 +103,31 @@ class FacilityController extends Controller
      */
     public function destroy(Facility $facility)
     {
-        $facility->delete();
-        return response()->json(
-            [
-                'message' => 'Fasilitas berhasil dihapus',
-                'status' => 'success',
-            ],
-            200,
-        );
+        try {
+            $facility->delete();
+            return response()->json(
+                [
+                    'message' => __('messages.success.destroy.facility'),
+                    'status' => 'success',
+                ],
+                200,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.destroy.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
+    }
+
+    public function facilities()
+    {
+        $facilities = Facility::with('roomFacilities')->latest()->paginate(10);
+        if ($facilities) {
+            return response()->json($facilities, 200);
+        }
     }
 }

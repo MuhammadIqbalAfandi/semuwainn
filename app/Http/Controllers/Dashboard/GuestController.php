@@ -36,7 +36,6 @@ class GuestController extends Controller
                 201,
             );
         }
-
     }
 
     /**
@@ -47,14 +46,24 @@ class GuestController extends Controller
      */
     public function store(StoreGuestRequest $request)
     {
-        Guest::create($request->validated());
-        return response()->json(
-            [
-                'message' => __('messages.success.store.guest'),
-                'status' => 'success',
-            ],
-            201,
-        );
+        try {
+            Guest::create($request->validated());
+            return response()->json(
+                [
+                    'message' => __('messages.success.store.guest'),
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.store.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
     }
 
     /**
@@ -84,14 +93,24 @@ class GuestController extends Controller
      */
     public function update(UpdateGuestRequest $request, Guest $guest)
     {
-        $guest->update($request->validated());
-        return response()->json(
-            [
-                'message' => __('messages.success.update.guest'),
-                'status' => 'success',
-            ],
-            201,
-        );
+        try {
+            $guest->update($request->validated());
+            return response()->json(
+                [
+                    'message' => __('messages.success.update.guest'),
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.update.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
     }
 
     /**
@@ -115,7 +134,7 @@ class GuestController extends Controller
         } catch (QueryException $e) {
             return response()->json(
                 [
-                    'message' => __('messages.error.destroy.all'),
+                    'message' => __('messages.errors.destroy.all'),
                     'status' => 'failed',
                 ],
                 422,

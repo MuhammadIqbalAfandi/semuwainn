@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\NumberOfGuest;
 use App\Models\Room;
 use App\Models\RoomFacility;
 use App\Models\RoomOrder;
@@ -21,7 +20,7 @@ class RoomType extends Model
 
     protected $fillable = [
         'name',
-        'number_of_guest_id',
+        'number_of_guest',
     ];
 
     public function rooms()
@@ -42,11 +41,6 @@ class RoomType extends Model
     public function roomPrices()
     {
         return $this->hasMany(RoomPrice::class);
-    }
-
-    public function numberOfGuest()
-    {
-        return $this->belongsTo(NumberOfGuest::class);
     }
 
     public function scopeFilter($query)

@@ -99,10 +99,6 @@
 
     <!-- Modal Block -->
     <x-shared.modal id="modal-block">
-        <x-slot name="title">
-            <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
-        </x-slot>
-
         <span id="block-msg">Yakin ingin mengubah status user</span>
 
         <x-slot name="footer">
@@ -120,7 +116,7 @@
                 // Mounted
                 const usersTable = $('.table').DataTable({
                     "paging": true,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": true,
                     "ordering": true,
                     "info": true,
@@ -158,7 +154,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'post',
-                        url: 'user',
+                        url: 'users',
                         data: {
                             name,
                             phone,
@@ -192,7 +188,7 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: `user/${id}/edit`,
+                        url: `users/${id}/edit`,
                         beforeSend() {
                             $('.msg-error').text('')
                             $('#role').children('option:not(:first)').remove()
@@ -236,7 +232,7 @@
                         },
                         dataType: 'json',
                         type: 'patch',
-                        url: `user/${id}`,
+                        url: `users/${id}`,
                         data: {
                             id,
                             name,
@@ -254,7 +250,7 @@
                             fetchUsers()
                         },
                         error(res) {
-                            const errors = res.responseJSON.errors
+                            const { errors } = res.responseJSON
                             for (const key in errors) {
                                 $(`.${key}-edit-error`).text(errors[key])
                             }
@@ -265,6 +261,7 @@
                 $(document).on('click', '.btn-show-block', function() {
                     const id = $(this).attr('id')
                     $('#user-id-block').val(id)
+                    $('.modal-title').html(`<i class="fa fa-exclamation-triangle text-danger"></i> Peringatan`)
                     $('#modal-block').modal('show')
                 })
 
@@ -279,7 +276,7 @@
                         },
                         dataType: 'json',
                         type: 'delete',
-                        url: `user/${id}`,
+                        url: `users/${id}`,
                         success(res) {
                             alert(res.message, res.status)
                             $('#modal-block').modal('hide')
@@ -293,6 +290,7 @@
                 function clearForm() {
                     $('#name').val('')
                     $('#email').val('')
+                    $('#phone').val('')
                     $('#address').val('')
                     $('#role').val('')
                 }
@@ -304,7 +302,7 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: 'user/users',
+                        url: 'users/users',
                         success(res) {
                             if (res.roles) {
                                 $('#role').children('option:not(:first)').remove()
@@ -314,10 +312,10 @@
                                 })
                             }
 
-                            if (res.users) {
+                            if (res.users.data) {
                                 usersTable.clear().draw()
 
-                                 res.users.forEach(user => {
+                                 res.users.data.forEach(user => {
                                     let btnAction = `
                                         <!-- Button Edit -->
                                         <i class="fas fa-edit mr-1 btn-show-edit text-primary" data-toggle="modal"

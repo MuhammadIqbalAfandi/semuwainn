@@ -110,7 +110,7 @@
     * id
     __
     * name
-    * number_of_guest_id
+    * number_of_guest
   }
 
   entity RoomPrice {
@@ -125,12 +125,6 @@
     * id
     __
     * name
-  }
-
-  entity NumberOfGuest {
-    * id
-    __
-    * guest
   }
 
   entity RoomThumbnail {
@@ -156,7 +150,6 @@
   Room ||--|{ RoomType
   RoomType }|--|| RoomPrice
   RoomType }|--|| RoomFacility
-  RoomType ||--|{ NumberOfGuest
   RoomType }|--|| RoomThumbnail
   RoomFacility ||--|{ Facility
   RoomThumbnail ||--|{ Thumbnail
