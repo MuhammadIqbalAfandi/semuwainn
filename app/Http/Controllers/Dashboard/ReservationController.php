@@ -14,6 +14,7 @@ use App\Models\Room;
 use App\Models\RoomOrder;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -241,14 +242,24 @@ class ReservationController extends Controller
      */
     public function updateStatus(UpdateReservationStatusRequest $request, Reservation $reservation)
     {
-        $reservation->update($request->validated());
-        return response()->json(
-            [
-                'message' => 'Status pemesanan berhasil diubah',
-                'status' => 'success',
-            ],
-            201,
-        );
+        try {
+            $reservation->update($request->validated());
+            return response()->json(
+                [
+                    'message' => 'Status pemesanan berhasil diubah',
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.update.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
     }
 
     /**
@@ -291,14 +302,11 @@ class ReservationController extends Controller
 
     public function reservations()
     {
-        $reservations = Reservation::with(['roomOrders', 'guest', 'reservationStatus'])->get();
+        $reservations = Reservation::with(['roomOrders', 'guest', 'reservationStatus'])
+            ->latest()
+            ->paginate(10);
         if ($reservations) {
-            return response()->json(
-                [
-                    'reservations' => $reservations,
-                ],
-                200,
-            );
+            return response()->json($reservations, 200);
         }
     }
 }

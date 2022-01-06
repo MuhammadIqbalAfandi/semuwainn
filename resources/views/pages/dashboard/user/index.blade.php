@@ -30,6 +30,7 @@
                                     <th>Nama</th>
                                     <th>Alamat</th>
                                     <th>Hak Akses</th>
+                                    <th>Tanggal Diperbaharui</th>
                                     <th>Status / Aksi</th>
                                 </tr>
                             </thead>
@@ -350,6 +351,7 @@
                                         user.name,
                                         user.address,
                                         user.role.name,
+                                        idDateFormat(user.updated_at),
                                         user.id !== res.authId ?
                                         `
                                             <span class="d-block mb-2">${statusAccount}</span>

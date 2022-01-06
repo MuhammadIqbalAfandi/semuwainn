@@ -27,6 +27,7 @@
                                 <tr>
                                     <th>Nama Fasilitas</th>
                                     <th>Jumlah Kamar</th>
+                                    <th>Tanggal Diperbaharui</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -258,6 +259,7 @@
                                     facilitiesTable.row.add([
                                         facility.name,
                                         facility.room_facilities.length,
+                                        idDateFormat(facility.updated_at),
                                         btnAction
                                     ]).draw(false)
                                 })

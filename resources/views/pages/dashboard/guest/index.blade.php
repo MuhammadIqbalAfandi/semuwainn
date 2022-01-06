@@ -18,6 +18,7 @@
                                     <th>NIK / No. HP / Email</th>
                                     <th>Nama</th>
                                     <th>Jlh. Pemesanan</th>
+                                    <th>Tanggal Diperbaharui</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -245,6 +246,7 @@
                                         `,
                                         guest.name,
                                         guest.reservations.length,
+                                        idDateFormat(guest.updated_at),
                                         btnAction
                                     ]).draw(false)
                                 })

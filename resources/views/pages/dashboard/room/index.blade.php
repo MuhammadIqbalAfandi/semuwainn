@@ -27,6 +27,7 @@
                                     <th>Nomor Kamar</th>
                                     <th>Jenis Kamar</th>
                                     <th>Status</th>
+                                    <th>Tanggal Diperbaharui</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -321,6 +322,7 @@
                                         room.room_number,
                                         room.room_type.name,
                                         roomStatus,
+                                        idDateFormat(room.updated_at),
                                         btnAction
                                     ]).draw(false)
                                 })

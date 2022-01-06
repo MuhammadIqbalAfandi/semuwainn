@@ -28,6 +28,7 @@
                                     <th>Harga</th>
                                     <th>Jumlah Kamar</th>
                                     <th>Jumlah tamu</th>
+                                    <th>Tanggal Diperbaharui</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -542,6 +543,7 @@
                                         prices,
                                         roomType.number_of_guest,
                                         roomType.rooms.length,
+                                        idDateFormat(roomType.updated_at),
                                         btnAction
                                     ]).draw(false)
                                 })

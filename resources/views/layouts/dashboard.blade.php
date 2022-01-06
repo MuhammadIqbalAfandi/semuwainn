@@ -69,8 +69,10 @@
     <!-- Select2 -->
     <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- Moments -->
-    <script src="{{ asset('js/moment-with-locales.js') }}">
-    </script>
+    <script src="{{ asset('js/moment-with-locales.js') }}"></script>
+    <!-- Dayjs -->
+    <script src="{{ asset('js/days/dayjs.min.js') }}"></script>
+    <script src="{{ asset('js/days/locale/id.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}">
     </script>
@@ -82,17 +84,22 @@
     <!-- Scripts -->
     <script>
         moment.locale("{{ config('app.locale') }}")
+        dayjs.locale("{{ config('app.locale') }}")
 
         const idMoneyFormat = (number) => {
             return new Intl.NumberFormat('id', { style: 'currency', currency: 'IDR' }).format(number)
         }
 
         const idPhoneFormat = (number) => {
-            return number.toString().replace(/\B(?=(\d{4})+(?!\d))/g, ' ');
+            return number.toString().replace(/\B(?=(\d{4})+(?!\d))/g, ' ')
         }
 
         const idDateFormat = (date) => {
-            return moment(date).format("dddd, MMMM Do YYYY")
+            return dayjs(date).format('dddd, DD MMMM YYYY')
+        }
+
+        const nightCount = (checkOut, checkIn) => {
+            return dayjs(checkOut).diff(checkIn, 'day')
         }
 
         const Toast = Swal.mixin({

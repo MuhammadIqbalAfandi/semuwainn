@@ -280,7 +280,7 @@
                 // Library Configuration
                 const reservationsTable = $('#reservation-list-table').DataTable({
                     "paging": true,
-                    "lengthChange": true,
+                    "lengthChange": false,
                     "searching": true,
                     "ordering": true,
                     "info": true,
@@ -508,7 +508,7 @@
                                 alert(res.responseJSON.message, res.responseJSON.status)
                                 $('#modal-add-room').modal('hide')
                              }
-                         }
+                        }
                     })
                 })
                 // End Add Room
@@ -520,7 +520,7 @@
                     $.ajax({
                         dataType: 'json',
                         type: 'get',
-                        url: `/dashboard/reservation/status/${id}/edit`,
+                        url: `reservations/status/${id}/edit`,
                         beforeSend() {
                             $('#reservation-status').children('option').remove()
                             $('#modal-edit-status').modal('show')
@@ -529,11 +529,11 @@
                             if (res.reservation && res.reservationStatuses) {
                                 res.reservationStatuses.forEach(reservationStatus => {
                                     let newOption = new Option(
-                                        reservationStatus.reservation_status_name,
+                                        reservationStatus.name,
                                         reservationStatus.id,
                                         false,
                                         res.reservation.reservation_status_id === reservationStatus.id
-                                    )
+                                        )
                                     $('#reservation-status').append(newOption)
 
                                     $('#reservation-id').val(res.reservation.id)
@@ -555,7 +555,7 @@
                         },
                         dataType: 'json',
                         type: 'patch',
-                        url: `/dashboard/reservation/status/${id}`,
+                        url: `reservations/status/${id}`,
                         data: {
                             id,
                             reservation_status_id: reservationStatusId,
@@ -568,6 +568,11 @@
                             alert(res.message, res.status)
                             fetchReservation()
                         },
+                        error(res) {
+                            const { message, status } = res.responseJSON
+                            alert(message, status)
+                            $('#modal-edit-status').modal('hide')
+                        }
                     })
                 })
                 // End Edit Status
@@ -716,7 +721,7 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: 'restaurant/restaurants',
+                        url: 'restaurants/restaurants',
                         success(res) {
                             if (res.restaurants) {
                                 $('#restaurant').children('option').remove()
@@ -737,52 +742,41 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: '/dashboard/reservation/reservations',
+                        url: 'reservations/reservations',
                         success(res) {
-                            if (res.reservations) {
+                            if (res.data) {
                                 reservationsTable.clear().draw()
 
-                                res.reservations.forEach((reservation) => {
-                                    let roomOrder = reservation.room_orders[0]
-                                    let reservedDate = reservation.reserved_date
-                                    let arrivalDate = roomOrder.arrival_date
-                                    let departureDate = roomOrder.departure_date
-                                    let roomCount = reservation.room_orders.length
-                                    let guestName = reservation.guest.name
-                                    let guestPhone = reservation.guest.phone
-                                    let reservationStatusName = reservation.reservation_status.reservation_status_name
-
-                                    let date1 = moment(arrivalDate, 'DD-MM-YYYY')
-                                    let date2 = moment(departureDate, 'DD-MM-YYYY')
-                                    let daysDifferent = date2.diff(date1, 'days')
-
+                                res.data.forEach((reservation) => {
                                     reservationsTable.row.add([
                                         `
                                             <span class="d-block">${reservation.reservation_number}</span>
-                                            <span class="d-block text-secondary">${reservedDate}</span>
+                                            <span class="d-block text-secondary">${idDateFormat(reservation.reservation_time)}</span>
                                         `,
                                         `
                                             <p>
                                                 <span class="d-block text-secondary">Kedatangan:</span>
-                                                <span class="d-block">${arrivalDate}</span>
+                                                <span class="d-block">${idDateFormat(reservation.checkin)}</span>
                                             </p>
                                             <p>
                                                 <span class="d-block text-secondary">Keberangkatan:</span>
-                                                <span class="d-block">${departureDate}</span>
+                                                <span class="d-block">${idDateFormat(reservation.checkout)}</span>
                                             </p>
                                         `,
                                         `
-                                            <p>${daysDifferent} Hari</p>
+                                            <p> ${nightCount(reservation.checkout, reservation.checkin)} Hari</p>
                                         `,
-                                        roomCount,
+                                        reservation.room_orders.length,
                                         `
-                                            <span class="d-block">${guestName}</span>
-                                            <span class="d-block text-secondary">${guestPhone}</span>
+                                            <span class="d-block">${reservation.guest.name}</span>
+                                            <span class="d-block text-secondary">${idPhoneFormat(reservation.guest.phone)}</span>
                                         `,
                                         `
-                                        <span class="d-block ${reservationStatusName === 'Dipesan' ? '' : 'text-secondary'}">Dipesan</span>
-                                        <span class="d-block ${reservationStatusName === 'Dibayar' ? '' : 'text-secondary'}">Dibayar</span>
-                                            <span class="d-block ${reservationStatusName === 'Dibatalkan' ? '' : 'text-secondary'}">Dibatalkan</span>
+                                        <span class="d-block ${reservation.reservation_status.name === 'Dipesan' ? '' : 'text-secondary'}">Dipesan</span>
+                                        <span class="d-block ${reservation.reservation_status.name === 'Dibayar' ? '' : 'text-secondary'}">Dibayar</span>
+                                        <span class="d-block ${reservation.reservation_status.name === 'Dibatalkan' ? '' : 'text-secondary'}">Dibatalkan</span>
+                                        <span class="d-block ${reservation.reservation_status.name === 'Check In' ? '' : 'text-secondary'}">Check In</span>
+                                        <span class="d-block ${reservation.reservation_status.name === 'Check Out' ? '' : 'text-secondary'}">Check Out</span>
                                         `,
                                         `
                                             <div class="btn-group">
@@ -831,7 +825,7 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: '/dashboard/reservation/rooms',
+                        url: 'reservations/rooms',
                         success(res) {
                             if (res.rooms) {
                                 State.setRooms('rooms', res.rooms)
