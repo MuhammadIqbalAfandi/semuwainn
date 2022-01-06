@@ -3,7 +3,7 @@
     <x-shared.content-wrapper id="room-type-list">
         <x-shared.content-header title="Jenis Kamar">
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Jenis Kamar</li>
             </x-slot>
         </x-shared.content-header>
@@ -42,8 +42,8 @@
     <x-shared.content-wrapper id="room-type-add-edit">
         <x-shared.content-header>
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('room-types.index') }}" class="text-warning">Jenis
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.room-types.index') }}" class="text-warning">Jenis
                         Kamar</a></li>
                 <li class="breadcrumb-item active">Tambah Jenis Kamar</li>
             </x-slot>

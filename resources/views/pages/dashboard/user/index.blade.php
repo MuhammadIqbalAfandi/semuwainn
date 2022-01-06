@@ -3,7 +3,7 @@
     <x-shared.content-wrapper>
         <x-shared.content-header title="Akun User">
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" class="text-warning">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Akun User</li>
             </x-slot>
         </x-shared.content-header>

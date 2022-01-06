@@ -13,7 +13,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.dashboard') }}" class="nav-link {{ Route::is('dashboard.dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>Dashboard</p>
                     </a>
@@ -22,8 +22,8 @@
                 @php
                 $routeUri = Route::currentRouteName();
                 $routeStatus = collect([
-                'reservations.index',
-                'reservations.create'
+                'dashboard.reservations.index',
+                'dashboard.reservations.create'
                 ])->contains($routeUri);
                 @endphp
                 <!-- Pemesanan Kamar -->
@@ -38,16 +38,16 @@
 
                     <ul class="nav nav-treeview active">
                         <li class="nav-item">
-                            <a href="{{ route('reservations.create') }}"
-                                class="nav-link {{ Route::is('reservations.create') ? 'active' : '' }}">
+                            <a href="{{ route('dashboard.reservations.create') }}"
+                                class="nav-link {{ Route::is('dashboard.reservations.create') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tambah Pemesanan</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('reservations.index') }}"
-                                class="nav-link {{ Route::is('reservations.index') ? 'active' : '' }}">
+                            <a href="{{ route('dashboard.reservations.index') }}"
+                                class="nav-link {{ Route::is('dashboard.reservations.index') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Daftar Pemesanan</p>
                             </a>
@@ -58,13 +58,13 @@
                 @php
                 $routeUri = Route::currentRouteName();
                 $routeStatus = collect([
-                'facilities.index',
-                'room-types.index',
-                'rooms.index',
-                'restaurants.index',
-                'services.index',
-                'users.index',
-                'guests.index',
+                'dashboard.facilities.index',
+                'dashboard.room-types.index',
+                'dashboard.rooms.index',
+                'dashboard.restaurants.index',
+                'dashboard.services.index',
+                'dashboard.users.index',
+                'dashboard.guests.index',
                 ])->contains($routeUri);
                 @endphp
                 <!-- Master -->
@@ -80,8 +80,8 @@
                     <ul class="nav nav-treeview active">
                         <!-- Account User -->
                         <li class="nav-item">
-                            <a href="{{ route('users.index') }}"
-                                class="nav-link {{ Route::is('users.index') ? 'active' : '' }}">
+                            <a href="{{ route('dashboard.users.index') }}"
+                                class="nav-link {{ Route::is('dashboard.users.index') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Akun User</p>
                             </a>
@@ -90,14 +90,14 @@
                         @php
                         $routeUri = Route::currentRouteName();
                         $routeStatus = collect([
-                        'room-types.index',
-                        'room-types.create',
-                        'room-types.edit',
+                        'dashboard.room-types.index',
+                        'dashboard.room-types.create',
+                        'dashboard.room-types.edit',
                         ])->contains($routeUri);
                         @endphp
                         <!-- Room Type -->
                         <li class="nav-item">
-                            <a href="{{ route('room-types.index') }}"
+                            <a href="{{ route('dashboard.room-types.index') }}"
                                 class="nav-link {{ $routeStatus ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Jenis Kamar</p>
@@ -106,8 +106,8 @@
 
                         <!-- Facility -->
                         <li class="nav-item">
-                            <a href="{{ route('facilities.index') }}"
-                                class="nav-link {{ Route::is('facilities.index') ? 'active' : ''}}">
+                            <a href="{{ route('dashboard.facilities.index') }}"
+                                class="nav-link {{ Route::is('dashboard.facilities.index') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Fasilitas</p>
                             </a>
@@ -115,8 +115,8 @@
 
                         <!-- Room -->
                         <li class="nav-item">
-                            <a href="{{ route('rooms.index') }}"
-                                class="nav-link {{ Route::is('rooms.index') ? 'active' : ''}}">
+                            <a href="{{ route('dashboard.rooms.index') }}"
+                                class="nav-link {{ Route::is('dashboard.rooms.index') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kamar</p>
                             </a>
@@ -124,8 +124,8 @@
 
                         <!-- Restaurant -->
                         <li class="nav-item">
-                            <a href="{{ route('restaurants.index') }}"
-                                class="nav-link {{ Route::is('restaurants.index') ? 'active' : ''}}">
+                            <a href="{{ route('dashboard.restaurants.index') }}"
+                                class="nav-link {{ Route::is('dashboard.restaurants.index') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Hidangan Restoran</p>
                             </a>
@@ -133,8 +133,8 @@
 
                         <!-- Service -->
                         <li class="nav-item">
-                            <a href="{{ route('services.index') }}"
-                                class="nav-link {{ Route::is('services.index') ? 'active' : ''}}">
+                            <a href="{{ route('dashboard.services.index') }}"
+                                class="nav-link {{ Route::is('dashboard.services.index') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Layanan</p>
                             </a>
@@ -142,8 +142,8 @@
 
                         <!-- Guest -->
                         <li class="nav-item">
-                            <a href="{{ route('guests.index') }}"
-                                class="nav-link {{ Route::is('guests.index') ? 'active' : ''}}">
+                            <a href="{{ route('dashboard.guests.index') }}"
+                                class="nav-link {{ Route::is('dashboard.guests.index') ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tamu</p>
                             </a>

@@ -39,39 +39,6 @@ class ReservationController extends Controller
         return view('pages.dashboard.reservation.create');
     }
 
-    public function nik(Request $request)
-    {
-        $response = Guest::where('nik', 'like', "%{$request->search}%")->get(['id', 'nik']);
-        return response()->json($response, 200);
-    }
-
-    public function rooms()
-    {
-        $reservationsRoomId = RoomOrder::pluck('room_id');
-        $rooms = Room::whereNotIn('id', $reservationsRoomId)->with(['roomType.roomPrices'])->get();
-        if ($rooms) {
-            return response()->json(
-                [
-                    'rooms' => $rooms,
-                ],
-                200,
-            );
-        }
-    }
-
-    public function reservations()
-    {
-        $reservations = Reservation::with(['roomOrders', 'guest', 'reservationStatus'])->get();
-        if ($reservations) {
-            return response()->json(
-                [
-                    'reservations' => $reservations,
-                ],
-                200,
-            );
-        }
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -260,7 +227,7 @@ class ReservationController extends Controller
                     'message' => 'Pemesanan tidak berhasil diubah',
                     'status' => 'failed',
                 ],
-                400,
+                442,
             );
         }
     }
@@ -300,5 +267,38 @@ class ReservationController extends Controller
             ],
             200,
         );
+    }
+
+    public function nik(Request $request)
+    {
+        $response = Guest::where('nik', 'like', "%{$request->search}%")->get(['id', 'nik']);
+        return response()->json($response, 200);
+    }
+
+    public function rooms()
+    {
+        $reservationsRoomId = RoomOrder::pluck('room_id');
+        $rooms = Room::whereNotIn('id', $reservationsRoomId)->with(['roomType.roomPrices'])->get();
+        if ($rooms) {
+            return response()->json(
+                [
+                    'rooms' => $rooms,
+                ],
+                200,
+            );
+        }
+    }
+
+    public function reservations()
+    {
+        $reservations = Reservation::with(['roomOrders', 'guest', 'reservationStatus'])->get();
+        if ($reservations) {
+            return response()->json(
+                [
+                    'reservations' => $reservations,
+                ],
+                200,
+            );
+        }
     }
 }

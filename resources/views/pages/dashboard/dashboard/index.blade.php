@@ -20,7 +20,7 @@
                         <div class="icon">
                             <i class="fas fa-door-open"></i>
                         </div>
-                        <a href="{{ route('room-types.index') }}" class="small-box-footer">
+                        <a href="{{ route('dashboard.room-types.index') }}" class="small-box-footer">
                             Lihat detailnya <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -36,7 +36,7 @@
                         <div class="icon">
                             <i class="fas fa-bed"></i>
                         </div>
-                        <a href="{{ route('rooms.index') }}" class="small-box-footer">
+                        <a href="{{ route('dashboard.rooms.index') }}" class="small-box-footer">
                             Lihat detailnya <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -52,7 +52,7 @@
                         <div class="icon">
                             <i class="fas fa-concierge-bell"></i>
                         </div>
-                        <a href="{{ route('services.index') }}" class="small-box-footer">
+                        <a href="{{ route('dashboard.services.index') }}" class="small-box-footer">
                             Lihat detailnya <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -68,7 +68,7 @@
                         <div class="icon">
                             <i class="fas fa-utensils"></i>
                         </div>
-                        <a href="{{ route('restaurants.index') }}" class="small-box-footer">
+                        <a href="{{ route('dashboard.restaurants.index') }}" class="small-box-footer">
                             Lihat detailnya <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -84,7 +84,7 @@
                         <div class="icon">
                             <i class="fas fa-users"></i>
                         </div>
-                        <a href="{{ route('guests.index') }}" class="small-box-footer">
+                        <a href="{{ route('dashboard.guests.index') }}" class="small-box-footer">
                             Lihat detailnya <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
