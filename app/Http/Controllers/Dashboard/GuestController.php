@@ -7,6 +7,8 @@ use App\Http\Requests\Guest\StoreGuestRequest;
 use App\Http\Requests\Guest\UpdateGuestRequest;
 use App\Models\Guest;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 class GuestController extends Controller
 {
@@ -145,9 +147,26 @@ class GuestController extends Controller
 
     public function guests()
     {
-        $guests = Guest::with('reservations')->latest()->paginate(10);
-        if ($guests) {
-            return response()->json($guests, 200);
+        $guest = Guest::with('reservations')->get();
+        if ($guest) {
+            return DataTables::of($guest)
+                ->addColumn('nik', function (Guest $guest) {
+                    return '<span class="d-block">' . $guest->nik . '</span>
+                        <span class="d-block text-secondary">' . $guest->phone . '</span>
+                        <span class="d-block text-secondary">' . $guest->email . '</span>'
+                    ;
+                })
+                ->addColumn('booking', function (Guest $guest) {
+                    return $guest->reservations->count();
+                })
+                ->addColumn('updated_at', function (Guest $guest) {
+                    return Carbon::parse($guest->updated_at)->format('d/m/Y');
+                })
+                ->addColumn('actions', function (Guest $guest) {
+                    return view('components.shared.button-action', ['id' => $guest->id]);
+                })
+                ->rawColumns(['nik'])
+                ->make(true);
         }
     }
 }

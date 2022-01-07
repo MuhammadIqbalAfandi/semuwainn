@@ -3,7 +3,8 @@
     <x-shared.content-wrapper>
         <x-shared.content-header title="Tamu">
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}"
+                        class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Tamu</li>
             </x-slot>
         </x-shared.content-header>
@@ -92,17 +93,42 @@
         <script>
             $(() => {
                 // Mounted
-                const guestTable = $('.table').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "scrollX": true,
+                $('.table').DataTable({
+                    stateSave: true,
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    scrollX: true,
+                    autoWidth: false,
+                    ajax: 'guests/guests',
+                    columns: [{
+                            data: 'nik',
+                            name: 'nik'
+                        },
+                        {
+                            data: 'name',
+                            name: 'name'
+                        },
+                        {
+                            data: 'booking',
+                            name: 'booking'
+                        },
+                        {
+                            data: 'updated_at',
+                            name: 'updated_at'
+                        },
+                        {
+                            data: 'actions',
+                            name: 'actions'
+                        }
+                    ],
+                    language: {
+                        processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',
+                        emptyTable: "Data tidak tersedia!",
+                        zeroRecords: "Data tidak ditemukan",
+                        search: "Cari:",
+                    },
                 })
-
-                fetchGuest()
 
                 $(document).on('click', '.btn-show-edit', function() {
 
@@ -161,7 +187,11 @@
                             fetchGuest()
                         },
                         error(res) {
-                            const { errors, message, status } = res.responseJSON
+                            const {
+                                errors,
+                                message,
+                                status
+                            } = res.responseJSON
                             if (status === 'failed') {
                                 alert(message, status)
                             } else {
@@ -198,7 +228,10 @@
                             fetchGuest()
                         },
                         error(res) {
-                            const { message, status } = res.responseJSON
+                            const {
+                                message,
+                                status
+                            } = res.responseJSON
                             alert(message, status)
                             $('#modal-delete').modal('hide')
                         }
@@ -216,43 +249,7 @@
                 }
 
                 function fetchGuest() {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        dataType: 'json',
-                        type: 'get',
-                        url: 'guests/guests',
-                        success(res) {
-                            if (res.data) {
-                                guestTable.clear().draw()
-
-                                res.data.forEach(guest => {
-                                    let btnAction = `
-                                        <!-- Button Edit -->
-                                        <i class="fas fa-edit mr-1 btn-show-edit text-primary" id="${guest.id}">
-                                        </i>
-
-                                        <!-- Button Delete -->
-                                        <i class="fas fa-trash-alt btn-show-delete text-danger" id="${guest.id}">
-                                        </i>
-                                    `
-
-                                    guestTable.row.add([
-                                        `
-                                            <span class="d-block">${guest.nik}</span>
-                                            <span class="d-block text-secondary">${idPhoneFormat(guest.phone)}</span>
-                                            <span class="d-block text-secondary">${guest.email}</span>
-                                        `,
-                                        guest.name,
-                                        guest.reservations.length,
-                                        idDateFormat(guest.updated_at),
-                                        btnAction
-                                    ]).draw(false)
-                                })
-                            }
-                        }
-                    })
+                    $('.table').DataTable().ajax.reload()
                 }
                 // end Methods
             })

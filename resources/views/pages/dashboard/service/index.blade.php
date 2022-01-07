@@ -3,7 +3,8 @@
     <x-shared.content-wrapper>
         <x-shared.content-header title="Layanan">
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}"
+                        class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Layanan</li>
             </x-slot>
         </x-shared.content-header>
@@ -48,8 +49,8 @@
             <!-- Service Name -->
             <div class="form-group">
                 <label for="name">Nama Layanan</label>
-                <input type="text" name="name" id="name" class="form-control"
-                    value="{{ old('name') }}" placeholder="Tulis nama layanan disini">
+                <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}"
+                    placeholder="Tulis nama layanan disini">
 
                 <span class="text-danger msg-error name-error"></span>
             </div>
@@ -74,8 +75,8 @@
                     <input type="text" name="price" id="price" class="form-control" value="{{ old('price') }}"
                         placeholder="Tulis harga disini">
 
-                    </div>
-                    <span class="text-danger msg-error price-error"></span>
+                </div>
+                <span class="text-danger msg-error price-error"></span>
             </div>
 
             <button type="submit" id="btn-save" class="btn btn-block btn-warning">Simpan</button>
@@ -100,17 +101,36 @@
         <script>
             $(() => {
                 // Mounted
-                const servicesTable = $('.table').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "scrollX": true,
+                $('.table').DataTable({
+                    stateSave: true,
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    scrollX: true,
+                    autoWidth: false,
+                    ajax: 'services/services',
+                    columns: [{
+                            data: 'name',
+                            name: 'name',
+                        },
+                        {
+                            data: 'unit',
+                            name: 'unit',
+                        },
+                        {
+                            data: 'price',
+                            name: 'price',
+                        },
+                        {
+                            data: 'updated_at',
+                            name: 'updated_at'
+                        },
+                        {
+                            data: 'actions',
+                            name: 'actions'
+                        }
+                    ]
                 })
-
-                fetchServices()
 
                 $('#btn-add').click(() => {
                     clearForm()
@@ -148,7 +168,11 @@
                             fetchServices()
                         },
                         error(res) {
-                            const { errors, message, status } = res.responseJSON
+                            const {
+                                errors,
+                                message,
+                                status
+                            } = res.responseJSON
                             if (status === 'failed') {
                                 alert(message, status)
                             } else {
@@ -217,7 +241,11 @@
                             clearForm()
                         },
                         error(res) {
-                            const { errors, message, status } = res.responseJSON
+                            const {
+                                errors,
+                                message,
+                                status
+                            } = res.responseJSON
                             if (status === 'failed') {
                                 alert(message, status)
                             } else {
@@ -254,7 +282,10 @@
                             fetchServices()
                         },
                         error(res) {
-                            const { message, status } = res.responseJSON
+                            const {
+                                message,
+                                status
+                            } = res.responseJSON
                             alert(message, status)
                             $('#modal-delete').modal('hide')
                         }
@@ -270,39 +301,7 @@
                 }
 
                 function fetchServices() {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        dataType: 'json',
-                        type: 'get',
-                        url: 'services/services',
-                        success(res) {
-                            if (res.data) {
-                                servicesTable.clear().draw()
-
-                                 res.data.forEach(service => {
-                                    let btnAction = `
-                                        <!-- Button Edit -->
-                                        <i class="fas fa-edit mr-1 btn-show-edit text-primary" data-toggle="modal"
-                                            id="${service.id}"></i>
-
-                                        <!-- Button Delete -->
-                                        <i class="fas fa-trash-alt btn-show-delete text-danger" data-toggle="modal"
-                                            id="${service.id}">
-                                        </i>
-                                    `
-                                    servicesTable.row.add([
-                                        service.name,
-                                        service.unit,
-                                        idMoneyFormat(service.price),
-                                        idDateFormat(service.updated_at),
-                                        btnAction
-                                    ]).draw(false)
-                                })
-                            }
-                        }
-                    })
+                    $('.table').DataTable().ajax.reload()
                 }
                 // end Mothods
             });

@@ -7,6 +7,8 @@ use App\Http\Requests\Service\StoreServiceRequest;
 use App\Http\Requests\Service\UpdateServiceRequest;
 use App\Models\Service;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 
 class ServiceController extends Controller
 {
@@ -126,9 +128,23 @@ class ServiceController extends Controller
 
     public function services()
     {
-        $services = Service::latest()->paginate(10);
-        if ($services) {
-            return response()->json($services, 200);
+        // service.name,
+        // service.unit,
+        // idMoneyFormat(service.price),
+        // idDateFormat(service.updated_at),
+        // btnAction
+        $service = Service::all();
+        if ($service) {
+            return DataTables::of($service)
+                ->addColumn('price', function (Service $service) {
+                    return $service->price;
+                })
+                ->addColumn('updated_at', function (Service $service) {
+                    return Carbon::parse($service->updated_at)->format('d/m/Y');
+                })
+                ->addColumn('actions', function (Service $service) {
+                    return view('components.shared.button-action', ['id' => $service->id]);
+                });
         };
     }
 }
