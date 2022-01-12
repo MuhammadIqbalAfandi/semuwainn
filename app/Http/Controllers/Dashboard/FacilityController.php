@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Requests\Facility\StoreFacilityRequest;
 use App\Http\Requests\Facility\UpdateFacilityRequest;
 use App\Models\Facility;
+use App\Models\RoomFacility;
 use Illuminate\Database\QueryException;
 use Illuminate\Routing\Controller;
+use Yajra\DataTables\Facades\DataTables;
 
 class FacilityController extends Controller
 {
@@ -125,9 +127,20 @@ class FacilityController extends Controller
 
     public function facilities()
     {
-        $facilities = Facility::with('roomFacilities')->latest()->paginate(10);
-        if ($facilities) {
-            return response()->json($facilities, 200);
+        $facility = Facility::latest();
+        if ($facility) {
+            return DataTables::of($facility)
+                ->addColumn('room-count', function (Facility $facility) {
+                    return $facility->roomFacilities->count();
+                })
+                ->addColumn('actions', function (Facility $facility) {
+                    return view('components.shared.action-btn',
+                        [
+                            'id' => $facility->id,
+                            'btnDeleteHide' => !RoomFacility::where('facility_id', $facility->id)->first(),
+                        ]);
+                })
+                ->make(true);
         }
     }
 }

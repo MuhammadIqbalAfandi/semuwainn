@@ -3,7 +3,8 @@
     <x-shared.content-wrapper>
         <x-shared.content-header title="Akun User">
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}"
+                        class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Akun User</li>
             </x-slot>
         </x-shared.content-header>
@@ -115,22 +116,51 @@
         <script>
             $(() => {
                 // Mounted
-                const usersTable = $('.table').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "scrollX": true,
+                $('.table').DataTable({
+                    stateSave: true,
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    scrollX: true,
+                    autoWidth: false,
+                    ajax: 'users/users',
+                    columns: [{
+                            data: 'phone-email',
+                            name: 'phone-email',
+                        },
+                        {
+                            data: 'name',
+                            name: 'name',
+                        },
+                        {
+                            data: 'address',
+                            name: 'address',
+                        },
+                        {
+                            data: 'role',
+                            name: 'role',
+                        },
+                        {
+                            data: 'updated_at',
+                            name: 'updated_at'
+                        },
+                        {
+                            data: 'actions',
+                            name: 'actions'
+                        }
+                    ],
+                    language: {
+                        processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',
+                        emptyTable: "Data tidak tersedia!",
+                        zeroRecords: "Data tidak ditemukan",
+                        search: "Cari:",
+                    },
                 })
 
                 $('#role').select2({
                     placeholder: 'Pilih hak akses',
                     theme: 'bootstrap4'
                 })
-
-                fetchUsers()
 
                 $('#btn-add').click(() => {
                     clearForm()
@@ -207,7 +237,8 @@
                                 $('#address').val(res.user.address)
 
                                 res.roles.forEach(role => {
-                                    let newOption = new Option(role.name, role.id, false, res.user.role_id === role.id)
+                                    let newOption = new Option(role.name, role.id, false, res
+                                        .user.role_id === role.id)
                                     $('#role').append(newOption)
                                 })
 
@@ -251,7 +282,9 @@
                             fetchUsers()
                         },
                         error(res) {
-                            const { errors } = res.responseJSON
+                            const {
+                                errors
+                            } = res.responseJSON
                             for (const key in errors) {
                                 $(`.${key}-edit-error`).text(errors[key])
                             }
@@ -297,72 +330,7 @@
                 }
 
                 function fetchUsers() {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        dataType: 'json',
-                        type: 'get',
-                        url: 'users/users',
-                        success(res) {
-                            if (res.roles) {
-                                $('#role').children('option:not(:first)').remove()
-                                res.roles.forEach(role => {
-                                    let newOption = new Option(role.name, role.id, false, false)
-                                    $('#role').append(newOption)
-                                })
-                            }
-
-                            if (res.users.data) {
-                                usersTable.clear().draw()
-
-                                 res.users.data.forEach(user => {
-                                    let btnAction = `
-                                        <!-- Button Edit -->
-                                        <i class="fas fa-edit mr-1 btn-show-edit text-primary" data-toggle="modal"
-                                            id="${user.id}">
-                                        </i>
-
-                                        <!-- Button Block -->
-                                        <i class="fas fa-ban btn-show-block text-danger" data-toggle="modal"
-                                                id="${user.id}">
-                                        </i>
-                                    `
-
-                                    let account = `
-                                        <span class="d-block">${idPhoneFormat(user.phone)}</span>
-                                        <span class="d-block text-secondary">${user.email}</span>
-                                    `
-
-                                    let statusAccount = `
-                                        <span class="badge badge-pill badge-${user.status ? 'success' : 'danger'}">
-                                            ${user.status ? 'Aktif' : 'Tidak Aktif'}
-                                        </span>
-                                    `
-
-                                    let statusLogin = `
-                                        <span class="badge badge-pill badge-success">
-                                            Sedang Login
-                                        </span>
-                                    `
-
-                                    usersTable.row.add([
-                                        account,
-                                        user.name,
-                                        user.address,
-                                        user.role.name,
-                                        idDateFormat(user.updated_at),
-                                        user.id !== res.authId ?
-                                        `
-                                            <span class="d-block mb-2">${statusAccount}</span>
-                                            <span class="d-block">${btnAction}</span>
-                                        ` :
-                                        statusLogin,
-                                    ]).draw(false)
-                                })
-                            }
-                        }
-                    })
+                    $('.table').DataTable().ajax.reload()
                 }
                 // end Methods
             })

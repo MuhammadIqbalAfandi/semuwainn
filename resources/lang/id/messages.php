@@ -7,6 +7,8 @@ return [
     ],
     'success' => [
         'store' => [
+            'service-order' => 'Layanan berhasil ditambahkan',
+            'restaurant-order' => 'Hidangan berhasil ditambahkan',
             'room_booking' => 'Pemesanan berhasil diproses',
             'user' => 'Akun user berhasil ditambahkan',
             'room-type' => 'Ruangan baru berhasil ditambahkan',

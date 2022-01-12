@@ -3,7 +3,8 @@
     <x-shared.content-wrapper>
         <x-shared.content-header title="Kamar">
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}"
+                        class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Kamar</li>
             </x-slot>
         </x-shared.content-header>
@@ -106,17 +107,42 @@
                     theme: 'bootstrap4'
                 })
 
-                const roomsTable = $('.table').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "scrollX": true,
+                $('.table').DataTable({
+                    stateSave: true,
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    scrollX: true,
+                    autoWidth: false,
+                    ajax: 'rooms/rooms',
+                    columns: [{
+                            data: 'room_number',
+                            name: 'room_number',
+                        },
+                        {
+                            data: 'room-type',
+                            name: 'room-type',
+                        },
+                        {
+                            data: 'status',
+                            name: 'status',
+                        },
+                        {
+                            data: 'updated_at',
+                            name: 'updated_at'
+                        },
+                        {
+                            data: 'actions',
+                            name: 'actions'
+                        }
+                    ],
+                    language: {
+                        processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',
+                        emptyTable: "Data tidak tersedia!",
+                        zeroRecords: "Data tidak ditemukan",
+                        search: "Cari:",
+                    },
                 })
-
-                fetchRooms()
 
                 $('#btn-add').click(() => {
                     $.ajax({
@@ -136,7 +162,8 @@
                         success(res) {
                             if (res) {
                                 res.forEach((roomType) => {
-                                    let newOption = new Option(roomType.name, roomType.id, false, false)
+                                    let newOption = new Option(roomType.name, roomType.id,
+                                        false, false)
                                     $('#room-type-id').append(newOption)
                                 })
                             }
@@ -160,7 +187,7 @@
                         url: 'rooms',
                         data: {
                             room_number: roomNumber,
-                            room_type_id: roomTypeId ,
+                            room_type_id: roomTypeId,
                         },
                         beforeSend() {
                             $('.msg-error').text('')
@@ -171,9 +198,11 @@
                             fetchRooms()
                         },
                         error(res) {
-                            const { errors } = res.responseJSON
+                            const {
+                                errors
+                            } = res.responseJSON
                             for (const key in errors) {
-                               $(`.${key}-error`).text(errors[key])
+                                $(`.${key}-error`).text(errors[key])
                             }
                         }
                     })
@@ -198,7 +227,7 @@
                             $('#room-id').val(res.room.id)
                             $('#room-number').val(res.room.room_number)
 
-                            res.roomTypes.forEach( roomType => {
+                            res.roomTypes.forEach(roomType => {
                                 let newOption = new Option(
                                     roomType.name,
                                     roomType.id,
@@ -238,7 +267,9 @@
                             fetchRooms()
                         },
                         error(res) {
-                            const { errors } = res.responseJSON
+                            const {
+                                errors
+                            } = res.responseJSON
                             for (const key in errors) {
                                 $(`.${key}-error`).text(errors[key])
                             }
@@ -270,8 +301,11 @@
                             $('#modal-delete').modal('hide')
                             fetchRooms()
                         },
-                         error(res) {
-                            const { message, status } = res.responseJSON
+                        error(res) {
+                            const {
+                                message,
+                                status
+                            } = res.responseJSON
                             alert(message, status)
                             $('#modal-delete').modal('hide')
                         }
@@ -286,49 +320,7 @@
                 }
 
                 function fetchRooms() {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        dataType: 'json',
-                        type: 'get',
-                        url: 'rooms/rooms',
-                        success(res) {
-                            if (res.data) {
-                                roomsTable.clear().draw()
-
-                                res.data.forEach(room => {
-                                    let btnAction = `
-                                        <!-- Button Edit -->
-                                        <i class="fas fa-edit mr-1 btn-show-edit text-primary" id="${room.id}">
-                                        </i>
-
-                                        <!-- Button Delete -->
-                                        <i class="fas fa-trash-alt btn-show-delete text-danger" id="${room.id}">
-                                        </i>
-                                    `
-
-                                    let roomStatus = room.room_orders.length ?
-                                    `
-                                        <span class="d-block">Terisi</span>
-                                        <span class="d-block text-secondary">Kosong</span>
-                                    ` :
-                                    `
-                                        <span class="d-block text-secondary">Terisi</span>
-                                        <span class="d-block">Kosong</span>
-                                    `
-
-                                    roomsTable.row.add([
-                                        room.room_number,
-                                        room.room_type.name,
-                                        roomStatus,
-                                        idDateFormat(room.updated_at),
-                                        btnAction
-                                    ]).draw(false)
-                                })
-                            }
-                        }
-                    })
+                    $('.table').DataTable().ajax.reload()
                 }
                 // end Methods
             })

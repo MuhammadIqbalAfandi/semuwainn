@@ -129,7 +129,13 @@
                             data: 'actions',
                             name: 'actions'
                         }
-                    ]
+                    ],
+                    language: {
+                        processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',
+                        emptyTable: "Data tidak tersedia!",
+                        zeroRecords: "Data tidak ditemukan",
+                        search: "Cari:",
+                    },
                 })
 
                 $('#btn-add').click(() => {
@@ -202,10 +208,16 @@
                             $('#modal-add').modal('show')
                         },
                         success(res) {
-                            $('#service-id').val(res.service.id)
-                            $('#name').val(res.service.name)
-                            $('#unit').val(res.service.unit)
-                            $('#price').val(res.service.price)
+                            const {
+                                id,
+                                name,
+                                unit,
+                                price
+                            } = res
+                            $('#service-id').val(id)
+                            $('#name').val(name)
+                            $('#unit').val(unit)
+                            $('#price').val(price)
                         },
                     })
                 })

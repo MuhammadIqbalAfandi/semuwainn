@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -139,17 +140,24 @@ class UserController extends Controller
 
     public function users()
     {
-        $users = User::with('role')->latest()->paginate(10);
-        $roles = Role::all();
-        if ($users) {
-            return response()->json(
-                [
-                    'users' => $users,
-                    'roles' => $roles,
-                    'authId' => auth()->user()->id,
-                ],
-                200,
-            );
+        $user = User::with('role');
+        if ($user) {
+            return DataTables::of($user)
+                ->addColumn('phone-email', function (User $user) {
+                    return view('components.shared.account-info',
+                        [
+                            'phone' => $user->phone,
+                            'email' => $user->email,
+                        ]
+                    );
+                })
+                ->addColumn('role', fn(User $user) => $user->role->name)
+                ->addColumn('actions', function (User $user) {
+                    return view('components.user.actions',
+                        ['id' => $user->id, 'status' => $user->status, 'auth' => auth()->id()]
+                    );
+                })
+                ->make(true);
         };
     }
 }

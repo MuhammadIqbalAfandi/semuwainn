@@ -15,6 +15,11 @@ class RoomPrice extends Model
         'room_type_id',
     ];
 
+    public function getPriceAttribute($value)
+    {
+        return 'Rp. ' . number_format($value, '2', ',', '.');
+    }
+
     public function roomType()
     {
         return $this->belongsTo(RoomType::class);

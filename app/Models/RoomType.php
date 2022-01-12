@@ -8,6 +8,7 @@ use App\Models\RoomOrder;
 use App\Models\RoomPrice;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class RoomType extends Model
 {
@@ -22,6 +23,11 @@ class RoomType extends Model
         'name',
         'number_of_guest',
     ];
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
 
     public function rooms()
     {

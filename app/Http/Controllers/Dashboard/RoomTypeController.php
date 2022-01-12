@@ -9,6 +9,7 @@ use App\Models\Facility;
 use App\Models\RoomType;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class RoomTypeController extends Controller
 {
@@ -77,13 +78,17 @@ class RoomTypeController extends Controller
      */
     public function edit(RoomType $roomType)
     {
-        $roomType = $roomType->where('id', $roomType->id)->with(['roomFacilities.facility', 'roomPrices'])->first();
+        $roomType = $roomType->where('id', $roomType->id)->with(['roomFacilities.facility'])->first();
         $facilities = Facility::all();
         if ($roomType) {
             return response()->json(
                 [
                     'roomType' => $roomType,
                     'facilities' => $facilities,
+                    'roomPrices' => $roomType->roomPrices->transform(fn($roomPrice) => [
+                        'price' => $roomPrice->getRawOriginal('price'),
+                        'description' => $roomPrice->getRawOriginal('description'),
+                    ]),
                 ],
                 200,
             );
@@ -170,9 +175,25 @@ class RoomTypeController extends Controller
 
     public function roomTypes()
     {
-        $roomTypes = RoomType::with(['roomFacilities.facility', 'roomPrices', 'rooms'])->latest()->paginate(10);
-        if ($roomTypes) {
-            return response()->json($roomTypes, 200);
+        $roomType = RoomType::latest();
+        if ($roomType) {
+            return DataTables::of($roomType)
+                ->addColumn('facility', function (RoomType $roomType) {
+                    return view('components.room-type.facilities', compact('roomType'));
+                })
+                ->addColumn('price', function (RoomType $roomType) {
+                    return view('components.room-type.detail-price', compact('roomType'));
+                })
+                ->addColumn('room-count', fn(RoomType $roomType) => $roomType->rooms->count())
+                ->addColumn('guest-count', fn(RoomType $roomType) => $roomType->number_of_guest)
+                ->addColumn('actions', function (RoomType $roomType) {
+                    return view('components.shared.action-btn',
+                        [
+                            'id' => $roomType->id,
+                            'btnDeleteHide' => !$roomType->roomOrders->count(),
+                        ]);
+                })
+                ->make(true);
         }
     }
 

@@ -22,7 +22,17 @@ class Reservation extends Model
         'reservation_status_id',
     ];
 
-    public function getReservedDateAttribute($value)
+    public function getCheckInAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function getCheckOutAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function getUpdatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
     }
@@ -55,5 +65,10 @@ class Reservation extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function rooms()
+    {
+        return $this->belongsToMany(Room::class, RoomOrder::class);
     }
 }

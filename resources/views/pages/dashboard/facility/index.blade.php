@@ -3,7 +3,8 @@
     <x-shared.content-wrapper>
         <x-shared.content-header title="Fasilitas">
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}"
+                        class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Fasilitas</li>
             </x-slot>
         </x-shared.content-header>
@@ -47,8 +48,8 @@
             <!-- Facility Name -->
             <div class="form-group">
                 <label for="name">Nama Fasilitas</label>
-                <input type="text" name="name" id="name" class="form-control"
-                    value="{{ old('name') }}" placeholder="Tulis nama fasilitas disini">
+                <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}"
+                    placeholder="Tulis nama fasilitas disini">
 
                 <span class="text-danger msg-error name-error"></span>
             </div>
@@ -76,17 +77,38 @@
         <script>
             $(() => {
                 // Mounted
-                const facilitiesTable = $('.table').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "scrollX": true,
+                $('.table').DataTable({
+                    stateSave: true,
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    scrollX: true,
+                    autoWidth: false,
+                    ajax: 'facilities/facilities',
+                    columns: [{
+                            data: 'name',
+                            name: 'name',
+                        },
+                        {
+                            data: 'room-count',
+                            name: 'room-count',
+                        },
+                        {
+                            data: 'updated_at',
+                            name: 'updated_at'
+                        },
+                        {
+                            data: 'actions',
+                            name: 'actions'
+                        }
+                    ],
+                    language: {
+                        processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',
+                        emptyTable: "Data tidak tersedia!",
+                        zeroRecords: "Data tidak ditemukan",
+                        search: "Cari:",
+                    },
                 })
-
-                fetchFacilities()
 
                 $('#btn-add').click(() => {
                     clearForm()
@@ -120,7 +142,11 @@
                             fetchFacilities()
                         },
                         error(res) {
-                            const { errors, message, status } = res.responseJSON
+                            const {
+                                errors,
+                                message,
+                                status
+                            } = res.responseJSON
                             if (status === 'failed') {
                                 alert(message, status)
                             } else {
@@ -183,7 +209,11 @@
                             clearForm()
                         },
                         error(res) {
-                            const { errors, message, status } = res.responseJSON
+                            const {
+                                errors,
+                                message,
+                                status
+                            } = res.responseJSON
                             if (status === 'failed') {
                                 alert(message, status)
                             } else {
@@ -220,7 +250,10 @@
                             fetchFacilities()
                         },
                         error(res) {
-                            const { message, status } = res.responseJSON
+                            const {
+                                message,
+                                status
+                            } = res.responseJSON
                             alert(message, status)
                             $('#modal-delete').modal('hide')
                         }
@@ -234,38 +267,7 @@
                 }
 
                 function fetchFacilities() {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        dataType: 'json',
-                        type: 'get',
-                        url: 'facilities/facilities',
-                        success(res) {
-                            if (res.data) {
-                                facilitiesTable.clear().draw()
-
-                                 res.data.forEach(facility => {
-                                    let btnAction = `
-                                        <!-- Button Edit -->
-                                        <i class="fas fa-edit mr-1 btn-show-edit text-primary" data-toggle="modal"
-                                            id="${facility.id}"></i>
-
-                                        <!-- Button Delete -->
-                                        <i class="fas fa-trash-alt btn-show-delete text-danger" data-toggle="modal"
-                                            id="${facility.id}">
-                                        </i>
-                                    `
-                                    facilitiesTable.row.add([
-                                        facility.name,
-                                        facility.room_facilities.length,
-                                        idDateFormat(facility.updated_at),
-                                        btnAction
-                                    ]).draw(false)
-                                })
-                            }
-                        }
-                    })
+                    $('.table').DataTable().ajax.reload()
                 }
                 // end Methods
             });

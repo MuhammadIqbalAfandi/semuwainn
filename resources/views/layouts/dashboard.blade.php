@@ -20,7 +20,8 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}" />
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
         href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
@@ -67,49 +68,42 @@
     <!-- jquery-validation -->
     <script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src=" {{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+    <!-- Loadash -->
+    <script src="{{ asset('js/lodash@4.17.21/lodash.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <!-- Scripts -->
     <script>
         moment.locale("{{ config('app.locale') }}")
-        dayjs.locale("{{ config('app.locale') }}")
 
         const idMoneyFormat = (number) => {
-            return new Intl.NumberFormat('id', { style: 'currency', currency: 'IDR' }).format(number)
-        }
-
-        const idPhoneFormat = (number) => {
-            return number.toString().replace(/\B(?=(\d{4})+(?!\d))/g, ' ')
-        }
-
-        const idDateFormat = (date) => {
-            return dayjs(date).format('dddd, DD MMMM YYYY')
-        }
-
-        const nightCount = (checkOut, checkIn) => {
-            return dayjs(checkOut).diff(checkIn, 'day')
+            return new Intl.NumberFormat('id', {
+                style: 'currency',
+                currency: 'IDR'
+            }).format(number)
         }
 
         const Toast = Swal.mixin({
             toast: true,
-            position: "top-end",
+            position: "bottom-start",
             showConfirmButton: false,
             timer: 3000,
         })
+
         function alert(message, status) {
             switch (status) {
                 case 'success':
                     Toast.fire({
                         icon: 'success',
-                        title: message
+                        title: message,
                     })
-                break;
+                    break;
                 case 'failed':
                     Toast.fire({
                         icon: 'error',
-                        title: message
+                        title: message,
                     })
-                break;
+                    break;
             }
         }
 

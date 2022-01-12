@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Service\StoreServiceRequest;
 use App\Http\Requests\Service\UpdateServiceRequest;
 use App\Models\Service;
+use App\Models\ServiceOrder;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 class ServiceController extends Controller
@@ -61,7 +61,10 @@ class ServiceController extends Controller
         if ($service) {
             return response()->json(
                 [
-                    'service' => $service,
+                    'id' => $service->id,
+                    'name' => $service->name,
+                    'unit' => $service->unit,
+                    'price' => $service->getRawOriginal('price'),
                 ],
                 200,
             );
@@ -128,23 +131,17 @@ class ServiceController extends Controller
 
     public function services()
     {
-        // service.name,
-        // service.unit,
-        // idMoneyFormat(service.price),
-        // idDateFormat(service.updated_at),
-        // btnAction
-        $service = Service::all();
+        $service = Service::latest();
         if ($service) {
             return DataTables::of($service)
-                ->addColumn('price', function (Service $service) {
-                    return $service->price;
-                })
-                ->addColumn('updated_at', function (Service $service) {
-                    return Carbon::parse($service->updated_at)->format('d/m/Y');
-                })
                 ->addColumn('actions', function (Service $service) {
-                    return view('components.shared.button-action', ['id' => $service->id]);
-                });
+                    return view('components.shared.action-btn',
+                        [
+                            'id' => $service->id,
+                            'btnDeleteHide' => !ServiceOrder::where('service_id', $service->id)->first(),
+                        ]);
+                })
+                ->make(true);
         };
     }
 }

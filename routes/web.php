@@ -4,10 +4,13 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\FacilityController;
 use App\Http\Controllers\Dashboard\GuestController;
 use App\Http\Controllers\Dashboard\ReservationController;
+use App\Http\Controllers\Dashboard\ReservationStatusController;
 use App\Http\Controllers\Dashboard\RestaurantController;
+use App\Http\Controllers\Dashboard\RestaurantOrderController;
 use App\Http\Controllers\Dashboard\RoomController;
 use App\Http\Controllers\Dashboard\RoomTypeController;
 use App\Http\Controllers\Dashboard\ServiceController;
+use App\Http\Controllers\Dashboard\ServiceOrderController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Guest\HomeController;
 use App\Http\Controllers\Guest\RoomBookingController;
@@ -23,13 +26,14 @@ Route::prefix('dashboard')->group(function () {
         Route::middleware(['auth'])->group(function () {
             Route::get('/', DashboardController::class)->name('dashboard');
 
+            Route::resource('/restaurant-orders', RestaurantOrderController::class);
+
+            Route::resource('/service-orders', ServiceOrderController::class);
+
+            Route::resource('/reservation-statuses', ReservationStatusController::class)->only(['edit']);
+
             Route::get('/reservations/nik', [ReservationController::class, 'nik']);
             Route::get('/reservations/reservations', [ReservationController::class, 'reservations']);
-            Route::get('/reservations/rooms', [ReservationController::class, 'rooms']);
-            Route::get('/reservations/status/{reservation}/edit', [ReservationController::class, 'editStatus']);
-            Route::patch('/reservations/status/{reservation}', [ReservationController::class, 'updateStatus']);
-            Route::post('/reservations', [ReservationController::class, 'store']);
-            Route::post('/reservations/room/{reservation}', [ReservationController::class, 'storeRoom']);
             Route::post('/reservations/service/{reservation}', [ReservationController::class, 'storeService']);
             Route::post('/reservations/restaurant/{reservation}', [ReservationController::class, 'storeRestaurant']);
             Route::resource('/reservations', ReservationController::class);

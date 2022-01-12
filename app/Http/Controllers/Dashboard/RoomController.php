@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Room\StoreRoomRequest;
 use App\Http\Requests\Room\UpdateRoomRequest;
 use App\Models\Room;
+use App\Models\RoomOrder;
 use App\Models\RoomType;
 use Illuminate\Database\QueryException;
+use Yajra\DataTables\Facades\DataTables;
 
 class RoomController extends Controller
 {
@@ -130,9 +132,21 @@ class RoomController extends Controller
 
     public function rooms()
     {
-        $rooms = Room::with(['roomType.roomPrices', 'roomOrders'])->latest()->paginate(10);
-        if ($rooms) {
-            return response()->json($rooms, 200);
+        $room = Room::latest();
+        if ($room) {
+            return DataTables::of($room)
+                ->addColumn('room-type', fn(Room $room) => $room->roomType->name)
+                ->addColumn('status', function (Room $room) {
+                    return view('components.room.status', ['roomCount' => $room->roomOrders->count()]);
+                })
+                ->addColumn('actions', function (Room $room) {
+                    return view('components.shared.action-btn',
+                        [
+                            'id' => $room->id,
+                            'btnDeleteHide' => !RoomOrder::where('room_id', $room->id)->first(),
+                        ]);
+                })
+                ->make(true);
         }
     }
 

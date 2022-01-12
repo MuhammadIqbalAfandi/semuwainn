@@ -7,7 +7,6 @@ use App\Http\Requests\Guest\StoreGuestRequest;
 use App\Http\Requests\Guest\UpdateGuestRequest;
 use App\Models\Guest;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
 class GuestController extends Controller
@@ -25,7 +24,7 @@ class GuestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Guest $Guest
+     * @param  \App\Models\Guest $guest
      * @return \Illuminate\Http\Response
      */
     public function show(Guest $guest)
@@ -147,25 +146,26 @@ class GuestController extends Controller
 
     public function guests()
     {
-        $guest = Guest::with('reservations')->get();
+        $guest = Guest::latest();
         if ($guest) {
             return DataTables::of($guest)
                 ->addColumn('nik', function (Guest $guest) {
-                    return '<span class="d-block">' . $guest->nik . '</span>
-                        <span class="d-block text-secondary">' . $guest->phone . '</span>
-                        <span class="d-block text-secondary">' . $guest->email . '</span>'
-                    ;
+                    return view('components.shared.account-info',
+                        [
+                            'nik' => $guest->nik,
+                            'phone' => $guest->phone,
+                            'email' => $guest->email,
+                        ]
+                    );
                 })
-                ->addColumn('booking', function (Guest $guest) {
-                    return $guest->reservations->count();
-                })
-                ->addColumn('updated_at', function (Guest $guest) {
-                    return Carbon::parse($guest->updated_at)->format('d/m/Y');
-                })
+                ->addColumn('booking', fn(Guest $guest) => $guest->reservations->count())
                 ->addColumn('actions', function (Guest $guest) {
-                    return view('components.shared.button-action', ['id' => $guest->id]);
+                    return view('components.shared.action-btn',
+                        [
+                            'id' => $guest->id,
+                            'btnDeleteHide' => !$guest->reservations->count(),
+                        ]);
                 })
-                ->rawColumns(['nik'])
                 ->make(true);
         }
     }

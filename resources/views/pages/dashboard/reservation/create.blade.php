@@ -3,7 +3,8 @@
     <x-shared.content-wrapper id="pemesanan-kamar">
         <x-shared.content-header title="Tambah Pemesanan Kamar">
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}"
+                        class="text-warning">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">Tambah Pemesanan</li>
             </x-slot>
@@ -17,8 +18,8 @@
                         <div class="col-lg col-md-12">
                             <div class="form-group">
                                 <label for="guest-nik">NIK</label>
-                                <select data-width="100%" value="{{ old('guest-nik') }}" name="guest_id" id="guest-nik"
-                                    class="form-control">
+                                <select data-width="100%" value="{{ old('guest-nik') }}" name="guest_id"
+                                    id="guest-nik" class="form-control">
                                     <option></option>
                                 </select>
 
@@ -33,8 +34,8 @@
                                     <div class="form-group">
                                         <label for="checkin">Tanggal Kedatangan</label>
                                         <div class="input-group date" id="checkindate" data-target-input="nearest">
-                                            <input type="text" name="checkin" id="checkin" value="{{ old('checkin') }}"
-                                                placeholder="Tanggal kedatangan"
+                                            <input type="text" name="checkin" id="checkin"
+                                                value="{{ old('checkin') }}" placeholder="Tanggal kedatangan"
                                                 class="form-control datetimepicker-input" data-target="#checkindate" />
                                             <div class="input-group-append" data-target="#checkindate"
                                                 data-toggle="datetimepicker">
@@ -194,8 +195,8 @@
             <!-- Address -->
             <div class="form-group">
                 <label for="address">Alamat</label>
-                <input type="address" name="address" id="address-add" value="{{ old('address') }}" class="form-control"
-                    placeholder="Tulis alamat disini">
+                <input type="address" name="address" id="address-add" value="{{ old('address') }}"
+                    class="form-control" placeholder="Tulis alamat disini">
 
                 <span class="address-add-error msg-error text-danger"></span>
             </div>
@@ -229,42 +230,42 @@
         <script>
             $(() => {
                 // Data
-                    let State = {
-                        initialRooms: [],
-                        rooms: '',
-                        prices: '',
-                        listOfRoomBooked: [],
-                        run() {
-                            State.setProperty()
-                            State.setRooms()
-                            State.setPrices()
-                        },
-                        setProperty(key, value) {
-                           this[key] = value
-                        },
-                        setRooms(key, value) {
-                            this[key] = value
-                            if (State[key]) {
-                                $('#room').children('option:not(:first)').remove()
-                                State[key].sort((a, b) => a.room_number - b.room_number)
-                                State[key].forEach((room) => {
-                                    let newOption = new Option(room.room_number, room.id, false, false)
-                                    $('#room').append(newOption)
-                                })
-                            }
-                        },
-                        setPrices(key, value) {
-                            this[key] = value
-                            if (State[key]) {
-                                $('#price').children('option:not(:first)').remove()
-                                State[key].sort((a, b) => a.price - b.price)
-                                State[key].forEach((price) => {
-                                    let newOption = new Option(price.price, price.id, false, false)
-                                    $('#price').append(newOption)
-                                })
-                            }
+                let State = {
+                    initialRooms: [],
+                    rooms: '',
+                    prices: '',
+                    listOfRoomBooked: [],
+                    run() {
+                        State.setProperty()
+                        State.setRooms()
+                        State.setPrices()
+                    },
+                    setProperty(key, value) {
+                        this[key] = value
+                    },
+                    setRooms(key, value) {
+                        this[key] = value
+                        if (State[key]) {
+                            $('#room').children('option:not(:first)').remove()
+                            State[key].sort((a, b) => a.room_number - b.room_number)
+                            State[key].forEach((room) => {
+                                let newOption = new Option(room.room_number, room.id, false, false)
+                                $('#room').append(newOption)
+                            })
+                        }
+                    },
+                    setPrices(key, value) {
+                        this[key] = value
+                        if (State[key]) {
+                            $('#price').children('option:not(:first)').remove()
+                            State[key].sort((a, b) => a.price - b.price)
+                            State[key].forEach((price) => {
+                                let newOption = new Option(price.price, price.id, false, false)
+                                $('#price').append(newOption)
+                            })
                         }
                     }
+                }
                 // end Data
 
                 // Mounted
@@ -295,7 +296,7 @@
                     },
                     language: {
                         noResults() {
-                        return `
+                            return `
                             <button class="btn btn-block btn-warning" data-toggle="modal" data-target="#modal-add-guest">
                                 <i class="fa fa-plus"></i>
                                 Tamu Baru
@@ -318,7 +319,7 @@
                     locale: 'id',
                     useCurrent: false,
                 })
-                $("#checkindate").on("change.datetimepicker", function (e) {
+                $("#checkindate").on("change.datetimepicker", function(e) {
                     $('#checkoutdate').datetimepicker('minDate', e.date)
                 })
 
@@ -336,11 +337,11 @@
 
                 const roomDetailTable = $('#room-detail-table').DataTable({
                     "paging": false,
-                    "lengthChange": false,
                     "searching": false,
                     "ordering": false,
                     "info": false,
                     "autoWidth": false,
+                    "scrollX": true,
                     "responsive": true,
                 })
                 // End Library Configuration
@@ -429,7 +430,8 @@
 
                     if (room && price) {
                         let newRoom = State.rooms.filter((value) => value.id == room)
-                        let newPrice = newRoom[0].room_type.room_prices.filter(roomPrice => roomPrice.id == price)
+                        let newPrice = newRoom[0].room_type.room_prices.filter(roomPrice => roomPrice.id ==
+                            price)
                         let discountedPrice = newPrice[0].price - (newPrice[0].price * discount / 100)
 
                         roomDetailTable.row.add([
@@ -461,14 +463,15 @@
                     }
                 })
 
-                $(document).on('click', '.btn-delete-detail-room', function () {
+                $(document).on('click', '.btn-delete-detail-room', function() {
                     const roomNumber = roomDetailTable.row($(this).closest('tr')).data()[1]
 
                     const newRoom = State.initialRooms.filter(room => room.room_number == roomNumber)
                     State.rooms.push(newRoom[0])
                     State.setRooms('rooms', State.rooms)
 
-                    const listOfRoomBooked =  State.listOfRoomBooked.filter(roomBooked => roomBooked.room_number != roomNumber)
+                    const listOfRoomBooked = State.listOfRoomBooked.filter(roomBooked => roomBooked
+                        .room_number != roomNumber)
                     State.setProperty('listOfRoomBooked', listOfRoomBooked)
                     if (!State.listOfRoomBooked.length) {
                         $('#btn-save').hide()
@@ -510,7 +513,7 @@
                             discounts,
                             rooms,
                             prices
-                         },
+                        },
                         beforeSend() {
                             $('.msg-error').text('')
                         },

@@ -27,7 +27,7 @@ class RoomBookingController extends Controller
                 ->through(fn($services) => [
                     'id' => $services->id,
                     'name' => $services->name,
-                    'price' => $services->price,
+                    'price' => $services->getRawOriginal('price'),
                     'unit' => $services->unit,
                 ]),
         ]);
@@ -55,7 +55,7 @@ class RoomBookingController extends Controller
             ]);
             foreach ($request->rooms as $room) {
                 $reservation->roomOrders()->create([
-                    'price' => RoomPrice::find($room['priceId'])->price,
+                    'price' => RoomPrice::find($room['priceId'])->getRawOriginal('price'),
                     'guest_count' => $room['guestCount'],
                     'quantity' => $room['roomCount'],
                     'room_id' => $room['id'],
@@ -63,7 +63,7 @@ class RoomBookingController extends Controller
             }
             foreach ($request->services as $service) {
                 $reservation->serviceOrders()->create([
-                    'price' => Service::find($service['id'])->price,
+                    'price' => Service::find($service['id'])->getRawOriginal('price'),
                     'quantity' => $service['roomCount'],
                     'service_id' => $service['id'],
                 ]);
@@ -73,7 +73,7 @@ class RoomBookingController extends Controller
             return redirect()->back()->with('success', __('messages.success.store.room_booking'));
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', __('messages.error.store.room_booking'));
+            return redirect()->back()->with('error', __('messages.errors.store.room_booking'));
         }
     }
 }

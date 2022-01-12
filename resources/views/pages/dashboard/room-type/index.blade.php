@@ -3,7 +3,8 @@
     <x-shared.content-wrapper id="room-type-list">
         <x-shared.content-header title="Jenis Kamar">
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}"
+                        class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Jenis Kamar</li>
             </x-slot>
         </x-shared.content-header>
@@ -43,8 +44,10 @@
     <x-shared.content-wrapper id="room-type-add-edit">
         <x-shared.content-header>
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('dashboard.room-types.index') }}" class="text-warning">Jenis
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}"
+                        class="text-warning">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.room-types.index') }}"
+                        class="text-warning">Jenis
                         Kamar</a></li>
                 <li class="breadcrumb-item active">Tambah Jenis Kamar</li>
             </x-slot>
@@ -61,9 +64,8 @@
                             <!-- Room Name-->
                             <div class="form-group">
                                 <label for="name">Nama Tipe Kamar</label>
-                                <input type="text" name="name" id="name"
-                                    value="{{ old('room_name') }}" class="form-control"
-                                    placeholder="Tuliskan tipe kamar">
+                                <input type="text" name="name" id="name" value="{{ old('room_name') }}"
+                                    class="form-control" placeholder="Tuliskan tipe kamar">
 
                                 <span class="text-danger msg-error name-error"></span>
                             </div>
@@ -87,8 +89,8 @@
                             <!-- Number of guest -->
                             <div class="form-group">
                                 <label for="number-of-guest">Jumlah tamu</label>
-                              <input type="text" id="number-of-guest" name="number_of_guest" class="form-control"
-                                                placeholder="Tuliskan jumlah tamu">
+                                <input type="text" id="number-of-guest" name="number_of_guest" class="form-control"
+                                    placeholder="Tuliskan jumlah tamu">
 
                                 <span class="text-danger msg-error number_of_guest-error"></span>
                             </div>
@@ -125,7 +127,7 @@
                                             <input type="text" id="prices" name="prices" class="form-control"
                                                 placeholder="Tuliskan harga">
                                         </div>
-                                         <span class="text-danger msg-error prices-error"></span>
+                                        <span class="text-danger msg-error prices-error"></span>
                                     </div>
                                 </div>
 
@@ -180,17 +182,50 @@
                     theme: 'bootstrap4'
                 })
 
-                const roomTypesTable = $('.table').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "scrollX": true,
+                $('.table').DataTable({
+                    stateSave: true,
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    scrollX: true,
+                    autoWidth: false,
+                    ajax: 'room-types/room-types',
+                    columns: [{
+                            data: 'name',
+                            name: 'name',
+                        },
+                        {
+                            data: 'facility',
+                            name: 'facility',
+                        },
+                        {
+                            data: 'price',
+                            name: 'price',
+                        },
+                        {
+                            data: 'room-count',
+                            name: 'room-count',
+                        },
+                        {
+                            data: 'guest-count',
+                            name: 'guest-count',
+                        },
+                        {
+                            data: 'updated_at',
+                            name: 'updated_at'
+                        },
+                        {
+                            data: 'actions',
+                            name: 'actions'
+                        }
+                    ],
+                    language: {
+                        processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',
+                        emptyTable: "Data tidak tersedia!",
+                        zeroRecords: "Data tidak ditemukan",
+                        search: "Cari:",
+                    },
                 })
-
-                fetchRoomTypes()
 
                 $('#room-type-add-edit').toggle()
 
@@ -213,8 +248,9 @@
                         },
                         success(res) {
                             if (res) {
-                                 res.forEach(facility => {
-                                    let newOption = new Option(facility.name, facility.id, false, false)
+                                res.forEach(facility => {
+                                    let newOption = new Option(facility.name, facility.id,
+                                        false, false)
                                     $('#facilities').append(newOption)
                                 })
                             }
@@ -222,11 +258,11 @@
                     })
                 })
 
-                $(document).on('click', '#btn-add-price', function () {
+                $(document).on('click', '#btn-add-price', function() {
                     createRoomElement()
                 })
 
-                $(document).on('click', '.btn-remove-price', function () {
+                $(document).on('click', '.btn-remove-price', function() {
                     $(this).parents(':eq(0)').remove()
                 })
 
@@ -258,11 +294,11 @@
                         data: {
                             name,
                             number_of_guest: numberOfGuest,
-                            facilities ,
+                            facilities,
                             descriptions,
                             prices,
                         },
-                        beforeSend(){
+                        beforeSend() {
                             $('.msg-error').text('')
                         },
                         success(res) {
@@ -275,7 +311,11 @@
                             fetchRoomTypes()
                         },
                         error(res) {
-                            const { errors, message, status } = res.responseJSON
+                            const {
+                                errors,
+                                message,
+                                status
+                            } = res.responseJSON
                             if (status === 'failed') {
                                 alert(message, status)
                             } else {
@@ -287,7 +327,8 @@
                                     if (fieldError.length === 1) {
                                         $(`.${fieldError[0]}-error`).text(textError)
                                     } else {
-                                        $(`.${fieldError[0]}-error`)[fieldError[1]].innerText = textError.replace(regex, '')
+                                        $(`.${fieldError[0]}-error`)[fieldError[1]].innerText =
+                                            textError.replace(regex, '')
                                     }
                                 }
                             }
@@ -317,18 +358,20 @@
                             clearForm()
                         },
                         success(res) {
+                            console.log("🚀 ~ file: index.blade.php ~ line 361 ~ success ~ res", res)
                             if (res.roomType && res.facilities) {
                                 $('#room-type-id').val(res.roomType.id)
                                 $('#name').val(res.roomType.name)
                                 $('#number-of-guest').val(res.roomType.number_of_guest)
 
                                 $('#dynamic-form-wrapper').children('.row:not(:first)').remove()
-                                res.roomType.room_prices.forEach((roomPrice, index) => {
+                                res.roomPrices.forEach((roomPrice, index) => {
                                     if (index) {
                                         createRoomElement()
                                     }
                                     $('input[name="prices"]')[index].value = roomPrice.price
-                                    $('input[name="descriptions"]')[index].value = roomPrice.description
+                                    $('input[name="descriptions"]')[index].value = roomPrice
+                                        .description
                                 })
 
                                 let optionSelected = []
@@ -394,7 +437,11 @@
                             fetchRoomTypes()
                         },
                         error(res) {
-                            const { errors, message, status } = res.responseJSON
+                            const {
+                                errors,
+                                message,
+                                status
+                            } = res.responseJSON
                             if (status === 'failed') {
                                 alert(message, status)
                             } else {
@@ -406,7 +453,8 @@
                                     if (fieldError.length === 1) {
                                         $(`.${fieldError[0]}-error`).text(textError)
                                     } else {
-                                        $(`.${fieldError[0]}-error`)[fieldError[1]].innerText = textError.replace(regex, '')
+                                        $(`.${fieldError[0]}-error`)[fieldError[1]].innerText =
+                                            textError.replace(regex, '')
                                     }
                                 }
                             }
@@ -439,7 +487,10 @@
                             fetchRoomTypes()
                         },
                         error(res) {
-                            const { message, status } = res.responseJSON
+                            const {
+                                message,
+                                status
+                            } = res.responseJSON
                             alert(message, status)
                             $('#modal-delete').modal('hide')
                         }
@@ -494,62 +545,7 @@
                 }
 
                 function fetchRoomTypes() {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        dataType: 'json',
-                        type: 'get',
-                        url: 'room-types/room-types',
-                        success(res) {
-                            if (res.data) {
-                                roomTypesTable.clear().draw()
-
-                                 res.data.forEach(roomType => {
-                                    let btnAction = `
-                                        <!-- Button Edit -->
-                                        <i class="fas fa-edit mr-1 btn-show-edit text-primary" data-toggle="modal"
-                                            id="${roomType.id}">
-                                        </i>
-
-                                        <!-- Button Delete -->
-                                            <i class="fas fa-trash-alt btn-show-delete text-danger" data-toggle="modal"
-                                                id="${roomType.id}">
-                                        </i>
-                                    `
-
-                                    let facilities = ''
-                                    roomType.room_facilities.forEach((facilityRoom) => {
-                                        facilities += `
-                                            <span class="badge badge-pill badge-warning">
-                                                ${facilityRoom.facility.name}
-                                            </span>
-                                        `
-                                    })
-
-                                    let prices = ''
-                                    roomType.room_prices.forEach((roomPrice) => {
-                                        prices += `
-                                            <p>
-                                                <span class="d-block">${roomPrice.description} :</span>
-                                                <span class="d-block">${idMoneyFormat(roomPrice.price)}</span>
-                                            </p>
-                                        `
-                                    })
-
-                                    roomTypesTable.row.add([
-                                        roomType.name,
-                                        facilities,
-                                        prices,
-                                        roomType.number_of_guest,
-                                        roomType.rooms.length,
-                                        idDateFormat(roomType.updated_at),
-                                        btnAction
-                                    ]).draw(false)
-                                })
-                            }
-                        }
-                    })
+                    $('.table').DataTable().ajax.reload()
                 }
                 // end Methods
             })

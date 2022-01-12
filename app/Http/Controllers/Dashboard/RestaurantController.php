@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Restaurant\StoreRestaurantRequest;
 use App\Http\Requests\Restaurant\UpdateRestaurantRequest;
 use App\Models\Restaurant;
+use App\Models\RestaurantOrder;
 use Illuminate\Database\QueryException;
+use Yajra\DataTables\Facades\DataTables;
 
 class RestaurantController extends Controller
 {
@@ -59,7 +61,10 @@ class RestaurantController extends Controller
         if ($restaurant) {
             return response()->json(
                 [
-                    'restaurant' => $restaurant,
+                    'id' => $restaurant->id,
+                    'name' => $restaurant->name,
+                    'unit' => $restaurant->unit,
+                    'price' => $restaurant->getRawOriginal('price'),
                 ],
                 200,
             );
@@ -127,9 +132,17 @@ class RestaurantController extends Controller
 
     public function restaurants()
     {
-        $restaurants = Restaurant::latest()->paginate(10);
-        if ($restaurants) {
-            return response()->json($restaurants, 200);
+        $restaurant = Restaurant::latest();
+        if ($restaurant) {
+            return DataTables::of($restaurant)
+                ->addColumn('actions', function (Restaurant $restaurant) {
+                    return view('components.shared.action-btn',
+                        [
+                            'id' => $restaurant->id,
+                            'btnDeleteHide' => !RestaurantOrder::where('restaurant_id', $restaurant->id)->first(),
+                        ]);
+                })
+                ->make(true);
         };
     }
 }

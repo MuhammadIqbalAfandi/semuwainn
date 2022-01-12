@@ -26,7 +26,7 @@ class HomeController extends Controller
                         'defaultImage' => '/img/default-room.webp',
                     ],
                     'name' => $roomType->name,
-                    'price' => $roomType->roomPrices->min('price'),
+                    'price' => $roomType->roomPrices->min()->getRawOriginal('price'),
                     'facilities' => $roomType->roomFacilities->take(3)->pluck('facility.name'),
                     'facilityCount' => $roomType->roomFacilities->skip(3)->count(),
                     'numberOfGuest' => $roomType->number_of_guest,

@@ -16,6 +16,11 @@ class ServiceOrder extends Model
         'service_id',
     ];
 
+    public function getPriceAttribute($value)
+    {
+        return 'Rp. ' . number_format($value, '2', ',', '.');
+    }
+
     public function reservation()
     {
         return $this->belongsTo(Reservation::class);

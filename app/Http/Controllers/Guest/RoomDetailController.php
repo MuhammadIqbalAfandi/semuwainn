@@ -26,15 +26,15 @@ class RoomDetailController extends Controller
                 ],
                 'numberOfGuest' => $roomType->number_of_guest,
                 'priceRange' => [
-                    'minPrice' => $roomType->roomPrices->min('price'),
-                    'maxPrice' => $roomType->roomPrices->max('price'),
+                    'minPrice' => $roomType->roomPrices->min()->getRawOriginal('price'),
+                    'maxPrice' => $roomType->roomPrices->max()->getRawOriginal('price'),
                 ],
                 'facilities' => $roomType->roomFacilities->pluck('facility.name'),
                 'roomsId' => $roomType->rooms->whereNotIn('id', $roomType->roomOrders->pluck('room_id'))->pluck('id'),
                 'prices' => $roomType->roomPrices->transform(fn($roomPrice) => [
                     'id' => $roomPrice->id,
                     'description' => $roomPrice->description,
-                    'price' => $roomPrice->price,
+                    'price' => $roomPrice->getRawOriginal('price'),
                 ]),
             ],
         ]);

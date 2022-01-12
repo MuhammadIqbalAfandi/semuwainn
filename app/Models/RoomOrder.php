@@ -40,6 +40,11 @@ class RoomOrder extends Model
         return Carbon::parse($value)->format('d/m/Y');
     }
 
+    public function getPriceAttribute($value)
+    {
+        return 'Rp. ' . number_format($value, '2', ',', '.');
+    }
+
     public function setCheckoutAttribute($value)
     {
         $this->attributes['checkout'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();

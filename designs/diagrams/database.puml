@@ -1,4 +1,4 @@
-@startuml Semuwainn
+@startuml SemuwainnDatabase
   entity Reservation {
     * id
     __

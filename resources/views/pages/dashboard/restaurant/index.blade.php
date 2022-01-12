@@ -3,7 +3,8 @@
     <x-shared.content-wrapper>
         <x-shared.content-header title="Hidangan Restoran">
             <x-slot name="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}" class="text-warning">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}"
+                        class="text-warning">Dashboard</a></li>
                 <li class="breadcrumb-item active">Hidangan Restoran</li>
             </x-slot>
         </x-shared.content-header>
@@ -100,14 +101,41 @@
         <script>
             $(() => {
                 // Mounted
-                const restaurantsTable = $('.table').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "scrollX": true,
+                $('.table').DataTable({
+                    stateSave: true,
+                    responsive: true,
+                    processing: true,
+                    serverSide: true,
+                    scrollX: true,
+                    autoWidth: false,
+                    ajax: 'restaurants/restaurants',
+                    columns: [{
+                            data: 'name',
+                            name: 'name',
+                        },
+                        {
+                            data: 'unit',
+                            name: 'unit',
+                        },
+                        {
+                            data: 'price',
+                            name: 'price',
+                        },
+                        {
+                            data: 'updated_at',
+                            name: 'updated_at'
+                        },
+                        {
+                            data: 'actions',
+                            name: 'actions'
+                        }
+                    ],
+                    language: {
+                        processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',
+                        emptyTable: "Data tidak tersedia!",
+                        zeroRecords: "Data tidak ditemukan",
+                        search: "Cari:",
+                    },
                 })
 
                 fetchRestaurants()
@@ -148,7 +176,11 @@
                             fetchRestaurants()
                         },
                         error(res) {
-                            const { errors, message, status } = res.responseJSON
+                            const {
+                                errors,
+                                message,
+                                status
+                            } = res.responseJSON
                             if (status === 'failed') {
                                 alert(message, status)
                             } else {
@@ -178,10 +210,16 @@
                             $('#modal-add').modal('show')
                         },
                         success(res) {
-                            $('#restaurant-id').val(res.restaurant.id)
-                            $('#name').val(res.restaurant.name)
-                            $('#unit').val(res.restaurant.unit)
-                            $('#price').val(res.restaurant.price)
+                            const {
+                                id,
+                                name,
+                                unit,
+                                price
+                            } = res
+                            $('#restaurant-id').val(id)
+                            $('#name').val(name)
+                            $('#unit').val(unit)
+                            $('#price').val(price)
                         },
                     })
                 })
@@ -217,7 +255,11 @@
                             clearForm()
                         },
                         error(res) {
-                            const { errors, message, status } = res.responseJSON
+                            const {
+                                errors,
+                                message,
+                                status
+                            } = res.responseJSON
                             if (status === 'failed') {
                                 alert(message, status)
                             } else {
@@ -265,39 +307,7 @@
                 }
 
                 function fetchRestaurants() {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        dataType: 'json',
-                        type: 'get',
-                        url: 'restaurants/restaurants',
-                        success(res) {
-                            if (res.data) {
-                                restaurantsTable.clear().draw()
-
-                                 res.data.forEach(restaurant => {
-                                    let btnAction = `
-                                        <!-- Button Edit -->
-                                        <i class="fas fa-edit mr-1 btn-show-edit text-primary" data-toggle="modal"
-                                            id="${restaurant.id}"></i>
-
-                                        <!-- Button Delete -->
-                                        <i class="fas fa-trash-alt btn-show-delete text-danger" data-toggle="modal"
-                                            id="${restaurant.id}">
-                                        </i>
-                                    `
-                                    restaurantsTable.row.add([
-                                        restaurant.name,
-                                        restaurant.unit,
-                                        idMoneyFormat(restaurant.price),
-                                        idDateFormat(restaurant.updated_at),
-                                        btnAction
-                                    ]).draw(false)
-                                })
-                            }
-                        }
-                    })
+                    $('.table').DataTable().ajax.reload()
                 }
                 // end Methods
             });

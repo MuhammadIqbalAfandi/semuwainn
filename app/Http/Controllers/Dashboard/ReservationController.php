@@ -4,19 +4,13 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reservation\StoreReservationRequest;
-use App\Http\Requests\Reservation\StoreReservationServiceRequest;
-use App\Http\Requests\Reservation\UpdateReservationRequest;
-use App\Http\Requests\Reservation\UpdateReservationStatusRequest;
 use App\Models\Guest;
 use App\Models\Reservation;
-use App\Models\ReservationStatus;
-use App\Models\Room;
-use App\Models\RoomOrder;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class ReservationController extends Controller
 {
@@ -28,6 +22,43 @@ class ReservationController extends Controller
     public function index()
     {
         return view('pages.dashboard.reservation.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Reservation $reservation
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Reservation $reservation)
+    {
+        $nightCount = Carbon::parse($reservation->getRawOriginal('checkin'))
+            ->diffInDays($reservation->getRawOriginal('checkout'));
+        $totalRoomPrice = $reservation->roomOrders->sum(function ($roomOrder) {
+            return $roomOrder->getRawOriginal('price') * $roomOrder->quantity;
+        });
+        $totalServicePrice = $reservation->serviceOrders->sum(function ($serviceOrder) {
+            return $serviceOrder->getRawOriginal('price') * $serviceOrder->quantity;
+        });
+        $totalRestaurantPrice = $reservation->restaurantOrders->sum(function ($restaurantOrder) {
+            return $restaurantOrder->getRawOriginal('price') * $restaurantOrder->quantity;
+        });
+        $totalPrice = 'Rp. ' . number_format(($totalRoomPrice + $totalServicePrice + $totalRestaurantPrice), '2', ',', '.');
+
+        $totalRoomPriceString = 'Rp. ' . number_format($totalRoomPrice, '2', ',', '.');
+        $totalServicePriceString = 'Rp. ' . number_format($totalServicePrice, '2', ',', '.');
+        $totalRestaurantPriceString = 'Rp. ' . number_format($totalRestaurantPrice, '2', ',', '.');
+
+        return view('pages.dashboard.reservation.show',
+            compact(
+                'reservation',
+                'nightCount',
+                'totalPrice',
+                'totalRoomPriceString',
+                'totalServicePriceString',
+                'totalRestaurantPriceString',
+            ),
+        );
     }
 
     /**
@@ -50,25 +81,6 @@ class ReservationController extends Controller
     {
         DB::beginTransaction();
         try {
-            $reservation = Reservation::create([
-                'reservation_number' => 'OD' . Carbon::now()->format('siHdmy'),
-                'checkin' => $request->checkin,
-                'checkout' => $request->checkout,
-                'guest_count' => $request->guest_count,
-                'discount' => $request->discount,
-                'user_id' => auth()->user()->id,
-                'guest_id' => $request->guest_id,
-                'reservation_status_id' => 2,
-            ]);
-
-            foreach ($request->rooms as $index => $room) {
-                $reservation->roomOrders()->create([
-                    'price' => $request->prices[$index],
-                    'user_id' => auth()->user()->id,
-                    'room_id' => $request->rooms[$index],
-                ]);
-            }
-
             DB::commit();
 
             return response()->json(
@@ -78,7 +90,7 @@ class ReservationController extends Controller
                 ],
                 201,
             );
-        } catch (Exception $e) {
+        } catch (QueryException $e) {
             DB::rollback();
 
             return response()->json(
@@ -86,149 +98,7 @@ class ReservationController extends Controller
                     'message' => 'Pemesanan tidak berhasil ditambahkan',
                     'status' => 'failed',
                 ],
-                400,
-            );
-        }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeRoom(Request $request, Reservation $reservation)
-    {
-        try {
-            foreach ($request->rooms as $index => $room) {
-                $reservation->roomOrders()->create([
-                    'user_id' => auth()->user()->id,
-                    'room_id' => $request->rooms[$index],
-                    'price' => $request->prices[$index],
-                    'discount' => $request->discounts[$index],
-                    'room_order_status_id' => 1,
-                ]);
-
-                $reservation->create([
-                    'checkin' => $reservation->roomOrders[0]->getRawOriginal('checkin'),
-                    'checkout' => $reservation->roomOrders[0]->getRawOriginal('checkout'),
-                ]);
-            }
-            return response()->json(
-                [
-                    'message' => 'Kamar berhasil ditambahkan',
-                    'status' => 'success',
-                ],
-                201,
-            );
-        } catch (Exception $e) {
-            return response()->json(
-                [
-                    'message' => 'Kamar tidak berhasil ditambahkan',
-                    'status' => 'failed',
-                ],
-                400,
-            );
-        }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeService(StoreReservationServiceRequest $request, Reservation $reservation)
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeRestaurant(Request $request, Reservation $reservation)
-    {
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Reservation  $reservation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reservation $reservation)
-    {
-        $reservation = $reservation->where('id', $reservation->id)->with(['guest', 'roomOrders'])->first();
-        if ($reservation) {
-            return response()->json(
-                [
-                    'reservation' => $reservation,
-                ],
-                200,
-            );
-        };
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Reservation  $reservation
-     * @return \Illuminate\Http\Response
-     */
-    public function editStatus(Reservation $reservation)
-    {
-        $reservationStatuses = ReservationStatus::all();
-        if ($reservation) {
-            return response()->json(
-                [
-                    'reservation' => $reservation,
-                    'reservationStatuses' => $reservationStatuses,
-                ],
-                200,
-            );
-        };
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Reservation  $Reservation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateReservationRequest $request, Reservation $reservation)
-    {
-        DB::beginTransaction();
-        try {
-            $reservation->update($request->validated());
-
-            foreach ($reservation->roomOrders as $index => $roomOrder) {
-                $reservation->roomOrders[$index]->update([
-                    'checkin' => $request->checkin,
-                    'checkout' => $request->checkout,
-                ]);
-            }
-
-            DB::commit();
-
-            return response()->json(
-                [
-                    'message' => 'Pemesanan berhasil diubah',
-                    'status' => 'success',
-                ],
-                201,
-            );
-        } catch (Exception $e) {
-            DB::rollBack();
-
-            return response()->json(
-                [
-                    'message' => 'Pemesanan tidak berhasil diubah',
-                    'status' => 'failed',
-                ],
-                442,
+                422,
             );
         }
     }
@@ -237,13 +107,16 @@ class ReservationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Reservation  $Reservation
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateStatus(UpdateReservationStatusRequest $request, Reservation $reservation)
+    public function update(Request $request, Reservation $reservation)
     {
         try {
-            $reservation->update($request->validated());
+            $reservation->update([
+                'user_id' => auth()->user()->id,
+                'reservation_status_id' => $request->reservation_status_id,
+            ]);
             return response()->json(
                 [
                     'message' => 'Status pemesanan berhasil diubah',
@@ -280,33 +153,48 @@ class ReservationController extends Controller
         );
     }
 
+    public function reservations()
+    {
+        $reservation = Reservation::with(['roomOrders', 'guest', 'reservationStatus'])->latest();
+        if ($reservation) {
+            return DataTables::of($reservation)
+                ->addColumn('order', function (Reservation $reservation) {
+                    return view('components.reservation.index.order-date',
+                        [
+                            'id' => $reservation->id,
+                            'reservation_number' => $reservation->reservation_number,
+                            'reservation_time' => $reservation->reservation_time,
+                        ]);
+                })
+                ->addColumn('checkin-checkout', function (Reservation $reservation) {
+                    return view('components.reservation.index.checkin-checkout',
+                        [
+                            'checkin' => $reservation->checkin,
+                            'checkout' => $reservation->checkout,
+                        ]);
+                })
+                ->addColumn('night-count', function (Reservation $reservation) {
+                    $nightCount = Carbon::parse($reservation->getRawOriginal('checkin'))->diffInDays($reservation->getRawOriginal('checkout'));
+                    return view('components.reservation.index.night-count', compact('nightCount'));
+                })
+                ->addColumn('room-count', fn(Reservation $reservation) => $reservation->roomOrders->count())
+                ->addColumn('guest-count', fn(Reservation $reservation) => $reservation->roomOrders->count())
+                ->addColumn('status', function (Reservation $reservation) {
+                    return view('components.reservation.index.status',
+                        [
+                            'status' => $reservation->reservationStatus->name,
+                        ]);
+                })
+                ->addColumn('actions', function (Reservation $reservation) {
+                    return view('components.reservation.index.action-btn', ['id' => $reservation->id]);
+                })
+                ->make(true);
+        }
+    }
+
     public function nik(Request $request)
     {
         $response = Guest::where('nik', 'like', "%{$request->search}%")->get(['id', 'nik']);
         return response()->json($response, 200);
-    }
-
-    public function rooms()
-    {
-        $reservationsRoomId = RoomOrder::pluck('room_id');
-        $rooms = Room::whereNotIn('id', $reservationsRoomId)->with(['roomType.roomPrices'])->get();
-        if ($rooms) {
-            return response()->json(
-                [
-                    'rooms' => $rooms,
-                ],
-                200,
-            );
-        }
-    }
-
-    public function reservations()
-    {
-        $reservations = Reservation::with(['roomOrders', 'guest', 'reservationStatus'])
-            ->latest()
-            ->paginate(10);
-        if ($reservations) {
-            return response()->json($reservations, 200);
-        }
     }
 }
