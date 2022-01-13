@@ -173,7 +173,7 @@
         <a class="btn btn-sm btn-warning mt-3 block" href="{{ route('facility.index') }}">Tambah Fasilitas</a>
     </x-shared.modal> --}}
 
-    <x-slot name="script">
+    @push('scripts')
         <script>
             $(() => {
                 // Mounted
@@ -550,5 +550,5 @@
                 // end Methods
             })
         </script>
-    </x-slot>
+    @endpush
 </x-dashboard-layout>

@@ -25,8 +25,8 @@ class StoreServiceRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:50|unique:services,name',
-            'unit' => 'required|string|max:50',
             'price' => 'required|numeric',
+            'service_unit_id' => 'required',
         ];
     }
 }

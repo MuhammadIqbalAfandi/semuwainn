@@ -113,7 +113,8 @@
             }
         })
     </script>
-    {{ $script ?? null }}
+
+    @stack('scripts')
 </body>
 
 </html>

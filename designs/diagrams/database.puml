@@ -44,7 +44,13 @@
     __
     * name
     * price
-    * unit
+    * service_unit_id
+  }
+
+  entity ServiceUnit {
+    * id
+    __
+    * name
   }
 
     entity RestaurantOrder {
@@ -154,6 +160,7 @@
   RoomFacility ||--|{ Facility
   RoomThumbnail ||--|{ Thumbnail
   ServiceOrder ||--|{ Service
+  Service ||--|{ ServiceUnit
   RestaurantOrder ||--|{ Restaurant
   User ||--|{ Role
 

@@ -61,7 +61,6 @@ class RestaurantController extends Controller
         if ($restaurant) {
             return response()->json(
                 [
-                    'id' => $restaurant->id,
                     'name' => $restaurant->name,
                     'unit' => $restaurant->unit,
                     'price' => $restaurant->getRawOriginal('price'),

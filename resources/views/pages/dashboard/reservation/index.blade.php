@@ -85,7 +85,7 @@
         </p>
     </x-shared.modal>
 
-    <x-slot name="script">
+    @push('scripts')
         <script>
             $(() => {
                 // Mounted
@@ -240,5 +240,5 @@
                 // end Methods
             })
         </script>
-    </x-slot>
+    @endpush
 </x-dashboard-layout>

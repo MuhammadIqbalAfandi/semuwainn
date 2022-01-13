@@ -12,8 +12,8 @@ class Service extends Model
 
     protected $fillable = [
         'name',
-        'unit',
         'price',
+        'service_unit_id',
     ];
 
     public function getUpdatedAtAttribute($value)
@@ -24,5 +24,10 @@ class Service extends Model
     public function getPriceAttribute($value)
     {
         return 'Rp. ' . number_format($value, '2', ',', '.');
+    }
+
+    public function serviceUnit()
+    {
+        return $this->belongsTo(ServiceUnit::class);
     }
 }

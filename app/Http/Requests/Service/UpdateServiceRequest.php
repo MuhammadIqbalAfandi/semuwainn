@@ -25,8 +25,8 @@ class UpdateServiceRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:50|unique:services,name,' . $this->id,
-            'unit' => 'required|string|max:50',
             'price' => 'required|numeric',
+            'service_unit_id' => 'required',
         ];
     }
 }

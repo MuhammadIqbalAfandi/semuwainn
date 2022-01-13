@@ -14,11 +14,6 @@ class RoomType extends Model
 {
     use HasFactory;
 
-    protected $with = [
-        'roomOrders',
-        'rooms',
-    ];
-
     protected $fillable = [
         'name',
         'number_of_guest',

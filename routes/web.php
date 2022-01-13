@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\RoomController;
 use App\Http\Controllers\Dashboard\RoomTypeController;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\ServiceOrderController;
+use App\Http\Controllers\Dashboard\ServiceUnitController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Guest\HomeController;
 use App\Http\Controllers\Guest\RoomBookingController;
@@ -54,6 +55,8 @@ Route::prefix('dashboard')->group(function () {
 
             Route::get('/restaurants/restaurants', [RestaurantController::class, 'restaurants']);
             Route::resource('/restaurants', RestaurantController::class);
+
+            Route::resource('/service_units', ServiceUnitController::class);
 
             Route::get('/services/services', [ServiceController::class, 'services']);
             Route::resource('/services', ServiceController::class);

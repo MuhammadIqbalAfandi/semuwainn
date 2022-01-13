@@ -37,6 +37,8 @@
                                     </div>
                                     <input class="form-control" name="quantity" id="quantity" type="text" />
                                 </div>
+
+                                <span class="text-danger msg-error quantity-error"></span>
                             </div>
                         </div>
                         <div class="col-auto d-flex align-items-center">
@@ -68,7 +70,7 @@
         </x-shared.content>
     </x-shared.content-wrapper>
 
-    <x-slot name="script">
+    @push('scripts')
         <script>
             // Data
             const State = {
@@ -80,7 +82,6 @@
             // Mounted
             clearForm()
 
-            // Restaurant
             fetchRestaurant()
 
             $('#restaurant').select2({
@@ -97,36 +98,6 @@
                 scrollX: true,
                 responsive: true,
             })
-            // end Restaurant
-            // end Mounted
-
-            // Methods
-            // Restaurant
-            function fetchRestaurant() {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    dataType: 'json',
-                    type: 'get',
-                    url: '/dashboard/restaurant-orders',
-                    beforeSend() {
-                        $('#restaurant').children('option:not(:first)').remove()
-                    },
-                    success(res) {
-                        if (res) {
-                            State.initialRestaurants = res
-
-                            const restaurants = _.differenceBy(res, State.listOfRestaurantBooked, 'id')
-                            restaurants.forEach((restaurant) => {
-                                let newOption = new Option(restaurant.name, restaurant.id,
-                                    false, false)
-                                $('#restaurant').append(newOption)
-                            })
-                        }
-                    }
-                })
-            }
 
             $('#btn-detail').click(() => {
                 const id = $('#restaurant').find(':selected').val()
@@ -206,7 +177,34 @@
                     }
                 })
             })
-            // end Restaurant
+            // end Mounted
+
+            // Methods
+            function fetchRestaurant() {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    type: 'get',
+                    url: '/dashboard/restaurant-orders',
+                    beforeSend() {
+                        $('#restaurant').children('option:not(:first)').remove()
+                    },
+                    success(res) {
+                        if (res) {
+                            State.initialRestaurants = res
+
+                            const restaurants = _.differenceBy(res, State.listOfRestaurantBooked, 'id')
+                            restaurants.forEach((restaurant) => {
+                                let newOption = new Option(restaurant.name, restaurant.id,
+                                    false, false)
+                                $('#restaurant').append(newOption)
+                            })
+                        }
+                    }
+                })
+            }
 
             function clearForm() {
                 $('#restaurant').val(null).trigger('change');
@@ -214,5 +212,5 @@
             }
             // end Methods
         </script>
-    </x-slot>
+    @endpush
 </x-dashboard-layout>

@@ -61,9 +61,8 @@ class ServiceController extends Controller
         if ($service) {
             return response()->json(
                 [
-                    'id' => $service->id,
                     'name' => $service->name,
-                    'unit' => $service->unit,
+                    'serviceUnitId' => $service->serviceUnit->id,
                     'price' => $service->getRawOriginal('price'),
                 ],
                 200,
@@ -134,6 +133,7 @@ class ServiceController extends Controller
         $service = Service::latest();
         if ($service) {
             return DataTables::of($service)
+                ->addColumn('service_unit_id', fn(Service $service) => $service->serviceUnit->name)
                 ->addColumn('actions', function (Service $service) {
                     return view('components.shared.action-btn',
                         [

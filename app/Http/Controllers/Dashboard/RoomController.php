@@ -60,12 +60,11 @@ class RoomController extends Controller
     public function edit(Room $room)
     {
         $room = $room->where('id', $room->id)->with('roomType')->first();
-        $roomTypes = RoomType::all();
         if ($room) {
             return response()->json(
                 [
-                    'room' => $room,
-                    'roomTypes' => $roomTypes,
+                    'roomNumber' => $room->room_number,
+                    'roomTypeId' => $room->roomType->id,
                 ],
                 200,
             );
