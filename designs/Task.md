@@ -6,4 +6,4 @@
 - [ ] Invoice
 - [ ] Authorization
 - [ ] Add Service
-- [ ] Add Restaurant
+- [x] Add Restaurant

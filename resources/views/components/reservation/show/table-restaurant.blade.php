@@ -23,9 +23,9 @@
     </div>
 
     <div class="row">
-        <div class="col-12 d-flex flex-column align-items-end">
-            <p>Total Harga</p>
-            <p>{{ $totalRestaurantPriceString ?? 0 }}</p>
+        <div class="col-12 d-flex flex-column align-items-end text-secondary">
+            Total Harga
+            <p class="text-danger">{{ $totalRestaurantPriceString ?? 0 }}</p>
         </div>
     </div>
 </x-shared.card>

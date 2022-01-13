@@ -61,7 +61,7 @@
                     <div class="col d-flex justify-content-end">
                         <button type="button" class="btn btn-sm btn-warning" id="btn-save"><i
                                 class="fa fa-save"></i>
-                            Simpan data pesanan</button>
+                            Simpan pesanan</button>
                     </div>
                 </div>
             </x-shared.card>

@@ -17,19 +17,19 @@
                 <div class="col">
                     <div class="row">
                         <div class="col-12">
-                            <p>Pemesan</p>
+                            <p class="text-secondary">Pemesan</p>
                             <p>{{ $reservation->guest->name }}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <p>Nomor Pemesanan</p>
+                            <p class="text-secondary">Nomor Pemesanan</p>
                             <p>{{ $reservation->reservation_number }}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <p>Tanggal Pemesanan</p>
+                            <p class="text-secondary">Tanggal Pemesanan</p>
                             <p>{{ $reservation->reservation_time }}</p>
                         </div>
                     </div>
@@ -37,53 +37,47 @@
                 <div class="col-auto">
                     <div class="row">
                         <div class="col text-right">
-                            <p> Terakhir Diubah Oleh</p>
+                            <p class="text-secondary"> Terakhir Diubah Oleh</p>
                             <p>{{ $reservation->user->name ?? '' }}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col text-right">
-                            <p>Status Pemesanan</p>
+                            <p class="text-secondary">Status Pemesanan</p>
                             <p>{{ $reservation->reservationStatus->name }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col text-right">
-                            <p>Total Harga</p>
-                            <p>{{ $totalPrice }}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-auto mr-3">
-                    <p>Checkin</p>
+                    <p class="text-secondary">Checkin</p>
                     <p>{{ $reservation->check_in }}</p>
                 </div>
                 <div class="col-auto mr-3">
-                    <p>Checkout</p>
+                    <p class="text-secondary">Checkout</p>
                     <p>{{ $reservation->check_out }}</p>
                 </div>
                 <div class="col-auto">
-                    <p>Lama Inap</p>
+                    <p class="text-secondary">Lama Inap</p>
                     <p>{{ $nightCount }} Hari</p>
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col-auto mr-3">
-                    <p>Total Tamu</p>
+                    <p class="text-secondary">Total Tamu</p>
                     <p>{{ $reservation->roomOrders->pluck('guest_count')->count() }}</p>
                 </div>
                 <div class="col-auto mr-3">
-                    <p>Total Kamar</p>
+                    <p class="text-secondary">Total Kamar</p>
                     <p>{{ $reservation->roomOrders->pluck('guest_count')->count() }}</p>
                 </div>
                 <div class="col-auto mr-3">
-                    <p>Total Layanan</p>
+                    <p class="text-secondary">Total Layanan</p>
                     <p>{{ $reservation->serviceOrders->pluck('quantity')->count() }}</p>
                 </div>
                 <div class="col-auto">
-                    <p>Total Hidangan</p>
+                    <p class="text-secondary">Total Hidangan</p>
                     <p>{{ $reservation->restaurantOrders->pluck('quantity')->count() }}</p>
                 </div>
             </div>
@@ -96,6 +90,13 @@
             <x-reservation.show.table-restaurant :reservation="$reservation"
                 :totalRestaurantPriceString="$totalRestaurantPriceString">
             </x-reservation.show.table-restaurant>
+
+            <div class="row">
+                <div class="col text-right">
+                    Total Harga
+                    <h3 class="text-danger">{{ $totalPrice }}</h3>
+                </div>
+            </div>
         </x-shared.content>
     </x-shared.content-wrapper>
 </x-dashboard-layout>
