@@ -85,7 +85,7 @@ class ReservationController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Pemesanan berhasil ditambahkan',
+                    'message' => __('messages.success.store.reservation'),
                     'status' => 'success',
                 ],
                 201,
@@ -95,7 +95,7 @@ class ReservationController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Pemesanan tidak berhasil ditambahkan',
+                    'message' => __('messages.errors.store.all'),
                     'status' => 'failed',
                 ],
                 422,
@@ -119,7 +119,7 @@ class ReservationController extends Controller
             ]);
             return response()->json(
                 [
-                    'message' => 'Status pemesanan berhasil diubah',
+                    'message' => __('messages.success.update.reservation-status'),
                     'status' => 'success',
                 ],
                 201,
@@ -133,24 +133,6 @@ class ReservationController extends Controller
                 422,
             );
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  facility  $facility
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Reservation $reservation)
-    {
-        $reservation->delete();
-        return response()->json(
-            [
-                'message' => 'Fasilitas berhasil dihapus',
-                'status' => 'success',
-            ],
-            200,
-        );
     }
 
     public function reservations()

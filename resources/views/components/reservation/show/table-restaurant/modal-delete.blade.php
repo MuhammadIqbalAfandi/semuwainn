@@ -36,7 +36,7 @@
                     },
                     dataType: 'json',
                     type: 'delete',
-                    url: `services/${id}`,
+                    url: `/dashboard/restaurant-orders/${id}`,
                     success(res) {
                         alert(res.message, res.status)
                         $('#modal-delete-restaurant').modal('hide')

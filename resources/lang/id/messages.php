@@ -7,6 +7,7 @@ return [
     ],
     'success' => [
         'store' => [
+            'reservation' => 'Pemesanan berhasil ditambahkan',
             'service-order' => 'Layanan berhasil ditambahkan',
             'restaurant-order' => 'Hidangan berhasil ditambahkan',
             'room_booking' => 'Pemesanan berhasil diproses',
@@ -19,6 +20,7 @@ return [
             'guest' => 'Data tamu berhasil ditambahkan',
         ],
         'update' => [
+            'reservation-status' => 'Status pemesanan berhasil diubah',
             'user' => 'Akun user berhasil diubah',
             'room-type' => 'Ruangan berhasil diubah',
             'facility' => 'Fasilitas berhasil diubah',
@@ -28,6 +30,7 @@ return [
             'guest' => 'Akun user berhasil diubah',
         ],
         'destroy' => [
+            'restaurant-order' => 'Hidangan berhasil dihapus',
             'room-type' => 'Ruangan berhasil dihapus',
             'facility' => 'Fasilitas berhasil dihapus',
             'room' => 'Kamar berhasil dihapus',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Models\Restaurant;
+use App\Models\RestaurantOrder;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -120,8 +121,26 @@ class RestaurantOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(RestaurantOrder $restaurantOrder)
     {
-        //
+        try {
+            $restaurantOrder->delete();
+            return response()->json(
+                [
+                    'message' => __('messages.success.destroy.restaurant-order'),
+                    'status' => 'success',
+                ],
+                200,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.destroy.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
+        }
+
     }
 }
