@@ -7,6 +7,7 @@
                         <th>Nama</th>
                         <th>Kuantitas</th>
                         <th>Harga</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -15,6 +16,11 @@
                             <td>{{ $restaurantOrder->restaurant->name }}</td>
                             <td>{{ $restaurantOrder->quantity }}</td>
                             <td>{{ $restaurantOrder->price }} (x {{ $restaurantOrder->quantity }} Kuantitas)</td>
+                            <td>
+                                <i class="fas fa-trash-alt show-restaurant-delete-btn text-danger"
+                                    id="{{ $restaurantOrder->id }}">
+                                </i>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -28,4 +34,6 @@
             <p class="text-danger">{{ $totalRestaurantPriceString ?? 0 }}</p>
         </div>
     </div>
+
+    <x-reservation.show.table-restaurant.modal-delete></x-reservation.show.table-restaurant.modal-delete>
 </x-shared.card>

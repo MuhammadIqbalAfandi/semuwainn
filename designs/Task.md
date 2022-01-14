@@ -6,4 +6,5 @@
 - [ ] Invoice
 - [ ] Authorization
 - [ ] Add Service
+- [ ] Dashboard Reservation
 - [x] Add Restaurant

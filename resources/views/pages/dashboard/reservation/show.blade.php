@@ -84,9 +84,11 @@
 
             <x-reservation.show.table-room :reservation="$reservation" :totalRoomPriceString="$totalRoomPriceString">
             </x-reservation.show.table-room>
+
             <x-reservation.show.table-service :reservation="$reservation" :roomOrders="$reservation"
                 :totalServicePriceString="$totalServicePriceString">
             </x-reservation.show.table-service>
+
             <x-reservation.show.table-restaurant :reservation="$reservation"
                 :totalRestaurantPriceString="$totalRestaurantPriceString">
             </x-reservation.show.table-restaurant>
