@@ -10,6 +10,19 @@ class ReservationStatusController extends Controller
 {
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $reservationStatus = ReservationStatus::all();
+        if ($reservationStatus) {
+            return response()->json($reservationStatus, 200);
+        }
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -19,15 +32,7 @@ class ReservationStatusController extends Controller
     {
         $reservation = Reservation::find($id);
         if ($reservation) {
-            return response()->json(
-                [
-                    'reservationId' => $reservation->id,
-                    'reservationStatusId' => $reservation->reservation_status_id,
-                    'reservationStatuses' => ReservationStatus::all(),
-                ],
-                200,
-            );
+            return response()->json($reservation, 200);
         }
-        ;
     }
 }

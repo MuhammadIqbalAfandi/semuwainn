@@ -186,7 +186,7 @@ class RoomTypeController extends Controller
                     return view('components.room-type.action-btn',
                         [
                             'id' => $roomType->id,
-                            'btnDeleteHide' => !$roomType->roomOrders->count(),
+                            'btnDeleteHide' => !$roomType->rooms->count(),
                         ]);
                 })
                 ->make(true);

@@ -47,7 +47,10 @@ class ServiceOrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $reservationId = Reservation::find($id)->id;
+        if ($reservationId) {
+            return view('pages.dashboard.service-order.show', compact('reservationId'));
+        }
     }
 
     /**
@@ -58,10 +61,7 @@ class ServiceOrderController extends Controller
      */
     public function edit($id)
     {
-        $reservation = Reservation::find($id);
-        if ($reservation) {
-            return view('pages.dashboard.service-order.edit');
-        }
+        //
     }
 
     /**

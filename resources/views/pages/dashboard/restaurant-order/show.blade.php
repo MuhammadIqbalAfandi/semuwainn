@@ -44,8 +44,8 @@
                             </div>
                         </div>
 
-                        <div class="col-auto d-flex align-items-center">
-                            <button type="button" class="btn btn-sm btn-warning mt-3" id="btn-detail"><i
+                        <div class="col-auto mt-4">
+                            <button type="button" class="btn btn-sm btn-warning mt-2" id="btn-detail"><i
                                     class="fa fa-plus"></i></button>
                         </div>
                     </div>
@@ -75,145 +75,160 @@
 
     @push('scripts')
         <script>
-            // Data
-            const State = {
-                initialRestaurants: [],
-                listOfRestaurantBooked: [],
-            }
-            // end Data
-
-            // Mounted
-            clearForm()
-
-            fetchRestaurant()
-
-            $('#restaurant').select2({
-                placeholder: 'Pilih Hidangan',
-                theme: 'bootstrap4'
-            })
-
-            const table = $('.table').DataTable({
-                paging: false,
-                searching: false,
-                ordering: false,
-                info: false,
-                autoWidth: false,
-                scrollX: true,
-                responsive: true,
-            })
-
-            $('#btn-detail').click(() => {
-                const id = $('#restaurant').find(':selected').val()
-                const quantity = $('#quantity').val()
-
-                if (isNaN(quantity)) {
-                    return alert('Nilai harus angka', 'failed')
+            $(() => {
+                // Data
+                const State = {
+                    initialRestaurants: [],
+                    listOfRestaurantBooked: [],
+                    error: false,
                 }
-                if (!quantity || !id) {
-                    return alert('Nilai tidak boleh kosong', 'failed')
-                }
+                // end Data
 
-                const room = State.initialRestaurants.find((room) => room.id == id)
-                if (room) {
-                    table.row.add([
-                        room.name,
-                        quantity,
-                        idMoneyFormat(room.price),
-                        `
+                // Mounted
+                clearForm()
+
+                fetchRestaurant()
+
+                const table = $('.table').DataTable({
+                    paging: false,
+                    searching: false,
+                    ordering: false,
+                    info: false,
+                    autoWidth: false,
+                    scrollX: true,
+                    responsive: true,
+                })
+
+                $('#btn-detail').click(() => {
+                    const id = $('#restaurant').find(':selected').val()
+                    const quantity = $('#quantity').val()
+
+                    State.error = false
+                    $('.msg-error').text('')
+                    if (isNaN(quantity)) {
+                        $('.quantity-error').text('Nilai harus angka')
+                        State.error = true
+                    }
+                    if (!quantity) {
+                        $('.quantity-error').text('Nilai tidak boleh kosong')
+                        State.error = true
+                    }
+                    if (!id) {
+                        $('.restaurant-error').text('Nilai tidak boleh kosong')
+                        State.error = true
+                    }
+                    if (State.error) {
+                        return
+                    }
+
+                    const room = State.initialRestaurants.find((room) => room.id == id)
+                    if (room) {
+                        table.row.add([
+                            room.name,
+                            quantity,
+                            idMoneyFormat(room.price),
+                            `
                             <button type="button" id="${room.id}" class="btn btn-delete-detail text-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         `,
-                    ]).draw(false)
+                        ]).draw(false)
 
-                    State.listOfRestaurantBooked.push({
-                        ...room,
-                        quantity: Number(room.quantity) + Number(quantity)
-                    })
-                    fetchRestaurant()
-                    clearForm()
-                }
-            })
-
-            $(document).on('click', '.btn-delete-detail', function() {
-                const id = $(this).attr('id')
-                State.listOfRestaurantBooked = State.listOfRestaurantBooked.filter((restaurant) => restaurant.id != id)
-                fetchRestaurant()
-
-                table.row($(this).parents('tr')).remove().draw()
-            })
-
-            $('#btn-save').click(() => {
-                const id = $('#reservation-id').val()
-                const restaurants = State.listOfRestaurantBooked
-
-                if (!restaurants.length) {
-                    return alert('Pesanan tidak boleh kosong', 'failed')
-                }
-
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    dataType: 'json',
-                    type: 'post',
-                    url: `/dashboard/restaurant-orders`,
-                    data: {
-                        id,
-                        restaurants,
-                    },
-                    success(res) {
-                        const {
-                            message,
-                            status
-                        } = res
-                        alert(message, status)
+                        State.listOfRestaurantBooked.push({
+                            ...room,
+                            quantity: Number(room.quantity) + Number(quantity)
+                        })
                         fetchRestaurant()
-                        table.clear().draw()
-                    },
-                    error(res) {
-                        const {
-                            message,
-                            status,
-                        } = res.responseJSON
-                        alert(message, status)
+                        clearForm()
                     }
                 })
-            })
-            // end Mounted
 
-            // Methods
-            function fetchRestaurant() {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    dataType: 'json',
-                    type: 'get',
-                    url: '/dashboard/restaurant-orders',
-                    beforeSend() {
-                        $('#restaurant').children('option:not(:first)').remove()
-                    },
-                    success(res) {
-                        if (res) {
-                            State.initialRestaurants = res
+                $(document).on('click', '.btn-delete-detail', function() {
+                    const id = $(this).attr('id')
+                    State.listOfRestaurantBooked = State.listOfRestaurantBooked.filter((restaurant) =>
+                        restaurant.id != id)
+                    fetchRestaurant()
 
-                            const restaurants = _.differenceBy(res, State.listOfRestaurantBooked, 'id')
-                            restaurants.forEach((restaurant) => {
-                                let newOption = new Option(restaurant.name, restaurant.id,
-                                    false, false)
-                                $('#restaurant').append(newOption)
-                            })
+                    table.row($(this).parents('tr')).remove().draw()
+                })
+
+                $('#btn-save').click(() => {
+                    const id = $('#reservation-id').val()
+                    const restaurants = State.listOfRestaurantBooked
+
+                    if (!restaurants.length) {
+                        return alert('Pesanan tidak boleh kosong', 'failed')
+                    }
+
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        dataType: 'json',
+                        type: 'post',
+                        url: `/dashboard/restaurant-orders`,
+                        data: {
+                            id,
+                            restaurants,
+                        },
+                        success(res) {
+                            const {
+                                message,
+                                status
+                            } = res
+                            alert(message, status)
+                            fetchRestaurant()
+                            table.clear().draw()
+                        },
+                        error(res) {
+                            const {
+                                message,
+                                status,
+                            } = res.responseJSON
+                            alert(message, status)
                         }
-                    }
+                    })
                 })
-            }
+                // end Mounted
 
-            function clearForm() {
-                $('#restaurant').val(null).trigger('change');
-                $('#quantity').val('')
-            }
-            // end Methods
+                // Methods
+                function fetchRestaurant() {
+                    $('#restaurant').select2({
+                        placeholder: 'Pilih Hidangan',
+                        theme: 'bootstrap4',
+                    })
+
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        dataType: 'json',
+                        type: 'get',
+                        url: '/dashboard/restaurant-orders',
+                        beforeSend() {
+                            $('#restaurant').children('option:not(:first)').remove()
+                        },
+                        success(res) {
+                            if (res) {
+                                State.initialRestaurants = res
+
+                                const restaurants = _.differenceBy(res, State.listOfRestaurantBooked, 'id')
+                                restaurants.forEach((restaurant) => {
+                                    let newOption = new Option(restaurant.name, restaurant.id,
+                                        false, false)
+                                    $('#restaurant').append(newOption)
+                                })
+                            }
+                        }
+                    })
+                }
+
+                function clearForm() {
+                    $('#restaurant').val(null).trigger('change');
+                    $('#quantity').val('')
+                }
+                // end Methods
+            })
         </script>
     @endpush
 </x-dashboard-layout>

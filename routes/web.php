@@ -32,7 +32,7 @@ Route::prefix('dashboard')->group(function () {
 
             Route::resource('/service-orders', ServiceOrderController::class);
 
-            Route::resource('/reservation-statuses', ReservationStatusController::class)->only(['edit']);
+            Route::resource('/reservation-statuses', ReservationStatusController::class)->only(['edit', 'index']);
 
             Route::get('/reservations/nik', [ReservationController::class, 'nik']);
             Route::get('/reservations/reservations', [ReservationController::class, 'reservations']);
