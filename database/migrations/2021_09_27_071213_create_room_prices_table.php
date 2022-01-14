@@ -17,7 +17,7 @@ class CreateRoomPricesTable extends Migration
             $table->id();
             $table->string('description');
             $table->unsignedInteger('price');
-            $table->foreignId('room_type_id')->constrained();
+            $table->foreignId('room_type_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

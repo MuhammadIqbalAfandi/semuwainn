@@ -58,7 +58,7 @@
 
                 @php
                     $routeUri = Route::currentRouteName();
-                    $routeStatus = collect(['dashboard.facilities.index', 'dashboard.room-types.index', 'dashboard.rooms.index', 'dashboard.restaurants.index', 'dashboard.services.index', 'dashboard.users.index', 'dashboard.guests.index'])->contains($routeUri);
+                    $routeStatus = collect(['dashboard.facilities.index', 'dashboard.room-types.index', 'dashboard.room-types.create', 'dashboard.room-types.edit', 'dashboard.rooms.index', 'dashboard.restaurants.index', 'dashboard.services.index', 'dashboard.users.index', 'dashboard.guests.index'])->contains($routeUri);
                 @endphp
                 <!-- Master -->
                 <li class="nav-item has-treeview {{ $routeStatus ? 'menu-open' : '' }}">

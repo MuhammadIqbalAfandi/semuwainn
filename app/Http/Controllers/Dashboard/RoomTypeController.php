@@ -24,6 +24,16 @@ class RoomTypeController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('pages.dashboard.room-type.create');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -78,21 +88,7 @@ class RoomTypeController extends Controller
      */
     public function edit(RoomType $roomType)
     {
-        $roomType = $roomType->where('id', $roomType->id)->with(['roomFacilities.facility'])->first();
-        $facilities = Facility::all();
-        if ($roomType) {
-            return response()->json(
-                [
-                    'roomType' => $roomType,
-                    'facilities' => $facilities,
-                    'roomPrices' => $roomType->roomPrices->transform(fn($roomPrice) => [
-                        'price' => $roomPrice->getRawOriginal('price'),
-                        'description' => $roomPrice->getRawOriginal('description'),
-                    ]),
-                ],
-                200,
-            );
-        }
+        return view('pages.dashboard.room-type.edit', compact('roomType'));
     }
 
     /**
@@ -187,7 +183,7 @@ class RoomTypeController extends Controller
                 ->addColumn('room-count', fn(RoomType $roomType) => $roomType->rooms->count())
                 ->addColumn('guest-count', fn(RoomType $roomType) => $roomType->number_of_guest)
                 ->addColumn('actions', function (RoomType $roomType) {
-                    return view('components.shared.action-btn',
+                    return view('components.room-type.action-btn',
                         [
                             'id' => $roomType->id,
                             'btnDeleteHide' => !$roomType->roomOrders->count(),
@@ -202,6 +198,26 @@ class RoomTypeController extends Controller
         $facilities = Facility::latest()->get();
         if ($facilities) {
             return response()->json($facilities, 200);
+        }
+    }
+
+    public function roomFacilities(RoomType $roomType)
+    {
+        if ($roomType) {
+            return response()->json([
+                'roomFacilities' => $roomType->roomFacilities,
+                'facilities' => Facility::all(),
+            ], 200);
+        }
+    }
+
+    public function roomPrices(RoomType $roomType)
+    {
+        if ($roomType) {
+            return response()->json($roomType->roomPrices->transform(fn($roomPrice) => [
+                'price' => $roomPrice->getRawOriginal('price'),
+                'description' => $roomPrice->description,
+            ]), 200);
         }
     }
 }

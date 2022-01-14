@@ -42,6 +42,8 @@ Route::prefix('dashboard')->group(function () {
             Route::get('/users/users', [UserController::class, 'users']);
             Route::resource('/users', UserController::class);
 
+            Route::get('/room-types/room-prices/{room_type}', [RoomTypeController::class, 'roomPrices']);
+            Route::get('/room-types/room-facilities/{room_type}', [RoomTypeController::class, 'roomFacilities']);
             Route::get('/room-types/room-types', [RoomTypeController::class, 'roomTypes']);
             Route::get('/room-types/facilities', [RoomTypeController::class, 'facilities']);
             Route::resource('/room-types', RoomTypeController::class);

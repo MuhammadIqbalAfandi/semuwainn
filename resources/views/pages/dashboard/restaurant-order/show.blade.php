@@ -16,6 +16,7 @@
             <x-shared.card title="Tambah Hidangan">
                 <form>
                     <input id="reservation-id" type="hidden" value="{{ $reservationId }}" />
+
                     <div class="row">
                         <div class="cols-md-12 col-lg">
                             <div class="form-group">
@@ -27,6 +28,7 @@
                                 <span class="text-danger msg-error restaurant-error"></span>
                             </div>
                         </div>
+
                         <div class="col col-lg">
                             <div class="form-group">
                                 <label>Kuantitas</label>
@@ -41,6 +43,7 @@
                                 <span class="text-danger msg-error quantity-error"></span>
                             </div>
                         </div>
+
                         <div class="col-auto d-flex align-items-center">
                             <button type="button" class="btn btn-sm btn-warning mt-3" id="btn-detail"><i
                                     class="fa fa-plus"></i></button>
