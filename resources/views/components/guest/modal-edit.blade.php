@@ -2,32 +2,29 @@
     <form>
         <div class="form-group">
             <label for="nik">Nik</label>
-            <input type="text" name="nik" id="nik" value="{{ old('nik') }}" class="form-control"
-                placeholder="Tulis nik disini">
+            <input type="text" name="nik" id="nik" class="form-control" placeholder="Tulis nik disini">
 
             <span class="nik-error msg-error text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="name">Nama</label>
-            <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control"
-                placeholder="Tulis nama disini">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama disini">
 
             <span class="name-error msg-error text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="phone">Nomor HP</label>
-            <input type="tel" pattern="[0-9]*" id="phone" name="phone" value="{{ old('phone') }}"
-                class="form-control" placeholder="Tulis nomor hp disini">
+            <input type="tel" pattern="[0-9]*" id="phone" name="phone" class="form-control"
+                placeholder="Tulis nomor hp disini">
 
             <span class="phone-error msg-error text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control"
-                placeholder="Tulis email disini">
+            <input type="email" name="email" id="email" class="form-control" placeholder="Tulis email disini">
 
             <span class="email-error msg-error text-danger"></span>
         </div>

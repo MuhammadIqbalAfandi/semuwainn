@@ -65,15 +65,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::all();
         if ($user) {
-            return response()->json(
-                [
-                    'user' => $user,
-                    'roles' => $roles,
-                ],
-                200,
-            );
+            return response()->json($user, 200);
         };
     }
 

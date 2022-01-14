@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\ReservationController;
 use App\Http\Controllers\Dashboard\ReservationStatusController;
 use App\Http\Controllers\Dashboard\RestaurantController;
 use App\Http\Controllers\Dashboard\RestaurantOrderController;
+use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\RoomController;
 use App\Http\Controllers\Dashboard\RoomTypeController;
 use App\Http\Controllers\Dashboard\ServiceController;
@@ -39,6 +40,7 @@ Route::prefix('dashboard')->group(function () {
             Route::post('/reservations/restaurant/{reservation}', [ReservationController::class, 'storeRestaurant']);
             Route::resource('/reservations', ReservationController::class);
 
+            Route::get('/roles', [RoleController::class, 'index']);
             Route::get('/users/users', [UserController::class, 'users']);
             Route::resource('/users', UserController::class);
 

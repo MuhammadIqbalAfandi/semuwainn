@@ -3,15 +3,14 @@
         <div class="form-group">
             <label for="room-number">Nomor Kamar</label>
             <input type="text" name="room_number" id="room-number" class="form-control"
-                value="{{ old('room_number') }}" placeholder="Tulis nomor kamar disini">
+                placeholder="Tulis nomor kamar disini">
 
             <span class="text-danger msg-error room_number-error"></span>
         </div>
 
         <div class="form-group">
             <label for="room-type-id">Tipe Kamar</label>
-            <select class="select2" name="room_type_id" id="room-type-id" style="width: 100%;"
-                value="{{ old('room_type_id') }}">
+            <select class="select2" name="room_type_id" id="room-type-id" style="width: 100%;">
                 <option></option>
             </select>
 

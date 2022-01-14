@@ -2,16 +2,14 @@
     <form>
         <div class="form-group">
             <label for="name">Nama Hidangan</label>
-            <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}"
-                placeholder="Tulis nama hidangan disini">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama hidangan disini">
 
             <span class="text-danger msg-error name-error"></span>
         </div>
 
         <div class="form-group">
             <label for="unit">Satuan</label>
-            <input type="text" name="unit" id="unit" class="form-control" value="{{ old('unit') }}"
-                placeholder="Tulis nama satuan disini">
+            <input type="text" name="unit" id="unit" class="form-control" placeholder="Tulis nama satuan disini">
 
             <span class="text-danger msg-error unit-error"></span>
         </div>
@@ -22,8 +20,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text text-bold">Rp</span>
                 </div>
-                <input type="text" name="price" id="price" class="form-control" value="{{ old('price') }}"
-                    placeholder="Tulis harga disini">
+                <input type="text" name="price" id="price" class="form-control" placeholder="Tulis harga disini">
             </div>
 
             <span class="text-danger msg-error price-error"></span>

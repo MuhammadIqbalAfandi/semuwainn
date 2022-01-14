@@ -2,16 +2,14 @@
     <form>
         <div class="form-group">
             <label for="name">Nama Layanan</label>
-            <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}"
-                placeholder="Tulis nama layanan disini">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama layanan disini">
 
             <span class="text-danger msg-error name-error"></span>
         </div>
 
         <div class="form-group">
             <label for="unit">Satuan</label>
-            <select class="select2" name="service_unit_id" id="unit" style="width: 100%;"
-                value="{{ old('service_unit_id') }}">
+            <select class="select2" name="service_unit_id" id="unit" style="width: 100%;">
                 <option></option>
             </select>
 
@@ -25,8 +23,7 @@
                     <span class="input-group-text text-bold">Rp</span>
                 </div>
 
-                <input type="text" name="price" id="price" class="form-control" value="{{ old('price') }}"
-                    placeholder="Tulis harga disini">
+                <input type="text" name="price" id="price" class="form-control" placeholder="Tulis harga disini">
 
             </div>
             <span class="text-danger msg-error price-error"></span>

@@ -3,15 +3,14 @@
         <div class="form-group">
             <label for="room-number-edit">Nomor Kamar</label>
             <input type="text" name="room_number" id="room-number-edit" class="form-control"
-                value="{{ old('room_number') }}" placeholder="Tulis nomor kamar disini">
+                placeholder="Tulis nomor kamar disini">
 
             <span class="text-danger msg-error room_number-error"></span>
         </div>
 
         <div class="form-group">
             <label for="room-type-id-edit">Tipe Kamar</label>
-            <select class="form-control" name="room_type_id" id="room-type-id-edit" style="width: 100%;"
-                value="{{ old('room_type_id') }}">
+            <select class="form-control" name="room_type_id" id="room-type-id-edit" style="width: 100%;">
                 <option></option>
             </select>
 
@@ -33,8 +32,6 @@
             // end Data
 
             // Mounted
-            fetchRoomType()
-
             $(document).on('click', '.btn-show-edit', function() {
                 const id = $(this).attr('id')
                 State.id = id
@@ -47,13 +44,13 @@
                     url: `rooms/${id}/edit`,
                     beforeSend() {
                         $('.msg-error').text('')
-                        clearForm()
                         $('#modal-edit').modal('show')
-                        fetchRoomType()
                     },
                     success(res) {
-                        $('#room-number-edit').val(res.roomNumber)
                         State.roomTypeId = res.roomTypeId
+                        fetchRoomType()
+
+                        $('#room-number-edit').val(res.roomNumber)
                     }
                 })
             })

@@ -2,16 +2,14 @@
     <form>
         <div class="form-group">
             <label for="name-edit">Nama Layanan</label>
-            <input type="text" name="name" id="name-edit" class="form-control" value="{{ old('name') }}"
-                placeholder="Tulis nama layanan disini">
+            <input type="text" name="name" id="name-edit" class="form-control" placeholder="Tulis nama layanan disini">
 
             <span class="text-danger msg-error name-error"></span>
         </div>
 
         <div class="form-group">
             <label for="unit-edit">Satuan</label>
-            <select class="select2" name="service_unit_id" id="unit-edit" style="width: 100%;"
-                value="{{ old('service_unit_id') }}">
+            <select class="select2" name="service_unit_id" id="unit-edit" style="width: 100%;">
                 <option></option>
             </select>
 
@@ -25,8 +23,7 @@
                     <span class="input-group-text text-bold">Rp</span>
                 </div>
 
-                <input type="text" name="price" id="price-edit" class="form-control" value="{{ old('price') }}"
-                    placeholder="Tulis harga disini">
+                <input type="text" name="price" id="price-edit" class="form-control" placeholder="Tulis harga disini">
 
             </div>
             <span class="text-danger msg-error price-error"></span>
@@ -47,8 +44,6 @@
             // end Data
 
             // Mounted
-            fetchUnit()
-
             $(document).on('click', '.btn-show-edit', function() {
                 const id = $(this).attr('id')
                 State.id = id
@@ -62,9 +57,7 @@
                     url: `services/${id}/edit`,
                     beforeSend() {
                         $('.msg-error').text('')
-                        clearForm()
                         $('#modal-edit').modal('show')
-                        fetchUnit()
                     },
                     success(res) {
                         const {
@@ -72,9 +65,11 @@
                             serviceUnitId,
                             price
                         } = res
+                        State.serviceUnitId = serviceUnitId
+                        fetchUnit()
+
                         $('#name-edit').val(name)
                         $('#price-edit').val(price)
-                        State.serviceUnitId = serviceUnitId
                     },
                 })
             })

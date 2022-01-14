@@ -2,8 +2,7 @@
       <form>
           <div class="form-group">
               <label for="name">Nama Fasilitas</label>
-              <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}"
-                  placeholder="Tulis nama fasilitas disini">
+              <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama fasilitas disini">
 
               <span class="text-danger msg-error name-error"></span>
           </div>

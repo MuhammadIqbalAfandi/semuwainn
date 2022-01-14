@@ -2,7 +2,7 @@
     <form>
         <div class="form-group">
             <label for="name-edit">Nama Hidangan</label>
-            <input type="text" name="name" id="name-edit" class="form-control" value="{{ old('name') }}"
+            <input type="text" name="name" id="name-edit" class="form-control"
                 placeholder="Tulis nama hidangan disini">
 
             <span class="text-danger msg-error name-error"></span>
@@ -10,8 +10,7 @@
 
         <div class="form-group">
             <label for="unit-edit">Satuan</label>
-            <input type="text" name="unit" id="unit-edit" class="form-control" value="{{ old('unit') }}"
-                placeholder="Tulis nama satuan disini">
+            <input type="text" name="unit" id="unit-edit" class="form-control" placeholder="Tulis nama satuan disini">
 
             <span class="text-danger msg-error unit-error"></span>
         </div>
@@ -22,8 +21,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text text-bold">Rp</span>
                 </div>
-                <input type="text" name="price" id="price-edit" class="form-control" value="{{ old('price') }}"
-                    placeholder="Tulis harga disini">
+                <input type="text" name="price" id="price-edit" class="form-control" placeholder="Tulis harga disini">
             </div>
 
             <span class="text-danger msg-error price-error"></span>
@@ -56,7 +54,6 @@
                     url: `restaurants/${id}/edit`,
                     beforeSend() {
                         $('.msg-error').text('')
-                        clearForm()
                         $('#modal-edit').modal('show')
                     },
                     success(res) {

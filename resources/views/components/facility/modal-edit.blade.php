@@ -2,7 +2,7 @@
       <form>
           <div class="form-group">
               <label for="name-edit">Nama Fasilitas</label>
-              <input type="text" name="name" id="name-edit" class="form-control" value="{{ old('name') }}"
+              <input type="text" name="name" id="name-edit" class="form-control"
                   placeholder="Tulis nama fasilitas disini">
 
               <span class="text-danger msg-error name-error"></span>
@@ -35,7 +35,6 @@
                       url: `facilities/${id}/edit`,
                       beforeSend() {
                           $('.msg-error').text('')
-                          clearForm()
                           $('#modal-edit').modal('show')
                       },
                       success(res) {

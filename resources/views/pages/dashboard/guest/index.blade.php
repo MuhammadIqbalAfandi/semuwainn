@@ -75,14 +75,6 @@
             // end Mounted
 
             // Methods
-            function clearForm() {
-                $('[name="nik"]').val('')
-                $('[name="name"]').val('')
-                $('[name="phone"]').val('')
-                $('[name="email"]').val('')
-                $('[name="address"]').val('')
-            }
-
             function fetchGuest() {
                 $('.table').DataTable().ajax.reload()
             }
