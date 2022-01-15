@@ -29,19 +29,6 @@
                             </div>
                         </div>
 
-                        {{-- <div class="col col-lg">
-                            <div class="cols-md-12 col-lg">
-                                <div class="form-group">
-                                    <label for="room">Pilih Kamar</label>
-                                    <select class="select2" name="room" id="room" multiple style="width: 100%;">
-                                        <option></option>
-                                    </select>
-
-                                    <span class="text-danger msg-error room-error"></span>
-                                </div>
-                            </div>
-                        </div> --}}
-
                         <div class="col-auto mt-4">
                             <button type="button" class="btn btn-sm btn-warning mt-2" id="btn-detail"><i
                                     class="fa fa-plus"></i></button>
@@ -50,59 +37,50 @@
                 </form>
 
                 <x-service-order.table-detail></x-service-order.table-detail>
-
             </x-shared.card>
         </x-shared.content>
     </x-shared.content-wrapper>
 
     @push('scripts')
         <script>
-            // Mounted
-            const id = $('#reservation-id').val()
-            fetchService()
-            // fetchRoom()
+            $(() => {
+                // Mounted
+                const id = $('#reservation-id').val()
+                fetchService()
 
-            $('#btn-detail').click(() => {
-                const serviceId = $('#service').find(':selected').val()
-                // const roomId = $('#room').find(':selected').val()
+                $('#btn-detail').click(() => {
+                    const serviceId = $('#service').find(':selected').val()
 
-                State.error = false
-                $('.msg-error').text('')
-                if (!serviceId) {
-                    $('.service-error').text('Nilai tidak boleh kosong')
-                    State.error = true
-                }
-                // if (!roomId) {
-                //     $('.room-error').text('Nilai tidak boleh kosong')
-                //     State.error = true
-                // }
-                if (State.error) {
-                    return
-                }
+                    State.error = false
+                    $('.msg-error').text('')
+                    if (!serviceId) {
+                        $('.service-error').text('Nilai tidak boleh kosong')
+                        State.error = true
+                    }
+                    if (State.error) {
+                        return
+                    }
 
-                const service = State.initialServices.find((service) => service.id == serviceId)
-                // const room = State.initialRooms.find((room) => room.id == roomId)
-                if (service) {
-                    table.row.add([
-                        service.name,
-                        // `<span class="badge badge-pill badge-warning">${room.room_number}</span>`,
-                        idMoneyFormat(service.price),
-                        `
+                    const service = State.initialServices.find((service) => service.id == serviceId)
+                    if (service) {
+                        table.row.add([
+                            service.name,
+                            idMoneyFormat(service.price),
+                            `
                             <button type="button" data-id-service="${service.id}"
                                 class="btn btn-delete-detail text-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         `,
-                    ]).draw(false)
+                        ]).draw(false)
 
-                    State.listOfServiceBooked.push(service)
-                    // State.listOfRoomBooked.push(room)
-                    fetchService()
-                    // fetchRoom()
-                    clearForm()
-                }
+                        State.listOfServiceBooked.push(service)
+                        fetchService()
+                        clearForm()
+                    }
+                })
+                // end Mounted
             })
-            // end Mounted
         </script>
     @endpush
 </x-dashboard-layout>
