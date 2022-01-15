@@ -11,7 +11,8 @@
             <a href="{{ route('dashboard.restaurant-orders.show', $id) }}" class="text-white">Tambah
                 Hidangan</a>
         </li>
-        <li class=" dropdown-item">Cetak Invoice
+        <li class=" dropdown-item">
+            <a href="{{ route('dashboard.reservation-pdf.show', $id) }}" class="text-white">Download PDF</a>
         </li>
     </ul>
 </div>

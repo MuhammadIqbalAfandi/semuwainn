@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\FacilityController;
 use App\Http\Controllers\Dashboard\GuestController;
 use App\Http\Controllers\Dashboard\ReservationController;
+use App\Http\Controllers\Dashboard\ReservationPdfController;
 use App\Http\Controllers\Dashboard\ReservationStatusController;
 use App\Http\Controllers\Dashboard\RestaurantController;
 use App\Http\Controllers\Dashboard\RestaurantOrderController;
@@ -27,6 +28,8 @@ Route::prefix('dashboard')->group(function () {
     Route::name('dashboard.')->group(function () {
         Route::middleware(['auth'])->group(function () {
             Route::get('/', DashboardController::class)->name('dashboard');
+
+            Route::get('/reservation-pdf/{reservation}', [ReservationPdfController::class, 'show'])->name('reservation-pdf.show');
 
             Route::resource('/restaurant-orders', RestaurantOrderController::class);
 

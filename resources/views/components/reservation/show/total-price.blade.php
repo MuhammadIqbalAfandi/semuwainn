@@ -1,6 +1,6 @@
- <div class="row">
-     <div class="col text-right">
+ <section class="total-price">
+     <section>
          Total Harga
-         <h3 class="text-danger">{{ $totalPrice }}</h3>
-     </div>
- </div>
+         <h3>{{ $totalPrice }}</h3>
+     </section>
+ </section>
