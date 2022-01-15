@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}" />
+    <!-- chartjs -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/chart.js/Chart.min.css') }}">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet"
@@ -34,13 +36,13 @@
 <body class="dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
-        <x-dashboard.navbar />
+        <x-dashboard-layout.navbar />
 
-        <x-dashboard.sidebar />
+        <x-dashboard-layout.sidebar />
 
         {{ $slot }}
 
-        <x-dashboard.footer />
+        <x-dashboard-layout.footer />
 
     </div>
 
@@ -68,6 +70,8 @@
     <!-- jquery-validation -->
     <script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src=" {{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+    <!-- chartjs -->
+    <script src=" {{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Loadash -->
     <script src="{{ asset('js/lodash@4.17.21/lodash.min.js') }}"></script>
     <!-- AdminLTE App -->

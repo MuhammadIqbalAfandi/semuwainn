@@ -68,7 +68,7 @@
                 :totalRestaurantPriceString="$totalRestaurantPriceString">
             </x-reservation-pdf.table-restaurant>
 
-            <x-reservation.show.total-price :totalPrice="$totalPrice"></x-reservation.show.total-price>
+            <x-reservation-pdf.total-price :totalPrice="$totalPrice"></x-reservation-pdf.total-price>
         </x-shared.content>
     </main>
 </x-PDF-layout>

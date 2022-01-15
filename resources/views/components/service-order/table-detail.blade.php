@@ -88,6 +88,8 @@
 
         // Methods
         function fetchService() {
+            const id = $('#reservation-id').val()
+
             $('#service').select2({
                 placeholder: 'Pilih Layanan',
                 theme: 'bootstrap4',

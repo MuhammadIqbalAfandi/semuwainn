@@ -27,6 +27,7 @@ Route::resource('room-booking', RoomBookingController::class);
 Route::prefix('dashboard')->group(function () {
     Route::name('dashboard.')->group(function () {
         Route::middleware(['auth'])->group(function () {
+            Route::get('/charts', [DashboardController::class, 'chartData']);
             Route::get('/', DashboardController::class)->name('dashboard');
 
             Route::get('/reservation-pdf/{reservation}', [ReservationPdfController::class, 'show'])->name('reservation-pdf.show');
