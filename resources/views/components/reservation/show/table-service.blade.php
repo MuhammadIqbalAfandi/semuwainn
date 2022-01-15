@@ -21,7 +21,7 @@
                                     </span>
                                 @endforeach
                             </td>
-                            <td>{{ $serviceOrder->price }} (x {{ $serviceOrder->quantity }} kamar) </td>
+                            <td>{{ $serviceOrder->price }} (x {{ $serviceOrder->quantity }} kamar x lama inap) </td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -37,8 +37,8 @@ class ReservationController extends Controller
         $totalRoomPrice = $reservation->roomOrders->sum(function ($roomOrder) {
             return $roomOrder->getRawOriginal('price') * $roomOrder->quantity;
         });
-        $totalServicePrice = $reservation->serviceOrders->sum(function ($serviceOrder) {
-            return $serviceOrder->getRawOriginal('price') * $serviceOrder->quantity;
+        $totalServicePrice = $reservation->serviceOrders->sum(function ($serviceOrder) use ($nightCount) {
+            return $serviceOrder->getRawOriginal('price') * $serviceOrder->quantity * $nightCount;
         });
         $totalRestaurantPrice = $reservation->restaurantOrders->sum(function ($restaurantOrder) {
             return $restaurantOrder->getRawOriginal('price') * $restaurantOrder->quantity;
