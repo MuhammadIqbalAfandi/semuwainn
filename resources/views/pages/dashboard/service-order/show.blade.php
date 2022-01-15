@@ -14,17 +14,6 @@
 
         <x-shared.content>
             <x-shared.card title="Tambah Layanan">
-                <div class="row">
-                    <div class="col-auto text-secondary">
-                        Total Tamu
-                        <p>0</p>
-                    </div>
-                    <div class="col-auto text-secondary">
-                        Lama Inap
-                        <p>0</p>
-                    </div>
-                </div>
-
                 <form>
                     <input id="reservation-id" type="hidden" value="{{ $reservationId }}" />
 
@@ -40,80 +29,80 @@
                             </div>
                         </div>
 
-                        <div class="col col-lg">
-                            <div class="form-group">
-                                <label>Satuan</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text text-bold"><i class="fas fa-tag"></i></span>
-                                    </div>
-                                    <input class="form-control" name="unit" id="unit" type="text" readonly />
+                        {{-- <div class="col col-lg">
+                            <div class="cols-md-12 col-lg">
+                                <div class="form-group">
+                                    <label for="room">Pilih Kamar</label>
+                                    <select class="select2" name="room" id="room" multiple style="width: 100%;">
+                                        <option></option>
+                                    </select>
+
+                                    <span class="text-danger msg-error room-error"></span>
                                 </div>
-
-                                <span class="text-danger msg-error unit-error"></span>
                             </div>
-                        </div>
-                    </div>
+                        </div> --}}
 
-                    <div class="row">
-                        <div class="col col-lg-6">
-                            <div class="form-group">
-                                <label>Tamu</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text text-bold"><i class="fas fa-users"></i></span>
-                                    </div>
-                                    <input class="form-control" name="guest" id="guest" type="text" />
-                                </div>
-
-                                <span class="text-danger msg-error guest-error"></span>
-                            </div>
+                        <div class="col-auto mt-4">
+                            <button type="button" class="btn btn-sm btn-warning mt-2" id="btn-detail"><i
+                                    class="fa fa-plus"></i></button>
                         </div>
                     </div>
                 </form>
 
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Nama Layanan</th>
-                            <th>Kuantitas</th>
-                            <th>Harga</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                </table>
+                <x-service-order.table-detail></x-service-order.table-detail>
 
-                <div class="row mt-3">
-                    <div class="col d-flex justify-content-end">
-                        <button type="button" class="btn btn-sm btn-warning" id="btn-save"><i
-                                class="fa fa-save"></i>
-                            Simpan pesanan</button>
-                    </div>
-                </div>
             </x-shared.card>
         </x-shared.content>
     </x-shared.content-wrapper>
 
     @push('scripts')
         <script>
-            // Data
-            // end Data
-
             // Mounted
-            const table = $('.table').DataTable({
-                paging: false,
-                searching: false,
-                ordering: false,
-                info: false,
-                autoWidth: false,
-                scrollX: true,
-                responsive: true,
+            const id = $('#reservation-id').val()
+            fetchService()
+            // fetchRoom()
+
+            $('#btn-detail').click(() => {
+                const serviceId = $('#service').find(':selected').val()
+                // const roomId = $('#room').find(':selected').val()
+
+                State.error = false
+                $('.msg-error').text('')
+                if (!serviceId) {
+                    $('.service-error').text('Nilai tidak boleh kosong')
+                    State.error = true
+                }
+                // if (!roomId) {
+                //     $('.room-error').text('Nilai tidak boleh kosong')
+                //     State.error = true
+                // }
+                if (State.error) {
+                    return
+                }
+
+                const service = State.initialServices.find((service) => service.id == serviceId)
+                // const room = State.initialRooms.find((room) => room.id == roomId)
+                if (service) {
+                    table.row.add([
+                        service.name,
+                        // `<span class="badge badge-pill badge-warning">${room.room_number}</span>`,
+                        idMoneyFormat(service.price),
+                        `
+                            <button type="button" data-id-service="${service.id}"
+                                class="btn btn-delete-detail text-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        `,
+                    ]).draw(false)
+
+                    State.listOfServiceBooked.push(service)
+                    // State.listOfRoomBooked.push(room)
+                    fetchService()
+                    // fetchRoom()
+                    clearForm()
+                }
             })
             // end Mounted
-
-            // Methods
-
-            // end Methods
         </script>
     @endpush
 </x-dashboard-layout>

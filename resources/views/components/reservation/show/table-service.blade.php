@@ -8,6 +8,7 @@
                         <th>Kuantitas</th>
                         <th>Nomor Kamar</th>
                         <th>Harga</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,6 +23,11 @@
                                 @endforeach
                             </td>
                             <td>{{ $serviceOrder->price }} (x {{ $serviceOrder->quantity }} kamar x lama inap) </td>
+                            <td>
+                                <i class="fas fa-trash-alt show-service-delete-btn text-danger"
+                                    id="{{ $serviceOrder->id }}">
+                                </i>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -35,4 +41,6 @@
             <p class="text-danger">{{ $totalServicePriceString ?? 0 }}</p>
         </div>
     </div>
+
+    <x-reservation.show.table-service.modal-delete></x-reservation.show.table-service.modal-delete>
 </x-shared.card>

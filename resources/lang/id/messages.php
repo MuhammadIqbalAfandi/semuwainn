@@ -30,6 +30,7 @@ return [
             'guest' => 'Akun user berhasil diubah',
         ],
         'destroy' => [
+            'service-order' => 'Layanan berhasil dihapus',
             'restaurant-order' => 'Hidangan berhasil dihapus',
             'room-type' => 'Ruangan berhasil dihapus',
             'facility' => 'Fasilitas berhasil dihapus',

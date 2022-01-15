@@ -141,6 +141,5 @@ class RestaurantOrderController extends Controller
                 422,
             );
         }
-
     }
 }

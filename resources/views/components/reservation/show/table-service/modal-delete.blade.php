@@ -1,4 +1,4 @@
-<x-shared.modal id="modal-delete-restaurant">
+<x-shared.modal id="modal-delete-service">
     <x-slot name="title">
         <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
     </x-slot>
@@ -6,8 +6,7 @@
     <p>Yakin akan menghapus data ini?</p>
 
     <x-slot name="footer">
-        <button type="submit" id="btn-delete-restaurant"
-            class="btn btn-warning float-right btn-rounded w-139">Ya</button>
+        <button type="submit" id="btn-delete-service" class="btn btn-warning float-right btn-rounded w-139">Ya</button>
     </x-slot>
 </x-shared.modal>
 
@@ -21,13 +20,13 @@
             // end Data
 
             // Mounted
-            $(document).on('click', '.show-restaurant-delete-btn', function() {
+            $(document).on('click', '.show-service-delete-btn', function() {
                 State.id = $(this).attr('id')
 
-                $('#modal-delete-restaurant').modal('show')
+                $('#modal-delete-service').modal('show')
             })
 
-            $('#btn-delete-restaurant').click(() => {
+            $('#btn-delete-service').click(() => {
                 const id = State.id
 
                 $.ajax({
@@ -36,11 +35,11 @@
                     },
                     dataType: 'json',
                     type: 'delete',
-                    url: `/dashboard/restaurant-orders/${id}`,
+                    url: `/dashboard/service-orders/${id}`,
                     success(res) {
                         alert(res.message, res.status)
-                        $('#modal-delete-restaurant').modal('hide')
-                        fetchRestaurant()
+                        $('#modal-delete-service').modal('hide')
+                        fetchServices()
                     },
                     error(res) {
                         const {
@@ -49,7 +48,7 @@
                         } = res.responseJSON
                         alert(message, status)
 
-                        $('#modal-delete-restaurant').modal('hide')
+                        $('#modal-delete-service').modal('hide')
                     }
                 })
             })

@@ -30,6 +30,7 @@ Route::prefix('dashboard')->group(function () {
 
             Route::resource('/restaurant-orders', RestaurantOrderController::class);
 
+            Route::get('/service-orders/rooms/{room}', [ServiceOrderController::class, 'rooms']);
             Route::resource('/service-orders', ServiceOrderController::class);
 
             Route::resource('/reservation-statuses', ReservationStatusController::class)->only(['edit', 'index']);

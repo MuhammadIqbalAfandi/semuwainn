@@ -15,10 +15,6 @@ class ServiceUnitSeeder extends Seeder
     public function run()
     {
         ServiceUnit::create([
-            'name' => 'Per orang',
-        ]);
-
-        ServiceUnit::create([
             'name' => 'Per kamar',
         ]);
     }
