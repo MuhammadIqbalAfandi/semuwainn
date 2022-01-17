@@ -145,7 +145,7 @@ class ReservationController extends Controller
                         [
                             'id' => $reservation->id,
                             'reservation_number' => $reservation->reservation_number,
-                            'reservation_time' => $reservation->reservation_time,
+                            'reservation_time' => $reservation->getRawOriginal('reservation_time'),
                         ]);
                 })
                 ->addColumn('checkin-checkout', function (Reservation $reservation) {

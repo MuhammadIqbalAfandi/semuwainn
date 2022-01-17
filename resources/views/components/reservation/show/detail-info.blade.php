@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="text-secondary">Tanggal Pemesanan</p>
-                <p>{{ $reservation->reservation_time }}</p>
+                <p>{{ $reservation->getRawOriginal('reservation_time') }}</p>
             </div>
         </div>
     </div>

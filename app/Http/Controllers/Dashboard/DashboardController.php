@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Guest;
+use App\Models\Reservation;
 use App\Models\Restaurant;
 use App\Models\Room;
 use App\Models\RoomOrder;
@@ -43,12 +44,21 @@ class DashboardController extends Controller
 
     public function chartData()
     {
-        $roomOrders = RoomOrder::all();
-        if ($roomOrders) {
-            $group = $roomOrders->groupBy(function ($roomOrder) {
-                return Carbon::parse($roomOrder->created_at)->format('M-Y');
-            });
-            return response()->json($group, 200);
+        $reservations = Reservation::all();
+        if ($reservations) {
+            $reservationsGroup = $reservations->groupBy([
+                fn($reservation) => Carbon::parse($reservation->reservation_time)->format('Y'),
+                fn($reservation) => Carbon::parse($reservation->reservation_time)->format('m'),
+            ]);
+            $reservationTwoYears = $reservationsGroup->take(-2);
+            $reservationFirstYear = $reservationTwoYears->first();
+            $reservationSecondYear = $reservationTwoYears->last();
+            return response()->json([
+                $reservationFirstYear,
+                $reservationSecondYear,
+            ],
+                200
+            );
         }
     }
 }

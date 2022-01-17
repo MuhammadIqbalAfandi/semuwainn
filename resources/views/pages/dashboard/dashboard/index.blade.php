@@ -118,45 +118,62 @@
 
     @push('scripts')
         <script>
+            // Data
+            const State = {
+                prevData: [],
+                nextData: [],
+            }
+            // end Data
+
             // Mounted
             fetchCartData()
-
-            let areaChartData = {
-                labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober',
-                    'November', 'Desember',
-                ],
-                datasets: [{
-                    label: 'Ruangan Dipesan',
-                    backgroundColor: 'rgba(60,141,188,0.9)',
-                    borderColor: 'rgba(60,141,188,0.8)',
-                    pointRadius: false,
-                    pointColor: '#3b8bba',
-                    pointStrokeColor: 'rgba(255,193,7,1)',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: 'rgba(255,193,7,1)',
-                    data: [28, 48, 40, 19, 86, 27, 90, 100, 1001]
-                }]
-            }
-
-            let barChartCanvas = $('#barChart').get(0).getContext('2d')
-            let barChartData = $.extend(true, {}, areaChartData)
-            let temp0 = areaChartData.datasets[0]
-            barChartData.datasets[0] = temp0
-
-            let barChartOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                datasetFill: false
-            }
-
-            new Chart(barChartCanvas, {
-                type: 'bar',
-                data: barChartData,
-                options: barChartOptions
-            })
             // end Mounted
 
             // Methods
+            function initialChart() {
+                let barChartCanvas = $('#barChart')
+                let barChartOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    datasetFill: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                callback: function(label, _, _) {
+                                    if (Math.floor(label) === label) {
+                                        return label;
+                                    }
+                                },
+                            }
+                        }],
+                    },
+                }
+                let barChartData = {
+                    labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+                        'Oktober',
+                        'November', 'Desember',
+                    ],
+                    datasets: [{
+                            label: 'Pemesanan tahun lalu',
+                            backgroundColor: 'rgba(253, 217, 109, 0.5)',
+                            data: State.prevData
+                        },
+                        {
+                            label: 'Pemesanan tahun ini',
+                            backgroundColor: 'rgb(255, 193, 7)',
+                            data: State.nextData
+                        },
+                    ]
+                }
+
+                new Chart(barChartCanvas, {
+                    type: 'bar',
+                    data: barChartData,
+                    options: barChartOptions
+                })
+            }
+
             function fetchCartData() {
                 $.ajax({
                     headers: {
@@ -166,7 +183,25 @@
                     type: 'get',
                     url: '/dashboard/charts',
                     success(res) {
-                        console.log("🚀 ~ file: index.blade.php ~ line 167 ~ success ~ res", res)
+                        if (res) {
+                            const prevData = res[0]
+                            const nextData = res[1]
+
+                            for (const key in prevData) {
+                                if (Object.hasOwnProperty.call(prevData, key)) {
+                                    const element = prevData[key];
+                                    State.prevData.push(element.length)
+                                }
+                            }
+                            for (const key in nextData) {
+                                if (Object.hasOwnProperty.call(nextData, key)) {
+                                    const element = nextData[key];
+                                    State.nextData.push(element.length)
+                                }
+                            }
+
+                            initialChart()
+                        }
                     }
                 })
             }
