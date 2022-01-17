@@ -1,5 +1,4 @@
 <x-dashboard-layout title="Pemesanan Kamar">
-    <!-- Reservation Add -->
     <x-shared.content-wrapper id="pemesanan-kamar">
         <x-shared.content-header title="Tambah Pemesanan Kamar">
             <x-slot name="breadcrumb">
@@ -12,221 +11,36 @@
 
         <x-shared.content>
             <x-shared.card title="Form Data Pemesanan">
-                <form id="reservation-form">
-                    <div class="row">
-                        <!-- Guest -->
-                        <div class="col-lg col-md-12">
-                            <div class="form-group">
-                                <label for="guest-nik">NIK</label>
-                                <select data-width="100%" value="{{ old('guest-nik') }}" name="guest_id"
-                                    id="guest-nik" class="form-control">
-                                    <option></option>
-                                </select>
+                <x-reservation.create.form></x-reservation.create.form>
 
-                                <span class="guest_id-error msg-error text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-lg col-md-12">
-                            <div class="row">
-                                <div class="col-lg">
-                                    <!-- Date checkin -->
-                                    <div class="form-group">
-                                        <label for="checkin">Tanggal Kedatangan</label>
-                                        <div class="input-group date" id="checkindate" data-target-input="nearest">
-                                            <input type="text" name="checkin" id="checkin"
-                                                value="{{ old('checkin') }}" placeholder="Tanggal kedatangan"
-                                                class="form-control datetimepicker-input" data-target="#checkindate" />
-                                            <div class="input-group-append" data-target="#checkindate"
-                                                data-toggle="datetimepicker">
-                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                            </div>
-                                        </div>
-
-                                        <span class="checkin-error msg-error text-danger"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg">
-                                    <!-- Date checkout -->
-                                    <div class="form-group">
-                                        <label for="checkin">Tanggal Keberangkatan</label>
-                                        <div class="input-group date" id="checkoutdate" data-target-input="nearest">
-                                            <input type="text" name="checkout" id="checkout"
-                                                value="{{ old('checkout') }}" placeholder="Tanggal keberakatan"
-                                                class="form-control datetimepicker-input" data-target="#checkoutdate" />
-                                            <div class="input-group-append" data-target="#checkoutdate"
-                                                data-toggle="datetimepicker">
-                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                            </div>
-                                        </div>
-
-                                        <span class="checkout-error msg-error text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="row my-5">
+                    <div class="col">
+                        <table id="room-detail-table" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Tipe Kamar</th>
+                                    <th>No. Kamar</th>
+                                    <th>Harga</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-lg">
-                            <div class="row">
-                                <div class="col-lg">
-                                    <!-- Parent -->
-                                    <div class="form-group">
-                                        <label for="adult">Dewasa</label>
-                                        <input class="form-control" name="adult" id="adult" type="text"
-                                            value="{{ old('adult') }}" placeholder="Jumlah dewasa" />
-
-                                        <span class="adult-error msg-error text-danger"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg">
-                                    <!-- Children -->
-                                    <div class="form-group">
-                                        <label for="children">Anak-anak </label>
-                                        <input class="form-control" name="children" id="children" type="text"
-                                            value="{{ old('children') }}" placeholder="Jumlah anak-anak" />
-
-                                        <span class="children-error msg-error text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg">
-                            <!-- Room Type -->
-                            <div class="form-group">
-                                <label for="room">Kamar</label>
-                                <select data-width="100%" name="room" id="room" class="form-control">
-                                    <option></option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-lg">
-                            <!-- Price -->
-                            <div class="form-group">
-                                <label>Harga Kamar</label>
-                                <select data-width="100%" name="price" id="price" class="form-control">
-                                    <option></option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-lg">
-                            <!-- Disc -->
-                            <div class="form-group">
-                                <label>Diskon kamar</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text text-bold"><i class="fas fa-percent"></i></span>
-                                    </div>
-                                    <input class="form-control" name="disc" id="disc" type="text" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-1 d-flex align-items-center justify-content-end mt-3">
-                            <button type="button" class="btn btn-sm btn-warning" id="btn-detail-room"><i
-                                    class="fa fa-plus"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="row my-5">
-                        <div class="col">
-                            <!-- Room list -->
-                            <table id="room-detail-table" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Tipe Kamar</th>
-                                        <th>No. Kamar</th>
-                                        <th>Harga</th>
-                                        <th>Diskon %</th>
-                                        <th>Total Harga</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="row my-5">
-                        <button type="submit" id="btn-save" class="btn btn-sm btn-warning ml-auto">Simpan</button>
-                    </div>
+                <div class="row my-5">
+                    <button type="submit" id="btn-save" class="btn btn-sm btn-warning ml-auto">Simpan</button>
+                </div>
                 </form>
             </x-shared.card>
+
+            <x-reservation.create.modal-add-guest></x-reservation.create.modal-add-guest>
+
+            <x-reservation.create.modal-delete></x-reservation.create.modal-delete>
         </x-shared.content>
     </x-shared.content-wrapper>
 
-    <!-- Modal Add Guest -->
-    <x-shared.modal title="Tambah Akun user" id="modal-add-guest">
-        <form>
-            <!-- Nik -->
-            <div class="form-group">
-                <label for="nik-add">Nik</label>
-                <input type="text" name="nik" id="nik-add" value="{{ old('nik') }}" class="form-control"
-                    placeholder="Tulis nik disini">
-
-                <span class="nik-add-error msg-error text-danger"></span>
-            </div>
-
-            <!-- Name -->
-            <div class="form-group">
-                <label for="name">Nama</label>
-                <input type="text" name="name" id="name-add" value="{{ old('name') }}" class="form-control"
-                    placeholder="Tulis nama disini">
-
-                <span class="name-add-error msg-error text-danger"></span>
-            </div>
-
-            <!-- Phone -->
-            <div class="form-group">
-                <label for="phone">Nomor HP</label>
-                <input type="tel" pattern="[0-9]*" id="phone-add" name="phone" value="{{ old('phone') }}"
-                    class="form-control" placeholder="Tulis nomor hp disini">
-
-                <span class="phone-add-error msg-error text-danger"></span>
-            </div>
-
-            <!-- Address -->
-            <div class="form-group">
-                <label for="address">Alamat</label>
-                <input type="address" name="address" id="address-add" value="{{ old('address') }}"
-                    class="form-control" placeholder="Tulis alamat disini">
-
-                <span class="address-add-error msg-error text-danger"></span>
-            </div>
-
-            <!-- Email -->
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email-add" value="{{ old('email') }}" class="form-control"
-                    placeholder="Tulis email disini">
-
-                <span class="email-add-error msg-error text-danger"></span>
-            </div>
-
-            <button type="submit" id="btn-add-guest" class="btn btn-block btn-warning">Simpan</button>
-        </form>
-    </x-shared.modal>
-
-    <!-- Modal Alert -->
-    <x-shared.modal id="modal-alert">
-        <x-slot name="title">
-            <i class="fa fa-exclamation-triangle text-danger"></i> Peringatan
-        </x-slot>
-
-        <p>
-            <span class="font-weight-bold">Opps!</span> <span id="text-alert"
-                class="font-weight-bold text-warning"></span>
-        </p>
-    </x-shared.modal>
-
-    @push('scripts')
+    @prepend('scripts')
         <script>
             $(() => {
                 // Data
@@ -309,20 +123,6 @@
                     },
                 })
 
-                $('#checkindate').datetimepicker({
-                    format: 'L',
-                    locale: 'id',
-                    minDate: new Date,
-                })
-                $('#checkoutdate').datetimepicker({
-                    format: 'L',
-                    locale: 'id',
-                    useCurrent: false,
-                })
-                $("#checkindate").on("change.datetimepicker", function(e) {
-                    $('#checkoutdate').datetimepicker('minDate', e.date)
-                })
-
                 $("#room").select2({
                     placeholder: 'Pilih kamar',
                     theme: 'bootstrap4',
@@ -347,7 +147,6 @@
                 // End Library Configuration
 
                 State.run()
-                validateReservationForm()
                 fetchRooms()
                 $('#btn-save').hide()
 
@@ -563,23 +362,6 @@
                     $('#disc').val('')
                 }
 
-                function validateReservationForm() {
-                    $('#reservation-form').validate({
-                        rules: {
-                            disc: {
-                                number: true,
-                                min: 0,
-                                max: 100
-                            }
-                        },
-                        errorElement: "span",
-                        errorPlacement(error, element) {
-                            error.addClass('msg-error text-danger')
-                            element.closest('.form-group').append(error)
-                        }
-                    })
-                }
-
                 function fetchRooms() {
                     $.ajax({
                         headers: {
@@ -599,5 +381,5 @@
                 // end Methods
             })
         </script>
-    @endpush
+    @endprepend
 </x-dashboard-layout>

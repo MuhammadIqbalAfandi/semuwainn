@@ -140,7 +140,7 @@
                         yAxes: [{
                             ticks: {
                                 beginAtZero: true,
-                                callback: function(label, _, _) {
+                                callback: function(label) {
                                     if (Math.floor(label) === label) {
                                         return label;
                                     }
@@ -150,10 +150,7 @@
                     },
                 }
                 let barChartData = {
-                    labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
-                        'Oktober',
-                        'November', 'Desember',
-                    ],
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agust', 'Sept', 'Okt', 'Nov', 'Des'],
                     datasets: [{
                             label: 'Pemesanan tahun lalu',
                             backgroundColor: 'rgba(253, 217, 109, 0.5)',

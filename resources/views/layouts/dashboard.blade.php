@@ -24,9 +24,8 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-        href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <!-- Daterange Picker -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- Styles -->
@@ -64,12 +63,9 @@
     <!-- Dayjs -->
     <script src="{{ asset('js/days/dayjs.min.js') }}"></script>
     <script src="{{ asset('js/days/locale/id.js') }}"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
-    <script src="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}">
+    <!-- Daterange Picker -->
+    <script src="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.js') }}">
     </script>
-    <!-- jquery-validation -->
-    <script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src=" {{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
     <!-- chartjs -->
     <script src=" {{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Loadash -->
@@ -78,13 +74,15 @@
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <!-- Scripts -->
     <script>
-        moment.locale("{{ config('app.locale') }}")
-
         const idMoneyFormat = (number) => {
             return new Intl.NumberFormat('id', {
                 style: 'currency',
                 currency: 'IDR'
             }).format(number)
+        }
+
+        const nightCount = (checkOut, checkIn) => {
+            return dayjs(checkOut).diff(checkIn, 'day')
         }
 
         const Toast = Swal.mixin({

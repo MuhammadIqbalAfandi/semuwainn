@@ -4,6 +4,14 @@
   --warning: var(--orange);
 }
 
+@font-face {
+  font-family: "Open Sans";
+  src: url("");
+}
+body {
+  font-family: "Open Sans", sans-serif !important;
+}
+
 .brand:hover {
   color: var(--orange) !important;
 }

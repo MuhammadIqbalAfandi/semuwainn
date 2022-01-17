@@ -43,7 +43,7 @@ Route::prefix('dashboard')->group(function () {
             Route::get('/reservations/reservations', [ReservationController::class, 'reservations']);
             Route::post('/reservations/service/{reservation}', [ReservationController::class, 'storeService']);
             Route::post('/reservations/restaurant/{reservation}', [ReservationController::class, 'storeRestaurant']);
-            Route::resource('/reservations', ReservationController::class);
+            Route::resource('/reservations', ReservationController::class)->except('create');
 
             Route::get('/roles', [RoleController::class, 'index']);
             Route::get('/users/users', [UserController::class, 'users']);

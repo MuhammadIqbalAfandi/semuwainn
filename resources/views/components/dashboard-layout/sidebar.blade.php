@@ -22,7 +22,7 @@
 
                 @php
                     $routeUri = Route::currentRouteName();
-                    $routeStatus = collect(['dashboard.reservations.index', 'dashboard.reservations.create', 'dashboard.reservations.show', 'dashboard.service-orders.show', 'dashboard.restaurant-orders.show'])->contains($routeUri);
+                    $routeStatus = collect(['dashboard.reservations.index', 'dashboard.reservations.show', 'dashboard.service-orders.show', 'dashboard.restaurant-orders.show'])->contains($routeUri);
                 @endphp
                 <!-- Pemesanan Kamar -->
                 <li class="nav-item has-treeview {{ $routeStatus ? 'menu-open' : '' }}">
@@ -35,13 +35,13 @@
                     </a>
 
                     <ul class="nav nav-treeview active">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('dashboard.reservations.create') }}"
                                 class="nav-link {{ Route::is('dashboard.reservations.create') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tambah Pemesanan</p>
                             </a>
-                        </li>
+                        </li> --}}
 
                         @php
                             $routeUri = Route::currentRouteName();
