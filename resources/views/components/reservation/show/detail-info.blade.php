@@ -26,7 +26,7 @@
     <div class="col-auto">
         <div class="row">
             <div class="col text-right">
-                <p class="text-secondary"> Terakhir Diubah Oleh</p>
+                <p class="text-secondary">Telah Dikonfirmasi Oleh</p>
                 <p>{{ $reservation->user->name ?? '' }}</p>
             </div>
         </div>

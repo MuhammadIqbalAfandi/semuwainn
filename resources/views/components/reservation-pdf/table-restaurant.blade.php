@@ -1,7 +1,9 @@
 @if ($reservation->restaurantOrders->count())
-    <table class="table table-bordered table-striped">
+    <h3 class="h5 mt-4">Detail Restaurant</h3>
+
+    <table class="table table-sm table-bordered mt-2">
         <thead>
-            <tr>
+            <tr class="font-weight-normal">
                 <th>Nama</th>
                 <th>Kuantitas</th>
                 <th>Harga</th>

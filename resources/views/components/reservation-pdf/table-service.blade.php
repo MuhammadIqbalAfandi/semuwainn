@@ -1,7 +1,9 @@
 @if ($reservation->serviceOrders->count())
-    <table class="table table-bordered table-striped">
+    <h3 class="h5 mt-4">Detail Layanan</h3>
+
+    <table class="table table-sm table-bordered mt-2">
         <thead>
-            <tr>
+            <tr class="font-weight-normal">
                 <th>Nama</th>
                 <th>Kuantitas</th>
                 <th>Nomor Kamar</th>
@@ -15,8 +17,7 @@
                     <td>{{ $serviceOrder->quantity }}</td>
                     <td>
                         @foreach ($reservation->roomOrders as $roomOrder)
-                            <span class="badge badge-pill badge-warning">{{ $roomOrder->room->room_number }}
-                            </span>
+                            {{ $roomOrder->room->room_number }},
                         @endforeach
                     </td>
                     <td>{{ $serviceOrder->price }} (x {{ $serviceOrder->quantity }} kamar x lama inap) </td>

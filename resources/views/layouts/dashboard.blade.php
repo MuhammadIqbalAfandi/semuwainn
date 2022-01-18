@@ -59,10 +59,10 @@
     <!-- Select2 -->
     <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- Moments -->
-    <script src="{{ asset('js/moment-with-locales.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/moment/moment-with-locales.min.js') }}"></script>
     <!-- Dayjs -->
     <script src="{{ asset('js/days/dayjs.min.js') }}"></script>
-    <script src="{{ asset('js/days/locale/id.js') }}"></script>
+    <script src="{{ asset('js/days/locales/id.js') }}"></script>
     <!-- Daterange Picker -->
     <script src="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.js') }}">
     </script>
