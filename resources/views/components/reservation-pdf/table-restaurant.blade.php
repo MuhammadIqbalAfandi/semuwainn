@@ -6,6 +6,7 @@
             <tr class="font-weight-normal">
                 <th>Nama</th>
                 <th>Kuantitas</th>
+                <th>Tanggal Dipesan</th>
                 <th>Harga</th>
             </tr>
         </thead>
@@ -14,6 +15,7 @@
                 <tr>
                     <td>{{ $restaurantOrder->restaurant->name }}</td>
                     <td>{{ $restaurantOrder->quantity }}</td>
+                    <td>{{ $restaurantOrder->updated_at }}</td>
                     <td>{{ $restaurantOrder->price }} (x {{ $restaurantOrder->quantity }} Kuantitas)</td>
                 </tr>
             @endforeach

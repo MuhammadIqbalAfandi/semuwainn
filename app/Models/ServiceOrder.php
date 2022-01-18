@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Reservation;
+use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class ServiceOrder extends Model
 {
@@ -19,6 +22,11 @@ class ServiceOrder extends Model
     public function getPriceAttribute($value)
     {
         return 'Rp. ' . number_format($value, '2', ',', '.');
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
     }
 
     public function reservation()

@@ -30,4 +30,14 @@
             <x-reservation.show.total-price :totalPrice="$totalPrice"></x-reservation.show.total-price>
         </x-shared.content>
     </x-shared.content-wrapper>
+
+    @prepend('scripts')
+        <script>
+            // Methods
+            function reloadPage() {
+                location.reload()
+            }
+            // end Methods
+        </script>
+    @endprepend
 </x-dashboard-layout>

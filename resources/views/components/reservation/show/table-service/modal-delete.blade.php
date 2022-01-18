@@ -39,7 +39,7 @@
                     success(res) {
                         alert(res.message, res.status)
                         $('#modal-delete-service').modal('hide')
-                        fetchServices()
+                        reloadPage()
                     },
                     error(res) {
                         const {

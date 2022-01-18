@@ -7,6 +7,7 @@
                 <th>Nama</th>
                 <th>Kuantitas</th>
                 <th>Nomor Kamar</th>
+                <th>Tanggal Dipesan</th>
                 <th>Harga</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                             {{ $roomOrder->room->room_number }},
                         @endforeach
                     </td>
+                    <td>{{ $serviceOrder->updated_at }}</td>
                     <td>{{ $serviceOrder->price }} (x {{ $serviceOrder->quantity }} kamar x lama inap) </td>
                 </tr>
             @endforeach

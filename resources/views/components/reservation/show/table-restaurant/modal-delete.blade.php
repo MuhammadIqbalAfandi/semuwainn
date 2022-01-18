@@ -40,7 +40,7 @@
                     success(res) {
                         alert(res.message, res.status)
                         $('#modal-delete-restaurant').modal('hide')
-                        fetchRestaurant()
+                        reloadPage()
                     },
                     error(res) {
                         const {
