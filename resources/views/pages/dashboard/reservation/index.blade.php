@@ -31,13 +31,13 @@
                         </table>
                     </div>
                 </div>
-            </x-shared.card>
 
-            <x-reservation.index.modal-edit-status></x-reservation.index.modal-edit-status>
+                <x-reservation.index.modal-edit-status></x-reservation.index.modal-edit-status>
+            </x-shared.card>
         </x-shared.content>
     </x-shared.content-wrapper>
 
-    @push('scripts')
+    @prepend('scripts')
         <script>
             // Mounted
             $('#reservation-list-table').DataTable({
@@ -84,6 +84,7 @@
                     search: "Cari:",
                 },
             })
+            // end Mounted
 
             // Methods
             function fetchReservation() {
@@ -91,5 +92,5 @@
             }
             // end Methods
         </script>
-    @endpush
+    @endprepend
 </x-dashboard-layout>

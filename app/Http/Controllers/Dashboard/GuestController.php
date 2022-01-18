@@ -149,6 +149,11 @@ class GuestController extends Controller
         $guest = Guest::latest();
         if ($guest) {
             return DataTables::of($guest)
+                ->filterColumn('nik', function ($user, $keyword) {
+                    $user->where('nik', 'like', "%{$keyword}%")
+                        ->orWhere('email', 'like', "%{$keyword}%")
+                        ->orWhere('phone', 'like', "%{$keyword}%");
+                })
                 ->addColumn('nik', function (Guest $guest) {
                     return view('components.shared.account-info',
                         [

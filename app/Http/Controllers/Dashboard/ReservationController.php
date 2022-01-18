@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reservation\StoreReservationRequest;
-use App\Models\Guest;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
@@ -140,6 +139,9 @@ class ReservationController extends Controller
         $reservation = Reservation::with(['roomOrders', 'guest', 'reservationStatus'])->latest();
         if ($reservation) {
             return DataTables::of($reservation)
+                ->filterColumn('order', function ($reservation, $keyword) {
+                    $reservation->where('reservation_number', 'like', "%{$keyword}%");
+                })
                 ->addColumn('order', function (Reservation $reservation) {
                     return view('components.reservation.index.order-date',
                         [
@@ -172,11 +174,5 @@ class ReservationController extends Controller
                 })
                 ->make(true);
         }
-    }
-
-    public function nik(Request $request)
-    {
-        $response = Guest::where('nik', 'like', "%{$request->search}%")->get(['id', 'nik']);
-        return response()->json($response, 200);
     }
 }
