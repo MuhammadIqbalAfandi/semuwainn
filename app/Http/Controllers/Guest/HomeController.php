@@ -15,7 +15,7 @@ class HomeController extends Controller
     public function index()
     {
         return inertia('Guest/Home/Index', [
-            'rooms' => RoomType::filter()
+            'roomTypes' => RoomType::filter()
                 ->latest()
                 ->paginate(10)
                 ->withQueryString()

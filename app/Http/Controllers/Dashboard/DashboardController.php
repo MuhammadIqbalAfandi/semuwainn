@@ -51,14 +51,12 @@ class DashboardController extends Controller
                 fn($reservation) => Carbon::parse($reservation->reservation_time)->format('m'),
             ]);
             $reservationTwoYears = $reservationsGroup->take(-2);
-            $reservationFirstYear = $reservationTwoYears->first();
-            $reservationSecondYear = $reservationTwoYears->last();
-            return response()->json([
-                $reservationFirstYear,
-                $reservationSecondYear,
-            ],
-                200
-            );
+            if ($reservationTwoYears->count() === 1) {
+                $data = [$reservationTwoYears->first()];
+            } else {
+                $data = [$reservationTwoYears->first(), $reservationTwoYears->last()];
+            }
+            return response()->json($data, 200);
         }
     }
 }

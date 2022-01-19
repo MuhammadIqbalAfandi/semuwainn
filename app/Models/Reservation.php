@@ -3,6 +3,11 @@
 namespace App\Models;
 
 use App\Models\Guest;
+use App\Models\ReservationStatus;
+use App\Models\RestaurantOrder;
+use App\Models\Room;
+use App\Models\RoomOrder;
+use App\Models\ServiceOrder;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -70,5 +75,10 @@ class Reservation extends Model
     public function rooms()
     {
         return $this->belongsToMany(Room::class, RoomOrder::class);
+    }
+
+    public function payment()
+    {
+        return $this->hasMany(Payment::class)->latest();
     }
 }

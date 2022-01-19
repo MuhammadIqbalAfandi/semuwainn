@@ -47,7 +47,6 @@ class RoomBookingController extends Controller
             if (!$guest) {
                 $guest = Guest::create($request->safe()->except(['checkIn', 'checkOut']));
             }
-
             $reservation = $guest->reservations()->create([
                 'reservation_number' => 'OD' . Carbon::now()->format('YmdHs'),
                 'checkin' => $request->checkIn,
@@ -57,7 +56,6 @@ class RoomBookingController extends Controller
                 $reservation->roomOrders()->create([
                     'price' => RoomPrice::find($room['priceId'])->getRawOriginal('price'),
                     'guest_count' => $room['guestCount'],
-                    'quantity' => $room['roomCount'],
                     'room_id' => $room['id'],
                 ]);
             }
@@ -73,7 +71,7 @@ class RoomBookingController extends Controller
             return redirect()->back()->with('success', __('messages.success.store.room_booking'));
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', __('messages.errors.store.room_booking'));
+            return redirect()->back()->with('error', __('messages.errors.store.all'));
         }
     }
 }

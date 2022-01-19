@@ -2,7 +2,6 @@
 import { mapActions, mapGetters } from 'vuex'
 import difference from 'lodash/difference'
 import head from 'lodash/head'
-import flattenDeep from 'lodash/flattenDeep'
 import Paragraph from '@/shared/Paragraph.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
 import Button from '@/shared/Button.vue'
@@ -10,7 +9,7 @@ import mixinRooms from '@/mixins/rooms'
 
 export default {
   props: {
-    room: Object,
+    roomType: Object,
   },
   components: {
     Paragraph,
@@ -25,21 +24,20 @@ export default {
     ...mapActions(['addRoomCart']),
     roomOrder(priceId) {
       if (this.$parent.valid && this.roomAvailable >= 1) {
-        const { id, prices, thumbnail, name, roomsId } = this.room
+        const { id, prices, thumbnail, name, roomsId } = this.roomType
         const price = prices.find((price) => price.id === priceId)
         const roomId = head(difference(roomsId, this.getRoomId))
-        const data = {
+        const roomType = {
           id,
           roomId,
           name,
           thumbnail,
           priceId: Number(price.id),
           price: Number(price.price),
-          roomCount: Number(this.$parent.roomCount),
           guestCount: Number(this.$parent.guestCount),
         }
 
-        this.addRoomCart(data)
+        this.addRoomCart(roomType)
       }
     },
   },
@@ -48,7 +46,7 @@ export default {
 
 <template>
   <v-row dense>
-    <v-col v-for="price in room.prices" :key="price.id" cols="6">
+    <v-col v-for="price in roomType.prices" :key="price.id" cols="6">
       <v-card class="d-flex flex-column align-end text-end" height="100%" hover>
         <v-card-text>
           <Paragraph class="text-caption text-md-body-2">{{ price.description }}</Paragraph>

@@ -14,7 +14,7 @@ import mixinRooms from '@/mixins/rooms'
 export default {
   layout: GuestLayout,
   props: {
-    room: Object,
+    roomType: Object,
   },
   components: {
     Head,
@@ -30,11 +30,10 @@ export default {
   data() {
     return {
       valid: true,
-      roomCount: 1,
       guestCount: 1,
       rules: {
         lessOrEqualThanNumberOfGuestAvailable: (v) => {
-          return v <= this.room.numberOfGuest || `Jumlah tamu melebihi jumlah yang diperbolehkan.`
+          return v <= this.roomType.numberOfGuest || `Jumlah tamu melebihi jumlah yang diperbolehkan.`
         },
       },
     }
@@ -48,17 +47,21 @@ export default {
 
     <v-row no-gutters>
       <v-col cols="12">
-        <PhotoGridDetail :photoGrid="room.thumbnail" />
+        <PhotoGridDetail :photoGrid="roomType.thumbnail" />
       </v-col>
 
       <v-col cols="12">
-        <PriceRangeDetail :priceRange="room.priceRange" :roomName="room.name" :numberOfGuest="room.numberOfGuest" />
+        <PriceRangeDetail
+          :priceRange="roomType.priceRange"
+          :roomName="roomType.name"
+          :numberOfGuest="roomType.numberOfGuest"
+        />
       </v-col>
     </v-row>
 
     <v-row dense>
       <v-col cols="12">
-        <FacilityDetail :facilities="room.facilities" />
+        <FacilityDetail :facilities="roomType.facilities" />
       </v-col>
 
       <v-col cols="12" md="4">
@@ -93,7 +96,7 @@ export default {
       </v-col>
 
       <v-col sm="12" md="8">
-        <PriceDetail :room="room" />
+        <PriceDetail :roomType="roomType" />
       </v-col>
     </v-row>
   </div>

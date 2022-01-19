@@ -61,7 +61,11 @@
                          reservation_status_id: reservationStatusId
                      },
                      success(res) {
-                         alert(res.message, res.status)
+                         const {
+                             message,
+                             status
+                         } = res
+                         alert(message, status)
                          fetchReservation()
                          $('#modal-edit-status').modal('hide')
                      },

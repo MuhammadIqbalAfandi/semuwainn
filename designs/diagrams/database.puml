@@ -12,6 +12,13 @@
     * reservation_status_id
   }
 
+  entity Payment {
+    * id
+    __
+    * total
+    * reservation_id
+  }
+
   entity ReservationStatus {
     * id
     __
@@ -24,7 +31,6 @@
     * order_time
     * price
     * guest_count
-    * quantity
     * reservation_id
     * room_id
   }
@@ -152,6 +158,7 @@
   Reservation ||--|{ User
   Reservation ||--|{ Guest
   Reservation }|--|| RoomOrder
+  Reservation }|--|{ Payment
   RoomOrder ||--|{ Room
   Room ||--|{ RoomType
   RoomType }|--|| RoomPrice

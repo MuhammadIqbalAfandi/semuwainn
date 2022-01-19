@@ -3056,7 +3056,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    room: Object
+    roomType: Object
   },
   components: {
     OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -3066,9 +3066,9 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [_mixins_rooms__WEBPACK_IMPORTED_MODULE_3__["default"]],
   computed: {
     thumbnail: function thumbnail() {
-      var _this$room$thumbnail$;
+      var _this$roomType$thumbn;
 
-      return (_this$room$thumbnail$ = this.room.thumbnail.images[0]) !== null && _this$room$thumbnail$ !== void 0 ? _this$room$thumbnail$ : this.room.thumbnail.defaultImage;
+      return (_this$roomType$thumbn = this.roomType.thumbnail.images[0]) !== null && _this$roomType$thumbn !== void 0 ? _this$roomType$thumbn : this.roomType.thumbnail.defaultImage;
     }
   }
 });
@@ -3264,10 +3264,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
-  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)('roomBooking', ['checkIn', 'checkOut', 'nightCount'])), (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)(['roomCart', 'serviceCart'])), (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['getRoomCount'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)('roomBooking', ['checkIn', 'checkOut', 'nightCount'])), (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)(['roomCart', 'serviceCart'])), {}, {
     roomPrice: function roomPrice() {
       var roomPrice = this.roomCart.map(function (item) {
-        return item.price * item.roomCount;
+        return item.price;
       });
       return roomPrice.reduce(function (prev, current) {
         return prev + current;
@@ -3279,7 +3279,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       return roomPrice.length ? roomPrice.reduce(function (prev, current) {
         return prev + current;
-      }) * this.getRoomCount * this.nightCount : 0;
+      }) * this.roomCart.length * this.nightCount : 0;
     },
     totalPrice: function totalPrice() {
       return this.roomPrice + this.servicePrice;
@@ -3329,13 +3329,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     room: Object
   },
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
-  computed: {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)('roomBooking', ['nightCount'])), {}, {
     thumbnail: function thumbnail() {
       var _this$room$thumbnail$;
 
       return (_this$room$thumbnail$ = this.room.thumbnail.images[0]) !== null && _this$room$thumbnail$ !== void 0 ? _this$room$thumbnail$ : this.room.thumbnail.defaultImage;
     }
-  },
+  }),
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)(['removeRoomCart', 'clearServiceCart'])), {}, {
     roomDelete: function roomDelete(priceId) {
       this.removeRoomCart(priceId);
@@ -3636,17 +3636,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var lodash_difference__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/difference */ "./node_modules/lodash/difference.js");
 /* harmony import */ var lodash_difference__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_difference__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lodash_head__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/head */ "./node_modules/lodash/head.js");
 /* harmony import */ var lodash_head__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_head__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/flattenDeep */ "./node_modules/lodash/flattenDeep.js");
-/* harmony import */ var lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_flattenDeep__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
-/* harmony import */ var _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/shared/OriginPrice.vue */ "./resources/js/shared/OriginPrice.vue");
-/* harmony import */ var _shared_Button_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/shared/Button.vue */ "./resources/js/shared/Button.vue");
-/* harmony import */ var _mixins_rooms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/mixins/rooms */ "./resources/js/mixins/rooms.js");
+/* harmony import */ var _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/shared/Paragraph.vue */ "./resources/js/shared/Paragraph.vue");
+/* harmony import */ var _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/shared/OriginPrice.vue */ "./resources/js/shared/OriginPrice.vue");
+/* harmony import */ var _shared_Button_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/shared/Button.vue */ "./resources/js/shared/Button.vue");
+/* harmony import */ var _mixins_rooms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/mixins/rooms */ "./resources/js/mixins/rooms.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -3660,42 +3658,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    room: Object
+    roomType: Object
   },
   components: {
-    Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    Paragraph: _shared_Paragraph_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    OriginPrice: _shared_OriginPrice_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  mixins: [_mixins_rooms__WEBPACK_IMPORTED_MODULE_6__["default"]],
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)(['getRoomId'])),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapActions)(['addRoomCart'])), {}, {
+  mixins: [_mixins_rooms__WEBPACK_IMPORTED_MODULE_5__["default"]],
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapGetters)(['getRoomId'])),
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapActions)(['addRoomCart'])), {}, {
     roomOrder: function roomOrder(priceId) {
       if (this.$parent.valid && this.roomAvailable >= 1) {
-        var _this$room = this.room,
-            id = _this$room.id,
-            prices = _this$room.prices,
-            thumbnail = _this$room.thumbnail,
-            name = _this$room.name,
-            roomsId = _this$room.roomsId;
+        var _this$roomType = this.roomType,
+            id = _this$roomType.id,
+            prices = _this$roomType.prices,
+            thumbnail = _this$roomType.thumbnail,
+            name = _this$roomType.name,
+            roomsId = _this$roomType.roomsId;
         var price = prices.find(function (price) {
           return price.id === priceId;
         });
         var roomId = lodash_head__WEBPACK_IMPORTED_MODULE_1___default()(lodash_difference__WEBPACK_IMPORTED_MODULE_0___default()(roomsId, this.getRoomId));
-        var data = {
+        var roomType = {
           id: id,
           roomId: roomId,
           name: name,
           thumbnail: thumbnail,
           priceId: Number(price.id),
           price: Number(price.price),
-          roomCount: Number(this.$parent.roomCount),
           guestCount: Number(this.$parent.guestCount)
         };
-        this.addRoomCart(data);
+        this.addRoomCart(roomType);
       }
     }
   })
@@ -3855,7 +3851,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   props: {
-    rooms: Object
+    roomTypes: Object
   },
   components: {
     Head: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Head,
@@ -3864,22 +3860,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      current_page: this.rooms.current_page
+      current_page: this.roomTypes.current_page
     };
   },
   methods: {
     next: function next() {
-      this.$inertia.get(this.rooms.next_page_url, '', {
+      this.$inertia.get(this.roomTypes.next_page_url, '', {
         preserveScroll: true
       });
     },
     prev: function prev() {
-      this.$inertia.get(this.rooms.prev_page_url, '', {
+      this.$inertia.get(this.roomTypes.prev_page_url, '', {
         preserveScroll: true
       });
     },
     input: function input() {
-      this.$inertia.get("".concat(this.rooms.path, "/?page=").concat(this.current_page), '', {
+      this.$inertia.get("".concat(this.roomTypes.path, "/?page=").concat(this.current_page), '', {
         preserveScroll: true
       });
     }
@@ -3935,7 +3931,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ServiceBooking: _components_Guest_RoomBooking_ServiceBooking_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     BookingPrice: _components_Guest_RoomBooking_BookingPrice_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
-  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)('roomBooking', ['checkIn', 'checkOut', 'valid', 'nik', 'name', 'phone', 'email', 'valid'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)(['roomCart', 'serviceCart'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)(['getRoomCount'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)('roomBooking', ['checkIn', 'checkOut', 'valid', 'nik', 'name', 'phone', 'email', 'valid'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapState)(['roomCart', 'serviceCart'])), {}, {
     hideSubmitButton: function hideSubmitButton() {
       return !this.roomCart.length || !this.valid;
     }
@@ -3960,7 +3956,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             id: room.roomId,
             priceId: room.priceId,
             price: room.price,
-            roomCount: room.roomCount,
             guestCount: room.guestCount
           };
         });
@@ -3968,7 +3963,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           return {
             id: service.id,
             price: service.price,
-            roomCount: _this.getRoomCount
+            roomCount: _this.roomCart.length
           };
         });
         var form = {
@@ -4025,7 +4020,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _layouts_Guest_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   props: {
-    room: Object
+    roomType: Object
   },
   components: {
     Head: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Head,
@@ -4043,11 +4038,10 @@ __webpack_require__.r(__webpack_exports__);
 
     return {
       valid: true,
-      roomCount: 1,
       guestCount: 1,
       rules: {
         lessOrEqualThanNumberOfGuestAvailable: function lessOrEqualThanNumberOfGuestAvailable(v) {
-          return v <= _this.room.numberOfGuest || "Jumlah tamu melebihi jumlah yang diperbolehkan.";
+          return v <= _this.roomType.numberOfGuest || "Jumlah tamu melebihi jumlah yang diperbolehkan.";
         }
       }
     };
@@ -4393,10 +4387,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['getRoomAvailable'])), {}, {
     roomAvailable: function roomAvailable() {
-      return this.getRoomAvailable(this.room.roomsId);
+      return this.getRoomAvailable(this.roomType.roomsId);
     },
     roomStatus: function roomStatus() {
-      return this.getRoomAvailable(this.room.roomsId) ? "Sisa ".concat(this.getRoomAvailable(this.room.roomsId), " kamar lagi!") : 'Kamar penuh!';
+      return this.getRoomAvailable(this.roomType.roomsId) ? "Sisa ".concat(this.getRoomAvailable(this.roomType.roomsId), " kamar lagi!") : 'Kamar penuh!';
     }
   })
 });
@@ -4524,14 +4518,6 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_5_
       return state.roomCart.map(function (item) {
         return item.roomId;
       });
-    },
-    getRoomCount: function getRoomCount(state) {
-      var roomCounts = state.roomCart.map(function (item) {
-        return item.roomCount;
-      });
-      return roomCounts.length ? roomCounts.reduce(function (prev, current) {
-        return prev + current;
-      }) : 0;
     },
     getRoomAvailable: function getRoomAvailable(state, getters) {
       return function (roomsId) {
@@ -15868,7 +15854,7 @@ var render = function () {
                           _c(
                             "h3",
                             { staticClass: "mb-md-4 text-body-2 text-md-h5" },
-                            [_vm._v(_vm._s(_vm.room.name))]
+                            [_vm._v(_vm._s(_vm.roomType.name))]
                           ),
                           _vm._v(" "),
                           _c(
@@ -15885,7 +15871,7 @@ var render = function () {
                             { attrs: { dense: "" } },
                             [
                               _vm._l(
-                                _vm.room.facilities,
+                                _vm.roomType.facilities,
                                 function (facility, index) {
                                   return _c(
                                     "v-col",
@@ -15915,7 +15901,7 @@ var render = function () {
                                 "v-col",
                                 { attrs: { cols: "auto" } },
                                 [
-                                  _vm.room.facilityCount
+                                  _vm.roomType.facilityCount
                                     ? _c(
                                         "v-chip",
                                         {
@@ -15926,7 +15912,9 @@ var render = function () {
                                           _c("span", [
                                             _vm._v(
                                               "+" +
-                                                _vm._s(_vm.room.facilityCount)
+                                                _vm._s(
+                                                  _vm.roomType.facilityCount
+                                                )
                                             ),
                                           ]),
                                         ]
@@ -15942,7 +15930,7 @@ var render = function () {
                           _c("ParagraphLeftIcon", {
                             attrs: {
                               icon: "mdi-account-multiple",
-                              text: _vm.room.numberOfGuest + " tamu",
+                              text: _vm.roomType.numberOfGuest + " tamu",
                             },
                           }),
                         ],
@@ -15967,7 +15955,7 @@ var render = function () {
                           ),
                           _vm._v(" "),
                           _c("OriginPrice", {
-                            attrs: { price: _vm.room.price },
+                            attrs: { price: _vm.roomType.price },
                           }),
                           _vm._v(" "),
                           _c(
@@ -16752,9 +16740,7 @@ var render = function () {
                         [
                           _c("Paragraph", [
                             _c("span", [
-                              _vm._v(
-                                "(x " + _vm._s(_vm.room.roomCount) + " kamar)"
-                              ),
+                              _vm._v("(x " + _vm._s(_vm.nightCount) + " Hari)"),
                             ]),
                           ]),
                         ],
@@ -17503,7 +17489,7 @@ var render = function () {
   return _c(
     "v-row",
     { attrs: { dense: "" } },
-    _vm._l(_vm.room.prices, function (price) {
+    _vm._l(_vm.roomType.prices, function (price) {
       return _c(
         "v-col",
         { key: price.id, attrs: { cols: "6" } },
@@ -17825,15 +17811,19 @@ var render = function () {
             ]),
           ]),
           _vm._v(" "),
-          _vm._l(_vm.rooms.data, function (room) {
+          _vm._l(_vm.roomTypes.data, function (roomType) {
             return _c(
               "v-col",
-              { key: room.id, attrs: { cols: "12" } },
+              { key: roomType.id, attrs: { cols: "12" } },
               [
                 _c(
                   "Link",
-                  { attrs: { href: _vm.$route("room-details.show", room.id) } },
-                  [_c("RoomList", { attrs: { room: room } })],
+                  {
+                    attrs: {
+                      href: _vm.$route("room-details.show", roomType.id),
+                    },
+                  },
+                  [_c("RoomList", { attrs: { roomType: roomType } })],
                   1
                 ),
               ],
@@ -17847,8 +17837,8 @@ var render = function () {
             [
               _c("v-pagination", {
                 attrs: {
-                  length: _vm.rooms.last_page,
-                  "total-visible": _vm.rooms.per_page,
+                  length: _vm.roomTypes.last_page,
+                  "total-visible": _vm.roomTypes.per_page,
                   color: "orange lighten-2 grey--text text--darken-4",
                   circle: "",
                 },
@@ -18033,7 +18023,7 @@ var render = function () {
             { attrs: { cols: "12" } },
             [
               _c("PhotoGridDetail", {
-                attrs: { photoGrid: _vm.room.thumbnail },
+                attrs: { photoGrid: _vm.roomType.thumbnail },
               }),
             ],
             1
@@ -18045,9 +18035,9 @@ var render = function () {
             [
               _c("PriceRangeDetail", {
                 attrs: {
-                  priceRange: _vm.room.priceRange,
-                  roomName: _vm.room.name,
-                  numberOfGuest: _vm.room.numberOfGuest,
+                  priceRange: _vm.roomType.priceRange,
+                  roomName: _vm.roomType.name,
+                  numberOfGuest: _vm.roomType.numberOfGuest,
                 },
               }),
             ],
@@ -18066,7 +18056,7 @@ var render = function () {
             { attrs: { cols: "12" } },
             [
               _c("FacilityDetail", {
-                attrs: { facilities: _vm.room.facilities },
+                attrs: { facilities: _vm.roomType.facilities },
               }),
             ],
             1
@@ -18163,7 +18153,7 @@ var render = function () {
           _c(
             "v-col",
             { attrs: { sm: "12", md: "8" } },
-            [_c("PriceDetail", { attrs: { room: _vm.room } })],
+            [_c("PriceDetail", { attrs: { roomType: _vm.roomType } })],
             1
           ),
         ],

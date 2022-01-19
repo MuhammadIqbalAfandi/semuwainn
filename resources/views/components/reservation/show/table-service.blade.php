@@ -7,10 +7,8 @@
                         <tr>
                             <th>Nama</th>
                             <th>Kuantitas</th>
-                            <th>Nomor Kamar</th>
                             <th>Tanggal Ditambahkan</th>
                             <th>Harga</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -18,20 +16,13 @@
                             <tr>
                                 <td>{{ $serviceOrder->service->name }}</td>
                                 <td>{{ $serviceOrder->quantity }}</td>
-                                <td>
-                                    @foreach ($reservation->roomOrders as $roomOrder)
-                                        <span
-                                            class="badge badge-pill badge-warning">{{ $roomOrder->room->room_number }}
-                                        </span>
-                                    @endforeach
-                                </td>
                                 <td>{{ $serviceOrder->updated_at }}</td>
-                                <td>{{ $serviceOrder->price }} (x {{ $serviceOrder->quantity }} kamar x lama inap)
-                                </td>
                                 <td>
-                                    <i class="fas fa-trash-alt show-service-delete-btn text-danger"
-                                        id="{{ $serviceOrder->id }}">
-                                    </i>
+                                    {{ $serviceOrder->price }}
+                                    <span class="text-sm text-secondary">
+                                        (x {{ $serviceOrder->quantity }} kamar x
+                                        {{ $nightCount }} Hari)
+                                    </span>
                                 </td>
                             </tr>
                         @endforeach
@@ -43,7 +34,7 @@
         <div class="row">
             <div class="col-12 d-flex flex-column align-items-end text-secondary">
                 Total Harga
-                <p class="text-danger">{{ $totalServicePriceString ?? 0 }}</p>
+                <p class="text-danger">{{ $serviceBillString ?? 0 }}</p>
             </div>
         </div>
 

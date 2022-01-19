@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reservation\StoreReservationRequest;
 use App\Models\Reservation;
+use App\Services\ReservationService;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -13,6 +14,9 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ReservationController extends Controller
 {
+    public function __construct(private ReservationService $reservationService)
+    {}
+
     /**
      * Display a listing of the resource.
      *
@@ -31,31 +35,33 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        $nightCount = Carbon::parse($reservation->getRawOriginal('checkin'))
-            ->diffInDays($reservation->getRawOriginal('checkout'));
-        $totalRoomPrice = $reservation->roomOrders->sum(function ($roomOrder) {
-            return $roomOrder->getRawOriginal('price') * $roomOrder->quantity;
-        });
-        $totalServicePrice = $reservation->serviceOrders->sum(function ($serviceOrder) use ($nightCount) {
-            return $serviceOrder->getRawOriginal('price') * $serviceOrder->quantity * $nightCount;
-        });
-        $totalRestaurantPrice = $reservation->restaurantOrders->sum(function ($restaurantOrder) {
-            return $restaurantOrder->getRawOriginal('price') * $restaurantOrder->quantity;
-        });
-        $totalPrice = 'Rp. ' . number_format(($totalRoomPrice + $totalServicePrice + $totalRestaurantPrice), '2', ',', '.');
+        $this->reservationService->setReservation($reservation);
+        $nightCount = $this->reservationService->getNightCount();
+        $roomBillString = $this->reservationService->getRoomBillString();
+        $serviceBillString = $this->reservationService->getServiceBillString();
+        $restaurantBillString = $this->reservationService->getRestaurantBillString();
 
-        $totalRoomPriceString = 'Rp. ' . number_format($totalRoomPrice, '2', ',', '.');
-        $totalServicePriceString = 'Rp. ' . number_format($totalServicePrice, '2', ',', '.');
-        $totalRestaurantPriceString = 'Rp. ' . number_format($totalRestaurantPrice, '2', ',', '.');
+        switch ($reservation->reservation_status_id) {
+            case 1:
+            case 4:
+            case 5:
+                $restOfBill = $this->reservationService->getRestOfBill();
+                $payment = $this->reservationService->getPaymentString();
+                break;
+            default:
+                $restOfBill = $this->reservationService->getTotalBillString();
+                $payment = 0;
+        }
 
         return view('pages.dashboard.reservation.show',
             compact(
                 'reservation',
                 'nightCount',
-                'totalPrice',
-                'totalRoomPriceString',
-                'totalServicePriceString',
-                'totalRestaurantPriceString',
+                'restOfBill',
+                'payment',
+                'roomBillString',
+                'serviceBillString',
+                'restaurantBillString',
             ),
         );
     }
@@ -111,11 +117,20 @@ class ReservationController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
+        DB::beginTransaction();
         try {
             $reservation->update([
                 'user_id' => auth()->user()->id,
                 'reservation_status_id' => $request->reservation_status_id,
             ]);
+
+            $this->reservationService->setReservation($reservation);
+            $reservation->payment()->create([
+                'total' => $this->reservationService->getTotalBill(),
+            ]);
+
+            DB::commit();
+
             return response()->json(
                 [
                     'message' => __('messages.success.update.reservation-status'),
@@ -124,6 +139,8 @@ class ReservationController extends Controller
                 201,
             );
         } catch (QueryException $e) {
+            DB::rollBack();
+
             return response()->json(
                 [
                     'message' => __('messages.errors.update.all'),

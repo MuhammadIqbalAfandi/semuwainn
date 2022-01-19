@@ -7,7 +7,7 @@ import Link from '@/shared/Link.vue'
 export default {
   layout: GuestLayout,
   props: {
-    rooms: Object,
+    roomTypes: Object,
   },
   components: {
     Head,
@@ -16,18 +16,18 @@ export default {
   },
   data() {
     return {
-      current_page: this.rooms.current_page,
+      current_page: this.roomTypes.current_page,
     }
   },
   methods: {
     next() {
-      this.$inertia.get(this.rooms.next_page_url, '', { preserveScroll: true })
+      this.$inertia.get(this.roomTypes.next_page_url, '', { preserveScroll: true })
     },
     prev() {
-      this.$inertia.get(this.rooms.prev_page_url, '', { preserveScroll: true })
+      this.$inertia.get(this.roomTypes.prev_page_url, '', { preserveScroll: true })
     },
     input() {
-      this.$inertia.get(`${this.rooms.path}/?page=${this.current_page}`, '', { preserveScroll: true })
+      this.$inertia.get(`${this.roomTypes.path}/?page=${this.current_page}`, '', { preserveScroll: true })
     },
   },
 }
@@ -42,17 +42,17 @@ export default {
         <h2 class="text-subtitle-1 text-md-h5">Kamar Tersedia</h2>
       </v-col>
 
-      <v-col v-for="room in rooms.data" :key="room.id" cols="12">
-        <Link :href="$route('room-details.show', room.id)">
-          <RoomList :room="room" />
+      <v-col v-for="roomType in roomTypes.data" :key="roomType.id" cols="12">
+        <Link :href="$route('room-details.show', roomType.id)">
+          <RoomList :roomType="roomType" />
         </Link>
       </v-col>
 
       <v-col cols="12">
         <v-pagination
           v-model="current_page"
-          :length="rooms.last_page"
-          :total-visible="rooms.per_page"
+          :length="roomTypes.last_page"
+          :total-visible="roomTypes.per_page"
           @input="input"
           @next="next"
           @previous="prev"

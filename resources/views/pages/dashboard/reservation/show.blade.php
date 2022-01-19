@@ -16,18 +16,20 @@
             <x-reservation.show.detail-info :reservation="$reservation" :nightCount="$nightCount">
             </x-reservation.show.detail-info>
 
-            <x-reservation.show.table-room :reservation="$reservation" :totalRoomPriceString="$totalRoomPriceString">
+            <x-reservation.show.table-room :reservation="$reservation" :roomBillString="$roomBillString"
+                :nightCount="$nightCount">
             </x-reservation.show.table-room>
 
-            <x-reservation.show.table-service :reservation="$reservation" :roomOrders="$reservation"
-                :totalServicePriceString="$totalServicePriceString">
+            <x-reservation.show.table-service :reservation="$reservation" :serviceBillString="$serviceBillString"
+                :nightCount="$nightCount">
             </x-reservation.show.table-service>
 
             <x-reservation.show.table-restaurant :reservation="$reservation"
-                :totalRestaurantPriceString="$totalRestaurantPriceString">
+                :restaurantBillString="$restaurantBillString">
             </x-reservation.show.table-restaurant>
 
-            <x-reservation.show.total-price :totalPrice="$totalPrice"></x-reservation.show.total-price>
+            <x-reservation.show.total-price :reservation="$reservation" :restOfBill="$restOfBill" :payment="$payment">
+            </x-reservation.show.total-price>
         </x-shared.content>
     </x-shared.content-wrapper>
 

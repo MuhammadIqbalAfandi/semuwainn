@@ -9,7 +9,6 @@
                             <th>Kuantitas</th>
                             <th>Tanggal Ditambahkan</th>
                             <th>Harga</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -18,12 +17,11 @@
                                 <td>{{ $restaurantOrder->restaurant->name }}</td>
                                 <td>{{ $restaurantOrder->quantity }}</td>
                                 <td>{{ $restaurantOrder->updated_at }}</td>
-                                <td>{{ $restaurantOrder->price }} (x {{ $restaurantOrder->quantity }} Kuantitas)
-                                </td>
                                 <td>
-                                    <i class="fas fa-trash-alt show-restaurant-delete-btn text-danger"
-                                        id="{{ $restaurantOrder->id }}">
-                                    </i>
+                                    {{ $restaurantOrder->price }}
+                                    <span class="text-sm text-secondary">
+                                        (x {{ $restaurantOrder->quantity }} Kuantitas)
+                                    </span>
                                 </td>
                             </tr>
                         @endforeach
@@ -35,7 +33,7 @@
         <div class="row">
             <div class="col-12 d-flex flex-column align-items-end text-secondary">
                 Total Harga
-                <p class="text-danger">{{ $totalRestaurantPriceString ?? 0 }}</p>
+                <p class="text-danger">{{ $restaurantBillString ?? 0 }}</p>
             </div>
         </div>
 

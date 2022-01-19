@@ -17,7 +17,7 @@ class RoomDetailController extends Controller
     {
         $roomType = RoomType::find($id);
         return inertia('Guest/RoomDetail/Index', [
-            'room' => [
+            'roomType' => [
                 'id' => $roomType->id,
                 'name' => $roomType->name,
                 'thumbnail' => [

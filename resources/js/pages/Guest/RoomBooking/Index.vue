@@ -25,7 +25,6 @@ export default {
   computed: {
     ...mapState('roomBooking', ['checkIn', 'checkOut', 'valid', 'nik', 'name', 'phone', 'email', 'valid']),
     ...mapState(['roomCart', 'serviceCart']),
-    ...mapGetters(['getRoomCount']),
     hideSubmitButton() {
       return !this.roomCart.length || !this.valid
     },
@@ -50,7 +49,6 @@ export default {
             id: room.roomId,
             priceId: room.priceId,
             price: room.price,
-            roomCount: room.roomCount,
             guestCount: room.guestCount,
           }
         })
@@ -59,7 +57,7 @@ export default {
           return {
             id: service.id,
             price: service.price,
-            roomCount: this.getRoomCount,
+            roomCount: this.roomCart.length,
           }
         })
 

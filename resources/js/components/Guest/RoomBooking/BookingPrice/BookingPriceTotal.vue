@@ -15,15 +15,14 @@ export default {
   computed: {
     ...mapState('roomBooking', ['checkIn', 'checkOut', 'nightCount']),
     ...mapState(['roomCart', 'serviceCart']),
-    ...mapGetters(['getRoomCount']),
     roomPrice() {
-      const roomPrice = this.roomCart.map((item) => item.price * item.roomCount)
+      const roomPrice = this.roomCart.map((item) => item.price)
       return roomPrice.reduce((prev, current) => prev + current) * this.nightCount || 0
     },
     servicePrice() {
       const roomPrice = this.serviceCart.map((item) => item.price)
       return roomPrice.length
-        ? roomPrice.reduce((prev, current) => prev + current) * this.getRoomCount * this.nightCount
+        ? roomPrice.reduce((prev, current) => prev + current) * this.roomCart.length * this.nightCount
         : 0
     },
     totalPrice() {

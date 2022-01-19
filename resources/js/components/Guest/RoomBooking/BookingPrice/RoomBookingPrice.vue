@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import Button from '@/shared/Button.vue'
 import OriginPrice from '@/shared/OriginPrice.vue'
@@ -12,6 +12,7 @@ export default {
   },
   mixins: [mixinHelper],
   computed: {
+    ...mapState('roomBooking', ['nightCount']),
     thumbnail() {
       return this.room.thumbnail.images[0] ?? this.room.thumbnail.defaultImage
     },
@@ -53,7 +54,7 @@ export default {
 
             <v-col cols="auto">
               <Paragraph>
-                <span>(x {{ room.roomCount }} kamar)</span>
+                <span>(x {{ nightCount }} Hari)</span>
               </Paragraph>
             </v-col>
           </v-row>
