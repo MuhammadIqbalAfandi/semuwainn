@@ -32,11 +32,11 @@
 
         <div class="form-group">
             <label for="role-edit">Hak Akses</label>
-            <select class="select2" name="role" id="role-edit">
+            <select class="select2" name="role_id" id="role-edit">
                 <option></option>
             </select>
 
-            <span class="text-danger msg-error role-error"></span>
+            <span class="text-danger msg-error role_id-error"></span>
         </div>
 
         <button type="submit" id="btn-edit" class="btn btn-block btn-warning">Simpan</button>
@@ -109,16 +109,26 @@
                         role_id: roleId,
                     },
                     success(res) {
-                        alert(res.message, res.status)
+                        const {
+                            message,
+                            status
+                        } = res
+                        alert(message, status)
                         $('#modal-edit').modal('hide')
                         fetchUsers()
                     },
                     error(res) {
                         const {
-                            errors
+                            errors,
+                            message,
+                            status
                         } = res.responseJSON
-                        for (const key in errors) {
-                            $(`.${key}-error`).text(errors[key])
+                        if (status === 'failed') {
+                            alert(message, status)
+                        } else {
+                            for (const key in errors) {
+                                $(`.${key}-error`).text(errors[key])
+                            }
                         }
                     }
                 })

@@ -44,7 +44,7 @@
         </x-shared.content>
     </x-shared.content-wrapper>
 
-    @push('scripts')
+    @prepend('scripts')
         <script>
             // Mounted
             $('.table').DataTable({
@@ -97,5 +97,5 @@
             }
             // end Methods
         </script>
-    @endpush
+    @endprepend
 </x-dashboard-layout>

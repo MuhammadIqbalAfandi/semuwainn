@@ -46,7 +46,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'post',
-                        url: '/dashboard/room-types',
+                        url: "{{ route('dashboard.room-types.store') }}",
                         data: {
                             name,
                             number_of_guest: numberOfGuest,
@@ -58,7 +58,11 @@
                             $('.msg-error').text('')
                         },
                         success(res) {
-                            alert(res.message, res.status)
+                            const {
+                                message,
+                                status
+                            } = res
+                            alert(message, status)
                         },
                         error(res) {
                             const {

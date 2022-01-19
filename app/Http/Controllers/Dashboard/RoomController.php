@@ -126,7 +126,6 @@ class RoomController extends Controller
                 422,
             );
         }
-
     }
 
     public function rooms()

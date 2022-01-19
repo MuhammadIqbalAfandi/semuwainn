@@ -31,15 +31,16 @@
                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                       },
                       type: 'post',
-                      url: 'facilities',
+                      url: "{{ route('dashboard.facilities.store') }}",
                       data: {
                           name,
                       },
-                      beforeSend() {
-                          $('.msg-error').text('')
-                      },
                       success(res) {
-                          alert(res.message, res.status)
+                          const {
+                              message,
+                              status
+                          } = res
+                          alert(message, status)
                           $('#modal-add').modal('hide')
                           fetchFacilities()
                       },

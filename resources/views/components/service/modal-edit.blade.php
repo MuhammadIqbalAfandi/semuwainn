@@ -96,7 +96,11 @@
                         price,
                     },
                     success(res) {
-                        alert(res.message, res.status)
+                        const {
+                            message,
+                            status
+                        } = res
+                        alert(message, status)
                         $('#modal-edit').modal('hide')
                         fetchServices()
                     },

@@ -92,7 +92,7 @@
 
             function clearForm() {
                 $('[name="name"]').val('')
-                $('[name="service_unit_id"]').val(null).trigger('change');
+                $('[name="service_unit_id"]').val(null).trigger('change')
                 $('[name="price"]').val('')
             }
             // end Methods

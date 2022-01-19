@@ -42,6 +42,15 @@
                          $('#modal-delete').modal('hide')
                          fetchRestaurants()
                      },
+                     error(res) {
+                         const {
+                             message,
+                             status
+                         } = res.responseJSON
+                         alert(message, status)
+
+                         $('#modal-delete').modal('hide')
+                     }
                  })
              })
          })

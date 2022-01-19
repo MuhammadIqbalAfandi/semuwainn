@@ -6,7 +6,9 @@
 
 @font-face {
   font-family: "Open Sans";
-  src: url("");
+  src: url("/fonts/OpenSans-VariableFont_wdth_wght.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
 }
 body {
   font-family: "Open Sans", sans-serif !important;

@@ -25,11 +25,6 @@
 
                 <span class="checkin_checkout-error msg-error text-danger"></span>
             </div>
-
-            <p>
-                <i class="far fa-moon"></i>
-                <span class="ml-2" id="nightCount">0 Hari</span>
-            </p>
         </div>
     </div>
 
@@ -73,10 +68,7 @@
         $(() => {
             // Mounted
             $('#checkin-checkout').daterangepicker()
-            $('#checkin-checkout').change((e) => {
-                const date = e.target.value.split('-')
-                $('#nightCount').text(`${nightCount(date[1],  date[0])} Hari`)
-            })
+            $('#checkin-checkout').change((e) => {})
             // end Mounted
         })
     </script>

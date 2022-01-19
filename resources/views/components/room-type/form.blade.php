@@ -1,7 +1,5 @@
 <x-shared.card title="{{ $title }}">
     <form>
-        <input id="room-type-id" type="hidden" value="{{ $roomType->id ?? '' }}" />
-
         <div class="row">
             <div class="col-md-12 col-lg">
                 <div class="form-group">

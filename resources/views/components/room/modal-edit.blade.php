@@ -75,16 +75,26 @@
                         room_type_id: roomTypeId,
                     },
                     success(res) {
-                        alert(res.message, res.status)
+                        const {
+                            message,
+                            status
+                        } = res
+                        alert(message, status)
                         $('#modal-edit').modal('hide')
                         fetchRooms()
                     },
                     error(res) {
                         const {
-                            errors
+                            errors,
+                            message,
+                            status
                         } = res.responseJSON
-                        for (const key in errors) {
-                            $(`.${key}-error`).text(errors[key])
+                        if (status === 'failed') {
+                            alert(message, status)
+                        } else {
+                            for (const key in errors) {
+                                $(`.${key}-error`).text(errors[key])
+                            }
                         }
                     }
                 })

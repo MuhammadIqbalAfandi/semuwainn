@@ -96,7 +96,7 @@
                 $('[name="email"]').val('')
                 $('[name="phone"]').val('')
                 $('[name="address"]').val('')
-                $('[name="role"]').val('')
+                $('[name="role_id"]').val(null).trigger('change');
             }
 
             function fetchUsers() {

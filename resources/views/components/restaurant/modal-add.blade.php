@@ -2,6 +2,7 @@
     <form>
         <div class="form-group">
             <label for="name">Nama Hidangan</label>
+
             <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama hidangan disini">
 
             <span class="text-danger msg-error name-error"></span>
@@ -9,6 +10,7 @@
 
         <div class="form-group">
             <label for="unit">Satuan</label>
+
             <input type="text" name="unit" id="unit" class="form-control" placeholder="Tulis nama satuan disini">
 
             <span class="text-danger msg-error unit-error"></span>
@@ -20,6 +22,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text text-bold">Rp</span>
                 </div>
+
                 <input type="text" name="price" id="price" class="form-control" placeholder="Tulis harga disini">
             </div>
 
@@ -52,17 +55,18 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'post',
-                    url: 'restaurants',
+                    url: "{{ route('dashboard.restaurants.store') }}",
                     data: {
                         name,
                         unit,
                         price
                     },
-                    beforeSend() {
-                        $('.msg-error').text('')
-                    },
                     success(res) {
-                        alert(res.message, res.status)
+                        const {
+                            message,
+                            status
+                        } = res
+                        alert(message, status)
                         $('#modal-add').modal('hide')
                         fetchRestaurants()
                     },

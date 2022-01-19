@@ -2,7 +2,7 @@
     <x-shared.card title="Detail Hidangan">
         <div class="row">
             <div class="col">
-                <table class="table table-bordered table-hover">
+                <table class="table table-sm table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>Nama</th>

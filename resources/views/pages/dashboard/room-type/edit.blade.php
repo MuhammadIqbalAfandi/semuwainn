@@ -19,7 +19,6 @@
         <script>
             $(() => {
                 // Mounted
-                const id = $('#room-type-id').val()
                 fetchService()
                 fetchPrice()
 
@@ -47,9 +46,9 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'patch',
-                        url: `/dashboard/room-types/${id}`,
+                        url: "{{ route('dashboard.room-types.update', $roomType->id) }}",
                         data: {
-                            id,
+                            id: '{{ $roomType->id }}',
                             number_of_guest: numberOfGuest,
                             name,
                             facilities,
@@ -60,7 +59,11 @@
                             $('.msg-error').text('')
                         },
                         success(res) {
-                            alert(res.message, res.status)
+                            const {
+                                message,
+                                status
+                            } = res
+                            alert(message, status)
                         },
                         error(res) {
                             const {
@@ -102,7 +105,7 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: `/dashboard/room-types/room-facilities/${id}`,
+                        url: '/dashboard/room-types/room-facilities/{{ $roomType->id }}',
                         beforeSend() {
                             $('#facilities').children('option:not(:first)').remove()
                         },
@@ -133,7 +136,7 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: `/dashboard/room-types/room-prices/${id}`,
+                        url: '/dashboard/room-types/room-prices/{{ $roomType->id }}',
                         success(res) {
                             if (res) {
                                 res.forEach((roomPrice, index) => {

@@ -16,6 +16,7 @@
 
         <div class="form-group">
             <label for="phone">Nomor HP</label>
+
             <input type="tel" pattern="[0-9]*" id="phone" name="phone" class="form-control"
                 placeholder="Tulis nomor hp disini">
 
@@ -24,6 +25,7 @@
 
         <div class="form-group">
             <label for="email">Email</label>
+
             <input type="email" name="email" id="email" class="form-control" placeholder="Tulis email disini">
 
             <span class="email-error msg-error text-danger"></span>
@@ -35,81 +37,87 @@
 
 @push('scripts')
     <script>
-        // Data
-        const State = {
-            id: '',
-        }
-        // end Data
+        $(() => {
+            // Data
+            const State = {
+                id: '',
+            }
+            // end Data
 
-        // Mounted
-        $(document).on('click', '.btn-show-edit', function() {
-            const id = $(this).attr('id')
-            State.id = id
+            // Mounted
+            $(document).on('click', '.btn-show-edit', function() {
+                const id = $(this).attr('id')
+                State.id = id
 
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'get',
-                url: `guests/${id}/edit`,
-                beforeSend() {
-                    $('.msg-error').text('')
-                    $('#modal-edit').modal('show')
-                },
-                success(res) {
-                    $('#guest-id').val(res.guest.id)
-                    $('#name').val(res.guest.name)
-                    $('#nik').val(res.guest.nik)
-                    $('#phone').val(res.guest.phone)
-                    $('#email').val(res.guest.email)
-                }
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'get',
+                    url: `guests/${id}/edit`,
+                    beforeSend() {
+                        $('.msg-error').text('')
+                        $('#modal-edit').modal('show')
+                    },
+                    success(res) {
+                        $('#guest-id').val(res.guest.id)
+                        $('#name').val(res.guest.name)
+                        $('#nik').val(res.guest.nik)
+                        $('#phone').val(res.guest.phone)
+                        $('#email').val(res.guest.email)
+                    }
+                })
             })
-        })
 
-        $('#btn-edit').click((e) => {
-            e.preventDefault()
+            $('#btn-edit').click((e) => {
+                e.preventDefault()
 
-            const id = State.id
-            const name = $('#name').val()
-            const nik = $('#nik').val()
-            const phone = $('#phone').val()
-            const email = $('#email').val()
+                const id = State.id
+                const name = $('#name').val()
+                const nik = $('#nik').val()
+                const phone = $('#phone').val()
+                const email = $('#email').val()
 
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                dataType: 'json',
-                type: 'patch',
-                url: `guests/${id}`,
-                data: {
-                    id,
-                    name,
-                    nik,
-                    phone,
-                    email,
-                },
-                success(res) {
-                    alert(res.message, res.status)
-                    $('#modal-edit').modal('hide')
-                    fetchGuest()
-                },
-                error(res) {
-                    const {
-                        errors,
-                        message,
-                        status
-                    } = res.responseJSON
-                    if (status === 'failed') {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    type: 'patch',
+                    url: `guests/${id}`,
+                    data: {
+                        id,
+                        name,
+                        nik,
+                        phone,
+                        email,
+                    },
+                    success(res) {
+                        const {
+                            message,
+                            status
+                        } = res
                         alert(message, status)
-                    } else {
-                        for (const key in errors) {
-                            $(`.${key}-error`).text(errors[key])
+                        $('#modal-edit').modal('hide')
+                        fetchGuest()
+                    },
+                    error(res) {
+                        const {
+                            errors,
+                            message,
+                            status
+                        } = res.responseJSON
+                        if (status === 'failed') {
+                            alert(message, status)
+                        } else {
+                            for (const key in errors) {
+                                $(`.${key}-error`).text(errors[key])
+                            }
                         }
                     }
-                }
+                })
             })
+            // end Mounted
         })
-        // end Mounted
     </script>
 @endpush

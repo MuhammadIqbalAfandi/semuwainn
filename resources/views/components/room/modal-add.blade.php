@@ -2,6 +2,7 @@
     <form>
         <div class="form-group">
             <label for="room-number">Nomor Kamar</label>
+
             <input type="text" name="room_number" id="room-number" class="form-control"
                 placeholder="Tulis nomor kamar disini">
 
@@ -10,6 +11,7 @@
 
         <div class="form-group">
             <label for="room-type-id">Tipe Kamar</label>
+
             <select class="select2" name="room_type_id" id="room-type-id" style="width: 100%;">
                 <option></option>
             </select>
@@ -44,25 +46,32 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'post',
-                    url: 'rooms',
+                    url: "{{ route('dashboard.rooms.store') }}",
                     data: {
                         room_number: roomNumber,
                         room_type_id: roomTypeId,
                     },
-                    beforeSend() {
-                        $('.msg-error').text('')
-                    },
                     success(res) {
-                        alert(res.message, res.status)
+                        const {
+                            message,
+                            status
+                        } = res
+                        alert(message, status)
                         $('#modal-add').modal('hide')
                         fetchRooms()
                     },
                     error(res) {
                         const {
-                            errors
+                            errors,
+                            message,
+                            status
                         } = res.responseJSON
-                        for (const key in errors) {
-                            $(`.${key}-error`).text(errors[key])
+                        if (status === 'failed') {
+                            alert(message, status)
+                        } else {
+                            for (const key in errors) {
+                                $(`.${key}-error`).text(errors[key])
+                            }
                         }
                     }
                 })

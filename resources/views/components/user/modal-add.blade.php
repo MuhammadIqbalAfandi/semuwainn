@@ -1,7 +1,5 @@
 <x-shared.modal title="Tambah Akun user" id="modal-add">
     <form>
-        <input type="hidden" name="user_id" id="user-id">
-
         <div class="form-group">
             <label for="name">Nama</label>
             <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama disini">
@@ -33,11 +31,11 @@
 
         <div class="form-group">
             <label for="role">Hak Akses</label>
-            <select class="select2" name="role" id="role">
+            <select class="select2" name="role_id" id="role">
                 <option></option>
             </select>
 
-            <span class="text-danger msg-error role-error"></span>
+            <span class="text-danger msg-error role_id-error"></span>
         </div>
 
         <button type="submit" id="btn-save" class="btn btn-block btn-warning">Simpan</button>
@@ -70,7 +68,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'post',
-                    url: 'users',
+                    url: "{{ route('dashboard.users.store') }}",
                     data: {
                         name,
                         phone,
@@ -78,18 +76,27 @@
                         address,
                         role_id: roleId,
                     },
-                    beforeSend() {
-                        $('.msg-error').text('')
-                    },
                     success(res) {
-                        alert(res.message, res.status)
+                        const {
+                            message,
+                            status
+                        } = res
+                        alert(message, status)
                         $('#modal-add').modal('hide')
                         fetchUsers()
                     },
                     error(res) {
-                        const errors = res.responseJSON.errors
-                        for (const key in errors) {
-                            $(`.${key}-error`).text(errors[key])
+                        const {
+                            errors,
+                            message,
+                            status
+                        } = res.responseJSON
+                        if (status === 'failed') {
+                            alert(message, status)
+                        } else {
+                            for (const key in errors) {
+                                $(`.${key}-error`).text(errors[key])
+                            }
                         }
                     }
                 })

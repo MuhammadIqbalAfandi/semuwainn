@@ -2,6 +2,7 @@
     <form>
         <div class="form-group">
             <label for="name">Nama Layanan</label>
+
             <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama layanan disini">
 
             <span class="text-danger msg-error name-error"></span>
@@ -9,6 +10,7 @@
 
         <div class="form-group">
             <label for="unit">Satuan</label>
+
             <select class="select2" name="service_unit_id" id="unit" style="width: 100%;">
                 <option></option>
             </select>
@@ -18,14 +20,15 @@
 
         <div class="form-group">
             <label for="price">Harga</label>
+
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text text-bold">Rp</span>
                 </div>
 
                 <input type="text" name="price" id="price" class="form-control" placeholder="Tulis harga disini">
-
             </div>
+
             <span class="text-danger msg-error price-error"></span>
         </div>
 
@@ -58,18 +61,19 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'post',
-                    url: 'services',
+                    url: "{{ route('dashboard.services.store') }}",
                     data: {
                         name,
                         unit,
                         price,
                         service_unit_id: unitId,
                     },
-                    beforeSend() {
-                        $('.msg-error').text('')
-                    },
                     success(res) {
-                        alert(res.message, res.status)
+                        const {
+                            message,
+                            status
+                        } = res
+                        alert(message, status)
                         $('#modal-add').modal('hide')
                         fetchServices()
                     },

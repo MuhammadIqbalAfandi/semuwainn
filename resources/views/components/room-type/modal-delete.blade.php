@@ -37,7 +37,11 @@
                     type: 'delete',
                     url: `room-types/${id}`,
                     success(res) {
-                        alert(res.message, res.status)
+                        const {
+                            message,
+                            status
+                        } = res
+                        alert(message, status)
                         $('#modal-delete').modal('hide')
                         fetchRoomTypes()
                     },

@@ -2,6 +2,7 @@
     <form>
         <div class="form-group">
             <label for="name-edit">Nama Hidangan</label>
+
             <input type="text" name="name" id="name-edit" class="form-control"
                 placeholder="Tulis nama hidangan disini">
 
@@ -10,6 +11,7 @@
 
         <div class="form-group">
             <label for="unit-edit">Satuan</label>
+
             <input type="text" name="unit" id="unit-edit" class="form-control" placeholder="Tulis nama satuan disini">
 
             <span class="text-danger msg-error unit-error"></span>
@@ -17,10 +19,12 @@
 
         <div class="form-group">
             <label for="price-edit">Harga</label>
+
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text text-bold">Rp</span>
                 </div>
+
                 <input type="text" name="price" id="price-edit" class="form-control" placeholder="Tulis harga disini">
             </div>
 
@@ -94,7 +98,11 @@
                         $('.msg-error').text('')
                     },
                     success(res) {
-                        alert(res.message, res.status)
+                        const {
+                            message,
+                            status
+                        } = res
+                        alert(message, status)
                         $('#modal-edit').modal('hide')
                         fetchRestaurants()
                     },

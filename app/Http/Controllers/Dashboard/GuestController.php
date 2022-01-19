@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Guest\StoreGuestRequest;
 use App\Http\Requests\Guest\UpdateGuestRequest;
 use App\Models\Guest;
 use Illuminate\Database\QueryException;
@@ -35,34 +34,6 @@ class GuestController extends Controller
                     'guest' => $guest,
                 ],
                 201,
-            );
-        }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreGuestRequest $request)
-    {
-        try {
-            Guest::create($request->validated());
-            return response()->json(
-                [
-                    'message' => __('messages.success.store.guest'),
-                    'status' => 'success',
-                ],
-                201,
-            );
-        } catch (QueryException $e) {
-            return response()->json(
-                [
-                    'message' => __('messages.errors.store.all'),
-                    'status' => 'failed',
-                ],
-                422,
             );
         }
     }

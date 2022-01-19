@@ -116,7 +116,6 @@ class RestaurantController extends Controller
                 ],
                 200,
             );
-
         } catch (QueryException $e) {
             return response()->json(
                 [
@@ -126,7 +125,6 @@ class RestaurantController extends Controller
                 422,
             );
         }
-
     }
 
     public function restaurants()

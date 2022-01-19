@@ -60,9 +60,6 @@
     <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- Moments -->
     <script src="{{ asset('adminlte/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <!-- Dayjs -->
-    <script src="{{ asset('js/days/dayjs.min.js') }}"></script>
-    <script src="{{ asset('js/days/locales/id.js') }}"></script>
     <!-- Daterange Picker -->
     <script src="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.js') }}">
     </script>
@@ -79,10 +76,6 @@
                 style: 'currency',
                 currency: 'IDR'
             }).format(number)
-        }
-
-        const nightCount = (checkOut, checkIn) => {
-            return dayjs(checkOut).diff(checkIn, 'day')
         }
 
         const Toast = Swal.mixin({

@@ -60,11 +60,12 @@
                           id,
                           name,
                       },
-                      beforeSend() {
-                          $('.msg-error').text('')
-                      },
                       success(res) {
-                          alert(res.message, res.status)
+                          const {
+                              message,
+                              status
+                          } = res
+                          alert(message, status)
                           $('#modal-edit').modal('hide')
                           fetchFacilities()
                       },
