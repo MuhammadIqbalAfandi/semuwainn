@@ -26,14 +26,29 @@
     <div class="col-auto">
         <div class="row">
             <div class="col text-right">
-                <p class="text-secondary">Telah Dikonfirmasi Oleh</p>
+                <p class="text-secondary">Status Pemesanan</p>
+                <p>{{ $reservation->reservationStatus->name }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-righ">
+                <p>Telah Dikonfirmasi Oleh</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto text-right">
+                <p class="text-secondary">Nama</p>
                 <p>{{ $reservation->user->name ?? '' }}</p>
+            </div>
+            <div class="col-auto text-right">
+                <p class="text-secondary">Nomor HP</p>
+                <p>{{ $reservation->user->phone ?? '' }}</p>
             </div>
         </div>
         <div class="row">
             <div class="col text-right">
-                <p class="text-secondary">Status Pemesanan</p>
-                <p>{{ $reservation->reservationStatus->name }}</p>
+                <p class="text-secondary">Email</p>
+                <p>{{ $reservation->user->email ?? '' }}</p>
             </div>
         </div>
     </div>

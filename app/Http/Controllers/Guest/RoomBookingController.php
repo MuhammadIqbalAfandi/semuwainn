@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoomBooking\StoreRoomBookingRequest;
+use App\Mail\ReservationDetail;
 use App\Models\Guest;
 use App\Models\RoomPrice;
 use App\Models\Service;
-use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class RoomBookingController extends Controller
 {
@@ -67,9 +69,12 @@ class RoomBookingController extends Controller
                 ]);
             }
 
+            Mail::to($request->mail)->send(new ReservationDetail($reservation));
+
             DB::commit();
             return redirect()->back()->with('success', __('messages.success.store.room_booking'));
-        } catch (Exception $e) {
+        } catch (QueryException $e) {
+            dd($e);
             DB::rollBack();
             return redirect()->back()->with('error', __('messages.errors.store.all'));
         }

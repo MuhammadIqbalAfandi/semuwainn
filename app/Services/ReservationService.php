@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Reservation;
 use Illuminate\Support\Carbon;
+use PDF;
 
 class ReservationService
 {
@@ -82,5 +83,36 @@ class ReservationService
     public function getPaymentString()
     {
         return $this->setRupiahFormat($this->reservation->payment->total ?? 0);
+    }
+
+    public function getPDF()
+    {
+        $reservation = $this->reservation;
+        $nightCount = $this->getNightCount();
+        $roomBillString = $this->getRoomBillString();
+        $serviceBillString = $this->getServiceBillString();
+        $restaurantBillString = $this->getRestaurantBillString();
+
+        switch ($this->reservation->reservation_status_id) {
+            case 1:
+            case 4:
+            case 5:
+                $restOfBill = $this->getRestOfBill();
+                $payment = $this->getPaymentString();
+                break;
+            default:
+                $restOfBill = $this->getTotalBillString();
+                $payment = 0;
+        }
+
+        return $pdf = PDF::loadView('pdf.reservation-pdf.show', compact(
+            'reservation',
+            'nightCount',
+            'restOfBill',
+            'payment',
+            'roomBillString',
+            'serviceBillString',
+            'restaurantBillString',
+        ));
     }
 }
