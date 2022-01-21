@@ -37,7 +37,5 @@
                 <p class="text-danger">{{ $serviceBillString ?? 0 }}</p>
             </div>
         </div>
-
-        <x-reservation.show.table-service.modal-delete></x-reservation.show.table-service.modal-delete>
     </x-shared.card>
 @endif

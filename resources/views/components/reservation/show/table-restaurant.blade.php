@@ -36,7 +36,5 @@
                 <p class="text-danger">{{ $restaurantBillString ?? 0 }}</p>
             </div>
         </div>
-
-        <x-reservation.show.table-restaurant.modal-delete></x-reservation.show.table-restaurant.modal-delete>
     </x-shared.card>
 @endif

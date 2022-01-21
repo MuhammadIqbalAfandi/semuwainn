@@ -125,9 +125,21 @@ class ReservationController extends Controller
             ]);
 
             $this->reservationService->setReservation($reservation);
-            $reservation->payment()->create([
-                'total' => $this->reservationService->getTotalBill(),
-            ]);
+            switch ($request->reservation_status_id) {
+                case 1:
+                case 4:
+                    if (!$reservation->payment()->exists()) {
+                        $reservation->payment()->create([
+                            'total' => $this->reservationService->getTotalBill(),
+                        ]);
+                    }
+                    break;
+                case 5:
+                    $reservation->payment()->updateOrCreate([
+                        'total' => $this->reservationService->getTotalBill(),
+                    ]);
+                    break;
+            }
 
             DB::commit();
 
@@ -159,6 +171,11 @@ class ReservationController extends Controller
                 ->filterColumn('order', function ($reservation, $keyword) {
                     $reservation->where('reservation_number', 'like', "%{$keyword}%");
                 })
+                ->filterColumn('status', function ($reservation, $keyword) {
+                    $reservation->whereHas('reservationStatus', function ($query) use ($keyword) {
+                        $query->where('name', 'like', "%{$keyword}%");
+                    });
+                })
                 ->addColumn('order', function (Reservation $reservation) {
                     return view('components.reservation.index.order-date',
                         [
@@ -187,7 +204,9 @@ class ReservationController extends Controller
                         ]);
                 })
                 ->addColumn('actions', function (Reservation $reservation) {
-                    return view('components.reservation.index.action-btn', ['id' => $reservation->id]);
+                    $id = $reservation->id;
+                    $statusHide = !in_array($reservation->reservation_status_id, [3, 5]);
+                    return view('components.reservation.index.action-btn', compact('id', 'statusHide'));
                 })
                 ->make(true);
         }

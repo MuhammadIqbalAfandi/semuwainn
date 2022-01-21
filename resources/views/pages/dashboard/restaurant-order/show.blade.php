@@ -15,8 +15,6 @@
         <x-shared.content>
             <x-shared.card title="Tambah Hidangan">
                 <form>
-                    <input id="reservation-id" type="hidden" value="{{ $reservationId }}" />
-
                     <div class="row">
                         <div class="cols-md-12 col-lg">
                             <div class="form-group">
@@ -51,64 +49,117 @@
                     </div>
                 </form>
 
-                <x-restaurant-order.table-detail></x-restaurant-order.table-detail>
+                <x-restaurant-order.table-detail :reservationId="$reservationId"></x-restaurant-order.table-detail>
             </x-shared.card>
         </x-shared.content>
     </x-shared.content-wrapper>
 
-    @push('scripts')
+    @prepend('scripts')
         <script>
-            $(() => {
-                // Mounted
-                clearForm()
+            // Data
+            const State = {
+                initialRestaurants: [],
+                listOfRestaurantBooked: [],
+                error: false,
+            }
+            // end Data
 
-                fetchRestaurant()
+            // Mounted
+            clearForm()
+            fetchRestaurant()
 
-                $('#btn-detail').click(() => {
-                    const id = $('#restaurant').find(':selected').val()
-                    const quantity = $('#quantity').val()
+            const table = $('.table').DataTable({
+                paging: false,
+                searching: false,
+                ordering: false,
+                info: false,
+                autoWidth: false,
+                scrollX: true,
+                responsive: true,
+            })
 
-                    State.error = false
-                    $('.msg-error').text('')
-                    if (isNaN(quantity)) {
-                        $('.quantity-error').text('Nilai harus angka')
-                        State.error = true
-                    }
-                    if (!quantity) {
-                        $('.quantity-error').text('Nilai tidak boleh kosong')
-                        State.error = true
-                    }
-                    if (!id) {
-                        $('.restaurant-error').text('Nilai tidak boleh kosong')
-                        State.error = true
-                    }
-                    if (State.error) {
-                        return
-                    }
+            $('#btn-detail').click(() => {
+                const id = $('#restaurant').find(':selected').val()
+                const quantity = $('#quantity').val()
 
-                    const room = State.initialRestaurants.find((room) => room.id == id)
-                    if (room) {
-                        table.row.add([
-                            room.name,
-                            quantity,
-                            idMoneyFormat(room.price),
-                            `
+                State.error = false
+                $('.msg-error').text('')
+                if (isNaN(quantity)) {
+                    $('.quantity-error').text('Nilai harus angka')
+                    State.error = true
+                }
+                if (!quantity) {
+                    $('.quantity-error').text('Nilai tidak boleh kosong')
+                    State.error = true
+                }
+                if (!id) {
+                    $('.restaurant-error').text('Nilai tidak boleh kosong')
+                    State.error = true
+                }
+                if (State.error) {
+                    return
+                }
+
+                const room = State.initialRestaurants.find((room) => room.id == id)
+                if (room) {
+                    table.row.add([
+                        room.name,
+                        quantity,
+                        idMoneyFormat(room.price),
+                        `
                             <button type="button" id="${room.id}" class="btn btn-delete-detail text-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         `,
-                        ]).draw(false)
+                    ]).draw(false)
 
-                        State.listOfRestaurantBooked.push({
-                            ...room,
-                            quantity: Number(room.quantity) + Number(quantity)
-                        })
-                        fetchRestaurant()
-                        clearForm()
+                    State.listOfRestaurantBooked.push({
+                        ...room,
+                        quantity: Number(room.quantity) + Number(quantity)
+                    })
+                    fetchRestaurant()
+                    clearForm()
+                }
+            })
+            // end Mounted
+
+            // Methods
+            function fetchRestaurant() {
+                $('#restaurant').select2({
+                    placeholder: 'Pilih Hidangan',
+                    theme: 'bootstrap4',
+                })
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    type: 'get',
+                    url: '/dashboard/restaurant-orders',
+                    beforeSend() {
+                        $('#restaurant').children('option:not(:first)').remove()
+                    },
+                    success(res) {
+                        if (res) {
+                            State.initialRestaurants = res
+
+                            const restaurants = _.differenceBy(res, State.listOfRestaurantBooked, 'id')
+                            restaurants.forEach((restaurant) => {
+                                let newOption = new Option(restaurant.name, restaurant.id,
+                                    false, false)
+                                $('#restaurant').append(newOption)
+                            })
+                        }
                     }
                 })
-                // end Mounted
-            })
+            }
+
+            function clearForm() {
+                $('#restaurant').val(null).trigger('change');
+                $('#quantity').val('')
+            }
+            // end Methods
         </script>
-    @endpush
+    @endprepend
 </x-dashboard-layout>

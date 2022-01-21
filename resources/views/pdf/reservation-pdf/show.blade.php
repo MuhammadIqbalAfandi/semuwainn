@@ -10,22 +10,22 @@
 
             <section style="border-bottom: 1px dashed black"></section>
 
-            <x-reservation-pdf.table-room :reservation="$reservation" :totalRoomPriceString="$totalRoomPriceString">
+            <x-reservation-pdf.table-room :reservation="$reservation" :roomBillString="$roomBillString"
+                :nightCount="$nightCount">
             </x-reservation-pdf.table-room>
 
-            <section style="border-bottom: 1px dashed black"></section>
-
-            <x-reservation-pdf.table-service :reservation="$reservation" :roomOrders="$reservation"
-                :totalServicePriceString="$totalServicePriceString">
+            <x-reservation-pdf.table-service :reservation="$reservation" :serviceBillString="$serviceBillString"
+                :nightCount="$nightCount">
             </x-reservation-pdf.table-service>
 
-            <section style="border-bottom: 1px dashed black"></section>
-
             <x-reservation-pdf.table-restaurant :reservation="$reservation"
-                :totalRestaurantPriceString="$totalRestaurantPriceString">
+                :restaurantBillString="$restaurantBillString">
             </x-reservation-pdf.table-restaurant>
 
-            <x-reservation-pdf.total-price :totalPrice="$totalPrice"></x-reservation-pdf.total-price>
+            <section style="border-bottom: 1px dashed black"></section>
+
+            <x-reservation-pdf.total-price :reservation="$reservation" :restOfBill="$restOfBill" :payment="$payment">
+            </x-reservation-pdf.total-price>
 
             <x-reservation-pdf.note></x-reservation-pdf.note>
         </x-shared.content>

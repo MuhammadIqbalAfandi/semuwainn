@@ -6,7 +6,6 @@
             <tr class="font-weight-normal">
                 <th>Nama</th>
                 <th>Jumlah Tamu</th>
-                <th>Jumlah Ruangan</th>
                 <th>Nomor Kamar</th>
                 <th>Harga</th>
             </tr>
@@ -18,11 +17,15 @@
                         <p>{{ $roomOrder->room->roomType->name }}</p>
                     </td>
                     <td>{{ $roomOrder->guest_count }}</td>
-                    <td>{{ $roomOrder->quantity }}</td>
                     <td>
-                        {{ $roomOrder->room->room_number }},
+                        {{ $roomOrder->room->room_number }}
                     </td>
-                    <td>{{ $roomOrder->price }}</td>
+                    <td>
+                        {{ $roomOrder->price }}
+                        <span class="text-sm text-secondary">
+                            (x {{ $nightCount }} Hari)
+                        </span>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
@@ -30,6 +33,6 @@
 
     <section class="offset-auto text-right">
         <span class="text-secondary">Total Harga</span>
-        <p class="text-danger">{{ $totalRoomPriceString ?? 0 }}</p>
+        <p class="text-danger">{{ $roomBillString ?? 0 }}</p>
     </section>
 @endif

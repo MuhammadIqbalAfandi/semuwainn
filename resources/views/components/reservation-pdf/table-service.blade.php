@@ -6,8 +6,7 @@
             <tr class="font-weight-normal">
                 <th>Nama</th>
                 <th>Kuantitas</th>
-                <th>Nomor Kamar</th>
-                <th>Tanggal Dipesan</th>
+                <th>Tanggal Ditambahkan</th>
                 <th>Harga</th>
             </tr>
         </thead>
@@ -16,13 +15,14 @@
                 <tr>
                     <td>{{ $serviceOrder->service->name }}</td>
                     <td>{{ $serviceOrder->quantity }}</td>
-                    <td>
-                        @foreach ($reservation->roomOrders as $roomOrder)
-                            {{ $roomOrder->room->room_number }},
-                        @endforeach
-                    </td>
                     <td>{{ $serviceOrder->updated_at }}</td>
-                    <td>{{ $serviceOrder->price }} (x {{ $serviceOrder->quantity }} kamar x lama inap) </td>
+                    <td>
+                        {{ $serviceOrder->price }}
+                        <span class="text-sm text-secondary">
+                            (x {{ $serviceOrder->quantity }} kamar x
+                            {{ $nightCount }} Hari)
+                        </span>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
@@ -30,6 +30,6 @@
 
     <section class="offset-auto text-right">
         <span class="text-secondary">Total Harga</span>
-        <p class="text-danger">{{ $totalServicePriceString ?? 0 }}</p>
+        <p class="text-danger">{{ $serviceBillString ?? 0 }}</p>
     </section>
 @endif

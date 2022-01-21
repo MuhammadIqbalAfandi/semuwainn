@@ -17,8 +17,15 @@
         </section>
 
         <section class="float-right text-right">
-            <p class="text-secondary">Telah Dikonfirmasi Oleh</p>
-            <p>{{ $reservation->user->name ?? '-' }}</p>
+            <section>
+                <p class="text-secondary">Telah Dikonfirmasi Oleh</p>
+                <p>{{ $reservation->user->name ?? '-' }}</p>
+            </section>
+
+            <section>
+                <p class="text-secondary">Status Pemesanan</p>
+                <p>{{ $reservation->reservationStatus->name }}</p>
+            </section>
         </section>
     </section>
 
@@ -26,11 +33,6 @@
         <section class="float-left">
             <p class="text-secondary">Nomor Pemesanan</p>
             <p>{{ $reservation->reservation_number }}</p>
-        </section>
-
-        <section class="float-left ml-5">
-            <p class="text-secondary">Tanggal Pemesanan</p>
-            <p>{{ $reservation->reservation_time }}</p>
         </section>
     </section>
 

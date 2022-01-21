@@ -81,6 +81,6 @@ class ReservationService
 
     public function getPaymentString()
     {
-        return $this->setRupiahFormat($this->reservation->payment->total);
+        return $this->setRupiahFormat($this->reservation->payment->total ?? 0);
     }
 }

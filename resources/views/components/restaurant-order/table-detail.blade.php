@@ -18,109 +18,55 @@
 
  @push('scripts')
      <script>
-         // Data
-         const State = {
-             initialRestaurants: [],
-             listOfRestaurantBooked: [],
-             error: false,
-         }
-         // end Data
+         $(() => {
+             //  Mounted
+             $(document).on('click', '.btn-delete-detail', function() {
+                 const id = $(this).attr('id')
+                 State.listOfRestaurantBooked = State.listOfRestaurantBooked.filter((restaurant) =>
+                     restaurant.id != id)
+                 fetchRestaurant()
 
-         //  Mounted
-         const table = $('.table').DataTable({
-             paging: false,
-             searching: false,
-             ordering: false,
-             info: false,
-             autoWidth: false,
-             scrollX: true,
-             responsive: true,
-         })
+                 table.row($(this).parents('tr')).remove().draw()
+             })
 
-         $(document).on('click', '.btn-delete-detail', function() {
-             const id = $(this).attr('id')
-             State.listOfRestaurantBooked = State.listOfRestaurantBooked.filter((restaurant) =>
-                 restaurant.id != id)
-             fetchRestaurant()
+             $('#btn-save').click(() => {
+                 const restaurants = State.listOfRestaurantBooked
 
-             table.row($(this).parents('tr')).remove().draw()
-         })
-
-         $('#btn-save').click(() => {
-             const id = $('#reservation-id').val()
-             const restaurants = State.listOfRestaurantBooked
-
-             if (!restaurants.length) {
-                 return alert('Pesanan tidak boleh kosong', 'failed')
-             }
-
-             $.ajax({
-                 headers: {
-                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                 },
-                 dataType: 'json',
-                 type: 'post',
-                 url: `/dashboard/restaurant-orders`,
-                 data: {
-                     id,
-                     restaurants,
-                 },
-                 success(res) {
-                     const {
-                         message,
-                         status
-                     } = res
-                     alert(message, status)
-                     fetchRestaurant()
-                     table.clear().draw()
-                 },
-                 error(res) {
-                     const {
-                         message,
-                         status,
-                     } = res.responseJSON
-                     alert(message, status)
+                 if (!restaurants.length) {
+                     return alert('Pesanan tidak boleh kosong', 'failed')
                  }
-             })
-         })
-         // end Mounted
 
-         // Methods
-         function fetchRestaurant() {
-             $('#restaurant').select2({
-                 placeholder: 'Pilih Hidangan',
-                 theme: 'bootstrap4',
-             })
-
-             $.ajax({
-                 headers: {
-                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                 },
-                 dataType: 'json',
-                 type: 'get',
-                 url: '/dashboard/restaurant-orders',
-                 beforeSend() {
-                     $('#restaurant').children('option:not(:first)').remove()
-                 },
-                 success(res) {
-                     if (res) {
-                         State.initialRestaurants = res
-
-                         const restaurants = _.differenceBy(res, State.listOfRestaurantBooked, 'id')
-                         restaurants.forEach((restaurant) => {
-                             let newOption = new Option(restaurant.name, restaurant.id,
-                                 false, false)
-                             $('#restaurant').append(newOption)
-                         })
+                 $.ajax({
+                     headers: {
+                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                     },
+                     dataType: 'json',
+                     type: 'post',
+                     url: `/dashboard/restaurant-orders`,
+                     data: {
+                         id: {{ $reservationId }},
+                         restaurants,
+                     },
+                     success(res) {
+                         const {
+                             message,
+                             status
+                         } = res
+                         alert(message, status)
+                         fetchRestaurant()
+                         State.listOfRestaurantBooked = []
+                         table.clear().draw()
+                     },
+                     error(res) {
+                         const {
+                             message,
+                             status,
+                         } = res.responseJSON
+                         alert(message, status)
                      }
-                 }
+                 })
              })
-         }
-
-         function clearForm() {
-             $('#restaurant').val(null).trigger('change');
-             $('#quantity').val('')
-         }
-         // end Methods
+             // end Mounted
+         })
      </script>
  @endpush

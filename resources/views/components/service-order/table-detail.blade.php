@@ -17,111 +17,57 @@
 
 @push('scripts')
     <script>
-        // Data
-        const State = {
-            initialServices: [],
-            listOfServiceBooked: [],
-            error: false,
-        }
-        // end Data
+        $(() => {
+            // Mounted
+            $(document).on('click', '.btn-delete-detail', function() {
+                const serviceId = $(this).attr('data-id-service')
 
-        // Mounted
-        const table = $('.table').DataTable({
-            paging: false,
-            searching: false,
-            ordering: false,
-            info: false,
-            autoWidth: false,
-            scrollX: true,
-            responsive: true,
-        })
+                State.listOfServiceBooked = State.listOfServiceBooked.filter((service) =>
+                    service.id != serviceId)
 
-        $(document).on('click', '.btn-delete-detail', function() {
-            const serviceId = $(this).attr('data-id-service')
+                fetchService()
 
-            State.listOfServiceBooked = State.listOfServiceBooked.filter((service) =>
-                service.id != serviceId)
+                table.row($(this).parents('tr')).remove().draw()
+            })
 
-            fetchService()
+            $('#btn-save').click(() => {
+                const services = State.listOfServiceBooked
 
-            table.row($(this).parents('tr')).remove().draw()
-        })
-
-        $('#btn-save').click(() => {
-            const id = $('#reservation-id').val()
-            const services = State.listOfServiceBooked
-
-            if (!services.length) {
-                return alert('Pesanan tidak boleh kosong', 'failed')
-            }
-
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                dataType: 'json',
-                type: 'post',
-                url: `/dashboard/service-orders`,
-                data: {
-                    id,
-                    services,
-                },
-                success(res) {
-                    const {
-                        message,
-                        status
-                    } = res
-                    alert(message, status)
-                    fetchService()
-                    table.clear().draw()
-                },
-                error(res) {
-                    const {
-                        message,
-                        status,
-                    } = res.responseJSON
-                    alert(message, status)
+                if (!services.length) {
+                    return alert('Pesanan tidak boleh kosong', 'failed')
                 }
-            })
-        })
-        // end Mounted
 
-        // Methods
-        function fetchService() {
-            const id = $('#reservation-id').val()
-
-            $('#service').select2({
-                placeholder: 'Pilih Layanan',
-                theme: 'bootstrap4',
-            })
-
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                dataType: 'json',
-                type: 'get',
-                url: `/dashboard/service-orders/${id}/edit`,
-                beforeSend() {
-                    $('#service').children('option:not(:first)').remove()
-                },
-                success(res) {
-                    if (res) {
-                        State.initialServices = res
-
-                        const services = _.differenceBy(res, State.listOfServiceBooked, 'id')
-                        services.forEach((service) => {
-                            let newOption = new Option(service.name, service.id, false, false)
-                            $('#service').append(newOption)
-                        })
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    type: 'post',
+                    url: `/dashboard/service-orders`,
+                    data: {
+                        id: {{ $reservationId }},
+                        services,
+                    },
+                    success(res) {
+                        const {
+                            message,
+                            status
+                        } = res
+                        alert(message, status)
+                        fetchService()
+                        State.listOfServiceBooked = []
+                        table.clear().draw()
+                    },
+                    error(res) {
+                        const {
+                            message,
+                            status,
+                        } = res.responseJSON
+                        alert(message, status)
                     }
-                }
+                })
             })
-        }
-
-        function clearForm() {
-            $('#service').val(null).trigger('change');
-        }
-        // end Methods
+            // end Mounted
+        })
     </script>
 @endpush

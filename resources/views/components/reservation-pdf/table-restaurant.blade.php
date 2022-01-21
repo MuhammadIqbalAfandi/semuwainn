@@ -6,7 +6,7 @@
             <tr class="font-weight-normal">
                 <th>Nama</th>
                 <th>Kuantitas</th>
-                <th>Tanggal Dipesan</th>
+                <th>Tanggal Ditambahkan</th>
                 <th>Harga</th>
             </tr>
         </thead>
@@ -16,7 +16,12 @@
                     <td>{{ $restaurantOrder->restaurant->name }}</td>
                     <td>{{ $restaurantOrder->quantity }}</td>
                     <td>{{ $restaurantOrder->updated_at }}</td>
-                    <td>{{ $restaurantOrder->price }} (x {{ $restaurantOrder->quantity }} Kuantitas)</td>
+                    <td>
+                        {{ $restaurantOrder->price }}
+                        <span class="text-sm text-secondary">
+                            (x {{ $restaurantOrder->quantity }} Kuantitas)
+                        </span>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
@@ -24,6 +29,6 @@
 
     <section class="offset-auto text-right">
         <span class="text-secondary">Total Harga</span>
-        <p class="text-danger">{{ $totalRestaurantPriceString ?? 0 }}</p>
+        <p class="text-danger">{{ $restaurantBillString ?? 0 }}</p>
     </section>
 @endif

@@ -15,8 +15,6 @@
         <x-shared.content>
             <x-shared.card title="Tambah Layanan">
                 <form>
-                    <input id="reservation-id" type="hidden" value="{{ $reservationId }}" />
-
                     <div class="row">
                         <div class="cols-md-12 col-lg">
                             <div class="form-group">
@@ -36,51 +34,102 @@
                     </div>
                 </form>
 
-                <x-service-order.table-detail></x-service-order.table-detail>
+                <x-service-order.table-detail :reservationId="$reservationId"></x-service-order.table-detail>
             </x-shared.card>
         </x-shared.content>
     </x-shared.content-wrapper>
 
-    @push('scripts')
+    @prepend('scripts')
         <script>
-            $(() => {
-                // Mounted
-                const id = $('#reservation-id').val()
-                fetchService()
+            // Data
+            const State = {
+                initialServices: [],
+                listOfServiceBooked: [],
+                error: false,
+            }
+            // end Data
 
-                $('#btn-detail').click(() => {
-                    const serviceId = $('#service').find(':selected').val()
+            // Mounted
+            fetchService()
 
-                    State.error = false
-                    $('.msg-error').text('')
-                    if (!serviceId) {
-                        $('.service-error').text('Nilai tidak boleh kosong')
-                        State.error = true
-                    }
-                    if (State.error) {
-                        return
-                    }
+            const table = $('.table').DataTable({
+                paging: false,
+                searching: false,
+                ordering: false,
+                info: false,
+                autoWidth: false,
+                scrollX: true,
+                responsive: true,
+            })
 
-                    const service = State.initialServices.find((service) => service.id == serviceId)
-                    if (service) {
-                        table.row.add([
-                            service.name,
-                            idMoneyFormat(service.price),
-                            `
+            $('#btn-detail').click(() => {
+                const serviceId = $('#service').find(':selected').val()
+
+                State.error = false
+                $('.msg-error').text('')
+                if (!serviceId) {
+                    $('.service-error').text('Nilai tidak boleh kosong')
+                    State.error = true
+                }
+                if (State.error) {
+                    return
+                }
+
+                const service = State.initialServices.find((service) => service.id == serviceId)
+                if (service) {
+                    table.row.add([
+                        service.name,
+                        idMoneyFormat(service.price),
+                        `
                             <button type="button" data-id-service="${service.id}"
                                 class="btn btn-delete-detail text-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         `,
-                        ]).draw(false)
+                    ]).draw(false)
 
-                        State.listOfServiceBooked.push(service)
-                        fetchService()
-                        clearForm()
+                    State.listOfServiceBooked.push(service)
+                    fetchService()
+                    clearForm()
+                }
+            })
+            // end Mounted
+
+            // Methods
+            function fetchService() {
+                $('#service').select2({
+                    placeholder: 'Pilih Layanan',
+                    theme: 'bootstrap4',
+                })
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    type: 'get',
+                    url: "{{ route('dashboard.service-orders.edit', $reservationId) }}",
+                    beforeSend() {
+                        $('#service').children('option:not(:first)').remove()
+                    },
+                    success(res) {
+                        if (res) {
+                            State.initialServices = res
+
+                            const services = _.differenceBy(res, State.listOfServiceBooked, 'id')
+                            services.forEach((service) => {
+                                let newOption = new Option(service.name, service.id, false, false)
+                                $('#service').append(newOption)
+                            })
+                        }
                     }
                 })
-                // end Mounted
-            })
+            }
+
+            function clearForm() {
+                $('#service').val(null).trigger('change');
+            }
+            // end Methods
         </script>
-    @endpush
+    @endprepend
 </x-dashboard-layout>
