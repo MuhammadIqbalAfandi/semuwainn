@@ -139,17 +139,11 @@
     * name
   }
 
-  entity RoomThumbnail {
-    * id
-    __
-    * room_type_id
-    * thumbnail_id
-  }
-
   entity Thumbnail {
     * id
     __
     * path
+    * room_type_id
   }
 
   Reservation ||--|{ ReservationStatus
@@ -163,9 +157,8 @@
   Room ||--|{ RoomType
   RoomType }|--|| RoomPrice
   RoomType }|--|| RoomFacility
-  RoomType }|--|| RoomThumbnail
+  RoomType }|--|| Thumbnail
   RoomFacility ||--|{ Facility
-  RoomThumbnail ||--|{ Thumbnail
   ServiceOrder ||--|{ Service
   Service ||--|{ ServiceUnit
   RestaurantOrder ||--|{ Restaurant

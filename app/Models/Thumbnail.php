@@ -10,6 +10,6 @@ class Thumbnail extends Model
     use HasFactory;
 
     protected $fillable = [
-        'patch',
+        'path',
     ];
 }

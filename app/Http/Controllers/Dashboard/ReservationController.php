@@ -135,7 +135,8 @@ class ReservationController extends Controller
                     }
                     break;
                 case 5:
-                    $reservation->payment()->updateOrCreate([
+                    $reservation->payment()->delete();
+                    $reservation->payment()->create([
                         'total' => $this->reservationService->getTotalBill(),
                     ]);
                     break;
@@ -151,6 +152,7 @@ class ReservationController extends Controller
                 201,
             );
         } catch (QueryException $e) {
+            dd($e);
             DB::rollBack();
 
             return response()->json(

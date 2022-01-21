@@ -1,5 +1,5 @@
-<x-shared.card title="{{ $title }}">
-    <form>
+<form enctype="multipart/form-data">
+    <x-shared.card title="{{ $title }}">
         <div class="row">
             <div class="col-md-12 col-lg">
                 <div class="form-group">
@@ -35,52 +35,14 @@
                 </div>
             </div>
         </div>
+    </x-shared.card>
 
-        <div class="dropdown-divider"></div>
+    <x-room-type.upload-thumbnail></x-room-type.upload-thumbnail>
 
-        <div class="row">
-            <div class="col mb-2">
-                <h3 class="font-weight-bold">Harga</h3>
-            </div>
-            <div class="col-12" id="dynamic-form-wrapper">
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="descriptions">Keterangan</label>
-                            <input type="text" id="descriptions" name="descriptions" class="form-control"
-                                placeholder="Tuliskan keterangan">
+    <x-room-type.room></x-room-type.room>
 
-                            <span class="text-danger msg-error descriptions-error"></span>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="prices">Harga</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text text-bold">Rp</span>
-                                </div>
-                                <input type="text" id="prices" name="prices" class="form-control"
-                                    placeholder="Tuliskan harga">
-                            </div>
-                            <span class="text-danger msg-error prices-error"></span>
-                        </div>
-                    </div>
-
-                    <div class="col-auto mt-4">
-                        <button type="button" class="btn btn-sm btn-warning mt-2" id="btn-add-price"><i
-                                class="fa fa-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <button id="btn-save" type="submit" class="btn btn-block btn-warning">Simpan</button>
-    </form>
-</x-shared.card>
-
-<x-room-type.room></x-room-type.room>
+    <button id="btn-save" type="submit" class="btn btn-block btn-warning">Simpan</button>
+</form>
 
 @push('scripts')
     <script>
