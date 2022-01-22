@@ -1,9 +1,9 @@
 @if ($reservation->serviceOrders->count())
-    <h3 class="h5 mt-4">Detail Layanan</h3>
+    <strong>Detail Layanan</strong><br />
 
-    <table class="table table-sm table-bordered mt-2">
+    <table class="table table-sm table-striped mt-2">
         <thead>
-            <tr class="font-weight-normal">
+            <tr>
                 <th>Nama</th>
                 <th>Kuantitas</th>
                 <th>Tanggal Ditambahkan</th>
@@ -29,7 +29,7 @@
     </table>
 
     <section class="offset-auto text-right">
-        <span class="text-secondary">Total Harga</span>
-        <p class="text-danger">{{ $serviceBillString ?? 0 }}</p>
+        <strong>Total Harga</strong><br />
+        {{ $serviceBillString ?? 0 }}
     </section>
 @endif

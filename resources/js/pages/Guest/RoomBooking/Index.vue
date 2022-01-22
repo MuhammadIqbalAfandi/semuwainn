@@ -1,5 +1,5 @@
 <script>
-import { mapGetters, mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import { Link, Head } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
 import Button from '@/shared/Button.vue'

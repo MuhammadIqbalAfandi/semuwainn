@@ -1,9 +1,9 @@
 @if ($reservation->restaurantOrders->count())
-    <h3 class="h5 mt-4">Detail Restaurant</h3>
+    <strong>Detail Restaurant</strong><br />
 
-    <table class="table table-sm table-bordered mt-2">
+    <table class="table table-sm table-striped mt-2">
         <thead>
-            <tr class="font-weight-normal">
+            <tr>
                 <th>Nama</th>
                 <th>Kuantitas</th>
                 <th>Tanggal Ditambahkan</th>
@@ -26,9 +26,8 @@
             @endforeach
         </tbody>
     </table>
-
     <section class="offset-auto text-right">
-        <span class="text-secondary">Total Harga</span>
-        <p class="text-danger">{{ $restaurantBillString ?? 0 }}</p>
+        <strong>Total Harga</strong><br />
+        {{ $restaurantBillString ?? 0 }}
     </section>
 @endif

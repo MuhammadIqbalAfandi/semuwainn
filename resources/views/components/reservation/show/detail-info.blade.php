@@ -2,6 +2,10 @@
     <div class="col">
         <div class="row">
             <div class="col-auto">
+                <p class="text-secondary">NIK Pemesan</p>
+                <p>{{ $reservation->guest->nik }}</p>
+            </div>
+            <div class="col-auto">
                 <p class="text-secondary">Pemesan</p>
                 <p>{{ $reservation->guest->name }}</p>
             </div>
@@ -19,7 +23,7 @@
         <div class="row">
             <div class="col-12">
                 <p class="text-secondary">Tanggal Pemesanan</p>
-                <p>{{ $reservation->getRawOriginal('reservation_time') }}</p>
+                <p>{{ $reservation->reservation_time }}</p>
             </div>
         </div>
     </div>
@@ -31,11 +35,11 @@
             </div>
         </div>
         <div class="row">
-            <div class="col text-righ">
+            <div class="col text-right">
                 <p>Telah Dikonfirmasi Oleh</p>
             </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-end">
             <div class="col-auto text-right">
                 <p class="text-secondary">Nama</p>
                 <p>{{ $reservation->user->name ?? '' }}</p>

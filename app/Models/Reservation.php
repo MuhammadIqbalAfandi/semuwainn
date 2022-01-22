@@ -27,6 +27,11 @@ class Reservation extends Model
         'reservation_status_id',
     ];
 
+    public function getReservationTimeAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y H:i:s');
+    }
+
     public function getCheckInAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');

@@ -30,7 +30,10 @@ Route::prefix('dashboard')->group(function () {
             Route::get('/charts', [DashboardController::class, 'chartData']);
             Route::get('/', DashboardController::class)->name('dashboard');
 
-            Route::get('/reservation-pdf/{reservation}', [ReservationPdfController::class, 'show'])->name('reservation-pdf.show');
+            Route::get('/reservation-pdf/send/{reservation}', [ReservationPdfController::class, 'send'])
+                ->name('reservation-pdf.send');
+            Route::get('/reservation-pdf/download/{reservation}', [ReservationPdfController::class, 'download'])
+                ->name('reservation-pdf.download');
 
             Route::resource('/restaurant-orders', RestaurantOrderController::class);
 

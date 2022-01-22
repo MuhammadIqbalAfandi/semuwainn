@@ -120,8 +120,8 @@
         <script>
             // Data
             const State = {
-                prevData: [],
-                nextData: [],
+                lastYear: [],
+                thisYear: [],
             }
             // end Data
 
@@ -154,12 +154,12 @@
                     datasets: [{
                             label: 'Pemesanan tahun lalu',
                             backgroundColor: 'rgba(253, 217, 109, 0.5)',
-                            data: State.prevData
+                            data: State.lastYear
                         },
                         {
                             label: 'Pemesanan tahun ini',
                             backgroundColor: 'rgb(255, 193, 7)',
-                            data: State.nextData
+                            data: State.thisYear
                         },
                     ]
                 }
@@ -181,19 +181,21 @@
                     url: '/dashboard/charts',
                     success(res) {
                         if (res) {
-                            const prevData = res[0]
-                            const nextData = res[1]
+                            const {
+                                lastYear,
+                                thisYear
+                            } = res
 
-                            for (const key in prevData) {
-                                if (Object.hasOwnProperty.call(prevData, key)) {
-                                    const element = prevData[key];
-                                    State.prevData.push(element.length)
+                            for (const key in lastYear) {
+                                if (Object.hasOwnProperty.call(lastYear, key)) {
+                                    const element = lastYear[key];
+                                    State.lastYear.push(element.length)
                                 }
                             }
-                            for (const key in nextData) {
-                                if (Object.hasOwnProperty.call(nextData, key)) {
-                                    const element = nextData[key];
-                                    State.nextData.push(element.length)
+                            for (const key in thisYear) {
+                                if (Object.hasOwnProperty.call(thisYear, key)) {
+                                    const element = thisYear[key];
+                                    State.thisYear.push(element.length)
                                 }
                             }
 

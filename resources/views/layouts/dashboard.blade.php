@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title }} - {{ config('app.name', 'Semuwainn') }} Dashboard</title>
+    <title>{{ $title }} - {{ config('app.name', 'Semuwainn Sentani') }} Dashboard</title>
 
     <!-- Favico -->
     <link rel="icon" href="{{ url('img/favicon.ico') }}" type="image/x-icon">

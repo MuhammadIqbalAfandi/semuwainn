@@ -17,6 +17,7 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        <span class="d-block">NIK Pemesan /</span>
                                         <span class="d-block">No. Order /</span>
                                         <span class="d-block">Tgl. Order</span>
                                     </th>
@@ -40,6 +41,12 @@
     @prepend('scripts')
         <script>
             // Mounted
+            @if (session('success'))
+                alert("{{ session('success') }}", 'success')
+            @elseif (session('failed'))
+                alert("{{ session('failed') }}", 'failed')
+            @endif
+
             $('#reservation-list-table').DataTable({
                 stateSave: true,
                 responsive: true,

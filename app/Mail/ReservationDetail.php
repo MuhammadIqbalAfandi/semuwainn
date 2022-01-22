@@ -17,7 +17,7 @@ class ReservationDetail extends Mailable
      *
      * @return void
      */
-    public function __construct(public Reservation $reservation)
+    public function __construct(private Reservation $reservation)
     {}
 
     /**
@@ -28,8 +28,8 @@ class ReservationDetail extends Mailable
     public function build(ReservationService $reservationService)
     {
         $reservationService->setReservation($this->reservation);
-        return $this->from('reservasi@semuwainn.com', 'Semuwainn')
-            ->subject('Bukti Pemesanan')
+        return $this->subject('Bukti Pemesanan')
+            ->view('mail.reservation.index')
             ->attachData($reservationService->getPDF()->output(), 'reservation-detail.pdf');
     }
 }

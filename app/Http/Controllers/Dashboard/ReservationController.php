@@ -171,7 +171,11 @@ class ReservationController extends Controller
         if ($reservation) {
             return DataTables::of($reservation)
                 ->filterColumn('order', function ($reservation, $keyword) {
-                    $reservation->where('reservation_number', 'like', "%{$keyword}%");
+                    $reservation->whereHas('guest', function ($query) use ($keyword) {
+                        $query->where('nik', 'like', "%{$keyword}%");
+                    })
+                        ->orWhere('reservation_number', 'like', "%{$keyword}%")
+                        ->orWhere('reservation_time', 'like', "%{$keyword}%");
                 })
                 ->filterColumn('status', function ($reservation, $keyword) {
                     $reservation->whereHas('reservationStatus', function ($query) use ($keyword) {
@@ -183,7 +187,8 @@ class ReservationController extends Controller
                         [
                             'id' => $reservation->id,
                             'reservation_number' => $reservation->reservation_number,
-                            'reservation_time' => $reservation->getRawOriginal('reservation_time'),
+                            'reservation_time' => $reservation->reservation_time,
+                            'nik' => $reservation->guest->nik,
                         ]);
                 })
                 ->addColumn('checkin-checkout', function (Reservation $reservation) {

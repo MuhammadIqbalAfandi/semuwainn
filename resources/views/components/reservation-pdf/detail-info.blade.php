@@ -1,77 +1,75 @@
-<section class="mt-4">
-    <section class="clearfix mb-2">
-        <h2 class="float-left h4">Detail Pemesanan</h2>
-    </section>
+<x-reservation-pdf.logo :time="$reservation->reservation_time"></x-reservation-pdf.logo>
 
-    <section class="clearfix mb-2">
-        <section class="float-left">
-            <section>
-                <p class="text-secondary">Pemesan</p>
-                <p>{{ $reservation->guest->name }}</p>
-            </section>
+<section style="border-bottom: 1px dashed black"></section>
 
-            <section>
-                <p class="text-secondary">Nomor HP</p>
-                <p>{{ $reservation->guest->phone }}</p>
-            </section>
+<br />
+
+<section class="clearfix">
+    <section class="float-left">
+        <section>
+            <strong>Pemesan</strong><br />
+            {{ $reservation->guest->name }}
         </section>
 
-        <section class="float-right text-right">
-            <section>
-                <p class="text-secondary">Telah Dikonfirmasi Oleh</p>
-                <p>{{ $reservation->user->name ?? '-' }}</p>
-            </section>
-
-            <section>
-                <p class="text-secondary">Status Pemesanan</p>
-                <p>{{ $reservation->reservationStatus->name }}</p>
-            </section>
+        <section>
+            <strong>Nomor HP</strong><br />
+            {{ $reservation->guest->phone }}
         </section>
     </section>
 
-    <section class="clearfix  mb-2">
-        <section class="float-left">
-            <p class="text-secondary">Nomor Pemesanan</p>
-            <p>{{ $reservation->reservation_number }}</p>
-        </section>
-    </section>
-
-    <section class="clearfix  mb-2">
-        <section class="float-left">
-            <p class="text-secondary">Checkin</p>
-            <p>{{ $reservation->check_in }}</p>
+    <section class="float-right text-right">
+        <section>
+            <strong>Status Pemesanan</strong><br />
+            {{ $reservation->reservationStatus->name }}
         </section>
 
-        <section class="float-left ml-5">
-            <p class="text-secondary">Checkout</p>
-            <p>{{ $reservation->check_out }}</p>
-        </section>
-
-        <section class="float-left ml-5">
-            <p class="text-secondary">Lama Inap</p>
-            <p>{{ $nightCount }} Hari</p>
-        </section>
-    </section>
-
-    <section class="clearfix  mb-2">
-        <section class="float-left">
-            <p class="text-secondary">Total Tamu</p>
-            <p>{{ $reservation->roomOrders->pluck('guest_count')->count() }}</p>
-        </section>
-
-        <section class="float-left ml-5">
-            <p class="text-secondary">Total Kamar</p>
-            <p>{{ $reservation->roomOrders->pluck('guest_count')->count() }}</p>
-        </section>
-
-        <section class="float-left ml-5">
-            <p class="text-secondary">Total Layanan</p>
-            <p>{{ $reservation->serviceOrders->pluck('quantity')->count() }}</p>
-        </section>
-
-        <section class="float-left ml-5">
-            <p class="text-secondary">Total Hidangan</p>
-            <p>{{ $reservation->restaurantOrders->pluck('quantity')->count() }}</p>
+        <section>
+            <strong>Telah Dikonfirmasi Oleh</strong><br />
+            {{ $reservation->user->name ?? '-' }}
         </section>
     </section>
 </section>
+
+<section class="clearfix">
+    <section class="float-left">
+        <strong>No Order</strong><br />
+        {{ $reservation->reservation_number }}
+    </section>
+</section>
+
+<table>
+    <thead>
+        <tr>
+            <th class="mr-5">Checkin</th>
+            <th class="mr-5">Checkout</th>
+            <th>Lama Inap</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="mr-5">{{ $reservation->check_in }}</td>
+            <td class="mr-5">{{ $reservation->check_out }}</td>
+            <td>{{ $nightCount }} Hari</td>
+        </tr>
+    </tbody>
+
+</table>
+
+<table>
+    <thead>
+        <tr>
+            <th class="mr-4">Total Tamu</th>
+            <th class="mr-4">Total Kamar</th>
+            <th class="mr-4">Total Layanan</th>
+            <th>Total Hidangan</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="mr-4">{{ $reservation->roomOrders->pluck('guest_count')->count() }}</td>
+            <td class="mr-4">{{ $reservation->roomOrders->pluck('guest_count')->count() }}</td>
+            <td class="mr-4">{{ $reservation->serviceOrders->pluck('quantity')->count() }}</td>
+            <td>{{ $reservation->restaurantOrders->pluck('quantity')->count() }}</td>
+        </tr>
+    </tbody>
+</table>

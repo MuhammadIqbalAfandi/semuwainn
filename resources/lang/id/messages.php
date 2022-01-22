@@ -6,6 +6,9 @@ return [
         'no_active_user' => 'Sukses memblokir user',
     ],
     'success' => [
+        'email' => [
+            'reservation' => 'Email berhasil dikirim',
+        ],
         'store' => [
             'reservation' => 'Pemesanan berhasil ditambahkan',
             'service-order' => 'Layanan berhasil ditambahkan',
@@ -41,6 +44,9 @@ return [
         ],
     ],
     'errors' => [
+        'email' => [
+            'reservation' => 'Gagal mengirim dikirim',
+        ],
         'store' => [
             'all' => 'Gagal menyimpan data',
         ],

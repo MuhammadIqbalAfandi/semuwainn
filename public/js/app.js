@@ -3382,7 +3382,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ParagraphSpacing: _shared_ParagraphSpacing_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Button: _shared_Button_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['getRoomCount'])),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)(['roomCart'])),
   methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)(['removeServiceCart']))
 });
 
@@ -16860,7 +16860,9 @@ var render = function () {
                     { attrs: { cols: "auto" } },
                     [
                       _c("Paragraph", { staticClass: "text-caption" }, [
-                        _vm._v(" (x " + _vm._s(_vm.getRoomCount) + " kamar) "),
+                        _vm._v(
+                          " (x " + _vm._s(_vm.roomCart.length) + " kamar) "
+                        ),
                       ]),
                     ],
                     1

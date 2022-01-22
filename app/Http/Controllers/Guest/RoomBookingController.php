@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RoomBooking\StoreRoomBookingRequest;
 use App\Mail\ReservationDetail;
 use App\Models\Guest;
+use App\Models\Reservation;
 use App\Models\RoomPrice;
 use App\Models\Service;
 use Illuminate\Database\QueryException;
@@ -69,7 +70,8 @@ class RoomBookingController extends Controller
                 ]);
             }
 
-            Mail::to($request->mail)->send(new ReservationDetail($reservation));
+            $reservation = Reservation::find($reservation->id);
+            Mail::to($request->email)->send(new ReservationDetail($reservation));
 
             DB::commit();
             return redirect()->back()->with('success', __('messages.success.store.room_booking'));

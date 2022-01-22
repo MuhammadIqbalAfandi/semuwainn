@@ -1,5 +1,5 @@
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import Paragraph from '@/shared/Paragraph.vue'
 import ParagraphSpacing from '@/shared/ParagraphSpacing.vue'
 import Button from '@/shared/Button.vue'
@@ -16,7 +16,7 @@ export default {
     Button,
   },
   computed: {
-    ...mapGetters(['getRoomCount']),
+    ...mapState(['roomCart']),
   },
   methods: {
     ...mapActions(['removeServiceCart']),
@@ -40,7 +40,7 @@ export default {
           </v-col>
 
           <v-col cols="auto">
-            <Paragraph class="text-caption"> (x {{ getRoomCount }} kamar) </Paragraph>
+            <Paragraph class="text-caption"> (x {{ roomCart.length }} kamar) </Paragraph>
           </v-col>
         </v-row>
 

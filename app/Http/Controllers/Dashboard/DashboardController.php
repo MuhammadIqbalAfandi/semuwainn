@@ -47,16 +47,14 @@ class DashboardController extends Controller
         $reservations = Reservation::all();
         if ($reservations) {
             $reservationsGroup = $reservations->groupBy([
-                fn($reservation) => Carbon::parse($reservation->reservation_time)->format('Y'),
-                fn($reservation) => Carbon::parse($reservation->reservation_time)->format('m'),
+                fn($reservation) => Carbon::parse($reservation->getRawOriginal('reservation_time'))->format('Y'),
+                fn($reservation) => Carbon::parse($reservation->getRawOriginal('reservation_time'))->format('m'),
             ]);
-            $reservationTwoYears = $reservationsGroup->take(-2);
-            if ($reservationTwoYears->count() === 1) {
-                $data = [$reservationTwoYears->first()];
-            } else {
-                $data = [$reservationTwoYears->first(), $reservationTwoYears->last()];
-            }
-            return response()->json($data, 200);
+            $data = $reservationsGroup->take(-2);
+            $nowYear = date("Y");
+            $lastYear = $data[$nowYear - 1] ?? 0;
+            $thisYear = $data[$nowYear];
+            return response()->json(compact('lastYear', 'thisYear'), 200);
         }
     }
 }

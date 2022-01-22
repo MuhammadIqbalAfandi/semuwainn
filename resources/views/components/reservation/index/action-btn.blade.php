@@ -15,8 +15,11 @@
             </li>
         @endif
         <li class=" dropdown-item">
-            <a href="{{ route('dashboard.reservation-pdf.show', $id) }}" class="text-white">Download
+            <a href="{{ route('dashboard.reservation-pdf.download', $id) }}" class="text-white">Download
                 PDF</a>
+        </li>
+        <li class=" dropdown-item">
+            <a href="{{ route('dashboard.reservation-pdf.send', $id) }}" class="text-white">Kirim PDF</a>
         </li>
     </ul>
 </div>
