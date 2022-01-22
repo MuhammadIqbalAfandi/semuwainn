@@ -27,15 +27,21 @@ export default {
         <v-col cols="auto">
           <v-row justify="center">
             <v-col cols="12" md="auto">
-              <Paragraph>Whatsapp<span class="d-block">0858 1150 0888</span></Paragraph>
+              <Paragraph
+                >Whatsapp<span class="d-block">{{ $page.props.footer.whatsapp }}</span></Paragraph
+              >
             </v-col>
 
             <v-col cols="12" md="auto">
-              <Paragraph>Email<span class="d-block">semuwainn@gmail.com</span></Paragraph>
+              <Paragraph
+                >Email<span class="d-block">{{ $page.props.footer.email }}</span></Paragraph
+              >
             </v-col>
 
             <v-col cols="12" md="auto">
-              <Paragraph>Call Center<span class="d-block">0804 1500 878 (Indonesia only)</span></Paragraph>
+              <Paragraph
+                >Call Center<span class="d-block">{{ $page.props.footer.callCenter }}</span></Paragraph
+              >
             </v-col>
           </v-row>
         </v-col>
@@ -47,7 +53,7 @@ export default {
 
       <v-row justify="center">
         <v-col cols="auto">
-          <paragraph class="text-caption text-md-body-2">&copy;2021 - Semuwainn</paragraph>
+          <paragraph class="text-caption text-md-body-2">{{ $page.props.footer.copyright }}</paragraph>
         </v-col>
       </v-row>
     </v-container>

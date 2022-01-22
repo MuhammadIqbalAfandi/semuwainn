@@ -9,13 +9,24 @@
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <style>
         @font-face {
-            font-family: 'Open Sans';
-            src: url('./public/fonts/OpenSans-VariableFont_wdth_wght.ttf') format('truetype');
-            font-style: normal font-weight: normal;
+            font-family: 'open sans';
+            src: url({{ asset('fonts/OpenSans-Regular.ttf') }}) format('truetype');
+        }
+
+        @font-face {
+            font-family: 'open sans';
+            src: url({{ asset('fonts/OpenSans-Italic.ttf') }}) format('truetype');
+            font-style: italic, oblique;
+        }
+
+        @font-face {
+            font-family: 'open sans';
+            src: url({{ asset('fonts/OpenSans-Bold.ttf') }}) format('truetype');
+            font-style: bold;
         }
 
         body {
-            font-family: 'Open Sans', serif;
+            font-family: 'open Sans', serif;
         }
 
     </style>

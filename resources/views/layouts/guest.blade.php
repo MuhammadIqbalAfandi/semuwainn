@@ -9,7 +9,7 @@
     <title>{{ $title }} - {{ config('app.name', 'Semuwainn Sentani') }}</title>
 
     <!-- Favico -->
-    <link rel="shortcut icon" href="{{ url('img/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->

@@ -4,7 +4,7 @@
             <label for="room-number">Nomor Kamar</label>
 
             <input type="text" name="room_number" id="room-number" class="form-control"
-                placeholder="Tulis nomor kamar disini">
+                placeholder="Tulis nomor kamar">
 
             <span class="text-danger msg-error room_number-error"></span>
         </div>

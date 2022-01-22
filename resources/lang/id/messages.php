@@ -7,9 +7,11 @@ return [
     ],
     'success' => [
         'email' => [
-            'reservation' => 'Email berhasil dikirim',
+            'reservation' => 'Email berhasil terkirim',
         ],
         'store' => [
+            'contact' => 'Contact berhasil ditambahkan',
+            'copyright' => 'Copyright berhasil ditambahkan',
             'reservation' => 'Pemesanan berhasil ditambahkan',
             'service-order' => 'Layanan berhasil ditambahkan',
             'restaurant-order' => 'Hidangan berhasil ditambahkan',
@@ -45,7 +47,7 @@ return [
     ],
     'errors' => [
         'email' => [
-            'reservation' => 'Gagal mengirim dikirim',
+            'reservation' => 'Gagal mengirim email',
         ],
         'store' => [
             'all' => 'Gagal menyimpan data',

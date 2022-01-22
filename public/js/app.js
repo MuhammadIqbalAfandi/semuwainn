@@ -15716,7 +15716,7 @@ var render = function () {
                           _c("Paragraph", [
                             _vm._v("Whatsapp"),
                             _c("span", { staticClass: "d-block" }, [
-                              _vm._v("0858 1150 0888"),
+                              _vm._v(_vm._s(_vm.$page.props.footer.whatsapp)),
                             ]),
                           ]),
                         ],
@@ -15730,7 +15730,7 @@ var render = function () {
                           _c("Paragraph", [
                             _vm._v("Email"),
                             _c("span", { staticClass: "d-block" }, [
-                              _vm._v("semuwainn@gmail.com"),
+                              _vm._v(_vm._s(_vm.$page.props.footer.email)),
                             ]),
                           ]),
                         ],
@@ -15744,7 +15744,7 @@ var render = function () {
                           _c("Paragraph", [
                             _vm._v("Call Center"),
                             _c("span", { staticClass: "d-block" }, [
-                              _vm._v("0804 1500 878 (Indonesia only)"),
+                              _vm._v(_vm._s(_vm.$page.props.footer.callCenter)),
                             ]),
                           ]),
                         ],
@@ -15773,7 +15773,7 @@ var render = function () {
                   _c(
                     "paragraph",
                     { staticClass: "text-caption text-md-body-2" },
-                    [_vm._v("©2021 - Semuwainn")]
+                    [_vm._v(_vm._s(_vm.$page.props.footer.copyright))]
                   ),
                 ],
                 1

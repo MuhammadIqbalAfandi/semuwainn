@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\Dashboard\ContactController;
+use App\Http\Controllers\Dashboard\CopyrightController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\FacilityController;
 use App\Http\Controllers\Dashboard\GuestController;
+use App\Http\Controllers\Dashboard\PolicyController;
+use App\Http\Controllers\Dashboard\PrivacyController;
 use App\Http\Controllers\Dashboard\ReservationController;
 use App\Http\Controllers\Dashboard\ReservationPdfController;
 use App\Http\Controllers\Dashboard\ReservationStatusController;
@@ -29,6 +33,11 @@ Route::prefix('dashboard')->group(function () {
         Route::middleware(['auth'])->group(function () {
             Route::get('/charts', [DashboardController::class, 'chartData']);
             Route::get('/', DashboardController::class)->name('dashboard');
+
+            Route::resource('/contacts', ContactController::class);
+            Route::resource('/copyrights', CopyrightController::class);
+            Route::resource('/privacies', PrivacyController::class);
+            Route::resource('/policies', PolicyController::class);
 
             Route::get('/reservation-pdf/send/{reservation}', [ReservationPdfController::class, 'send'])
                 ->name('reservation-pdf.send');

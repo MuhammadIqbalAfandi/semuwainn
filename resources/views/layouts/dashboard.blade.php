@@ -9,7 +9,7 @@
     <title>{{ $title }} - {{ config('app.name', 'Semuwainn Sentani') }} Dashboard</title>
 
     <!-- Favico -->
-    <link rel="icon" href="{{ url('img/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- OverlayScrollbars -->
@@ -63,7 +63,7 @@
     <!-- Daterange Picker -->
     <script src="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.js') }}">
     </script>
-    <!-- chartjs -->
+    <!-- Chartjs -->
     <script src=" {{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Loadash -->
     <script src="{{ asset('js/lodash@4.17.21/lodash.min.js') }}"></script>

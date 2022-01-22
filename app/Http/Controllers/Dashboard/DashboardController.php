@@ -53,7 +53,7 @@ class DashboardController extends Controller
             $data = $reservationsGroup->take(-2);
             $nowYear = date("Y");
             $lastYear = $data[$nowYear - 1] ?? 0;
-            $thisYear = $data[$nowYear];
+            $thisYear = $data[$nowYear] ?? 0;
             return response()->json(compact('lastYear', 'thisYear'), 200);
         }
     }

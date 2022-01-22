@@ -146,6 +146,33 @@
     * room_type_id
   }
 
+  entity Contact {
+    * id
+    __
+    * email
+    * call_center
+    * whatshapp
+    * address
+  }
+
+  entity Copyright {
+    * id
+    __
+    * text
+  }
+
+  entity Policy {
+    * id
+    __
+    * text
+  }
+
+  entity privacy {
+    * id
+    __
+    * text
+  }
+
   Reservation ||--|{ ReservationStatus
   Reservation }|--|| RestaurantOrder
   Reservation }|--|| ServiceOrder

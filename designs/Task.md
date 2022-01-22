@@ -5,6 +5,6 @@
 - [x] Invoice
 - [x] Add Service
 - [x] Add Restaurant
-- [ ] Send Mail
+- [x] Send Mail
 - [ ] Authorization
 - [ ] Upload thumbnails

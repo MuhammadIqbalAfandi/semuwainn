@@ -2,7 +2,7 @@
     <form>
         <div class="form-group">
             <label for="name-edit">Nama</label>
-            <input type="text" name="name" id="name-edit" class="form-control" placeholder="Tulis nama disini">
+            <input type="text" name="name" id="name-edit" class="form-control" placeholder="Tulis nama">
 
             <span class="text-danger msg-error name-error"></span>
         </div>
@@ -10,22 +10,21 @@
         <div class="form-group">
             <label for="phone-edit">Nomor HP</label>
             <input type="tel" id="phone-edit" pattern="[0-9]*" name="phone" class="form-control"
-                placeholder="Tulis nomor hp disini">
+                placeholder="Tulis nomor hp">
 
             <span class="text-danger msg-error phone-error"></span>
         </div>
 
         <div class="form-group">
             <label for="address-edit">Alamat</label>
-            <input type="address" name="address" id="address-edit" class="form-control"
-                placeholder="Tulis alamat disini">
+            <input type="address" name="address" id="address-edit" class="form-control" placeholder="Tulis alamat">
 
             <span class="text-danger msg-error address-error"></span>
         </div>
 
         <div class="form-group">
             <label for="email-edit">Email</label>
-            <input type="email" name="email" id="email-edit" class=" form-control" placeholder="Tulis email disini">
+            <input type="email" name="email" id="email-edit" class=" form-control" placeholder="Tulis email">
 
             <span class="text-danger msg-error email-error"></span>
         </div>

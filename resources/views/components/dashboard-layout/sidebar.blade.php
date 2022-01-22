@@ -139,6 +139,47 @@
                         </li>
                     </ul>
                 </li>
+
+                @php
+                    $routeUri = Route::currentRouteName();
+                    $routeStatus = collect(['dashboard.contacts.create', 'dashboard.copyrights.create', 'dashboard.privacies.create'])->contains($routeUri);
+                @endphp
+                <!-- Setting -->
+                <li class="nav-item has-treeview {{ $routeStatus ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>
+                            Pengaturan
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview active">
+                        <!-- Kontak -->
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.contacts.create') }}"
+                                class="nav-link {{ Route::is('dashboard.contacts.create') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kontak</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.copyrights.create') }}"
+                                class="nav-link {{ Route::is('dashboard.copyrights.create') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Hak Cipta</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.privacies.create') }}"
+                                class="nav-link {{ Route::is('dashboard.privacies.create') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Privasi dan Syarat</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

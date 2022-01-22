@@ -84,7 +84,7 @@
              // Methods
              function fetchReservationStatus() {
                  $('#reservation-status').select2({
-                     placeholder: 'Pilih Hidangan',
+                     placeholder: 'Pilih Status',
                      theme: 'bootstrap4'
                  })
 

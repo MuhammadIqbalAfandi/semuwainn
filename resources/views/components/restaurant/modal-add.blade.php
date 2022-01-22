@@ -3,7 +3,7 @@
         <div class="form-group">
             <label for="name">Nama Hidangan</label>
 
-            <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama hidangan disini">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama hidangan">
 
             <span class="text-danger msg-error name-error"></span>
         </div>
@@ -11,7 +11,7 @@
         <div class="form-group">
             <label for="unit">Satuan</label>
 
-            <input type="text" name="unit" id="unit" class="form-control" placeholder="Tulis nama satuan disini">
+            <input type="text" name="unit" id="unit" class="form-control" placeholder="Tulis nama satuan">
 
             <span class="text-danger msg-error unit-error"></span>
         </div>
@@ -23,7 +23,7 @@
                     <span class="input-group-text text-bold">Rp</span>
                 </div>
 
-                <input type="text" name="price" id="price" class="form-control" placeholder="Tulis harga disini">
+                <input type="text" name="price" id="price" class="form-control" placeholder="Tulis harga">
             </div>
 
             <span class="text-danger msg-error price-error"></span>

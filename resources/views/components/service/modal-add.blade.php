@@ -3,7 +3,7 @@
         <div class="form-group">
             <label for="name">Nama Layanan</label>
 
-            <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama layanan disini">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama layanan">
 
             <span class="text-danger msg-error name-error"></span>
         </div>
@@ -26,7 +26,7 @@
                     <span class="input-group-text text-bold">Rp</span>
                 </div>
 
-                <input type="text" name="price" id="price" class="form-control" placeholder="Tulis harga disini">
+                <input type="text" name="price" id="price" class="form-control" placeholder="Tulis harga">
             </div>
 
             <span class="text-danger msg-error price-error"></span>
