@@ -8,7 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ReservationDetail extends Mailable
+class ReservationMail extends Mailable
 {
     use Queueable, SerializesModels;
 

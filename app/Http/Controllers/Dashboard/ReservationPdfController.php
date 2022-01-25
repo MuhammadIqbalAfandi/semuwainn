@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ReservationDetail;
+use App\Mail\ReservationMail;
 use App\Models\Reservation;
 use App\Services\ReservationService;
 use Exception;
@@ -35,7 +35,8 @@ class ReservationPdfController extends Controller
     public function send(Reservation $reservation)
     {
         try {
-            Mail::to($reservation->guest->email)->send(new ReservationDetail($reservation));
+            Mail::to($reservation->guest->email)->send(new ReservationMail($reservation));
+
             return back()->with('success', __('messages.success.email.reservation'));
         } catch (Exception $e) {
             return back()->with('failed', __('messages.errors.email.reservation'));
