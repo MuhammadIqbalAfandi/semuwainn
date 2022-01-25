@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index']);
 Route::resource('room-details', RoomDetailController::class);
 Route::resource('room-booking', RoomBookingController::class);
+Route::resource('policies', App\Http\Controllers\Guest\PolicyController::class);
+Route::resource('privacies', App\Http\Controllers\Guest\PrivacyController::class);
 
 Route::prefix('dashboard')->group(function () {
     Route::name('dashboard.')->group(function () {

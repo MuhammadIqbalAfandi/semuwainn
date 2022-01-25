@@ -1,4 +1,4 @@
-<x-dashboard-layout title="Contact">
+<x-dashboard-layout title="Kontak">
     <x-shared.content-wrapper>
         <x-shared.content-header title="Kontak">
             <x-slot name="breadcrumb">
@@ -78,16 +78,4 @@
             </div>
         </x-shared.content>
     </x-shared.content-wrapper>
-
-    @prepend('scripts')
-        <script>
-            // Mounted
-            @if (session('success'))
-                alert("{{ session('success') }}", 'success')
-            @elseif (session('failed'))
-                alert("{{ session('failed') }}", 'failed')
-            @endif
-            // end Mounted
-        </script>
-    @endprepend
 </x-dashboard-layout>

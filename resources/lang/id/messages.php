@@ -10,7 +10,9 @@ return [
             'reservation' => 'Email berhasil terkirim',
         ],
         'store' => [
-            'contact' => 'Contact berhasil ditambahkan',
+            'policy' => 'Kebijakan berhasil ditambahkan',
+            'privacy' => 'Privasi berhasil ditambahkan',
+            'contact' => 'Kontak berhasil ditambahkan',
             'copyright' => 'Copyright berhasil ditambahkan',
             'reservation' => 'Pemesanan berhasil ditambahkan',
             'service-order' => 'Layanan berhasil ditambahkan',

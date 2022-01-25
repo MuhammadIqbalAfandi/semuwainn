@@ -26,10 +26,18 @@
         href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- Daterange Picker -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.css') }}">
+    <!-- Trix Editor -->
+    <link rel="stylesheet" href="{{ asset('css/trix-1.3.1/trix.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <style>
+        trix-toolbar [data-trix-button-group="file-tools"] {
+            display: none;
+        }
+
+    </style>
 </head>
 
 <body class="dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -64,11 +72,14 @@
     <script src="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.js') }}">
     </script>
     <!-- Chartjs -->
-    <script src=" {{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Loadash -->
     <script src="{{ asset('js/lodash@4.17.21/lodash.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+    <!-- Trix Editor -->
+    <script src="{{ asset('js/trix-1.3.1/trix.js') }}"></script>
+    <script src="{{ asset('js/trix-1.3.1/trix-core.js') }}"></script>
     <!-- Scripts -->
     <script>
         const idMoneyFormat = (number) => {
@@ -102,11 +113,15 @@
             }
         }
 
-        $(document).keypress((e) => {
-            if (e.which == '13') {
-                e.preventDefault();
-            }
+        $('trix-file-accept').on(function(e) {
+            e.preventDefault()
         })
+
+        @if (session('success'))
+            alert("{{ session('success') }}", 'success')
+        @elseif (session('failed'))
+            alert("{{ session('failed') }}", 'failed')
+        @endif
     </script>
 
     @stack('scripts')

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Policy\StorePolicyRequest;
+use App\Models\Policy;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class PolicyController extends Controller
@@ -24,7 +27,9 @@ class PolicyController extends Controller
      */
     public function create()
     {
-        //
+        $policy = Policy::get()->first();
+        $policy = $policy->text ?? '-';
+        return view('pages.dashboard.policy.create', compact('policy'));
     }
 
     /**
@@ -33,9 +38,17 @@ class PolicyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePolicyRequest $request)
     {
-        //
+        try {
+            Policy::truncate();
+            Policy::create($request->validated());
+
+            return back()->with('success', __('messages.success.store.policy'));
+        } catch (QueryException $e) {
+            dd($e);
+            return back()->with('failed', __('messages.errors.store.all'));
+        }
     }
 
     /**

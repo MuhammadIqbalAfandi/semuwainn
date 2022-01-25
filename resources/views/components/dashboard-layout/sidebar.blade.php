@@ -1,5 +1,4 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <a href="/" class="brand brand-link">
         <img src="{{ asset('img/logo-no-title.webp') }}" alt="Semuwainn Logo"
             class="brand-image img-circle elevation-3">
@@ -7,11 +6,10 @@
                 class="brand--text-small font-weight-light">sentani</span></span>
     </a>
 
-    <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Dashboard -->
                 <li class="nav-item">
                     <a href="{{ route('dashboard.dashboard') }}"
                         class="nav-link {{ Route::is('dashboard.dashboard') ? 'active' : '' }}">
@@ -24,7 +22,7 @@
                     $routeUri = Route::currentRouteName();
                     $routeStatus = collect(['dashboard.reservations.index', 'dashboard.reservations.show', 'dashboard.service-orders.show', 'dashboard.restaurant-orders.show'])->contains($routeUri);
                 @endphp
-                <!-- Pemesanan Kamar -->
+                <!-- Reservation -->
                 <li class="nav-item has-treeview {{ $routeStatus ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-hotel"></i>
@@ -71,7 +69,6 @@
                     </a>
 
                     <ul class="nav nav-treeview active">
-                        <!-- Account User -->
                         <li class="nav-item">
                             <a href="{{ route('dashboard.users.index') }}"
                                 class="nav-link {{ Route::is('dashboard.users.index') ? 'active' : '' }}">
@@ -84,7 +81,6 @@
                             $routeUri = Route::currentRouteName();
                             $routeStatus = collect(['dashboard.room-types.index', 'dashboard.room-types.create', 'dashboard.room-types.edit'])->contains($routeUri);
                         @endphp
-                        <!-- Room Type -->
                         <li class="nav-item">
                             <a href="{{ route('dashboard.room-types.index') }}"
                                 class="nav-link {{ $routeStatus ? 'active' : '' }}">
@@ -93,7 +89,6 @@
                             </a>
                         </li>
 
-                        <!-- Facility -->
                         <li class="nav-item">
                             <a href="{{ route('dashboard.facilities.index') }}"
                                 class="nav-link {{ Route::is('dashboard.facilities.index') ? 'active' : '' }}">
@@ -102,7 +97,6 @@
                             </a>
                         </li>
 
-                        <!-- Room -->
                         <li class="nav-item">
                             <a href="{{ route('dashboard.rooms.index') }}"
                                 class="nav-link {{ Route::is('dashboard.rooms.index') ? 'active' : '' }}">
@@ -111,7 +105,6 @@
                             </a>
                         </li>
 
-                        <!-- Restaurant -->
                         <li class="nav-item">
                             <a href="{{ route('dashboard.restaurants.index') }}"
                                 class="nav-link {{ Route::is('dashboard.restaurants.index') ? 'active' : '' }}">
@@ -120,7 +113,6 @@
                             </a>
                         </li>
 
-                        <!-- Service -->
                         <li class="nav-item">
                             <a href="{{ route('dashboard.services.index') }}"
                                 class="nav-link {{ Route::is('dashboard.services.index') ? 'active' : '' }}">
@@ -129,7 +121,6 @@
                             </a>
                         </li>
 
-                        <!-- Guest -->
                         <li class="nav-item">
                             <a href="{{ route('dashboard.guests.index') }}"
                                 class="nav-link {{ Route::is('dashboard.guests.index') ? 'active' : '' }}">
@@ -142,7 +133,7 @@
 
                 @php
                     $routeUri = Route::currentRouteName();
-                    $routeStatus = collect(['dashboard.contacts.create', 'dashboard.copyrights.create', 'dashboard.privacies.create'])->contains($routeUri);
+                    $routeStatus = collect(['dashboard.contacts.create', 'dashboard.copyrights.create', 'dashboard.privacies.create', 'dashboard.policies.create'])->contains($routeUri);
                 @endphp
                 <!-- Setting -->
                 <li class="nav-item has-treeview {{ $routeStatus ? 'menu-open' : '' }}">
@@ -153,8 +144,8 @@
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
+
                     <ul class="nav nav-treeview active">
-                        <!-- Kontak -->
                         <li class="nav-item">
                             <a href="{{ route('dashboard.contacts.create') }}"
                                 class="nav-link {{ Route::is('dashboard.contacts.create') ? 'active' : '' }}">
@@ -175,7 +166,15 @@
                             <a href="{{ route('dashboard.privacies.create') }}"
                                 class="nav-link {{ Route::is('dashboard.privacies.create') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Privasi dan Syarat</p>
+                                <p>Privasi</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.policies.create') }}"
+                                class="nav-link {{ Route::is('dashboard.policies.create') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kebijakan</p>
                             </a>
                         </li>
                     </ul>

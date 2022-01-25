@@ -36,16 +36,4 @@
             </div>
         </x-shared.content>
     </x-shared.content-wrapper>
-
-    @prepend('scripts')
-        <script>
-            // Mounted
-            @if (session('success'))
-                alert("{{ session('success') }}", 'success')
-            @elseif (session('failed'))
-                alert("{{ session('failed') }}", 'failed')
-            @endif
-            // end Mounted
-        </script>
-    @endprepend
 </x-dashboard-layout>

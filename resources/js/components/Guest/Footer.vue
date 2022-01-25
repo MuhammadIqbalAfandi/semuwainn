@@ -47,13 +47,21 @@ export default {
         </v-col>
       </v-row>
 
+      <v-row justify="center">
+        <v-col cols="auto">
+          <Paragraph>
+            <span class="d-block">{{ $page.props.footer.address }}</span>
+          </Paragraph>
+        </v-col>
+      </v-row>
+
       <v-row>
         <v-divider />
       </v-row>
 
       <v-row justify="center">
         <v-col cols="auto">
-          <paragraph class="text-caption text-md-body-2">{{ $page.props.footer.copyright }}</paragraph>
+          <Paragraph class="text-caption text-md-body-2">{{ $page.props.footer.copyright }}</Paragraph>
         </v-col>
       </v-row>
     </v-container>

@@ -49,7 +49,7 @@ class ContactController extends Controller
 
             return back()->with('success', __('messages.success.store.contact'));
         } catch (QueryException $e) {
-            return back()->with('failed', __('messages.errors.email.reservation'));
+            return back()->with('failed', __('messages.errors.destroy.all'));
         }
     }
 
