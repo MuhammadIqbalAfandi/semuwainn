@@ -79,7 +79,6 @@
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <!-- Trix Editor -->
     <script src="{{ asset('js/trix-1.3.1/trix.js') }}"></script>
-    <script src="{{ asset('js/trix-1.3.1/trix-core.js') }}"></script>
     <!-- Scripts -->
     <script>
         const idMoneyFormat = (number) => {

@@ -24,7 +24,7 @@ class StoreContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email:dns|max:100',
+            'email' => 'required|string|email|max:100',
             'call_center' => 'required|string|max:100',
             'whatsapp' => 'required|string|max:100',
             'address' => 'required|string|max:225',

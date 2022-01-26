@@ -27,7 +27,7 @@ class StoreGuestRequest extends FormRequest
             'nik' => 'required|digits:16|unique:guests,nik',
             'name' => 'required|string|max:50',
             'phone' => 'required|numeric|min:12',
-            'email' => 'required|email:dns',
+            'email' => 'required|email',
         ];
     }
 }

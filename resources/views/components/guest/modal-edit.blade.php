@@ -53,6 +53,7 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
+                    dataType: 'json',
                     type: 'get',
                     url: `guests/${id}/edit`,
                     beforeSend() {
@@ -82,7 +83,6 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    dataType: 'json',
                     type: 'patch',
                     url: `guests/${id}`,
                     data: {

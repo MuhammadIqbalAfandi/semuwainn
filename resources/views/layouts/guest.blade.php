@@ -18,13 +18,17 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
-<body>
-    {{ $slot }}
+<body class="dark-mode login-page">
+    <div class="login-box">
+        {{ $slot }}
+    </div>
 
     <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Scripts -->
+    @stack('scripts')
 </body>
 
 </html>

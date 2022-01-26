@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->boolean('status')->default(true);
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->default(bcrypt('123456'));
+            $table->string('password')->default(bcrypt('12345678'));
             $table->foreignId('role_id')->constrained();
             $table->rememberToken();
             $table->timestamps();

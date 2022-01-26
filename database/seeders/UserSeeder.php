@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -16,17 +17,12 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Admin',
-            'phone' => '081234567890',
+            'phone' => '080000000000',
             'email' => 'admin@semuwainn.com',
-            'address' => 'street',
+            'address' => 'Indonesia',
             'role_id' => 1,
-        ]);
-        User::create([
-            'name' => 'User1',
-            'phone' => '081288885566',
-            'email' => 'user@semuwainn.com',
-            'address' => 'street',
-            'role_id' => 1,
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(60),
         ]);
     }
 }

@@ -120,7 +120,7 @@ class ReservationController extends Controller
         DB::beginTransaction();
         try {
             $reservation->update([
-                'user_id' => auth()->user()->id,
+                'user_id' => $request->user()->id,
                 'reservation_status_id' => $request->reservation_status_id,
             ]);
 
@@ -152,7 +152,6 @@ class ReservationController extends Controller
                 201,
             );
         } catch (QueryException $e) {
-            dd($e);
             DB::rollBack();
 
             return response()->json(

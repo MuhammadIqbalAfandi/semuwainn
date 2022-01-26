@@ -1,4 +1,4 @@
-<x-guest-layout title="Login">
+<x-guest-layout title="Lupa Password">
     <x-shared.card :cardHeader="false">
         <div class="login-logo mb-4">
             <a href="/">
@@ -9,6 +9,10 @@
         <div
             style="width: 6rem; border: 1px solid #454d55; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;">
         </div>
+
+        <p class="login-box-msg">Anda lupa kata sandi? tulis email anda untuk mereset kata sandi.</p>
+
+        <p class="login-box-msg text-secondary" id="email-status"></p>
 
         <form>
             <div class="form-group">
@@ -24,28 +28,10 @@
                 <span class="email-error msg-error text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Kata Sandi" name="password"
-                        id="password">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <span class="password-error msg-error text-danger"></span>
-            </div>
-
             <div class="row">
-                <div class="col-8">
-                    <p>
-                        <a href="{{ route('password.request') }}" class="text-warning">Lupa kata sandi</a>
-                    </p>
-                </div>
-                <div class="col-4">
-                    <button type="submit" class="btn btn-warning btn-block" id="login">Login</button>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-warning btn-block" id="request-password">Permintaan kata sandi
+                        baru</button>
                 </div>
             </div>
         </form>
@@ -54,28 +40,30 @@
     @prepend('scripts')
         <script>
             // Mounted
-            $('#login').click((e) => {
+            $('#request-password').click((e) => {
                 e.preventDefault()
 
                 const email = $('#email').val()
-                const password = $('#password').val()
 
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'post',
-                    url: "{{ route('login') }}",
+                    url: "{{ route('password.email') }}",
                     data: {
                         email,
-                        password
                     },
                     beforeSend() {
                         $('.msg-error').text('')
                     },
                     success(res) {
-                        if (res.success) {
-                            location.href = "{{ route('dashboard.dashboard') }}"
+                        const {
+                            success,
+                            status
+                        } = res
+                        if (success) {
+                            $('#email-status').text(status)
                         }
                     },
                     error(res) {

@@ -27,7 +27,7 @@ class UpdateGuestRequest extends FormRequest
             'nik' => 'required|digits:16|unique:guests,nik,' . $this->id,
             'name' => 'required|string',
             'phone' => 'required|numeric|min:12',
-            'email' => 'required|email:dns',
+            'email' => 'required|email',
         ];
     }
 }

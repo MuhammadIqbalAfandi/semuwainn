@@ -13,7 +13,8 @@
         <form>
             <div class="form-group">
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Email" name="email" id="email">
+                    <input type="email" class="form-control" placeholder="Email" name="email" id="email"
+                        value="{{ $email }}">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -38,14 +39,24 @@
                 <span class="password-error msg-error text-danger"></span>
             </div>
 
-            <div class="row">
-                <div class="col-8">
-                    <p>
-                        <a href="{{ route('password.request') }}" class="text-warning">Lupa kata sandi</a>
-                    </p>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Konfirmasi Kata Sandi"
+                        name="password_confirmation" id="password_confirmation">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <button type="submit" class="btn btn-warning btn-block" id="login">Login</button>
+
+                <span class="password_confirmation-error msg-error text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-warning btn-block" id="reset-password">Reset kata
+                        sandi</button>
                 </div>
             </div>
         </form>
@@ -54,28 +65,32 @@
     @prepend('scripts')
         <script>
             // Mounted
-            $('#login').click((e) => {
+            $('#reset-password').click((e) => {
                 e.preventDefault()
 
                 const email = $('#email').val()
                 const password = $('#password').val()
+                const passwordConfirmation = $('#password_confirmation').val()
+                const token = '{{ $token }}'
 
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'post',
-                    url: "{{ route('login') }}",
+                    url: "{{ route('password.update') }}",
                     data: {
                         email,
-                        password
+                        password,
+                        password_confirmation: passwordConfirmation,
+                        token,
                     },
                     beforeSend() {
                         $('.msg-error').text('')
                     },
                     success(res) {
                         if (res.success) {
-                            location.href = "{{ route('dashboard.dashboard') }}"
+                            location.href = "{{ route('login') }}"
                         }
                     },
                     error(res) {
