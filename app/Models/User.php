@@ -49,9 +49,18 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = [
+        'role',
+    ];
+
     public function getUpdatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->translatedFormat('l d/m/Y');
     }
 
     public function reservations()

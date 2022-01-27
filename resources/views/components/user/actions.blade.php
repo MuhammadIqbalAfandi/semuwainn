@@ -1,6 +1,3 @@
-@if ($id !== $auth)
-    <x-user.account-status :status="$status" />
-    <x-user.action-btn :id="$id" />
-@else
-    <x-user.login-status />
+@if ($userId !== auth()->user()->id && $userId !== 1)
+    <i class="fas fa-ban btn-show-block text-danger" data-toggle="modal" id="{{ $userId }}"></i>
 @endif

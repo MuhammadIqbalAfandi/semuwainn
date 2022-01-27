@@ -58,6 +58,17 @@ class UserController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(User $user)
+    {
+        return view('pages.dashboard.user.show', compact('user'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  User  $user
@@ -148,10 +159,11 @@ class UserController extends Controller
                     );
                 })
                 ->addColumn('role', fn(User $user) => $user->role->name)
-                ->addColumn('actions', function (User $user) {
-                    return view('components.user.actions',
-                        ['id' => $user->id, 'status' => $user->status, 'auth' => auth()->id()]
-                    );
+                ->addColumn('status', function (User $user) {
+                    return view('components.user.status', ['status' => $user->status, 'userId' => $user->id]);
+                })
+                ->addColumn('action', function (User $user) {
+                    return view('components.user.actions', ['userId' => $user->id]);
                 })
                 ->make(true);
         };

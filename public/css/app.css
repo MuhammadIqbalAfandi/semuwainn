@@ -11,29 +11,50 @@
   font-size: 1rem;
 }
 
+.user-panel a:not(.btn):hover {
+  color: var(--orange) !important;
+}
+
 .nav-link.active {
   background-color: var(--orange) !important;
   color: #000 !important;
 }
 
-.dark-mode .bg-warning {
-  background-color: var(--orange) !important;
-}
-.dark-mode .card-header {
-  background-color: var(--orange) !important;
-}
+.dark-mode .bg-warning,
+.dark-mode .card-header,
 .dark-mode .btn-warning {
   background-color: var(--orange) !important;
 }
 .dark-mode .page-item.active .page-link {
   background-color: var(--orange) !important;
   color: #000 !important;
-}
-
-.page-item.active .page-link {
   border-color: var(--orange) !important;
+}
+.dark-mode .page-item.active .page-link:hover {
+  color: #fff !important;
+}
+.dark-mode .page-item.active .page-link:focus {
+  color: #000 !important;
+}
+.dark-mode .page-item:not(.active) .page-link {
+  color: #fff !important;
+  border-color: var(--orange) !important;
+}
+.dark-mode .page-item.disabled a {
+  border-color: var(--orange) !important;
+}
+.dark-mode .page-item .page-link:focus {
+  box-shadow: none !important;
 }
 
 .form-control:focus {
   border-color: var(--orange) !important;
+}
+
+.divider {
+  width: 6rem;
+  border: 1px solid #454d55;
+  margin-bottom: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }

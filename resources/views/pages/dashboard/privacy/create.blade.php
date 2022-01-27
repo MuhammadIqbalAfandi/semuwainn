@@ -9,14 +9,14 @@
 
         <x-shared.content>
             <div class="row">
-                <div class="col-12 col-lg">
-                    <x-shared.card title="Privasi">
+                <div class="col-12 col-md-6">
+                    <x-shared.card :cardHeader="false" class="card-outline">
                         <article>
                             {!! $privacy !!}
                         </article>
                     </x-shared.card>
                 </div>
-                <div class="col-12 col-lg">
+                <div class="col-12 col-md-6">
                     <x-shared.card title="Ubah Data">
                         <form method="post" action="{{ route('dashboard.privacies.store') }}">
                             @csrf

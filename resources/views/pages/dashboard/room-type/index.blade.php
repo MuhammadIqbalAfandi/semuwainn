@@ -9,7 +9,7 @@
         </x-shared.content-header>
 
         <x-shared.content>
-            <x-shared.card title="Daftar Tipe Kamar">
+            <x-shared.card :cardHeader="false" class="card-outline">
                 <div class="row mb-2">
                     <div class="col">
                         <a href="{{ route('dashboard.room-types.create') }}">

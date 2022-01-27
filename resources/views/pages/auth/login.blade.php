@@ -6,9 +6,7 @@
             </a>
         </div>
 
-        <div
-            style="width: 6rem; border: 1px solid #454d55; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;">
-        </div>
+        <div class="divider"></div>
 
         <form>
             <div class="form-group">

@@ -1,96 +1,62 @@
-<x-shared.modal title="Ubah Akun User" id="modal-edit">
+<x-shared.card title="Ubah Akun User">
     <form>
         <div class="form-group">
-            <label for="name-edit">Nama</label>
-            <input type="text" name="name" id="name-edit" class="form-control" placeholder="Tulis nama">
+            <label for="name">Nama</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama">
 
             <span class="text-danger msg-error name-error"></span>
         </div>
 
         <div class="form-group">
-            <label for="phone-edit">Nomor HP</label>
-            <input type="tel" id="phone-edit" pattern="[0-9]*" name="phone" class="form-control"
+            <label for="phone">Nomor HP</label>
+            <input type="tel" id="phone" pattern="[0-9]*" name="phone" class="form-control"
                 placeholder="Tulis nomor hp">
 
             <span class="text-danger msg-error phone-error"></span>
         </div>
 
         <div class="form-group">
-            <label for="address-edit">Alamat</label>
-            <input type="address" name="address" id="address-edit" class="form-control" placeholder="Tulis alamat">
+            <label for="address">Alamat</label>
+            <input type="address" name="address" id="address" class="form-control" placeholder="Tulis alamat">
 
             <span class="text-danger msg-error address-error"></span>
         </div>
 
         <div class="form-group">
-            <label for="email-edit">Email</label>
-            <input type="email" name="email" id="email-edit" class=" form-control" placeholder="Tulis email">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class=" form-control" placeholder="Tulis email">
 
             <span class="text-danger msg-error email-error"></span>
         </div>
 
         <div class="form-group">
-            <label for="role-edit">Hak Akses</label>
-            <select class="select2" name="role_id" id="role-edit">
+            <label for="role">Hak Akses</label>
+            <select class="select2 form-control" name="role_id" id="role">
                 <option></option>
             </select>
 
             <span class="text-danger msg-error role_id-error"></span>
         </div>
 
-        <button type="submit" id="btn-edit" class="btn btn-block btn-warning">Simpan</button>
+        <button type="submit" id="btn-save" class="btn btn-block btn-warning">Simpan</button>
     </form>
-</x-shared.modal>
+</x-shared.card>
 
 @push('scripts')
     <script>
         $(() => {
-            // Data
-            const State = {
-                id: '',
-                roleId: '',
-            }
-            // end Data
-
             // Mounted
-            $(document).on('click', '.btn-show-edit', function() {
-                const id = $(this).attr('id')
-                State.id = id
+            fetchUser()
 
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    dataType: 'json',
-                    type: 'get',
-                    url: `users/${id}/edit`,
-                    beforeSend() {
-                        $('.msg-error').text('')
-                        $('#modal-edit').modal('show')
-                    },
-                    success(res) {
-                        if (res) {
-                            State.roleId = res.role_id
-                            fetchRole()
-
-                            $('#name-edit').val(res.name)
-                            $('#phone-edit').val(res.phone)
-                            $('#email-edit').val(res.email)
-                            $('#address-edit').val(res.address)
-                        }
-                    },
-                })
-            })
-
-            $('#btn-edit').click((e) => {
+            $('#btn-save').click((e) => {
                 e.preventDefault()
 
-                const id = State.id
-                const name = $('#name-edit').val()
-                const phone = $('#phone-edit').val()
-                const email = $('#email-edit').val()
-                const address = $('#address-edit').val()
-                const roleId = $('#role-edit').val()
+                const id = {{ auth()->user()->id }}
+                const name = $('#name').val()
+                const phone = $('#phone').val()
+                const email = $('#email').val()
+                const address = $('#address').val()
+                const roleId = $('#role').val()
 
                 $.ajax({
                     headers: {
@@ -98,7 +64,7 @@
                     },
                     dataType: 'json',
                     type: 'patch',
-                    url: `users/${id}`,
+                    url: "{{ route('dashboard.users.update', auth()->user()->id) }}",
                     data: {
                         id,
                         name,
@@ -113,8 +79,7 @@
                             status
                         } = res
                         alert(message, status)
-                        $('#modal-edit').modal('hide')
-                        fetchUsers()
+                        setUser()
                     },
                     error(res) {
                         const {
@@ -135,8 +100,32 @@
             // end Mounted
 
             // Methods
+            function fetchUser() {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    type: 'get',
+                    url: "{{ route('dashboard.users.edit', auth()->user()->id) }}",
+                    beforeSend() {
+                        $('.msg-error').text('')
+                    },
+                    success(res) {
+                        if (res) {
+                            fetchRole()
+
+                            $('#name').val(res.name)
+                            $('#phone').val(res.phone)
+                            $('#email').val(res.email)
+                            $('#address').val(res.address)
+                        }
+                    },
+                })
+            }
+
             function fetchRole() {
-                $('#role-edit').select2({
+                $('#role').select2({
                     placeholder: 'Pilih hak akses',
                     theme: 'bootstrap4'
                 })
@@ -149,15 +138,16 @@
                     type: 'get',
                     url: `/dashboard/roles`,
                     beforeSend() {
-                        $('#role-edit').children('option:not(:first)').remove()
+                        $('#role').children('option:not(:first)').remove()
                     },
                     success(res) {
                         if (res) {
                             res.forEach(role => {
                                 let newOption = new Option(
-                                    role.name, role.id, false, State.roleId === role.id ?? false
+                                    role.name, role.id, false,
+                                    {{ auth()->user()->role_id }} === role.id ?? false
                                 )
-                                $('#role-edit').append(newOption)
+                                $('#role').append(newOption)
                             })
                         }
                     },

@@ -10,7 +10,7 @@
         </x-shared.content-header>
 
         <x-shared.content>
-            <x-shared.card title="Daftar Pemesanan Kamar">
+            <x-shared.card :cardHeader="false" class="card-outline">
                 <div class="row">
                     <div class="col">
                         <table id="reservation-list-table" class="table table-bordered">

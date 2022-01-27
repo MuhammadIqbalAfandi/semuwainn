@@ -9,8 +9,8 @@
 
         <x-shared.content>
             <div class="row">
-                <div class="col-12 col-lg">
-                    <x-shared.card title="Tentang Semuwainn">
+                <div class="col-12 col-md-6">
+                    <x-shared.card :cardHeader="false" class="card-outline">
                         <strong><i class="fas fa-mobile-alt mr-1"></i> Whatsapp</strong>
                         <p class="text-muted">{{ $whatsapp }}</p>
 
@@ -31,7 +31,7 @@
                     </x-shared.card>
                 </div>
 
-                <div class="col-12 col-lg">
+                <div class="col-12 col-md-6">
                     <x-shared.card title="Ubah Data">
                         <form method="post" action="{{ route('dashboard.contacts.store') }}">
                             @csrf

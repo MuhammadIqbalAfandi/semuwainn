@@ -94,6 +94,7 @@
     * email
     * address
     * status
+    * gender
     * password
     * role_id
   }

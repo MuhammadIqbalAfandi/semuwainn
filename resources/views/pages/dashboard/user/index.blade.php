@@ -9,7 +9,7 @@
         </x-shared.content-header>
 
         <x-shared.content>
-            <x-shared.card title="Daftar Akun User">
+            <x-shared.card :cardHeader="false" class="card-outline">
                 <div class="row mb-2">
                     <div class="col">
                         <button type="button" id="btn-add" class="btn btn-sm btn-warning float-right"
@@ -29,7 +29,8 @@
                                     <th>Alamat</th>
                                     <th>Hak Akses</th>
                                     <th>Tanggal Diperbaharui</th>
-                                    <th>Status / Aksi</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                         </table>
@@ -38,8 +39,6 @@
             </x-shared.card>
 
             <x-user.modal-add></x-user.modal-add>
-
-            <x-user.modal-edit></x-user.modal-edit>
 
             <x-user.modal-block></x-user.modal-block>
         </x-shared.content>
@@ -77,8 +76,12 @@
                         name: 'updated_at'
                     },
                     {
-                        data: 'actions',
-                        name: 'actions'
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action'
                     }
                 ],
                 language: {
