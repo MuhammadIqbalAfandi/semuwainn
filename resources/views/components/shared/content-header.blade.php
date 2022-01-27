@@ -5,7 +5,7 @@
                 <h1 class="m-0">{{ $title ?? null }}</h1>
             </div>
             <div class="col-6">
-                <ol class="breadcrumb float-sm-right">
+                <ol class="breadcrumb float-sm-right justify-content-end">
                     {{ $breadcrumb }}
                 </ol>
             </div>

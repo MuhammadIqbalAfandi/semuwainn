@@ -62,9 +62,26 @@
                 </div>
 
                 <div class="col-12 col-lg-9">
-                    <x-user.form-edit></x-user.form-edit>
-                </div>
-            </div>
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#edit-user"
+                                        data-toggle="tab">Ubah Akun User</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#timeline"
+                                        data-toggle="tab">Ubah Kata Sandi</a></li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="edit-user">
+                                    <x-user.form-edit></x-user.form-edit>
+                                </div>
+                                <div class="tab-pane" id="timeline">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
         </x-shared.content>
     </x-shared.content-wrapper>
 

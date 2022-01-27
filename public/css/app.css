@@ -2,6 +2,46 @@
   --orange: #ffc107;
   --yellow: var(--orange);
   --warning: var(--orange);
+  --black: #212529;
+}
+
+.dark-mode .bg-warning,
+.dark-mode .btn-warning {
+  background-color: var(--orange) !important;
+}
+.dark-mode .nav-sidebar .nav-link.active {
+  background-color: var(--orange) !important;
+  color: var(--black) !important;
+}
+.dark-mode .page-item.active .page-link {
+  background-color: var(--orange) !important;
+  color: var(--black) !important;
+  border-color: var(--orange) !important;
+}
+.dark-mode .page-item.active .page-link:hover {
+  color: #fff !important;
+}
+.dark-mode .page-item.active .page-link:focus {
+  color: var(--black) !important;
+}
+.dark-mode .page-item:not(.active) .page-link {
+  color: #fff !important;
+  border-color: var(--orange) !important;
+}
+.dark-mode .page-item.disabled a {
+  border-color: var(--orange) !important;
+}
+.dark-mode .page-item .page-link:focus {
+  box-shadow: none !important;
+}
+.dark-mode .card:not(.card-outline) .card-header a.active {
+  color: var(--black) !important;
+}
+.dark-mode .card-warning.card-outline {
+  border-top-color: var(--orange) !important;
+}
+.dark-mode .card-warning:not(.card-outline) .card-header {
+  background-color: var(--orange) !important;
 }
 
 .brand:hover {
@@ -15,40 +55,27 @@
   color: var(--orange) !important;
 }
 
-.nav-link.active {
-  background-color: var(--orange) !important;
-  color: #000 !important;
-}
-
-.dark-mode .bg-warning,
-.dark-mode .card-header,
-.dark-mode .btn-warning {
-  background-color: var(--orange) !important;
-}
-.dark-mode .page-item.active .page-link {
-  background-color: var(--orange) !important;
-  color: #000 !important;
-  border-color: var(--orange) !important;
-}
-.dark-mode .page-item.active .page-link:hover {
-  color: #fff !important;
-}
-.dark-mode .page-item.active .page-link:focus {
-  color: #000 !important;
-}
-.dark-mode .page-item:not(.active) .page-link {
-  color: #fff !important;
-  border-color: var(--orange) !important;
-}
-.dark-mode .page-item.disabled a {
-  border-color: var(--orange) !important;
-}
-.dark-mode .page-item .page-link:focus {
-  box-shadow: none !important;
-}
-
 .form-control:focus {
   border-color: var(--orange) !important;
+}
+
+.nav-pills .nav-link:not(.active):hover {
+  color: var(--orange) !important;
+}
+.nav-pills .nav-link.active {
+  background-color: var(--orange) !important;
+}
+
+.breadcrumb .breadcrumb-item a {
+  text-align: end !important;
+}
+
+.select2-container--bootstrap4.select2-container--focus .select2-selection {
+  border-color: var(--orange) !important;
+}
+.select2-container--bootstrap4 .select2-results__option--highlighted {
+  color: var(--black) !important;
+  background-color: var(--orange) !important;
 }
 
 .divider {
