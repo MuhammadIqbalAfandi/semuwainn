@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Gender;
 use App\Models\Reservation;
 use App\Models\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -28,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'status',
         'password',
         'role_id',
+        'gender_id',
     ];
 
     /**
@@ -51,6 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $with = [
         'role',
+        'gender',
     ];
 
     public function getUpdatedAtAttribute($value)
@@ -71,5 +74,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
     }
 }

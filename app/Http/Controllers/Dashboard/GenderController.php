@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Models\Gender;
 
-class RoleController extends Controller
+class GenderController extends Controller
 {
     /**
      * Provision a new web server.
@@ -14,9 +14,9 @@ class RoleController extends Controller
      */
     public function __invoke()
     {
-        $roles = Role::all();
-        if ($roles) {
-            return response()->json($roles, 200);
+        $genders = Gender::all();
+        if ($genders) {
+            return response()->json($genders, 200);
         }
     }
 }

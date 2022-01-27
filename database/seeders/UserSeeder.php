@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@semuwainn.com',
             'address' => 'Indonesia',
             'role_id' => 1,
+            'gender_id' => 1,
             'email_verified_at' => now(),
             'remember_token' => Str::random(60),
         ]);

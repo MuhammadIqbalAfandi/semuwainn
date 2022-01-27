@@ -30,6 +30,15 @@
         </div>
 
         <div class="form-group">
+            <label for="gender">Jenis Kelamin</label>
+            <select class="select2 form-control" name="gender_id" id="gender">
+                <option></option>
+            </select>
+
+            <span class="text-danger msg-error gender_id-error"></span>
+        </div>
+
+        <div class="form-group">
             <label for="role">Hak Akses</label>
             <select class="select2 form-control" name="role_id" id="role">
                 <option></option>
@@ -56,6 +65,7 @@
                 const phone = $('#phone').val()
                 const email = $('#email').val()
                 const address = $('#address').val()
+                const genderId = $('#gender').val()
                 const roleId = $('#role').val()
 
                 $.ajax({
@@ -71,6 +81,7 @@
                         phone,
                         email,
                         address,
+                        gender_id: genderId,
                         role_id: roleId,
                     },
                     success(res) {
@@ -114,11 +125,42 @@
                     success(res) {
                         if (res) {
                             fetchRole()
+                            fetchGender()
 
                             $('#name').val(res.name)
                             $('#phone').val(res.phone)
                             $('#email').val(res.email)
                             $('#address').val(res.address)
+                        }
+                    },
+                })
+            }
+
+            function fetchGender() {
+                $('#gender').select2({
+                    placeholder: 'Pilih jenis kelamin',
+                    theme: 'bootstrap4'
+                })
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    type: 'get',
+                    url: "{{ route('dashboard.genders') }}",
+                    beforeSend() {
+                        $('#gender').children('option:not(:first)').remove()
+                    },
+                    success(res) {
+                        if (res) {
+                            res.forEach(gender => {
+                                let newOption = new Option(
+                                    gender.gender, gender.id, false,
+                                    {{ auth()->user()->gender_id }} === gender.id ?? false
+                                )
+                                $('#gender').append(newOption)
+                            })
                         }
                     },
                 })
@@ -136,7 +178,7 @@
                     },
                     dataType: 'json',
                     type: 'get',
-                    url: `/dashboard/roles`,
+                    url: "{{ route('dashboard.roles') }}",
                     beforeSend() {
                         $('#role').children('option:not(:first)').remove()
                     },

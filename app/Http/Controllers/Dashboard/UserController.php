@@ -147,6 +147,7 @@ class UserController extends Controller
         $user = User::with('role');
         if ($user) {
             return DataTables::of($user)
+                ->addColumn('gender', fn(User $user) => $user->gender->gender)
                 ->filterColumn('phone-email', function ($user, $keyword) {
                     $user->where('email', 'like', "%{$keyword}%")->orWhere('phone', 'like', "%{$keyword}%");
                 })

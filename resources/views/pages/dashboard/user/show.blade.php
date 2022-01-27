@@ -10,12 +10,13 @@
 
         <x-shared.content>
             <div class="row">
-                <div class="col-3">
+                <div class="col-12 col-lg-3">
                     <x-shared.card :cardHeader="false" class="card-outline">
                         <section>
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/avatar1.png') }}"
-                                    alt="User profile picture">
+                                <img class="profile-user-img img-fluid img-circle"
+                                    src="{{ auth()->user()->gender_id === 1 ? asset('img/avatar1.png') : asset('img/avatar2.png') }}"
+                                    alt="User profile picture" id="profile-user">
                             </div>
                             <h3 class="profile-username text-center" id="name-text"></h3>
                             <p class="text-muted text-center" id="role-name-text"></p>
@@ -27,6 +28,13 @@
                             <section>
                                 <strong><i class="fas fa-clock mr-1"></i>Dibuat pada</strong>
                                 <p class="text-muted" id="created-text"></p>
+                            </section>
+
+                            <hr>
+
+                            <section>
+                                <strong><i class="fas fa-venus-mars mr-1"></i>Jenis Kelamin</strong>
+                                <p class="text-muted" id="gender-text"></p>
                             </section>
 
                             <hr>
@@ -53,7 +61,7 @@
                     </x-shared.card>
                 </div>
 
-                <div class="col-9">
+                <div class="col-12 col-lg-9">
                     <x-user.form-edit></x-user.form-edit>
                 </div>
             </div>
@@ -80,9 +88,18 @@
                         $('#name-text').text(res.name)
                         $('#user-panel-name').text(res.name)
                         $('#role-name-text').text(res.role.name)
+                        $('#gender-text').text(res.gender.gender)
                         $('#phone-text').text(res.phone)
                         $('#email-text').text(res.email)
                         $('#address-text').text(res.address)
+
+                        if (res.gender.id === 1) {
+                            $('#profile-user').attr("src", "{{ asset('img/avatar1.png') }}");
+                            $('#user-panel-profile').attr("src", "{{ asset('img/avatar1.png') }}");
+                        } else {
+                            $('#profile-user').attr("src", "{{ asset('img/avatar2.png') }}");
+                            $('#user-panel-profile').attr("src", "{{ asset('img/avatar2.png') }}");
+                        }
                     },
                 })
             }

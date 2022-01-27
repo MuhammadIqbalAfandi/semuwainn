@@ -105,6 +105,12 @@
     * name
   }
 
+  entity Gender {
+    * id
+    __
+    * gender
+  }
+
   entity RoomFacility {
     * id
     __
@@ -191,5 +197,6 @@
   Service ||--|{ ServiceUnit
   RestaurantOrder ||--|{ Restaurant
   User ||--|{ Role
+  User ||--|{ Gender
 
 @enduml

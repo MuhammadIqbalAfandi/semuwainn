@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\CopyrightController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\FacilityController;
+use App\Http\Controllers\Dashboard\GenderController;
 use App\Http\Controllers\Dashboard\GuestController;
 use App\Http\Controllers\Dashboard\PolicyController;
 use App\Http\Controllers\Dashboard\PrivacyController;
@@ -50,7 +51,8 @@ Route::prefix('dashboard')->group(function () {
             Route::post('/reservations/restaurant/{reservation}', [ReservationController::class, 'storeRestaurant']);
             Route::resource('/reservations', ReservationController::class);
 
-            Route::get('/roles', [RoleController::class, 'index']);
+            Route::get('/genders', GenderController::class)->name('genders');
+            Route::get('/roles', RoleController::class)->name('roles');
             Route::get('/users/users', [UserController::class, 'users']);
             Route::resource('/users', UserController::class);
 

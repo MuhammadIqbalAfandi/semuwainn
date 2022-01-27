@@ -26,6 +26,7 @@
                                 <tr>
                                     <th>No. HP / Email</th>
                                     <th>Nama</th>
+                                    <th>Jenis Kelamin</th>
                                     <th>Alamat</th>
                                     <th>Hak Akses</th>
                                     <th>Tanggal Diperbaharui</th>
@@ -62,6 +63,10 @@
                     {
                         data: 'name',
                         name: 'name',
+                    },
+                    {
+                        data: 'gender',
+                        name: 'gender',
                     },
                     {
                         data: 'address',

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Database\Seeders\FacilitySeeder;
+use Database\Seeders\GenderSeeder;
 use Database\Seeders\GuestSeeder;
 use Database\Seeders\ReservationStatusSeeder;
 use Database\Seeders\RestaurantSeeder;
@@ -12,6 +13,7 @@ use Database\Seeders\RoomPriceSeeder;
 use Database\Seeders\RoomSeeder;
 use Database\Seeders\RoomTypeSeeder;
 use Database\Seeders\ServiceSeeder;
+use Database\Seeders\ServiceUnitSeeder;
 use Database\Seeders\UserSeeder;
 use Illuminate\Database\Seeder;
 
@@ -34,6 +36,7 @@ class DatabaseSeeder extends Seeder
             RoomPriceSeeder::class,
             FacilitySeeder::class,
             RoomFacilitySeeder::class,
+            GenderSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
             ReservationStatusSeeder::class,

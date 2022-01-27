@@ -9,7 +9,8 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('img/avatar1.png') }}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ auth()->user()->gender_id === 1 ? asset('img/avatar1.png') : asset('img/avatar2.png') }}"
+                    class="img-circle elevation-2" alt="User Image" id="user-panel-profile">
             </div>
             <div class="info">
                 <a href="{{ route('dashboard.users.show', auth()->user()->id) }}"
