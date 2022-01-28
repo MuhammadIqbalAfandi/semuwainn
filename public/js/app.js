@@ -18223,7 +18223,7 @@ var render = function () {
                             "Link",
                             {
                               staticClass: "orange--text text--lighten-2",
-                              attrs: { href: _vm.$route("privacies.index") },
+                              attrs: { href: _vm.$route("privacies") },
                             },
                             [_vm._v("Kebijakan Privasi")]
                           ),
@@ -18232,7 +18232,7 @@ var render = function () {
                             "Link",
                             {
                               staticClass: "orange--text text--lighten-2",
-                              attrs: { href: _vm.$route("policies.index") },
+                              attrs: { href: _vm.$route("policies") },
                             },
                             [_vm._v("Syarat & Ketentuan kami")]
                           ),

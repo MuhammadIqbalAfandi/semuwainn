@@ -108,7 +108,7 @@
                     },
                     dataType: 'json',
                     type: 'get',
-                    url: '/dashboard/service_units',
+                    url: "{{ route('dashboard.services.service-units') }}",
                     beforeSend() {
                         $('#unit').children('option:not(:first)').remove()
                     },

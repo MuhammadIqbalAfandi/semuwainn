@@ -55,7 +55,7 @@
                 serverSide: true,
                 scrollX: true,
                 autoWidth: false,
-                ajax: 'users/users',
+                ajax: "{{ route('dashboard.users.users') }}",
                 columns: [{
                         data: 'phone-email',
                         name: 'phone-email',

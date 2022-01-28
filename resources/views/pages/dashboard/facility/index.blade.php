@@ -12,10 +12,12 @@
             <x-shared.card :cardHeader="false" class="card-outline">
                 <div class="row mb-2">
                     <div class="col">
-                        <button type="button" id="btn-add" class="btn btn-sm btn-warning float-right"
-                            data-toggle="modal">
-                            <i class="fa fa-plus"></i>
-                        </button>
+                        @can('isAdmin')
+                            <button type="button" id="btn-add" class="btn btn-sm btn-warning float-right"
+                                data-toggle="modal">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        @endcan
                     </div>
                 </div>
 
@@ -27,7 +29,9 @@
                                     <th>Nama Fasilitas</th>
                                     <th>Jumlah Kamar</th>
                                     <th>Tanggal Diperbaharui</th>
-                                    <th>Aksi</th>
+                                    @can('isAdmin')
+                                        <th>Aksi</th>
+                                    @endcan
                                 </tr>
                             </thead>
                         </table>
@@ -53,7 +57,7 @@
                 serverSide: true,
                 scrollX: true,
                 autoWidth: false,
-                ajax: 'facilities/facilities',
+                ajax: "{{ route('dashboard.facilities.facilities') }}",
                 columns: [{
                         data: 'name',
                         name: 'name',
@@ -66,10 +70,12 @@
                         data: 'updated_at',
                         name: 'updated_at'
                     },
-                    {
+                    @can('isAdmin')
+                        {
                         data: 'actions',
                         name: 'actions'
-                    }
+                        }
+                    @endcan
                 ],
                 language: {
                     processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',

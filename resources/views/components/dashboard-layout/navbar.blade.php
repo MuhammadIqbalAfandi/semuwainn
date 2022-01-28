@@ -15,6 +15,7 @@
 
                 <button type="submit" class="btn nav-link">
                     <i class="fas fa-power-off"></i>
+                    Logout
                 </button>
             </form>
         </li>

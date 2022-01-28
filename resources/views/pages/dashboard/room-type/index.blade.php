@@ -12,11 +12,13 @@
             <x-shared.card :cardHeader="false" class="card-outline">
                 <div class="row mb-2">
                     <div class="col">
-                        <a href="{{ route('dashboard.room-types.create') }}">
-                            <button type="button" id="btn-add" class="btn btn-sm btn-warning float-right">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </a>
+                        @can('isAdmin')
+                            <a href="{{ route('dashboard.room-types.create') }}">
+                                <button type="button" id="btn-add" class="btn btn-sm btn-warning float-right">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </a>
+                        @endcan
                     </div>
                 </div>
 
@@ -31,7 +33,9 @@
                                     <th>Jumlah Kamar</th>
                                     <th>Jumlah tamu</th>
                                     <th>Tanggal Diperbaharui</th>
-                                    <th>Aksi</th>
+                                    @can('isAdmin')
+                                        <th>Aksi</th>
+                                    @endcan
                                 </tr>
                             </thead>
                         </table>
@@ -53,7 +57,7 @@
                 serverSide: true,
                 scrollX: true,
                 autoWidth: false,
-                ajax: 'room-types/room-types',
+                ajax: "{{ route('dashboard.room-types.room-types') }}",
                 columns: [{
                         data: 'name',
                         name: 'name',
@@ -78,10 +82,12 @@
                         data: 'updated_at',
                         name: 'updated_at'
                     },
-                    {
+                    @can('isAdmin')
+                        {
                         data: 'actions',
                         name: 'actions'
-                    }
+                        }
+                    @endcan
                 ],
                 language: {
                     processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',

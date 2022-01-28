@@ -145,7 +145,7 @@
                     },
                     dataType: 'json',
                     type: 'get',
-                    url: "{{ route('dashboard.genders') }}",
+                    url: "{{ route('dashboard.users.genders') }}",
                     beforeSend() {
                         $('#gender').children('option:not(:first)').remove()
                     },
@@ -175,7 +175,7 @@
                     },
                     dataType: 'json',
                     type: 'get',
-                    url: "{{ route('dashboard.roles') }}",
+                    url: "{{ route('dashboard.users.roles') }}",
                     beforeSend() {
                         $('#role').children('option:not(:first)').remove()
                     },

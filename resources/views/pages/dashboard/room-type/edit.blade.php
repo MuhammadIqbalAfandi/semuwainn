@@ -105,7 +105,7 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: '/dashboard/room-types/room-facilities/{{ $roomType->id }}',
+                        url: "{{ route('dashboard.room-types.room-facilities', $roomType->id) }}",
                         beforeSend() {
                             $('#facilities').children('option:not(:first)').remove()
                         },
@@ -136,7 +136,7 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: '/dashboard/room-types/room-prices/{{ $roomType->id }}',
+                        url: "{{ route('dashboard.room-types.room-prices', $roomType->id) }}",
                         success(res) {
                             if (res) {
                                 res.forEach((roomPrice, index) => {

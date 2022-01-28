@@ -8,11 +8,11 @@ use App\Models\Privacy;
 class PrivacyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Provision a new web server.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __invoke()
     {
         $privacy = Privacy::get()->first();
         $privacy = $privacy->text ?? '-';

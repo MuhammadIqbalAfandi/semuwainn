@@ -104,7 +104,7 @@
                         },
                         dataType: 'json',
                         type: 'get',
-                        url: '/dashboard/room-types/facilities',
+                        url: "{{ route('dashboard.room-types.facilities') }}",
                         beforeSend() {
                             $('#facilities').children('option:not(:first)').remove()
                         },

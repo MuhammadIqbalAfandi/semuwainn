@@ -1,5 +1,5 @@
 <div class="btn-group">
-    <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown">
+    <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" data-display="static">
         Pilih
     </button>
     <ul class="dropdown-menu dropdown-menu-right">

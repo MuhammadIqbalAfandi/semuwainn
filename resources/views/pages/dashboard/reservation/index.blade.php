@@ -26,7 +26,9 @@
                                     <th>Jlh. Kamar</th>
                                     <th>Jumlah Tamu</th>
                                     <th>Status</th>
-                                    <th>Aksi</th>
+                                    @canany(['isAdmin', 'isWaiter'])
+                                        <th>Aksi</th>
+                                    @endcanany
                                 </tr>
                             </thead>
                         </table>
@@ -54,7 +56,7 @@
                 serverSide: true,
                 scrollX: true,
                 autoWidth: false,
-                ajax: 'reservations/reservations',
+                ajax: "{{ route('dashboard.reservations.reservations') }}",
                 columns: [{
                         data: 'order',
                         name: 'order',
@@ -79,10 +81,12 @@
                         data: 'status',
                         name: 'status'
                     },
-                    {
+                    @canany(['isAdmin', 'isWaiter'])
+                        {
                         data: 'actions',
                         name: 'actions'
-                    }
+                        }
+                    @endcanany
                 ],
                 language: {
                     processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',

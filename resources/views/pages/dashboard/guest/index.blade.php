@@ -19,7 +19,9 @@
                                     <th>Nama</th>
                                     <th>Jlh. Pemesanan</th>
                                     <th>Tanggal Diperbaharui</th>
-                                    <th>Aksi</th>
+                                    @can('isAdmin')
+                                        <th>Aksi</th>
+                                    @endcan
                                 </tr>
                             </thead>
                         </table>
@@ -43,7 +45,7 @@
                 serverSide: true,
                 scrollX: true,
                 autoWidth: false,
-                ajax: 'guests/guests',
+                ajax: "{{ route('dashboard.guests.guests') }}",
                 columns: [{
                         data: 'nik',
                         name: 'nik'
@@ -60,10 +62,12 @@
                         data: 'updated_at',
                         name: 'updated_at'
                     },
-                    {
+                    @can('isAdmin')
+                        {
                         data: 'actions',
                         name: 'actions'
-                    }
+                        }
+                    @endcan
                 ],
                 language: {
                     processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',

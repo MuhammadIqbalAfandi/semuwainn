@@ -100,9 +100,9 @@ export default {
           <v-col class="text-end" cols="12">
             <p class="text-caption text-sm-body-2">
               Dengan menekan tombol, kamu menyetujui
-              <Link :href="$route('privacies.index')" class="orange--text text--lighten-2">Kebijakan Privasi</Link>
+              <Link :href="$route('privacies')" class="orange--text text--lighten-2">Kebijakan Privasi</Link>
               dan
-              <Link :href="$route('policies.index')" class="orange--text text--lighten-2">Syarat & Ketentuan kami</Link>
+              <Link :href="$route('policies')" class="orange--text text--lighten-2">Syarat & Ketentuan kami</Link>
             </p>
 
             <Button @click="order" :disabled="hideSubmitButton">Pesan sekarang</Button>

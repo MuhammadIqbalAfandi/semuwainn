@@ -29,6 +29,5 @@ class ViewServiceProvider extends ServiceProvider
             $copyright = $copyright->copyright ?? '-';
             $view->with('copyright', $copyright);
         });
-
     }
 }

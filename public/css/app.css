@@ -80,7 +80,8 @@
 
 .divider {
   width: 6rem;
-  border: 1px solid #454d55;
+  border-radius: 5px;
+  border: 1px solid #adb5bd;
   margin-bottom: 1.5rem;
   margin-left: auto;
   margin-right: auto;

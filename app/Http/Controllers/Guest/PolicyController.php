@@ -8,11 +8,11 @@ use App\Models\Policy;
 class PolicyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Provision a new web server.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __invoke()
     {
         $policy = Policy::get()->first();
         $policy = $policy->text ?? '-';

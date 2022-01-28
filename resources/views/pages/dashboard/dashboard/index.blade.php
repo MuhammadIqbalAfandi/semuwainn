@@ -34,9 +34,15 @@
                         <div class="icon">
                             <i class="fas fa-bed"></i>
                         </div>
-                        <a href="{{ route('dashboard.rooms.index') }}" class="small-box-footer">
-                            Lihat Detailnya <i class="fas fa-arrow-circle-right"></i>
-                        </a>
+                        @if (auth()->user()->canany(['isAdmin', 'isLeader']))
+                            <a href="{{ route('dashboard.rooms.index') }}" class="small-box-footer">
+                                Lihat Detailnya <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        @else
+                            <p class="small-box-footer text-dark">
+                                Detail Tidak Tersedia
+                            </p>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-12">
@@ -49,9 +55,15 @@
                         <div class="icon">
                             <i class="fas fa-concierge-bell"></i>
                         </div>
-                        <a href="{{ route('dashboard.services.index') }}" class="small-box-footer">
-                            Lihat Detailnya <i class="fas fa-arrow-circle-right"></i>
-                        </a>
+                        @if (auth()->user()->canany(['isAdmin', 'isLeader']))
+                            <a href="{{ route('dashboard.services.index') }}" class="small-box-footer">
+                                Lihat Detailnya <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        @else
+                            <p class="small-box-footer text-dark">
+                                Detail Tidak Tersedia
+                            </p>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-12">
@@ -64,9 +76,15 @@
                         <div class="icon">
                             <i class="fas fa-utensils"></i>
                         </div>
-                        <a href="{{ route('dashboard.restaurants.index') }}" class="small-box-footer">
-                            Lihat Detailnya <i class="fas fa-arrow-circle-right"></i>
-                        </a>
+                        @if (auth()->user()->canany(['isAdmin', 'isLeader']))
+                            <a href="{{ route('dashboard.restaurants.index') }}" class="small-box-footer">
+                                Lihat Detailnya <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        @else
+                            <p class="small-box-footer text-dark">
+                                Detail Tidak Tersedia
+                            </p>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-12">
@@ -79,11 +97,18 @@
                         <div class="icon">
                             <i class="fas fa-users"></i>
                         </div>
-                        <a href="{{ route('dashboard.guests.index') }}" class="small-box-footer">
-                            Lihat Detailnya <i class="fas fa-arrow-circle-right"></i>
-                        </a>
+                        @if (auth()->user()->canany(['isAdmin', 'isLeader']))
+                            <a href="{{ route('dashboard.guests.index') }}" class="small-box-footer">
+                                Lihat Detailnya <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        @else
+                            <p class="small-box-footer text-dark">
+                                Detail Tidak Tersedia
+                            </p>
+                        @endif
                     </div>
                 </div>
+
                 <div class="col-lg-3 col-md-4 col-12">
                     <div class="small-box bg-warning">
                         <div class="inner">

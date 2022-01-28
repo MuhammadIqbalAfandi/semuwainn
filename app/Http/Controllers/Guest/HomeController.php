@@ -8,11 +8,11 @@ use App\Models\RoomType;
 class HomeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Provision a new web server.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __invoke()
     {
         return inertia('Guest/Home/Index', [
             'roomTypes' => RoomType::filter()
@@ -33,5 +33,6 @@ class HomeController extends Controller
                     'roomsId' => $roomType->rooms->whereNotIn('id', $roomType->roomOrders->pluck('room_id'))->pluck('id'),
                 ]),
         ]);
+
     }
 }
