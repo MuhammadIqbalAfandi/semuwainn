@@ -168,6 +168,7 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         Clockwork\Support\Laravel\ClockworkServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
 
         /*
          * Application Service Providers...
