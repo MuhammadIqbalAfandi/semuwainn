@@ -24,8 +24,6 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-    <!-- Daterange Picker -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- Trix Editor -->
     <link rel="stylesheet" href="{{ asset('css/trix-1.3.1/trix.css') }}">
     <!-- Theme style -->
@@ -33,6 +31,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
+        /* Trix-Editor */
         trix-toolbar [data-trix-button-group="file-tools"] {
             display: none;
         }
@@ -66,11 +65,6 @@
     <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
-    <!-- Moments -->
-    <script src="{{ asset('adminlte/plugins/moment/moment-with-locales.min.js') }}"></script>
-    <!-- Daterange Picker -->
-    <script src="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.js') }}">
-    </script>
     <!-- Chartjs -->
     <script src="{{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Loadash -->
@@ -81,6 +75,12 @@
     <script src="{{ asset('js/trix-1.3.1/trix.js') }}"></script>
     <!-- Scripts -->
     <script>
+        @if (session('success'))
+            alert("{{ session('success') }}", 'success')
+        @elseif (session('failed'))
+            alert("{{ session('failed') }}", 'failed')
+        @endif
+
         const idMoneyFormat = (number) => {
             return new Intl.NumberFormat('id', {
                 style: 'currency',
@@ -88,6 +88,19 @@
             }).format(number)
         }
 
+        // Datatables
+        $.extend($.fn.dataTable.defaults, {
+            'stateSave': true,
+            'responsive': true,
+            'processing': true,
+            'scrollX': true,
+            'autoWidth': false,
+            'language': {
+                'url': "{{ asset('js/datatables/plug-ins-1.11.4-i18n/id.json') }}"
+            }
+        })
+
+        // SweetAlert
         const Toast = Swal.mixin({
             toast: true,
             position: "bottom-start",
@@ -112,15 +125,10 @@
             }
         }
 
+        // Trix-Editor
         $('trix-file-accept').on(function(e) {
             e.preventDefault()
         })
-
-        @if (session('success'))
-            alert("{{ session('success') }}", 'success')
-        @elseif (session('failed'))
-            alert("{{ session('failed') }}", 'failed')
-        @endif
     </script>
 
     @stack('scripts')

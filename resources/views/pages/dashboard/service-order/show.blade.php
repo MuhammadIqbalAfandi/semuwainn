@@ -52,15 +52,7 @@
             // Mounted
             fetchService()
 
-            const table = $('.table').DataTable({
-                paging: false,
-                searching: false,
-                ordering: false,
-                info: false,
-                autoWidth: false,
-                scrollX: true,
-                responsive: true,
-            })
+            const table = $('.table').DataTable()
 
             $('#btn-detail').click(() => {
                 const serviceId = $('#service').find(':selected').val()

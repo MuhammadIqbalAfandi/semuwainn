@@ -39,12 +39,7 @@
         <script>
             // Mounted
             $('.table').DataTable({
-                stateSave: true,
-                responsive: true,
-                processing: true,
                 serverSide: true,
-                scrollX: true,
-                autoWidth: false,
                 ajax: "{{ route('dashboard.guests.guests') }}",
                 columns: [{
                         data: 'nik',
@@ -69,12 +64,6 @@
                         }
                     @endcan
                 ],
-                language: {
-                    processing: '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...',
-                    emptyTable: "Data tidak tersedia!",
-                    zeroRecords: "Data tidak ditemukan",
-                    search: "Cari:",
-                },
             })
             // end Mounted
 

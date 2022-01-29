@@ -39,7 +39,7 @@
 
     <x-room-type.room></x-room-type.room>
 
-    <button id="btn-save" type="submit" class="btn btn-block btn-warning">Simpan</button>
+    <button id="btn-save" type="submit" class="btn btn-block btn-warning mb-3">Simpan</button>
 </form>
 
 @push('scripts')
