@@ -161,10 +161,10 @@ class UserController extends Controller
                 })
                 ->addColumn('role', fn(User $user) => $user->role->name)
                 ->addColumn('status', function (User $user) {
-                    return view('components.user.status', ['status' => $user->status, 'userId' => $user->id]);
+                    return view('components.user.index.status', ['status' => $user->status, 'userId' => $user->id]);
                 })
                 ->addColumn('action', function (User $user) {
-                    return view('components.user.actions', ['userId' => $user->id]);
+                    return view('components.user.index.actions', ['userId' => $user->id]);
                 })
                 ->make(true);
         };

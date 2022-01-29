@@ -1,28 +1,32 @@
 <form>
     <div class="form-group">
         <label for="name">Nama</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama">
+        <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama"
+            value="{{ $user->name }}">
 
         <span class="text-danger msg-error name-error"></span>
     </div>
 
     <div class="form-group">
         <label for="phone">Nomor HP</label>
-        <input type="tel" id="phone" pattern="[0-9]*" name="phone" class="form-control" placeholder="Tulis nomor hp">
+        <input type="tel" id="phone" pattern="[0-9]*" name="phone" class="form-control" placeholder="Tulis nomor hp"
+            value="{{ $user->phone }}">
 
         <span class="text-danger msg-error phone-error"></span>
     </div>
 
     <div class="form-group">
         <label for="address">Alamat</label>
-        <input type="address" name="address" id="address" class="form-control" placeholder="Tulis alamat">
+        <input type="address" name="address" id="address" class="form-control" placeholder="Tulis alamat"
+            value="{{ $user->address }}">
 
         <span class="text-danger msg-error address-error"></span>
     </div>
 
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" class=" form-control" placeholder="Tulis email">
+        <input type="email" name="email" id="email" class=" form-control" placeholder="Tulis email"
+            value="{{ $user->email }}">
 
         <span class="text-danger msg-error email-error"></span>
     </div>
@@ -36,14 +40,16 @@
         <span class="text-danger msg-error gender_id-error"></span>
     </div>
 
-    <div class="form-group">
-        <label for="role">Hak Akses</label>
-        <select class="select2 form-control" name="role_id" id="role">
-            <option></option>
-        </select>
+    @can('isAdmin')
+        <div class="form-group">
+            <label for="role">Hak Akses</label>
+            <select class="select2 form-control" name="role_id" id="role">
+                <option></option>
+            </select>
 
-        <span class="text-danger msg-error role_id-error"></span>
-    </div>
+            <span class="text-danger msg-error role_id-error"></span>
+        </div>
+    @endcan
 
     <button type="submit" id="btn-save" class="btn btn-block btn-warning">Simpan</button>
 </form>
@@ -52,12 +58,13 @@
     <script>
         $(() => {
             // Mounted
-            fetchUser()
+            fetchRole()
+            fetchGender()
 
             $('#btn-save').click((e) => {
                 e.preventDefault()
 
-                const id = {{ auth()->user()->id }}
+                const id = {{ $user->id }}
                 const name = $('#name').val()
                 const phone = $('#phone').val()
                 const email = $('#email').val()
@@ -71,7 +78,7 @@
                     },
                     dataType: 'json',
                     type: 'patch',
-                    url: "{{ route('dashboard.users.update', auth()->user()->id) }}",
+                    url: "{{ route('dashboard.users.update', $user->id) }}",
                     data: {
                         id,
                         name,
@@ -80,6 +87,9 @@
                         address,
                         gender_id: genderId,
                         role_id: roleId,
+                    },
+                    beforeSend() {
+                        $('.msg-error').text('')
                     },
                     success(res) {
                         const {
@@ -108,31 +118,6 @@
             // end Mounted
 
             // Methods
-            function fetchUser() {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    dataType: 'json',
-                    type: 'get',
-                    url: "{{ route('dashboard.users.edit', auth()->user()->id) }}",
-                    beforeSend() {
-                        $('.msg-error').text('')
-                    },
-                    success(res) {
-                        if (res) {
-                            fetchRole()
-                            fetchGender()
-
-                            $('#name').val(res.name)
-                            $('#phone').val(res.phone)
-                            $('#email').val(res.email)
-                            $('#address').val(res.address)
-                        }
-                    },
-                })
-            }
-
             function fetchGender() {
                 $('#gender').select2({
                     placeholder: 'Pilih jenis kelamin',
@@ -184,7 +169,7 @@
                             res.forEach(role => {
                                 let newOption = new Option(
                                     role.name, role.id, false,
-                                    {{ auth()->user()->role_id }} === role.id ?? false
+                                    {{ $user->role_id }} === role.id ?? false
                                 )
                                 $('#role').append(newOption)
                             })

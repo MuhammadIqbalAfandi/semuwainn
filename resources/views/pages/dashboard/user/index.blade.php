@@ -39,9 +39,9 @@
                 </div>
             </x-shared.card>
 
-            <x-user.modal-add></x-user.modal-add>
+            <x-user.index.modal-add></x-user.index.modal-add>
 
-            <x-user.modal-block></x-user.modal-block>
+            <x-user.index.modal-block></x-user.index.modal-block>
         </x-shared.content>
     </x-shared.content-wrapper>
 

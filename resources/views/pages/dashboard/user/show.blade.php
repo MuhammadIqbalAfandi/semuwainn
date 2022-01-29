@@ -10,12 +10,12 @@
 
         <x-shared.content>
             <div class="row">
-                <div class="col-12 col-lg-3">
+                <div class="col-12 col-lg-5">
                     <x-shared.card :cardHeader="false" class="card-outline">
                         <section>
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle"
-                                    src="{{ auth()->user()->gender_id === 1 ? asset('img/avatar1.png') : asset('img/avatar2.png') }}"
+                                    src="{{ $user->gender_id === 1 ? asset('img/avatar1.png') : asset('img/avatar2.png') }}"
                                     alt="User profile picture" id="profile-user">
                             </div>
                             <h3 class="profile-username text-center" id="name-text"></h3>
@@ -61,7 +61,7 @@
                     </x-shared.card>
                 </div>
 
-                <div class="col-12 col-lg-9">
+                <div class="col-12 col-lg-7">
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
@@ -74,7 +74,7 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="edit-user">
-                                    <x-user.form-edit></x-user.form-edit>
+                                    <x-user.show.form-edit :user="$user"></x-user.show.form-edit>
                                 </div>
                                 <div class="tab-pane" id="timeline">
                                     <p></p>
@@ -99,7 +99,7 @@
                     },
                     dataType: 'json',
                     type: 'get',
-                    url: "{{ route('dashboard.users.edit', auth()->user()->id) }}",
+                    url: "{{ route('dashboard.users.edit', $user->id) }}",
                     success(res) {
                         $('#created-text').text(res.created_at)
                         $('#name-text').text(res.name)
