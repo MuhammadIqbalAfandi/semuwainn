@@ -9,6 +9,7 @@ use App\Models\Facility;
 use App\Models\RoomType;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 
 class RoomTypeController extends Controller
@@ -30,6 +31,10 @@ class RoomTypeController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         return view('pages.dashboard.room-type.create');
     }
 
@@ -88,6 +93,10 @@ class RoomTypeController extends Controller
      */
     public function edit(RoomType $roomType)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         return view('pages.dashboard.room-type.edit', compact('roomType'));
     }
 
@@ -149,6 +158,10 @@ class RoomTypeController extends Controller
      */
     public function destroy(RoomType $roomType)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         try {
             $roomType->delete();
             return response()->json(
@@ -175,7 +188,7 @@ class RoomTypeController extends Controller
         if ($roomType) {
             return DataTables::of($roomType)
                 ->addColumn('facility', function (RoomType $roomType) {
-                    return view('components.room-type.facilities', compact('roomType'));
+                    return view('components.room-type.facility', compact('roomType'));
                 })
                 ->addColumn('price', function (RoomType $roomType) {
                     return view('components.room-type.detail-price', compact('roomType'));

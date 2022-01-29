@@ -8,6 +8,7 @@ use App\Models\Restaurant;
 use App\Models\RestaurantOrder;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class RestaurantOrderController extends Controller
 {
@@ -18,6 +19,10 @@ class RestaurantOrderController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         $restaurants = Restaurant::all()->transform(fn($restaurant) => [
             'id' => $restaurant->id,
             'name' => $restaurant->name,
@@ -76,6 +81,10 @@ class RestaurantOrderController extends Controller
      */
     public function show($id)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         $reservationId = Reservation::find($id)->id;
         if ($reservationId) {
             return view('pages.dashboard.restaurant-order.show', compact('reservationId'));
@@ -90,6 +99,10 @@ class RestaurantOrderController extends Controller
      */
     public function destroy(RestaurantOrder $restaurantOrder)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         try {
             $restaurantOrder->delete();
             return response()->json(

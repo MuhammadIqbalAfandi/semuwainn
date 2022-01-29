@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Policy\StorePolicyRequest;
 use App\Models\Policy;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PolicyController extends Controller
 {
@@ -17,6 +17,10 @@ class PolicyController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         $policy = Policy::get()->first();
         $policy = $policy->text ?? '-';
         return view('pages.dashboard.policy.create', compact('policy'));

@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\ServiceOrder;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ServiceOrderController extends Controller
 {
@@ -62,6 +63,10 @@ class ServiceOrderController extends Controller
      */
     public function show($id)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         $reservationId = Reservation::find($id)->id;
         if ($reservationId) {
             return view('pages.dashboard.service-order.show', compact('reservationId'));
@@ -95,6 +100,10 @@ class ServiceOrderController extends Controller
      */
     public function destroy(ServiceOrder $serviceOrder)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         try {
             $serviceOrder->delete();
             return response()->json(

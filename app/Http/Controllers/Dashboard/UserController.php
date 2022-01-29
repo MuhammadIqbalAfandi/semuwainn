@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -20,6 +20,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         return view('pages.dashboard.user.index');
     }
 
@@ -60,11 +64,15 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         return view('pages.dashboard.user.show', compact('user'));
     }
 
@@ -76,9 +84,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        if ($user) {
-            return response()->json($user, 200);
-        };
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
+        return view('pages.dashboard.user.edit', compact('user'));
     }
 
     /**
@@ -92,7 +102,7 @@ class UserController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user->update($request->validated());
+            $user->fill($request->validated())->save();
 
             DB::commit();
 
@@ -124,6 +134,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         $user->status = !$user->status;
         $user->update();
 
@@ -164,9 +178,16 @@ class UserController extends Controller
                     return view('components.user.index.status', ['status' => $user->status, 'userId' => $user->id]);
                 })
                 ->addColumn('action', function (User $user) {
-                    return view('components.user.index.actions', ['userId' => $user->id]);
+                    return view('components.user.index.action-btn', ['userId' => $user->id]);
                 })
                 ->make(true);
         };
+    }
+
+    public function user(User $user)
+    {
+        if ($user) {
+            return response()->json($user, 200);
+        }
     }
 }

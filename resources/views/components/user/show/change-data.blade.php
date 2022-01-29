@@ -40,7 +40,7 @@
         <span class="text-danger msg-error gender_id-error"></span>
     </div>
 
-    @can('isAdmin')
+    @can('isAdminNotLogin', $user->id)
         <div class="form-group">
             <label for="role">Hak Akses</label>
             <select class="select2 form-control" name="role_id" id="role">
@@ -70,7 +70,7 @@
                 const email = $('#email').val()
                 const address = $('#address').val()
                 const genderId = $('#gender').val()
-                const roleId = $('#role').val()
+                const roleId = $('#role').val() ?? {{ $user->role_id }}
 
                 $.ajax({
                     headers: {
@@ -139,7 +139,7 @@
                             res.forEach(gender => {
                                 let newOption = new Option(
                                     gender.gender, gender.id, false,
-                                    {{ auth()->user()->gender_id }} === gender.id ?? false
+                                    {{ $user->gender_id }} === gender.id ?? false
                                 )
                                 $('#gender').append(newOption)
                             })

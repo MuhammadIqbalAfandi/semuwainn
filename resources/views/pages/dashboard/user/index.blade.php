@@ -9,7 +9,7 @@
         </x-shared.content-header>
 
         <x-shared.content>
-            <x-shared.card :cardHeader="false" class="card-outline">
+            <x-shared.card>
                 <div class="row mb-2">
                     <div class="col">
                         <button type="button" id="btn-add" class="btn btn-sm btn-warning float-right"

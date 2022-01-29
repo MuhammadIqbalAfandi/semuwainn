@@ -9,6 +9,7 @@ use App\Models\Room;
 use App\Models\RoomOrder;
 use App\Models\RoomType;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 
 class RoomController extends Controller
@@ -20,6 +21,10 @@ class RoomController extends Controller
      */
     public function index()
     {
+        if (Gate::none(['isAdmin', 'isLeader'])) {
+            abort(403);
+        }
+
         return view('pages.dashboard.room.index');
     }
 
@@ -108,6 +113,10 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         try {
             $room->delete();
             return response()->json(

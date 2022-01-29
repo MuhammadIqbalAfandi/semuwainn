@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\StoreContactRequest;
 use App\Models\Contact;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ContactController extends Controller
 {
@@ -17,6 +17,10 @@ class ContactController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         $contact = Contact::get()->first();
         $whatsapp = $contact->whatsapp ?? '-';
         $callCenter = $contact->call_center ?? '-';

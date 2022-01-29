@@ -48,6 +48,7 @@ return [
         ],
     ],
     'errors' => [
+        'blocked' => 'Akun kamu telah diblokir, silakan hubungi admin ' . config('mail.mailers.smtp.username') . '.',
         'email' => [
             'reservation' => 'Gagal mengirim email',
         ],

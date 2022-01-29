@@ -47,14 +47,6 @@
                     </a>
 
                     <ul class="nav nav-treeview active">
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('dashboard.reservations.create') }}"
-                                class="nav-link {{ Route::is('dashboard.reservations.create') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tambah Pemesanan</p>
-                            </a>
-                        </li> --}}
-
                         @php
                             $routeUri = Route::currentRouteName();
                         @endphp

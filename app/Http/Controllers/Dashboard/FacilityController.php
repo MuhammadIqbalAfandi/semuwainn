@@ -8,6 +8,7 @@ use App\Models\Facility;
 use App\Models\RoomFacility;
 use Illuminate\Database\QueryException;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 
 class FacilityController extends Controller
@@ -19,6 +20,10 @@ class FacilityController extends Controller
      */
     public function index()
     {
+        if (Gate::none(['isAdmin', 'isLeader'])) {
+            abort(403);
+        }
+
         return view('pages.dashboard.facility.index');
     }
 
@@ -105,6 +110,10 @@ class FacilityController extends Controller
      */
     public function destroy(Facility $facility)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         try {
             $facility->delete();
             return response()->json(

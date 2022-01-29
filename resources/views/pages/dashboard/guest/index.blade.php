@@ -9,7 +9,7 @@
         </x-shared.content-header>
 
         <x-shared.content>
-            <x-shared.card :cardHeader="false" class="card-outline">
+            <x-shared.card>
                 <div class="row">
                     <div class="col">
                         <table class="table table-bordered table-hover">

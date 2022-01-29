@@ -8,6 +8,7 @@ use App\Http\Requests\Restaurant\UpdateRestaurantRequest;
 use App\Models\Restaurant;
 use App\Models\RestaurantOrder;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 
 class RestaurantController extends Controller
@@ -19,6 +20,10 @@ class RestaurantController extends Controller
      */
     public function index()
     {
+        if (Gate::none(['isAdmin', 'isLeader'])) {
+            abort(403);
+        }
+
         return view('pages.dashboard.restaurant.index');
     }
 
@@ -107,6 +112,10 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         try {
             $restaurant->delete();
             return response()->json(

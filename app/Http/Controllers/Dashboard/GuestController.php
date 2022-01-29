@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Guest\UpdateGuestRequest;
 use App\Models\Guest;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 
 class GuestController extends Controller
@@ -28,6 +29,10 @@ class GuestController extends Controller
      */
     public function show(Guest $guest)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         if ($guest) {
             return response()->json(
                 [
@@ -46,6 +51,10 @@ class GuestController extends Controller
      */
     public function edit(Guest $guest)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         if ($guest) {
             return response()->json(
                 [
@@ -93,6 +102,10 @@ class GuestController extends Controller
      */
     public function destroy(Guest $guest)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         try {
             $guest->delete();
             return response()->json(

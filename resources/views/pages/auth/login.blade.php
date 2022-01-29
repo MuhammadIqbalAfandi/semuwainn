@@ -1,5 +1,11 @@
 <x-guest-layout title="Login">
-    <x-shared.card :cardHeader="false">
+    @if (session('message'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('message') }}
+        </div>
+    @endif
+
+    <x-shared.card>
         <div class="login-logo mb-4">
             <a href="/">
                 <img src="{{ asset('img/logo-title.webp') }}" alt="Logo" style="width: 200px">

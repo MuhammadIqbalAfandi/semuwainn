@@ -7,6 +7,7 @@ use App\Http\Requests\Copyright\StoreCopyrightRequest;
 use App\Models\Copyright;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CopyrightController extends Controller
 {
@@ -17,8 +18,12 @@ class CopyrightController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         $copyright = Copyright::get()->first();
-        $copyright = $copyright->copyright ?? '-';
+        $copyright = $copyright->text ?? '-';
         return view('pages.dashboard.copyright.create', compact('copyright'));
     }
 

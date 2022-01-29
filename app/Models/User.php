@@ -56,6 +56,21 @@ class User extends Authenticatable implements MustVerifyEmail
         'gender',
     ];
 
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::updating(function ($user) {
+            if ($user->isDirty('email')) {
+                $user->email_verified_at = null;
+                $user->sendEmailVerificationNotification();
+            }
+        });
+    }
+
     public function getUpdatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');

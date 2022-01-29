@@ -10,6 +10,6 @@ class Copyright extends Model
     use HasFactory;
 
     protected $fillable = [
-        'copyright',
+        'text',
     ];
 }

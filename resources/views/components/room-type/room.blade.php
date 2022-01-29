@@ -1,4 +1,4 @@
-<x-shared.card :cardHeader="false">
+<x-shared.card>
     <div class="row">
         <div class="col-12" id="dynamic-form-wrapper">
             <div class="row">

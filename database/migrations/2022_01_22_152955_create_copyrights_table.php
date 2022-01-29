@@ -15,7 +15,7 @@ class CreateCopyrightsTable extends Migration
     {
         Schema::create('copyrights', function (Blueprint $table) {
             $table->id();
-            $table->string('copyright');
+            $table->string('text');
             $table->timestamps();
         });
     }

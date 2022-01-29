@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('dashboard')->group(function () {
     Route::name('dashboard.')->group(function () {
-        Route::middleware(['auth', 'verified'])->group(function () {
+        Route::middleware(['auth', 'verified', 'checkBlocked'])->group(function () {
             Route::get('/charts', [DashboardController::class, 'chartData']);
             Route::get('/', DashboardController::class)->name('dashboard');
 
@@ -40,7 +40,7 @@ Route::prefix('dashboard')->group(function () {
 
             Route::resource('/reservation-statuses', ReservationStatusController::class)->only(['edit', 'index']);
             Route::get('/reservations/reservations', [ReservationController::class, 'reservations'])->name('reservations.reservations');
-            Route::resource('/reservations', ReservationController::class)->except(['destroy', 'edit']);
+            Route::resource('/reservations', ReservationController::class)->except(['destroy', 'edit', 'create']);
 
             Route::resource('/restaurant-orders', RestaurantOrderController::class)->except(['create', 'update', 'edit']);
 
@@ -48,6 +48,7 @@ Route::prefix('dashboard')->group(function () {
 
             Route::get('/genders', GenderController::class)->name('users.genders');
             Route::get('/roles', RoleController::class)->name('users.roles');
+            Route::get('/users/users/{user}/edit', [UserController::class, 'user'])->name('users.user');
             Route::get('/users/users', [UserController::class, 'users'])->name('users.users');
             Route::resource('/users', UserController::class)->except('create');
 

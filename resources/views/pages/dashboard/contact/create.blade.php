@@ -10,7 +10,7 @@
         <x-shared.content>
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <x-shared.card :cardHeader="false" class="card-outline">
+                    <x-shared.card>
                         <strong><i class="fas fa-mobile-alt mr-1"></i> Whatsapp</strong>
                         <p class="text-muted">{{ $whatsapp }}</p>
 

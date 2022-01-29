@@ -6,5 +6,5 @@
 - [x] Add Service
 - [x] Add Restaurant
 - [x] Send Mail
-- [ ] Authorization
+- [x] Authorization
 - [ ] Upload thumbnails

@@ -8,6 +8,7 @@ use App\Http\Requests\Service\UpdateServiceRequest;
 use App\Models\Service;
 use App\Models\ServiceOrder;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 
 class ServiceController extends Controller
@@ -19,6 +20,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
+        if (Gate::none(['isAdmin', 'isLeader'])) {
+            abort(403);
+        }
+
         return view('pages.dashboard.service.index');
     }
 
@@ -107,6 +112,10 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         try {
             $service->delete();
             return response()->json(

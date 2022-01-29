@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Privacy\StorePrivacyRequest;
 use App\Models\Privacy;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PrivacyController extends Controller
 {
@@ -17,6 +17,10 @@ class PrivacyController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         $privacy = Privacy::get()->first();
         $privacy = $privacy->text ?? '-';
         return view('pages.dashboard.privacy.create', compact('privacy'));

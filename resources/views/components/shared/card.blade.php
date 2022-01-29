@@ -1,9 +1,19 @@
-<div {{ $attributes->merge(['class' => 'card card-warning']) }}>
-    @if ($cardHeader ?? true)
+@props(['cardTitle' => null, 'cardFills' => null, 'cardColor' => 'warning', 'outline' => 'outline'])
+
+<div {{ $attributes->merge(['class' => 'card card-' . $cardColor . ' card-' . $outline]) }}>
+    @if ($cardTitle)
         <div class="card-header">
             <h2 class="card-title">
-                {{ $title ?? null }}
+                {{ $cardTitle }}
             </h2>
+        </div>
+    @endif
+
+    @if ($cardFills)
+        <div class="card-header p-2">
+            <ul class="nav nav-pills">
+                {{ $cardFills }}
+            </ul>
         </div>
     @endif
 

@@ -1,10 +1,12 @@
-<x-dashboard-layout title="Pengaturan Akun User">
+<x-dashboard-layout title="Ubah Akun User">
     <x-shared.content-wrapper>
-        <x-shared.content-header title="Pengaturan Akun User">
+        <x-shared.content-header title="Ubah Akun User">
             <x-slot name="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard.dashboard') }}"
                         class="text-warning">Dashboard</a></li>
-                <li class="breadcrumb-item active">Pengaturan Akun User</li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.users.index') }}" class="text-warning">Akun
+                        User</a></li>
+                <li class="breadcrumb-item active">Ubah Akun User</li>
             </x-slot>
         </x-shared.content-header>
 

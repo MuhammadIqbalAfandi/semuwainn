@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 
 class ReservationController extends Controller
@@ -35,6 +36,10 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
+        if (Gate::denies('isAdmin')) {
+            abort(403);
+        }
+
         $this->reservationService->setReservation($reservation);
         $nightCount = $this->reservationService->getNightCount();
         $roomBillString = $this->reservationService->getRoomBillString();
@@ -64,16 +69,6 @@ class ReservationController extends Controller
                 'restaurantBillString',
             ),
         );
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('pages.dashboard.reservation.create');
     }
 
     /**

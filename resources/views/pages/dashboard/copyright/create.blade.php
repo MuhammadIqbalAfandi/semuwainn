@@ -10,7 +10,7 @@
         <x-shared.content>
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <x-shared.card :cardHeader="false" class="card-outline">
+                    <x-shared.card>
                         <strong><i class="fas fa-copyright mr-1"></i> Hak Cipta</strong>
                         <p class="text-muted">{{ $copyright }}</p>
                     </x-shared.card>
@@ -22,8 +22,8 @@
                             @csrf
                             <div class="form-group">
                                 <label for="copyright">Copyright</label>
-                                <input type="text" name="copyright" id="copyright" class="form-control"
-                                    placeholder="Tulis copyright" value="{{ old('address') }}">
+                                <input type="text" name="text" id="copyright" class="form-control"
+                                    placeholder="Tulis copyright" value="{{ old('text') }}">
                                 @error('copyright')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

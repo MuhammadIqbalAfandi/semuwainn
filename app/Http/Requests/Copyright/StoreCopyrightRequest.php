@@ -24,7 +24,7 @@ class StoreCopyrightRequest extends FormRequest
     public function rules()
     {
         return [
-            'copyright' => 'required|string|max:100',
+            'text' => 'required|string|max:100',
         ];
     }
 }
