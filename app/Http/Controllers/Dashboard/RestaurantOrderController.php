@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Models\Restaurant;
-use App\Models\RestaurantOrder;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -19,7 +18,7 @@ class RestaurantOrderController extends Controller
      */
     public function index()
     {
-        if (Gate::denies('isAdmin')) {
+        if (Gate::none(['isAdmin', 'isWaiter'])) {
             abort(403);
         }
 
@@ -81,45 +80,13 @@ class RestaurantOrderController extends Controller
      */
     public function show($id)
     {
-        if (Gate::denies('isAdmin')) {
+        if (Gate::none(['isAdmin', 'isWaiter'])) {
             abort(403);
         }
 
         $reservationId = Reservation::find($id)->id;
         if ($reservationId) {
             return view('pages.dashboard.restaurant-order.show', compact('reservationId'));
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(RestaurantOrder $restaurantOrder)
-    {
-        if (Gate::denies('isAdmin')) {
-            abort(403);
-        }
-
-        try {
-            $restaurantOrder->delete();
-            return response()->json(
-                [
-                    'message' => __('messages.success.destroy.restaurant-order'),
-                    'status' => 'success',
-                ],
-                200,
-            );
-        } catch (QueryException $e) {
-            return response()->json(
-                [
-                    'message' => __('messages.errors.destroy.all'),
-                    'status' => 'failed',
-                ],
-                422,
-            );
         }
     }
 }

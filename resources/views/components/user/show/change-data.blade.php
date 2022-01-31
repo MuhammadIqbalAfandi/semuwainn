@@ -1,44 +1,46 @@
 <form>
-    <div class="form-group">
-        <label for="name">Nama</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama"
-            value="{{ $user->name }}">
+    @can('isAccountActive', $user->id)
+        <div class="form-group">
+            <label for="name">Nama</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama"
+                value="{{ $user->name }}">
 
-        <span class="text-danger msg-error name-error"></span>
-    </div>
+            <span class="text-danger msg-error name-error"></span>
+        </div>
 
-    <div class="form-group">
-        <label for="phone">Nomor HP</label>
-        <input type="tel" id="phone" pattern="[0-9]*" name="phone" class="form-control" placeholder="Tulis nomor hp"
-            value="{{ $user->phone }}">
+        <div class="form-group">
+            <label for="phone">Nomor HP</label>
+            <input type="tel" id="phone" pattern="[0-9]*" name="phone" class="form-control" placeholder="Tulis nomor hp"
+                value="{{ $user->phone }}">
 
-        <span class="text-danger msg-error phone-error"></span>
-    </div>
+            <span class="text-danger msg-error phone-error"></span>
+        </div>
 
-    <div class="form-group">
-        <label for="address">Alamat</label>
-        <input type="address" name="address" id="address" class="form-control" placeholder="Tulis alamat"
-            value="{{ $user->address }}">
+        <div class="form-group">
+            <label for="address">Alamat</label>
+            <input type="address" name="address" id="address" class="form-control" placeholder="Tulis alamat"
+                value="{{ $user->address }}">
 
-        <span class="text-danger msg-error address-error"></span>
-    </div>
+            <span class="text-danger msg-error address-error"></span>
+        </div>
 
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" class=" form-control" placeholder="Tulis email"
-            value="{{ $user->email }}">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class=" form-control" placeholder="Tulis email"
+                value="{{ $user->email }}">
 
-        <span class="text-danger msg-error email-error"></span>
-    </div>
+            <span class="text-danger msg-error email-error"></span>
+        </div>
 
-    <div class="form-group">
-        <label for="gender">Jenis Kelamin</label>
-        <select class="select2 form-control" name="gender_id" id="gender">
-            <option></option>
-        </select>
+        <div class="form-group">
+            <label for="gender">Jenis Kelamin</label>
+            <select class="select2 form-control" name="gender_id" id="gender">
+                <option></option>
+            </select>
 
-        <span class="text-danger msg-error gender_id-error"></span>
-    </div>
+            <span class="text-danger msg-error gender_id-error"></span>
+        </div>
+    @endcan
 
     @can('isAdminNotLogin', $user->id)
         <div class="form-group">

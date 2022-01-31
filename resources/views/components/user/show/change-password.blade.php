@@ -11,15 +11,15 @@
         <label for="password">Kata Sandi Baru</label>
         <input class="form-control" type="password" name="password" id="password" placeholder="Kata sandi baru">
 
-        <span class="text-danger msg-error new_password-error"></span>
+        <span class="text-danger msg-error password-error"></span>
     </div>
 
     <div class="form-group">
-        <label for="password-confirm">Konfirmasi Kata Sandi</label>
-        <input class="form-control" type="password" name="password_confirm" id="password-confirm"
+        <label for="password-confirmation">Konfirmasi Kata Sandi</label>
+        <input class="form-control" type="password" name="password_confirmation" id="password-confirmation"
             placeholder="Konfirmasi kata sandi">
 
-        <span class="text-danger msg-error password_confirm-error"></span>
+        <span class="text-danger msg-error password_confirmation-error"></span>
     </div>
 
     <button class="btn btn-block btn-warning" type="submit" id="btn-change-password">Simpan</button>
@@ -34,7 +34,7 @@
 
                 const currentPassword = $('#current-password').val()
                 const password = $('#password').val()
-                const passwordConfirm = $('#password-confirm').val()
+                const passwordConfirmation = $('#password-confirmation').val()
 
                 $.ajax({
                     headers: {
@@ -45,18 +45,24 @@
                     data: {
                         current_password: currentPassword,
                         password,
-                        password_confirm: passwordConfirm,
+                        password_confirmation: passwordConfirmation,
                     },
                     beforeSend() {
                         $('.msg-error').text('')
                     },
-                    success(res) {
+                    success(res, _, jqXHR) {
                         const {
-                            success,
+                            message,
                             status
                         } = res
-                        console.log(res)
-                        alert(message, status)
+                        const statusCode = jqXHR.status
+
+                        if (statusCode === 201) {
+                            alert(message, status)
+                            clearForm()
+                        } else if (statusCode === 202) {
+                            $('.current_password-error').text(message)
+                        }
                     },
                     error(res) {
                         const {
@@ -70,10 +76,18 @@
                                 $(`.${key}-error`).text(errors[key])
                             }
                         }
-                    }
+                    },
                 })
             })
             // end Mounted
+
+            // Methods
+            function clearForm() {
+                $('#current-password').val('')
+                $('#password').val('')
+                $('#password-confirmation').val('')
+            }
+            // end Methods
         })
     </script>
 @endpush

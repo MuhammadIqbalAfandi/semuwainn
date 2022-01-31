@@ -71,10 +71,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if (Gate::denies('isAdmin')) {
-            abort(403);
-        }
-
         return view('pages.dashboard.user.show', compact('user'));
     }
 
@@ -196,8 +192,6 @@ class UserController extends Controller
     public function changePassword(ChangePasswordRequest $request)
     {
         try {
-            dd($request->validate());
-
             if (!Hash::check($request->current_password, auth()->user()->password)) {
                 return response()->json(
                     [

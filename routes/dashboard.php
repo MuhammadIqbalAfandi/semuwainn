@@ -51,10 +51,10 @@ Route::prefix('dashboard')->group(function () {
                 ->except(['destroy', 'edit', 'create']);
 
             Route::resource('/restaurant-orders', RestaurantOrderController::class)
-                ->except(['create', 'update', 'edit']);
+                ->only(['index', 'show', 'store']);
 
             Route::resource('/service-orders', ServiceOrderController::class)
-                ->except(['update', 'index', 'create']);
+                ->only(['edit', 'show', 'store']);
 
             Route::post('/users/change-password', [UserController::class, 'changePassword'])
                 ->name('users.change-password');

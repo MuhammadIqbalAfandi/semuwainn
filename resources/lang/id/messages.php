@@ -49,8 +49,8 @@ return [
         ],
     ],
     'errors' => [
-        'change-password' => 'Kata sandi tidak sama dengan kata sandi lama',
-        'blocked' => 'Akun kamu telah diblokir, silakan hubungi admin ' . config('mail.mailers.smtp.username') . '.',
+        'change-password' => 'Kata sandi lama salah',
+        'blocked' => 'Akun kamu telah diblokir, silakan hubungi admin',
         'email' => [
             'reservation' => 'Gagal mengirim email',
         ],

@@ -29,7 +29,7 @@
                  $.ajax({
                      dataType: 'json',
                      type: 'get',
-                     url: `reservation-statuses/${id}/edit`,
+                     url: `reservations/reservation-statuses/${id}/edit`,
                      beforeSend() {
                          $('.msg-error').text('')
                          $('#modal-edit-status').modal('show')
@@ -94,7 +94,7 @@
                      },
                      dataType: 'json',
                      type: 'get',
-                     url: `reservation-statuses`,
+                     url: "{{ route('dashboard.reservation-statuses.index') }}",
                      beforeSend() {
                          $('#reservation-status').children('option').remove()
                      },

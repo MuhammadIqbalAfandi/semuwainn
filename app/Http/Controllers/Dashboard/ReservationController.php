@@ -36,7 +36,7 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        if (Gate::denies('isAdmin')) {
+        if (Gate::none(['isAdmin', 'isWaiter'])) {
             abort(403);
         }
 

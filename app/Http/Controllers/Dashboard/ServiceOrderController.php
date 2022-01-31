@@ -63,7 +63,7 @@ class ServiceOrderController extends Controller
      */
     public function show($id)
     {
-        if (Gate::denies('isAdmin')) {
+        if (Gate::none(['isAdmin', 'isWaiter'])) {
             abort(403);
         }
 
@@ -89,38 +89,6 @@ class ServiceOrderController extends Controller
         ]);
         if ($services) {
             return response()->json($services, 200);
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ServiceOrder $serviceOrder)
-    {
-        if (Gate::denies('isAdmin')) {
-            abort(403);
-        }
-
-        try {
-            $serviceOrder->delete();
-            return response()->json(
-                [
-                    'message' => __('messages.success.destroy.service-order'),
-                    'status' => 'success',
-                ],
-                200,
-            );
-        } catch (QueryException $e) {
-            return response()->json(
-                [
-                    'message' => __('messages.errors.destroy.all'),
-                    'status' => 'failed',
-                ],
-                422,
-            );
         }
     }
 
