@@ -27,6 +27,7 @@ return [
             'guest' => 'Data tamu berhasil ditambahkan',
         ],
         'update' => [
+            'change-password' => 'Password berhasil diubah',
             'reservation-status' => 'Status pemesanan berhasil diubah',
             'user' => 'Akun user berhasil diubah',
             'room-type' => 'Ruangan berhasil diubah',
@@ -48,6 +49,7 @@ return [
         ],
     ],
     'errors' => [
+        'change-password' => 'Kata sandi tidak sama dengan kata sandi lama',
         'blocked' => 'Akun kamu telah diblokir, silakan hubungi admin ' . config('mail.mailers.smtp.username') . '.',
         'email' => [
             'reservation' => 'Gagal mengirim email',

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -188,6 +190,41 @@ class UserController extends Controller
     {
         if ($user) {
             return response()->json($user, 200);
+        }
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        try {
+            dd($request->validate());
+
+            if (!Hash::check($request->current_password, auth()->user()->password)) {
+                return response()->json(
+                    [
+                        'message' => __('messages.errors.change-password'),
+                        'status' => 'success',
+                    ],
+                    202,
+                );
+            }
+
+            auth()->user()->update(['password' => bcrypt($request->password)]);
+
+            return response()->json(
+                [
+                    'message' => __('messages.success.update.change-password'),
+                    'status' => 'success',
+                ],
+                201,
+            );
+        } catch (QueryException $e) {
+            return response()->json(
+                [
+                    'message' => __('messages.errors.update.all'),
+                    'status' => 'failed',
+                ],
+                422,
+            );
         }
     }
 }

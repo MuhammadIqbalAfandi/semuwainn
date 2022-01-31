@@ -31,7 +31,7 @@ return [
         'array' => 'The :attribute must have between :min and :max items.',
     ],
     'boolean' => 'Nilai harus true atau false.',
-    'confirmed' => 'The :attribute confirmation does not match.',
+    'confirmed' => 'Konfirmasi password tidak cocok.',
     'current_password' => 'The password is incorrect.',
     'date' => 'Format tanggal salah.',
     'date_equals' => 'Tanggal harus sama dengan tanggal :date.',

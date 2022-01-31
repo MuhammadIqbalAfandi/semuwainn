@@ -1,4 +1,4 @@
-<x-shared.card cardColor=''>
+<x-shared.card>
     <x-slot name="cardFills">
         <li class="nav-item">
             <a class="nav-link active" href="#edit-user" data-toggle="tab">
@@ -6,7 +6,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#timeline" data-toggle="tab">Ubah
+            <a class="nav-link" href="#change-password" data-toggle="tab">Ubah
                 Kata Sandi
             </a>
         </li>
@@ -16,8 +16,8 @@
         <div class="active tab-pane" id="edit-user">
             <x-user.show.change-data :user="$user"></x-user.show.change-data>
         </div>
-        <div class="tab-pane" id="timeline">
-            <p></p>
+        <div class="tab-pane" id="change-password">
+            <x-user.show.change-password></x-user.show.change-password>
         </div>
     </div>
 </x-shared.card>
