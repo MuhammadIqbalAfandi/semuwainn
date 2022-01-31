@@ -1,3 +1,5 @@
+@props(['time'])
+
 <section class="clearfix">
     <img class="float-left" src="{{ asset('img/logo-no-title.webp') }}" alt="Logo" style="width: 38px" />
 

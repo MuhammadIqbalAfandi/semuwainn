@@ -1,3 +1,5 @@
+@props(['reservation', 'restaurantBillString'])
+
 @if ($reservation->restaurantOrders->count())
     <strong>Detail Restaurant</strong><br />
 

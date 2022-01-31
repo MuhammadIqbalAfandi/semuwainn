@@ -1,3 +1,5 @@
+@props(['reservation', 'roomBillString', 'nightCount'])
+
 @if ($reservation->roomOrders->count())
     <x-shared.card title="Detail Kamar">
         <div class="row">

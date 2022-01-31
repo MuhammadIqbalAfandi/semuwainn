@@ -1,3 +1,5 @@
+@props(['user'])
+
 <form>
     @can('isAccountActive', $user->id)
         <div class="form-group">

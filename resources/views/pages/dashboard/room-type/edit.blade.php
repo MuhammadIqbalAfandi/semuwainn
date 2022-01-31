@@ -22,24 +22,10 @@
                 fetchService()
                 fetchPrice()
 
-                $('#btn-save').click((e) => {
+                $('#form').submit(function(e) {
                     e.preventDefault()
 
-                    const name = $('#name').val()
-                    const facilities = $('#facilities').val()
-                    const numberOfGuest = $('#number-of-guest').val()
-
-                    const descriptions = []
-                    const elementDescriptions = $('input[name="descriptions"]')
-                    for (elementDescription of elementDescriptions) {
-                        descriptions.push(elementDescription.value)
-                    }
-
-                    const prices = []
-                    const elementPrices = $('input[name="prices"]')
-                    for (elementPrice of elementPrices) {
-                        prices.push(elementPrice.value)
-                    }
+                    const formData = new FormData(this)
 
                     $.ajax({
                         headers: {
@@ -47,14 +33,7 @@
                         },
                         type: 'patch',
                         url: "{{ route('dashboard.room-types.update', $roomType->id) }}",
-                        data: {
-                            id: '{{ $roomType->id }}',
-                            number_of_guest: numberOfGuest,
-                            name,
-                            facilities,
-                            descriptions,
-                            prices,
-                        },
+                        data: formData,
                         beforeSend() {
                             $('.msg-error').text('')
                         },

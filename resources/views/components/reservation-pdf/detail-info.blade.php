@@ -1,3 +1,5 @@
+@props(['reservation', 'nightCount'])
+
 <x-reservation-pdf.logo :time="$reservation->reservation_time"></x-reservation-pdf.logo>
 
 <section style="border-bottom: 1px dashed black"></section>

@@ -1,3 +1,5 @@
+@props(['reservation', 'restOfBill', 'payment'])
+
 <section class="offset-auto text-right">
     <section>
         <strong>Sisa Tagihan</strong><br />

@@ -1,3 +1,5 @@
+@props(['reservation', 'serviceBillString', 'nightCount'])
+
 @if ($reservation->serviceOrders->count())
     <strong>Detail Layanan</strong><br />
 

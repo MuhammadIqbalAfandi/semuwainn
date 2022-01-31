@@ -1,3 +1,5 @@
+@props(['reservation', 'restaurantBillString'])
+
 @if ($reservation->restaurantOrders->count())
     <x-shared.card title="Detail Hidangan">
         <div class="row">

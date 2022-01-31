@@ -1,3 +1,5 @@
+@props(['user'])
+
 <x-shared.card>
     <x-slot name="cardFills">
         <li class="nav-item">

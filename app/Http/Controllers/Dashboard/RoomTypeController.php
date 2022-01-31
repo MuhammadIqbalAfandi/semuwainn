@@ -46,6 +46,7 @@ class RoomTypeController extends Controller
      */
     public function store(StoreRoomTypeRequest $request)
     {
+        dd($request);
         DB::beginTransaction();
         try {
             $roomType = RoomType::create($request->validated());
