@@ -149,7 +149,7 @@
   entity Thumbnail {
     * id
     __
-    * path
+    * file_name
     * room_type_id
   }
 

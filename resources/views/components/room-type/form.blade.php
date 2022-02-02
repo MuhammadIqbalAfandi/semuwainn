@@ -2,6 +2,7 @@
 
 <x-shared.card title="{{ $title }}">
     <form id="form" enctype="multipart/form-data">
+        @csrf
         <div class="row">
             <div class="col-md-12 col-lg">
                 <div class="form-group">

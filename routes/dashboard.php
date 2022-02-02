@@ -16,6 +16,7 @@ use App\Http\Controllers\Dashboard\RestaurantOrderController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\RoomController;
 use App\Http\Controllers\Dashboard\RoomTypeController;
+use App\Http\Controllers\Dashboard\RoomTypeUploadImage;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\ServiceOrderController;
 use App\Http\Controllers\Dashboard\ServiceUnitController;
@@ -69,6 +70,8 @@ Route::prefix('dashboard')->group(function () {
             Route::resource('/users', UserController::class)
                 ->except('create');
 
+            Route::post('/room-types/upload-thumbnails/process', [RoomTypeUploadImage::class, 'process']);
+            Route::delete('/room-types/upload-thumbnails/revert', [RoomTypeUploadImage::class, 'revert']);
             Route::get('/room-types/room-prices/{room_type}', [RoomTypeController::class, 'roomPrices'])
                 ->name('room-types.room-prices');
             Route::get('/room-types/room-facilities/{room_type}', [RoomTypeController::class, 'roomFacilities'])

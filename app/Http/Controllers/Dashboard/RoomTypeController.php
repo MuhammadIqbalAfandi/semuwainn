@@ -8,8 +8,10 @@ use App\Http\Requests\RoomType\UpdateRoomTypeRequest;
 use App\Models\Facility;
 use App\Models\RoomType;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class RoomTypeController extends Controller
@@ -46,7 +48,6 @@ class RoomTypeController extends Controller
      */
     public function store(StoreRoomTypeRequest $request)
     {
-        dd($request);
         DB::beginTransaction();
         try {
             $roomType = RoomType::create($request->validated());
@@ -62,6 +63,17 @@ class RoomTypeController extends Controller
                     'description' => $request->descriptions[$index],
                     'price' => $request->prices[$index],
                 ]);
+            }
+
+            if ($request->thumbnails) {
+                foreach ($request->thumbnails as $thumbnail) {
+                    $fileName = explode('/', $thumbnail)[1];
+                    Storage::move($thumbnail, 'thumbnails/' . $fileName);
+
+                    $roomType->thumbnails()->create([
+                        'file_name' => $fileName,
+                    ]);
+                }
             }
 
             DB::commit();

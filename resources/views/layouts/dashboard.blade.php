@@ -24,10 +24,14 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-    <!-- Trix Editor -->
-    <link rel="stylesheet" href="{{ asset('css/trix-1.3.1/trix.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    <!-- Trix Editor -->
+    <link rel="stylesheet" href="{{ asset('css/trix-1.3.1/trix.css') }}">
+    <!-- FilePond -->
+    <link rel="stylesheet" href="{{ asset('css/filepond@4.30.3/filepond.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('css/filepond@4.30.3/plugins/filepond-plugin-image-preview@4.6.10/filepond-plugin-image-preview.css') }}">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
@@ -53,7 +57,8 @@
     </div>
 
     <!-- jQuery -->
-    <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- overlayScrollbars -->
@@ -73,6 +78,21 @@
     <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <!-- Trix Editor -->
     <script src="{{ asset('js/trix-1.3.1/trix.js') }}"></script>
+    <!-- FilePond -->
+    <script
+        src="{{ asset('js/filepond@4.30.3/plugins/filepond-plugin-image-preview@4.6.10/filepond-plugin-image-preview.js') }}">
+    </script>
+    <script
+        src="{{ asset('js/filepond@4.30.3/plugins/filepond-plugin-file-validate-size@2.2.5/filepond-plugin-file-validate-size.js') }}">
+    </script>
+    <script
+        src="{{ asset('js/filepond@4.30.3/plugins/filepond-plugin-image-exif-orientation@1.0.11/filepond-plugin-image-exif-orientation.js') }}">
+    </script>
+    <script
+        src="{{ asset('js/filepond@4.30.3/plugins/filepond-plugin-file-validate-type@1.2.6/filepond-plugin-file-validate-type.js') }}">
+    </script>
+    <script src="{{ asset('js/filepond@4.30.3/filepond.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-filepond@1.0.0/filepond.jquery.js') }}"></script>
     <!-- Scripts -->
     <script>
         @if (session('success'))

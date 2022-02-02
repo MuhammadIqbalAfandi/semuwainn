@@ -29,7 +29,7 @@ class StoreRoomTypeRequest extends FormRequest
             'facilities' => 'required',
             'prices.*' => 'required|numeric',
             'descriptions.*' => 'required|string|max:100',
-            'images.*' => 'image|mimes:png,jpg,webp|max:2048',
+            'images' => 'image|mimes:png,jpg,webp|max:1024',
         ];
     }
 }

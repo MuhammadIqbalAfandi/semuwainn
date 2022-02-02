@@ -79,6 +79,18 @@
   background-color: var(--orange) !important;
 }
 
+.filepond--drop-label {
+  color: #eee;
+}
+
+.filepond--panel-root {
+  background-color: #454d55;
+}
+
+.filepond--credits {
+  display: none;
+}
+
 .divider {
   width: 6rem;
   border-radius: 5px;

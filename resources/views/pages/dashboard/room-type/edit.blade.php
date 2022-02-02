@@ -122,8 +122,9 @@
                                     if (index) {
                                         createRoomElement()
                                     }
-                                    $('input[name="prices"]')[index].value = roomPrice.price
-                                    $('input[name="descriptions"]')[index].value = roomPrice.description
+                                    $('input[name="prices[]"]')[index].value = roomPrice.price
+                                    $('input[name="descriptions[]"]')[index].value = roomPrice
+                                        .description
                                 })
                             }
                         },

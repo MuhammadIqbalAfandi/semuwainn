@@ -48,6 +48,7 @@
                             status
                         } = res
                         alert(message, status)
+                        clearForm()
                     },
                     error(res) {
                         const {
@@ -77,6 +78,14 @@
             // end Mounted
 
             // Methods
+            function clearForm() {
+                $('[name="name"]').val('')
+                $('[name="number_of_guest"]').val('')
+                $('[name="descriptions[]"]').val('')
+                $('[name="prices[]"]').val('')
+                $('[name="thumbnails[]"]').val('')
+            }
+
             function fetchService() {
                 $('#facilities').select2({
                     placeholder: 'Pilih fasilitas kamar',

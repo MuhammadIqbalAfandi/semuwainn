@@ -15,7 +15,7 @@ class CreateThumbnailsTable extends Migration
     {
         Schema::create('thumbnails', function (Blueprint $table) {
             $table->id();
-            $table->string('path');
+            $table->string('file_name');
             $table->foreignId('room_type_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
