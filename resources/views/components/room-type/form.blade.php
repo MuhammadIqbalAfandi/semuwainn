@@ -41,7 +41,7 @@
 
         <x-room-type.room-price></x-room-type.room-price>
 
-        <x-room-type.upload-image></x-room-type.upload-image>
+        <x-room-type.upload-image :roomTypeId="$roomType->id"></x-room-type.upload-image>
 
         <button type="submit" class="btn btn-block btn-warning mb-3">Simpan</button>
     </form>

@@ -83,7 +83,7 @@
                 $('[name="number_of_guest"]').val('')
                 $('[name="descriptions[]"]').val('')
                 $('[name="prices[]"]').val('')
-                $('[name="thumbnails[]"]').val('')
+                $('[name="thumbnails[]"]').val(null).trigger('change')
             }
 
             function fetchService() {
