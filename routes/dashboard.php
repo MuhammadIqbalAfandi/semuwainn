@@ -70,7 +70,7 @@ Route::prefix('dashboard')->group(function () {
             Route::resource('/users', UserController::class)
                 ->except('create');
 
-            Route::get('/room-types/upload-thumbnails/load/{room_type}', [ThumbnailController::class, 'load']);
+            Route::get('/room-types/upload-thumbnails/load', [ThumbnailController::class, 'load']);
             Route::post('/room-types/upload-thumbnails/process', [ThumbnailController::class, 'process']);
             Route::delete('/room-types/upload-thumbnails/revert', [ThumbnailController::class, 'revert']);
             Route::get('/room-types/room-prices/{room_type}', [RoomTypeController::class, 'roomPrices'])

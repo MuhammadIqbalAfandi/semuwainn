@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,7 +13,8 @@ class ThumbnailController extends Controller
         if ($request->hasFile('thumbnails')) {
             foreach ($request->file('thumbnails') as $image) {
                 $path = $image->store('tmp');
-                return response()->make($path, 200, ['Content-Type' => 'text/plain']);
+
+                return response($path, 200, ['Content-Type' => 'text/plain']);
             }
         }
     }
@@ -25,14 +25,15 @@ class ThumbnailController extends Controller
         if ($filePath) {
             Storage::delete($filePath);
 
-            return response()->make('', 200, [
-                'Content-Type' => 'text/plain',
-            ]);
+            return response('', 200, []);
         }
     }
 
-    public function load(RoomType $roomType)
+    public function load(Request $request)
     {
-        return dd($roomType);
+        if ($request->load) {
+            return response($request->load);
+        }
+
     }
 }

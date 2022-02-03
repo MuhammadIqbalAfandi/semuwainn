@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="{{ asset('css/filepond@4.30.3/filepond.css') }}">
     <link rel="stylesheet"
         href="{{ asset('css/filepond@4.30.3/plugins/filepond-plugin-image-preview@4.6.10/filepond-plugin-image-preview.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('css/filepond@4.30.3/plugins/filepond-plugin-file-poster@2.5./filepond-plugin-file-poster.css') }}">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
@@ -90,6 +92,9 @@
     </script>
     <script
         src="{{ asset('js/filepond@4.30.3/plugins/filepond-plugin-file-validate-type@1.2.6/filepond-plugin-file-validate-type.js') }}">
+    </script>
+    <script
+        src="{{ asset('js/filepond@4.30.3/plugins/filepond-plugin-file-poster@2.5.1/filepond-plugin-file-poster.js') }}">
     </script>
     <script src="{{ asset('js/filepond@4.30.3/filepond.min.js') }}"></script>
     <script src="{{ asset('js/jquery-filepond@1.0.0/filepond.jquery.js') }}"></script>

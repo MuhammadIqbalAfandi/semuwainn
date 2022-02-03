@@ -8,7 +8,6 @@ use App\Http\Requests\RoomType\UpdateRoomTypeRequest;
 use App\Models\Facility;
 use App\Models\RoomType;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;

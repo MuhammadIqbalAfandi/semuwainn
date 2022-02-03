@@ -1,4 +1,4 @@
-@props(['roomTypeId' => null])
+@props(['roomType' => null])
 
 <div class="row">
     <div class="col-12">
@@ -12,16 +12,37 @@
 
 @push('scripts')
     <script>
+        // Mounted
+        const btnSave = '<button type="submit" class="btn btn-block btn-warning mb-3">Simpan</button>'
+
         $('#input-file-container').append(`
-            <input type="file" name="thumbnails[]" id="thumbnails" multiple>
-         `)
+            <input type="file" name="thumbnails[]" id="thumbnails" class="filepond" multiple>
+        `)
 
         $.fn.filepond.registerPlugin(
+            FilePondPluginFilePoster,
             FilePondPluginImagePreview,
             FilePondPluginImageExifOrientation,
             FilePondPluginFileValidateSize,
             FilePondPluginFileValidateType,
         )
+
+        $('#thumbnails').filepond()
+
+        $('#thumbnails').on('FilePond:addfilestart', () => {
+            $('[type="submit"]').remove()
+        })
+
+        $('#thumbnails').on('FilePond:removefile', () => {
+            $('[type="submit"]').remove()
+            $('#form').append(btnSave)
+        })
+
+        $('#thumbnails').on('FilePond:processfiles', () => {
+            $('[type="submit"]').remove()
+            $('#form').append(btnSave)
+        })
+
         $.fn.filepond.setDefaults({
             maxFiles: 5,
             maxFileSize: '1MB',
@@ -33,7 +54,10 @@
             labelFileProcessingError: 'Ada kesalahan saat upload',
             labelFileProcessingRevertError: 'Ada kesalahan saat menghapus',
             labelFileProcessingComplete: 'Upload berhasil',
+            filePosterMinHeight: 44,
+            filePosterMaxHeight: 256,
         })
+
         $.fn.filepond.setOptions({
             server: {
                 url: '/dashboard/room-types/upload-thumbnails',
@@ -42,17 +66,22 @@
                 },
                 process: '/process',
                 revert: '/revert',
-                load: '/load/{{ $roomTypeId }}'
+                load: '/load/?load=',
             },
+            files: [
+                @if ($roomType)
+                    @foreach ($roomType->thumbnails as $thumbnail)
+                        {
+                        source: "{{ $thumbnail->file_name }}" ,
+                        options: {
+                        type: 'local',
+                        metadata: {poster: "{{ asset('storage/thumbnails/' . $thumbnail->file_name) }}"},
+                        }
+                        },
+                    @endforeach
+                @endif
+            ]
         })
-        $('#thumbnails').filepond()
-        $('#thumbnails').on('FilePond:addfilestart', () => {
-            $('[type="submit"]').remove()
-        })
-        $('#thumbnails').on('FilePond:processfiles', () => {
-            $('#form').append(`
-                <button type="submit" class="btn btn-block btn-warning mb-3">Simpan</button>
-             `)
-        })
+        // end Mounted
     </script>
 @endpush
