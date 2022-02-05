@@ -79,16 +79,22 @@
   background-color: var(--orange) !important;
 }
 
+@media (min-width: 576px) {
+  .filepond--item {
+    width: calc(100% - 0.5em);
+  }
+}
+@media (min-width: 992px) {
+  .filepond--item {
+    width: calc(33% - 0.5em);
+  }
+}
 .filepond--drop-label {
   color: #eee;
 }
 
 .filepond--panel-root {
   background-color: #454d55;
-}
-
-.filepond--credits {
-  display: none;
 }
 
 .divider {

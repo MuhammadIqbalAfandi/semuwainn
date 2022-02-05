@@ -22,7 +22,7 @@ class HomeController extends Controller
                 ->through(fn($roomType) => [
                     'id' => $roomType->id,
                     'thumbnail' => [
-                        'images' => [],
+                        'images' => $roomType->thumbnails()->exists() ? asset('storage/thumbnails/' . $roomType->thumbnails->first()->file_name) : null,
                         'defaultImage' => '/img/default-room.webp',
                     ],
                     'name' => $roomType->name,

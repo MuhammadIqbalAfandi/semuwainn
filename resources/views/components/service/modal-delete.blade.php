@@ -33,7 +33,6 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    dataType: 'json',
                     type: 'delete',
                     url: `services/${id}`,
                     success(res) {

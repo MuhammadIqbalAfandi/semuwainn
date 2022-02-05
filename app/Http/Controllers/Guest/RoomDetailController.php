@@ -20,8 +20,12 @@ class RoomDetailController extends Controller
             'roomType' => [
                 'id' => $roomType->id,
                 'name' => $roomType->name,
-                'thumbnail' => [
-                    'images' => [],
+                'thumbnails' => [
+                    'images' => $roomType->thumbnails()->exists()
+                    ? $roomType->thumbnails->transform(fn($thumbnail) => [
+                        asset('storage/thumbnails/' . $thumbnail->file_name),
+                    ])
+                    : [],
                     'defaultImage' => '/img/default-room.webp',
                 ],
                 'numberOfGuest' => $roomType->number_of_guest,

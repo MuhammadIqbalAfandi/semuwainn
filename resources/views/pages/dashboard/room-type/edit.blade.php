@@ -31,7 +31,9 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        type: 'patch',
+                        processData: false,
+                        contentType: false,
+                        type: 'post',
                         url: "{{ route('dashboard.room-types.update', $roomType->id) }}",
                         data: formData,
                         beforeSend() {

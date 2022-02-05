@@ -12,15 +12,16 @@
 
 @push('scripts')
     <script>
-        // Mounted
-        const btnSave = '<button type="submit" class="btn btn-block btn-warning mb-3">Simpan</button>'
+        // Data
+        const btnSave = '<button type="submit" class="btn btn-block btn-warning mt-3">Simpan</button>'
+        // end Data
 
+        // Mounted
         $('#input-file-container').append(`
             <input type="file" name="thumbnails[]" id="thumbnails" class="filepond" multiple>
         `)
 
         $.fn.filepond.registerPlugin(
-            FilePondPluginFilePoster,
             FilePondPluginImagePreview,
             FilePondPluginImageExifOrientation,
             FilePondPluginFileValidateSize,
@@ -29,33 +30,37 @@
 
         $('#thumbnails').filepond()
 
-        $('#thumbnails').on('FilePond:addfilestart', () => {
+        $('#thumbnails').filepond('onaddfilestart', (file) => {
             $('[type="submit"]').remove()
         })
 
-        $('#thumbnails').on('FilePond:removefile', () => {
+        $('#thumbnails').filepond('onprocessfiles', (error, file) => {
             $('[type="submit"]').remove()
             $('#form').append(btnSave)
         })
 
-        $('#thumbnails').on('FilePond:processfiles', () => {
-            $('[type="submit"]').remove()
-            $('#form').append(btnSave)
+        $('#thumbnails').filepond('onupdatefiles', (file) => {
+            @if ($roomType)
+                @if ($roomType->thumbnails->count())
+                    $('[type="submit"]').remove()
+                    $('#form').append(btnSave)
+                @endif
+            @endif
         })
 
         $.fn.filepond.setDefaults({
             maxFiles: 5,
             maxFileSize: '1MB',
-            allowReorder: true,
-            imagePreviewMaxFileSize: '1MB',
-            acceptedFileTypes: ['image/png', 'image/jpeg', 'image/webp'],
             labelIdle: 'Seret & Jatuhkan file Anda atau <span class="filepond--label-action"> Jelajahi </span>',
             labelButtonRetryItemLoad: 'Coba lagi',
             labelFileProcessingError: 'Ada kesalahan saat upload',
             labelFileProcessingRevertError: 'Ada kesalahan saat menghapus',
             labelFileProcessingComplete: 'Upload berhasil',
-            filePosterMinHeight: 44,
-            filePosterMaxHeight: 256,
+            allowImageExifOrientation: true,
+            imagePreviewMaxFileSize: '1MB',
+            imagePreviewHeight: 256,
+            styleButtonRemoveItemPosition: 'right',
+            acceptedFileTypes: ['image/png', 'image/jpeg', 'image/webp'],
         })
 
         $.fn.filepond.setOptions({

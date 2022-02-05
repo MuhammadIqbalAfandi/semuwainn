@@ -33,9 +33,8 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    cache: false,
-                    contentType: false,
                     processData: false,
+                    contentType: false
                     type: 'post',
                     url: "{{ route('dashboard.room-types.store') }}",
                     data: formData,
@@ -83,7 +82,6 @@
                 $('[name="number_of_guest"]').val('')
                 $('[name="descriptions[]"]').val('')
                 $('[name="prices[]"]').val('')
-                $('[name="thumbnails[]"]').val(null).trigger('change')
             }
 
             function fetchService() {

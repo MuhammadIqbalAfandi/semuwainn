@@ -47,7 +47,7 @@ export default {
 
     <v-row no-gutters>
       <v-col cols="12">
-        <PhotoGridDetail :photoGrid="roomType.thumbnail" />
+        <PhotoGridDetail :photoGrid="roomType.thumbnails" />
       </v-col>
 
       <v-col cols="12">

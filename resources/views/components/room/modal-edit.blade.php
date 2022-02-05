@@ -66,7 +66,6 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    dataType: 'json',
                     type: 'patch',
                     url: `rooms/${id}`,
                     data: {

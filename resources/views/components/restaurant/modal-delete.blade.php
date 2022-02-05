@@ -34,7 +34,6 @@
                      headers: {
                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                      },
-                     dataType: 'json',
                      type: 'delete',
                      url: `restaurants/${id}`,
                      success(res) {

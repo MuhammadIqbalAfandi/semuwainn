@@ -43,6 +43,6 @@
 
         <x-room-type.upload-image :roomType="$roomType"></x-room-type.upload-image>
 
-        <button type="submit" class="btn btn-block btn-warning mb-3">Simpan</button>
+        <button type="submit" class="btn btn-block btn-warning mt-3">Simpan</button>
     </form>
 </x-shared.card>

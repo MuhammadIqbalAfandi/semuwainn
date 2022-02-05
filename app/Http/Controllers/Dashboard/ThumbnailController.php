@@ -31,9 +31,13 @@ class ThumbnailController extends Controller
 
     public function load(Request $request)
     {
-        if ($request->load) {
-            return response($request->load);
+        $fileName = $request->load;
+        if ($fileName) {
+            return response()
+                ->file(
+                    public_path('storage/thumbnails/' . $fileName),
+                    ['Content-Disposition: inline;filename="' . $fileName . '"']
+                );
         }
-
     }
 }

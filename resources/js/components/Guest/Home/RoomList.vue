@@ -16,7 +16,7 @@ export default {
   mixins: [mixinRooms],
   computed: {
     thumbnail() {
-      return this.roomType.thumbnail.images[0] ?? this.roomType.thumbnail.defaultImage
+      return this.roomType.thumbnail.images ?? this.roomType.thumbnail.defaultImage
     },
   },
 }

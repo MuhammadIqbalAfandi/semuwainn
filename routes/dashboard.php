@@ -81,8 +81,12 @@ Route::prefix('dashboard')->group(function () {
                 ->name('room-types.room-types');
             Route::get('/room-types/facilities', [RoomTypeController::class, 'facilities'])
                 ->name('room-types.facilities');
+            Route::post('/room-types/upload-thumbnails/{room_type}', [RoomTypeController::class, 'update'])
+                ->name('room-types.update');
+            Route::post('/room-types/upload-thumbnails/{room_type}', [RoomTypeController::class, 'update'])
+                ->name('room-types.update');
             Route::resource('/room-types', RoomTypeController::class)
-                ->except('show');
+                ->except('show', 'update');
 
             Route::get('/facilities/facilities', [FacilityController::class, 'facilities'])
                 ->name('facilities.facilities');

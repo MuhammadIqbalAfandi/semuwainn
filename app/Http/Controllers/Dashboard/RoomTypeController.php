@@ -8,6 +8,7 @@ use App\Http\Requests\RoomType\UpdateRoomTypeRequest;
 use App\Models\Facility;
 use App\Models\RoomType;
 use Illuminate\Database\QueryException;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +23,11 @@ class RoomTypeController extends Controller
      */
     public function index()
     {
+        $fileSystem = new FileSystem;
+        if ($fileSystem->exists(public_path('storage/tmp'))) {
+            $fileSystem->cleanDirectory(public_path('storage/tmp'));
+        }
+
         return view('pages.dashboard.room-type.index');
     }
 
@@ -138,6 +144,27 @@ class RoomTypeController extends Controller
                     'description' => $request->descriptions[$index],
                     'price' => $request->prices[$index],
                 ]);
+            }
+
+            if ($request->thumbnails) {
+                $oldThumbnails = [];
+
+                foreach ($request->thumbnails as $thumbnail) {
+                    $fileName = explode('/', $thumbnail);
+                    if (count($fileName) >= 2) {
+                        Storage::move($thumbnail, 'thumbnails/' . $fileName[1]);
+
+                        $roomType->thumbnails()->create([
+                            'file_name' => $fileName[1],
+                        ]);
+                    }
+
+                    if (count($fileName) === 1) {
+                        array_push($oldThumbnails, $thumbnail);
+                    }
+                }
+
+                $roomType->thumbnails()->whereNotIn('file_name', $oldThumbnails)->delete();
             }
 
             DB::commit();

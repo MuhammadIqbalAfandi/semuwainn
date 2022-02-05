@@ -3068,7 +3068,7 @@ __webpack_require__.r(__webpack_exports__);
     thumbnail: function thumbnail() {
       var _this$roomType$thumbn;
 
-      return (_this$roomType$thumbn = this.roomType.thumbnail.images[0]) !== null && _this$roomType$thumbn !== void 0 ? _this$roomType$thumbn : this.roomType.thumbnail.defaultImage;
+      return (_this$roomType$thumbn = this.roomType.thumbnail.images) !== null && _this$roomType$thumbn !== void 0 ? _this$roomType$thumbn : this.roomType.thumbnail.defaultImage;
     }
   }
 });
@@ -18315,7 +18315,7 @@ var render = function () {
             { attrs: { cols: "12" } },
             [
               _c("PhotoGridDetail", {
-                attrs: { photoGrid: _vm.roomType.thumbnail },
+                attrs: { photoGrid: _vm.roomType.thumbnails },
               }),
             ],
             1
