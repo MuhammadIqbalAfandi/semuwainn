@@ -8,7 +8,6 @@ use App\Http\Requests\RoomType\UpdateRoomTypeRequest;
 use App\Models\Facility;
 use App\Models\RoomType;
 use Illuminate\Database\QueryException;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -23,9 +22,8 @@ class RoomTypeController extends Controller
      */
     public function index()
     {
-        $fileSystem = new FileSystem;
-        if ($fileSystem->exists(public_path('storage/tmp'))) {
-            $fileSystem->cleanDirectory(public_path('storage/tmp'));
+        if (Storage::exists('tmp')) {
+            Storage::deleteDirectory('tmp');
         }
 
         return view('pages.dashboard.room-type.index');
@@ -133,38 +131,38 @@ class RoomTypeController extends Controller
 
             $roomType->roomFacilities()->delete();
             foreach ($request->facilities as $facility) {
-                $roomType->roomFacilities()->updateOrCreate([
+                $roomType->roomFacilities()->create([
                     'facility_id' => $facility,
                 ]);
             }
 
             $roomType->roomPrices()->delete();
             foreach ($request->descriptions as $index => $description) {
-                $roomType->roomPrices()->updateOrCreate([
+                $roomType->roomPrices()->create([
                     'description' => $request->descriptions[$index],
                     'price' => $request->prices[$index],
                 ]);
             }
 
             if ($request->thumbnails) {
-                $oldThumbnails = [];
+                $fileNames = [];
 
                 foreach ($request->thumbnails as $thumbnail) {
-                    $fileName = explode('/', $thumbnail);
-                    if (count($fileName) >= 2) {
-                        Storage::move($thumbnail, 'thumbnails/' . $fileName[1]);
+                    if (Storage::exists($thumbnail)) {
+                        $fileName = explode('/', $thumbnail)[1];
+                        Storage::move($thumbnail, 'thumbnails/' . $fileName);
 
                         $roomType->thumbnails()->create([
-                            'file_name' => $fileName[1],
+                            'file_name' => $fileName,
                         ]);
-                    }
 
-                    if (count($fileName) === 1) {
-                        array_push($oldThumbnails, $thumbnail);
+                        array_push($fileNames, $fileName);
+                    } else {
+                        array_push($fileNames, $thumbnail);
                     }
                 }
 
-                $roomType->thumbnails()->whereNotIn('file_name', $oldThumbnails)->delete();
+                $roomType->thumbnails()->whereNotIn('file_name', $fileNames)->delete();
             }
 
             DB::commit();
@@ -178,6 +176,7 @@ class RoomTypeController extends Controller
             );
         } catch (QueryException $e) {
             DB::rollBack();
+            dd($e);
 
             return response()->json(
                 [

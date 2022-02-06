@@ -34,7 +34,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     processData: false,
-                    contentType: false
+                    contentType: false,
                     type: 'post',
                     url: "{{ route('dashboard.room-types.store') }}",
                     data: formData,
