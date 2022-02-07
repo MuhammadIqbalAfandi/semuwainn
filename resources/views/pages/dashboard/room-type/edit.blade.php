@@ -31,6 +31,7 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
+                        cache: false,
                         processData: false,
                         contentType: false,
                         type: 'post',
@@ -44,6 +45,7 @@
                                 message,
                                 status
                             } = res
+
                             alert(message, status)
                         },
                         error(res) {
@@ -52,11 +54,12 @@
                                 message,
                                 status
                             } = res.responseJSON
+
                             if (status === 'failed') {
                                 alert(message, status)
                             } else {
                                 for (const key in errors) {
-                                    let fieldError = key.split('.')
+                                    const fieldError = key.split('.')
                                     const regex = /.[0-9]/
                                     const textError = String(errors[key])
 
