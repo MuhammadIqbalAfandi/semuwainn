@@ -146,6 +146,46 @@
 
                 @php
                     $routeUri = Route::currentRouteName();
+                    $routeStatus = collect([])->contains($routeUri);
+                @endphp
+                <li class="nav-item has-treeview {{ $routeStatus ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-book-open"></i>
+                        <p>
+                            Laporan
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview active">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class=" far fa-circle
+                                nav-icon"></i>
+                                <p>Daftar Pemesanan</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class=" far fa-circle
+                                nav-icon"></i>
+                                <p>Hidangan Restoran</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class=" far fa-circle
+                                nav-icon"></i>
+                                <p>Layanan</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                @php
+                    $routeUri = Route::currentRouteName();
                     $routeStatus = collect(['dashboard.contacts.create', 'dashboard.copyrights.create', 'dashboard.privacies.create', 'dashboard.policies.create'])->contains($routeUri);
                 @endphp
                 <!-- Setting -->
