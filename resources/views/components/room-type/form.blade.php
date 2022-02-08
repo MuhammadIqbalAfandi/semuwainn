@@ -2,8 +2,6 @@
 
 <x-shared.card title="{{ $title }}">
     <form id="form" enctype="multipart/form-data">
-        @csrf
-
         <input type="hidden" name="id" value="{{ $roomType->id ?? '' }}">
 
         <div class="row">

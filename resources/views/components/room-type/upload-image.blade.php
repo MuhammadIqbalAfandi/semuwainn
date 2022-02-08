@@ -4,7 +4,10 @@
     <div class="col-12">
         <div class="form-group" id="input-file-container">
             <p>Upload Gambar</p>
-            <span class="text-danger msg-error thumbnails-error"></span>
+            <input type="file" name="thumbnails[]" id="thumbnails" class="filepond" multiple>
+            @error('image')
+                <span class="text-danger msg-error thumbnails-error">{{ $message }}</span>
+            @enderror
         </div>
     </div>
 </div>
@@ -12,17 +15,15 @@
 @push('scripts')
     <script>
         // Data
-        const btnSave = '<button type="submit" class="btn btn-block btn-warning mt-3">Simpan</button>'
         const thumbnails = []
         const files = []
-        const fileLength = []
+        const fileProcessed = []
+        const fileAborts = []
+        const fileReverts = []
+        let fileLoad
         // end Data
 
         // Mounted
-        $('#input-file-container').append(`
-            <input type="file" name="thumbnails[]" id="thumbnails" class="filepond" multiple>
-        `)
-
         @if ($roomType)
             @foreach ($roomType->thumbnails as $thumbnail)
                 thumbnails.push({!! $thumbnail !!})
@@ -38,7 +39,7 @@
                         poster: `{{ asset('storage/thumbnails') }}/${thumbnail.file_name}`
                     },
                 }
-            }, )
+            })
         })
 
         $.fn.filepond.registerPlugin(
@@ -50,34 +51,48 @@
 
         $('#thumbnails').filepond()
 
-        $('#thumbnails').filepond('onremovefile', (error, file) => {
-            if (!file.length || file.length >= 1) {
-                $('[type="submit"]').remove()
-                $('#form').append(btnSave)
+        $('#thumbnails').filepond('onprocessfile', (error, file) => {
+            if (!error) {
+                fileProcessed.push(file)
+
+                if ((fileLoad.length - fileProcessed.length) === thumbnails.length) {
+                    $('[type="submit"]').show()
+
+                    fileProcessed.length = 0
+                }
             }
         })
 
-        $('#thumbnails').filepond('onprocessfiles', () => {
-            $('[type="submit"]').remove()
-            $('#form').append(btnSave)
+        $('#thumbnails').filepond('onprocessfileabort', (file) => {
+            fileAborts[0] = file
+
+            if ((fileLoad.length - fileAborts.length) === thumbnails.length) {
+                $('[type="submit"]').show()
+            }
         })
 
-        $('#thumbnails').filepond('onprocessfile', (error, file) => {
-            console.log('object');
+        $('#thumbnails').filepond('onprocessfilerevert', (file) => {
+            fileReverts[0] = file
+
+            if ((fileLoad.length - fileReverts.length) === thumbnails.length) {
+                $('[type="submit"]').show()
+            }
+        })
+
+        $('#thumbnails').filepond('onaddfile', (error, file) => {
+            if (!error) {
+                if (fileLoad.length > thumbnails.length) {
+                    $('[type="submit"]').hide()
+                }
+
+                if (file.status === 9) {
+                    $('[type="submit"]').hide()
+                }
+            }
         })
 
         $('#thumbnails').filepond('onupdatefiles', (file) => {
-            fileLength.push(file.length)
-
-            if (fileLength.at(-1) > fileLength[0]) {
-                $('[type="submit"]').remove()
-                return
-            }
-
-            if (file.length && file[0].status === 9) {
-                $('[type="submit"]').remove()
-                return
-            }
+            fileLoad = file
         })
 
         $.fn.filepond.setDefaults({
@@ -86,7 +101,10 @@
             labelFileProcessingError: 'Ada kesalahan saat upload',
             labelFileProcessingRevertError: 'Ada kesalahan saat menghapus',
             labelFileProcessingComplete: 'Upload berhasil',
-            labelInvalidField: 'Ada kesalahan pada gambar yang diupload',
+            labelFileTypeNotAllowed: 'Format file salah',
+            labelMaxFileSizeExceeded: 'Ukuran file terlalu besar',
+            labelMaxFileSize: 'Maksimal Ukuran gambar {filesize}',
+            allowMultiple: true,
             allowImageExifOrientation: true,
             maxFiles: 5,
             maxFileSize: '1MB',

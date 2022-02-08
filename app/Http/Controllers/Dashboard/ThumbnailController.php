@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Thumbnail\ProcessThumbnailRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ThumbnailController extends Controller
 {
-    public function process(ProcessThumbnailRequest $request)
+    public function process(Request $request)
     {
         if ($request->hasFile('thumbnails')) {
             foreach ($request->file('thumbnails') as $image) {
