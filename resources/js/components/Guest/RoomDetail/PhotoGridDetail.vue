@@ -44,7 +44,8 @@ export default {
       </template>
 
       <div v-else class="photo-grid__main">
-        <img :src="photoGrid.defaultImage" alt="Main image" />
+        <img v-if="photoGrid.images.length >= 1" :src="photoGrid.images[0]" alt="Main image" />
+        <img v-else :src="photoGrid.defaultImage" alt="Main image" />
       </div>
     </div>
   </div>

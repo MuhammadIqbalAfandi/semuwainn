@@ -17674,9 +17674,16 @@ var render = function () {
               }),
             ]
           : _c("div", { staticClass: "photo-grid__main" }, [
-              _c("img", {
-                attrs: { src: _vm.photoGrid.defaultImage, alt: "Main image" },
-              }),
+              _vm.photoGrid.images.length >= 1
+                ? _c("img", {
+                    attrs: { src: _vm.photoGrid.images[0], alt: "Main image" },
+                  })
+                : _c("img", {
+                    attrs: {
+                      src: _vm.photoGrid.defaultImage,
+                      alt: "Main image",
+                    },
+                  }),
             ]),
       ],
       2
