@@ -32,11 +32,11 @@
                     </a>
                 </li>
 
+                <!-- Reservation -->
                 @php
                     $routeUri = Route::currentRouteName();
                     $routeStatus = collect(['dashboard.reservations.index', 'dashboard.reservations.show', 'dashboard.service-orders.show', 'dashboard.restaurant-orders.show'])->contains($routeUri);
                 @endphp
-                <!-- Reservation -->
                 <li class="nav-item has-treeview {{ $routeStatus ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-hotel"></i>
@@ -60,11 +60,11 @@
                     </ul>
                 </li>
 
+                <!-- Master -->
                 @php
                     $routeUri = Route::currentRouteName();
                     $routeStatus = collect(['dashboard.facilities.index', 'dashboard.room-types.index', 'dashboard.room-types.create', 'dashboard.room-types.edit', 'dashboard.rooms.index', 'dashboard.restaurants.index', 'dashboard.services.index', 'dashboard.users.index', 'dashboard.users.edit', 'dashboard.guests.index'])->contains($routeUri);
                 @endphp
-                <!-- Master -->
                 <li class="nav-item has-treeview {{ $routeStatus ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-toolbox"></i>
@@ -144,9 +144,10 @@
                     </ul>
                 </li>
 
+                <!-- Report -->
                 @php
                     $routeUri = Route::currentRouteName();
-                    $routeStatus = collect([])->contains($routeUri);
+                    $routeStatus = collect(['dashboard.reports.reservations', 'dashboard.reports.restaurants', 'dashboard.reports.services'])->contains($routeUri);
                 @endphp
                 <li class="nav-item has-treeview {{ $routeStatus ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
@@ -159,7 +160,8 @@
 
                     <ul class="nav nav-treeview active">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('dashboard.reports.reservations') }}"
+                                class="nav-link  {{ Route::is('dashboard.reports.reservations') ? 'active' : '' }}">
                                 <i class=" far fa-circle
                                 nav-icon"></i>
                                 <p>Daftar Pemesanan</p>
@@ -167,7 +169,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('dashboard.reports.restaurants') }}"
+                                class="nav-link  {{ Route::is('dashboard.reports.restaurants') ? 'active' : '' }}">
                                 <i class=" far fa-circle
                                 nav-icon"></i>
                                 <p>Hidangan Restoran</p>
@@ -175,7 +178,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('dashboard.reports.services') }}"
+                                class="nav-link  {{ Route::is('dashboard.reports.services') ? 'active' : '' }}">
                                 <i class=" far fa-circle
                                 nav-icon"></i>
                                 <p>Layanan</p>
@@ -184,11 +188,11 @@
                     </ul>
                 </li>
 
+                <!-- Setting -->
                 @php
                     $routeUri = Route::currentRouteName();
                     $routeStatus = collect(['dashboard.contacts.create', 'dashboard.copyrights.create', 'dashboard.privacies.create', 'dashboard.policies.create'])->contains($routeUri);
                 @endphp
-                <!-- Setting -->
                 @can('isAdmin')
                     <li class="nav-item has-treeview {{ $routeStatus ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link">

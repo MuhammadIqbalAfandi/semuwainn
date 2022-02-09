@@ -120,9 +120,12 @@ Route::prefix('dashboard')->group(function () {
                 ->except(['create', 'store']);
 
             // Report
-            Route::get('/reports/reservations', ReservationReportController::class);
-            Route::get('/reports/restaurants', RestaurantReportController::class);
-            Route::get('/reports/services', ServiceReportController::class);
+            Route::get('/reports/reservations', ReservationReportController::class)
+                ->name('reports.reservations');
+            Route::get('/reports/restaurants', RestaurantReportController::class)
+                ->name('reports.restaurants');
+            Route::get('/reports/services', ServiceReportController::class)
+                ->name('reports.services');
 
             // Settings
             Route::resource('/contacts', ContactController::class)

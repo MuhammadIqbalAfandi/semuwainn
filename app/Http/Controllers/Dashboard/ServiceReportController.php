@@ -15,6 +15,6 @@ class ServiceReportController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //
+        return view('pages.dashboard.report.service.index');
     }
 }
