@@ -12,27 +12,27 @@
     <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- OverlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <!-- AdminLTE -->
+    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}" />
-    <!-- chartjs -->
+    <!-- ChartJS -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/chart.js/Chart.min.css') }}">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet"
         href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
-    <!-- Trix Editor -->
-    <link rel="stylesheet" href="{{ asset('css/trix-1.3.1/trix.css') }}">
+    <!-- Trix-Editor -->
+    <link rel="stylesheet" href="{{ asset('css/trix/trix.css') }}">
     <!-- FilePond -->
-    <link rel="stylesheet" href="{{ asset('css/filepond@4.30.3/filepond.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('css/filepond@4.30.3/plugins/filepond-plugin-image-preview@4.6.10/filepond-plugin-image-preview.css') }}">
-    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/filepond/filepond.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/filepond/filepond-plugin-image-preview.css') }}">
+    <!-- VanilaJS DatePicker -->
+    <link rel="stylesheet" href="{{ asset('css/vanillajs-datepicker/datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vanillajs-datepicker/datepicker-bs4.min.css') }}">
+    <!-- Custom Style -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
         /* Trix-Editor */
@@ -57,12 +57,11 @@
     </div>
 
     <!-- jQuery -->
-    {{-- <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script> --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- overlayScrollbars -->
-    <script src="{{ asset('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+    <!-- AdminLTE -->
+    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <!-- DataTables  & Plugins -->
     <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -70,37 +69,26 @@
     <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
-    <!-- Chartjs -->
+    <!-- ChartJS -->
     <script src="{{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
-    <!-- Loadash -->
-    <script src="{{ asset('js/lodash@4.17.21/lodash.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
     <!-- Trix Editor -->
-    <script src="{{ asset('js/trix-1.3.1/trix.js') }}"></script>
+    <script src="{{ asset('js/trix/trix.js') }}"></script>
     <!-- FilePond -->
-    <script
-        src="{{ asset('js/filepond@4.30.3/plugins/filepond-plugin-image-preview@4.6.10/filepond-plugin-image-preview.js') }}">
+    <script src="{{ asset('js/filepond/filepond-plugin-image-preview.js') }}">
     </script>
-    <script
-        src="{{ asset('js/filepond@4.30.3/plugins/filepond-plugin-file-validate-size@2.2.5/filepond-plugin-file-validate-size.js') }}">
+    <script src="{{ asset('js/filepond/filepond-plugin-file-validate-size.js') }}">
     </script>
-    <script
-        src="{{ asset('js/filepond@4.30.3/plugins/filepond-plugin-image-exif-orientation@1.0.11/filepond-plugin-image-exif-orientation.js') }}">
+    <script src="{{ asset('js/filepond/filepond-plugin-image-exif-orientation.js') }}">
     </script>
-    <script
-        src="{{ asset('js/filepond@4.30.3/plugins/filepond-plugin-file-validate-type@1.2.6/filepond-plugin-file-validate-type.js') }}">
+    <script src="{{ asset('js/filepond/filepond-plugin-file-validate-type.js') }}">
     </script>
-    <script src="{{ asset('js/filepond@4.30.3/filepond.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-filepond@1.0.0/filepond.jquery.js') }}"></script>
+    <script src="{{ asset('js/filepond/filepond.min.js') }}"></script>
+    <script src="{{ asset('js/filepond/filepond.jquery.js') }}"></script>
+    <!-- VanilaJS DatePicker -->
+    <script src="{{ asset('js/vanillajs-datepicker/datepicker-full.min.js') }}"></script>
     <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
     <script>
-        @if (session('success'))
-            alert("{{ session('success') }}", 'success')
-        @elseif (session('failed'))
-            alert("{{ session('failed') }}", 'failed')
-        @endif
-
         const idMoneyFormat = (number) => {
             return new Intl.NumberFormat('id', {
                 style: 'currency',
@@ -116,7 +104,7 @@
             'scrollX': true,
             'autoWidth': false,
             'language': {
-                'url': "{{ asset('js/datatables/plug-ins-1.11.4-i18n/id.json') }}"
+                'url': "{{ asset('js/datatables/i18n/id.json') }}"
             }
         })
 
@@ -149,8 +137,13 @@
         $('trix-file-accept').on(function(e) {
             e.preventDefault()
         })
-    </script>
 
+        @if (session('success'))
+            alert("{{ session('success') }}", 'success')
+        @elseif (session('failed'))
+            alert("{{ session('failed') }}", 'failed')
+        @endif
+    </script>
     @stack('scripts')
 </body>
 

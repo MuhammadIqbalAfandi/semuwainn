@@ -1,0 +1,242 @@
+:root {
+  --yellow: #ffc107;
+  --orange: #ffc107;
+  --warning: #ffc107;
+}
+
+.dark-mode {
+  .bg-warning,
+  .btn-warning {
+    background-color: var(--yellow) !important;
+  }
+
+  .nav-sidebar .nav-link.active {
+    background-color: var(--yellow) !important;
+    color: var(--dark) !important;
+  }
+
+  .card:not(.card-outline) .card-header a.active {
+    color: var(--dark) !important;
+  }
+
+  .card-warning {
+    &.card-outline {
+      border-top-color: var(--yellow) !important;
+    }
+
+    &:not(.card-outline) .card-header {
+      background-color: var(--yellow) !important;
+    }
+  }
+}
+
+.brand {
+  &:hover {
+    color: var(--yellow) !important;
+  }
+
+  &--text-small {
+    font-size: 1rem !important;
+  }
+}
+
+.user-panel a:not(.btn):hover {
+  color: var(--yellow) !important;
+}
+
+.form-control:focus {
+  border-color: var(--yellow) !important;
+}
+
+.nav-pills {
+  .nav-link {
+    &:not(.active):hover {
+      color: var(--yellow) !important;
+    }
+
+    &.active {
+      background-color: var(--yellow) !important;
+      color: var(--dark) !important;
+    }
+  }
+}
+
+.breadcrumb .breadcrumb-item a {
+  text-align: end !important;
+}
+
+.dark-mode {
+  // Datatables
+  .page-item {
+    &.active .page-link {
+      background-color: var(--yellow) !important;
+      color: var(--dark) !important;
+      border-color: var(--yellow) !important;
+
+      &:hover {
+        color: var(--white) !important;
+      }
+
+      &:focus {
+        color: var(--dark) !important;
+      }
+    }
+
+    &:not(.active) .page-link {
+      color: var(--white) !important;
+      border-color: var(--yellow) !important;
+    }
+
+    &.disabled a {
+      border-color: var(--yellow) !important;
+    }
+
+    .page-link:focus {
+      box-shadow: none !important;
+    }
+  }
+}
+
+// Select2
+.select2-container--bootstrap4 {
+  .select2-selection {
+    background-color: transparent;
+    border-color: var(--secondary);
+  }
+
+  &.select2-container--focus .select2-selection {
+    border-color: var(--yellow);
+    box-shadow: none;
+  }
+
+  .select2-dropdown {
+    border-color: var(--yellow);
+  }
+
+  .select2-results__option--highlighted,
+  .select2-results__option--highlighted.select2-results__option[aria-selected='true'] {
+    color: var(--dark);
+    background-color: var(--yellow);
+  }
+
+  .select2-dropdown.select2-dropdown--below {
+    border-top: 1px solid var(--yellow);
+  }
+
+  .select2-dropdown.select2-dropdown--above {
+    border-top: 1px solid var(--yellow);
+  }
+
+  .select2-selection--single .select2-selection__rendered {
+    color: var(--white);
+  }
+
+  .select2-search--dropdown .select2-search__field {
+    border-color: var(--yellow);
+  }
+}
+
+// Filepond
+@media (min-width: 576px) {
+  .filepond--item {
+    width: calc(100% - 0.5em);
+  }
+}
+
+@media (min-width: 992px) {
+  .filepond--item {
+    width: calc(33% - 0.5em);
+  }
+}
+
+.filepond--drop-label {
+  color: #eee;
+}
+
+.filepond--panel-root {
+  background-color: rgb(69, 77, 85);
+}
+
+// VanilaJs DatePicker
+.datepicker-picker {
+  background-color: var(--dark);
+}
+
+.datepicker-footer {
+  background-color: var(--dark);
+}
+
+.datepicker-title {
+  background-color: var(--dark);
+}
+
+.datepicker-controls {
+  .view-switch {
+    background-color: var(--dark);
+    color: var(--white);
+  }
+
+  .next-btn,
+  .prev-btn {
+    background-color: var(--dark);
+    color: var(--white);
+  }
+}
+
+.datepicker-cell {
+  &:not(.disabled):hover {
+    color: var(--dark);
+  }
+
+  &.focused:not(.selected) {
+    background-color: var(--white);
+    color: var(--dark);
+  }
+
+  &.selected,
+  &.selected:hover {
+    background-color: var(--yellow);
+    color: var(--dark);
+  }
+
+  &.next:not(.disabled),
+  &.prev:not(.disabled) {
+    color: var(--secondary);
+  }
+
+  &.next.selected,
+  &.prev.selected {
+    background-color: var(--yellow);
+    color: var(--dark);
+  }
+
+  &.range-end:not(.selected),
+  &.range-start:not(.selected) {
+    background-color: var(--yellow);
+    color: var(--dark);
+  }
+
+  &.range {
+    background-color: var(--gray);
+  }
+
+  &.range:not(.disabled):not(.focused):not(.today):hover {
+    background-color: var(--white);
+    color: var(--dark);
+  }
+
+  &.next:not(.disabled).range,
+  &.prev:not(.disabled).range {
+    color: var(--dark);
+  }
+}
+
+// Own Style
+.divider {
+  width: 6rem;
+  border-radius: 5px;
+  border: 1px solid #adb5bd;
+  margin-bottom: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}

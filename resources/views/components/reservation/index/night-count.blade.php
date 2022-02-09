@@ -1,1 +1,0 @@
-<p>{{ $nightCount }} Hari</p>

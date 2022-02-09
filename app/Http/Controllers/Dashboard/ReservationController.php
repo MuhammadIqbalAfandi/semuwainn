@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Reservation\StoreReservationRequest;
 use App\Models\Reservation;
 use App\Services\ReservationService;
-use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -176,34 +175,26 @@ class ReservationController extends Controller
                         $query->where('name', 'like', "%{$keyword}%");
                     });
                 })
-                ->addColumn('order', function (Reservation $reservation) {
-                    return view('components.reservation.index.order-date',
-                        [
-                            'id' => $reservation->id,
-                            'reservation_number' => $reservation->reservation_number,
-                            'reservation_time' => $reservation->reservation_time,
-                            'nik' => $reservation->guest->nik,
-                        ]);
-                })
-                ->addColumn('checkin-checkout', function (Reservation $reservation) {
-                    return view('components.reservation.index.checkin-checkout',
-                        [
-                            'checkin' => $reservation->checkin,
-                            'checkout' => $reservation->checkout,
-                        ]);
-                })
+                ->addColumn('order', fn(Reservation $reservation) => view('components.reservation.index.order-date', [
+                    'id' => $reservation->id,
+                    'reservation_number' => $reservation->reservation_number,
+                    'reservation_time' => $reservation->reservation_time,
+                    'nik' => $reservation->guest->nik,
+                ]))
+                ->addColumn('checkin-checkout', fn(Reservation $reservation) => view('components.shared.checkin-checkout', [
+                    'checkin' => $reservation->checkin,
+                    'checkout' => $reservation->checkout,
+                ]))
                 ->addColumn('night-count', function (Reservation $reservation) {
-                    $nightCount = Carbon::parse($reservation->getRawOriginal('checkin'))->diffInDays($reservation->getRawOriginal('checkout'));
-                    return view('components.reservation.index.night-count', compact('nightCount'));
+                    $this->reservationService->setReservation($reservation);
+                    $nightCount = $this->reservationService->getNightCount();
+                    return view('components.shared.night-count', compact('nightCount'));
                 })
                 ->addColumn('room-count', fn(Reservation $reservation) => $reservation->roomOrders->count())
                 ->addColumn('guest-count', fn(Reservation $reservation) => $reservation->roomOrders->count())
-                ->addColumn('status', function (Reservation $reservation) {
-                    return view('components.reservation.index.status',
-                        [
-                            'status' => $reservation->reservationStatus->name,
-                        ]);
-                })
+                ->addColumn('status', fn(Reservation $reservation) => view('components.reservation.index.status', [
+                    'status' => $reservation->reservationStatus->name,
+                ]))
                 ->addColumn('actions', function (Reservation $reservation) {
                     $id = $reservation->id;
                     $statusHide = !in_array($reservation->reservation_status_id, [3, 5]);

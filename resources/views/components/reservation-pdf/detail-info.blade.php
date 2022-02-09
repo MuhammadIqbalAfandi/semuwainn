@@ -34,7 +34,7 @@
 
 <section class="clearfix">
     <section class="float-left">
-        <strong>No Order</strong><br />
+        <strong>Nomor Pemesanan</strong><br />
         {{ $reservation->reservation_number }}
     </section>
 </section>

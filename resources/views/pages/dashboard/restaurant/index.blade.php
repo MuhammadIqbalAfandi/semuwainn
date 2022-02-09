@@ -13,10 +13,8 @@
                 <div class="row mb-2">
                     <div class="col">
                         @can('isAdmin')
-                            <button type="button" id="btn-add" class="btn btn-sm btn-warning float-right"
-                                data-toggle="modal">
-                                <i class="fa fa-plus"></i>
-                            </button>
+                            <x-shared.button text="Tambah Hidangan" id="btn-add" faIcon="fa-plus" class="float-right">
+                            </x-shared.button>
                         @endcan
                     </div>
                 </div>

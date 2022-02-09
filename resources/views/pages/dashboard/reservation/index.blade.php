@@ -11,6 +11,13 @@
 
         <x-shared.content>
             <x-shared.card>
+                <div class="row mb-2">
+                    <div class="col">
+                        <x-shared.button text="Refresh" id="btn-reload" faIcon="fa-rotate-right" class="float-right">
+                        </x-shared.button>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col">
                         <table id="reservation-list-table" class="table table-bordered">
@@ -18,8 +25,8 @@
                                 <tr>
                                     <th>
                                         <span class="d-block">NIK Pemesan /</span>
-                                        <span class="d-block">No. Order /</span>
-                                        <span class="d-block">Tgl. Order</span>
+                                        <span class="d-block">No. Pemesanan /</span>
+                                        <span class="d-block">Tgl. Pemesanan</span>
                                     </th>
                                     <th>Tgl. Inap</th>
                                     <th>Lama Inap</th>
@@ -83,6 +90,10 @@
                         }
                     @endcanany
                 ],
+            })
+
+            $('#btn-reload').click(() => {
+                fetchReservation()
             })
             // end Mounted
 

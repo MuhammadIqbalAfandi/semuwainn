@@ -1,82 +1,103 @@
 :root {
+  --yellow: #ffc107;
   --orange: #ffc107;
-  --yellow: var(--orange);
-  --warning: var(--orange);
-  --black: #212529;
+  --warning: #ffc107;
 }
 
 .dark-mode .bg-warning,
 .dark-mode .btn-warning {
-  background-color: var(--orange) !important;
+  background-color: var(--yellow) !important;
 }
 .dark-mode .nav-sidebar .nav-link.active {
-  background-color: var(--orange) !important;
-  color: var(--black) !important;
-}
-.dark-mode .page-item.active .page-link {
-  background-color: var(--orange) !important;
-  color: var(--black) !important;
-  border-color: var(--orange) !important;
-}
-.dark-mode .page-item.active .page-link:hover {
-  color: #fff !important;
-}
-.dark-mode .page-item.active .page-link:focus {
-  color: var(--black) !important;
-}
-.dark-mode .page-item:not(.active) .page-link {
-  color: #fff !important;
-  border-color: var(--orange) !important;
-}
-.dark-mode .page-item.disabled a {
-  border-color: var(--orange) !important;
-}
-.dark-mode .page-item .page-link:focus {
-  box-shadow: none !important;
+  background-color: var(--yellow) !important;
+  color: var(--dark) !important;
 }
 .dark-mode .card:not(.card-outline) .card-header a.active {
-  color: var(--black) !important;
+  color: var(--dark) !important;
 }
 .dark-mode .card-warning.card-outline {
-  border-top-color: var(--orange) !important;
+  border-top-color: var(--yellow) !important;
 }
 .dark-mode .card-warning:not(.card-outline) .card-header {
-  background-color: var(--orange) !important;
+  background-color: var(--yellow) !important;
 }
 
 .brand:hover {
-  color: var(--orange) !important;
+  color: var(--yellow) !important;
 }
 .brand--text-small {
-  font-size: 1rem;
+  font-size: 1rem !important;
 }
 
 .user-panel a:not(.btn):hover {
-  color: var(--orange) !important;
+  color: var(--yellow) !important;
 }
 
 .form-control:focus {
-  border-color: var(--orange) !important;
+  border-color: var(--yellow) !important;
 }
 
 .nav-pills .nav-link:not(.active):hover {
-  color: var(--orange) !important;
+  color: var(--yellow) !important;
 }
 .nav-pills .nav-link.active {
-  background-color: var(--orange) !important;
-  color: var(--black) !important;
+  background-color: var(--yellow) !important;
+  color: var(--dark) !important;
 }
 
 .breadcrumb .breadcrumb-item a {
   text-align: end !important;
 }
 
-.select2-container--bootstrap4.select2-container--focus .select2-selection {
-  border-color: var(--orange) !important;
+.dark-mode .page-item.active .page-link {
+  background-color: var(--yellow) !important;
+  color: var(--dark) !important;
+  border-color: var(--yellow) !important;
 }
-.select2-container--bootstrap4 .select2-results__option--highlighted {
-  color: var(--black) !important;
-  background-color: var(--orange) !important;
+.dark-mode .page-item.active .page-link:hover {
+  color: var(--white) !important;
+}
+.dark-mode .page-item.active .page-link:focus {
+  color: var(--dark) !important;
+}
+.dark-mode .page-item:not(.active) .page-link {
+  color: var(--white) !important;
+  border-color: var(--yellow) !important;
+}
+.dark-mode .page-item.disabled a {
+  border-color: var(--yellow) !important;
+}
+.dark-mode .page-item .page-link:focus {
+  box-shadow: none !important;
+}
+
+.select2-container--bootstrap4 .select2-selection {
+  background-color: transparent;
+  border-color: var(--secondary);
+}
+.select2-container--bootstrap4.select2-container--focus .select2-selection {
+  border-color: var(--yellow);
+  box-shadow: none;
+}
+.select2-container--bootstrap4 .select2-dropdown {
+  border-color: var(--yellow);
+}
+.select2-container--bootstrap4 .select2-results__option--highlighted,
+.select2-container--bootstrap4 .select2-results__option--highlighted.select2-results__option[aria-selected=true] {
+  color: var(--dark);
+  background-color: var(--yellow);
+}
+.select2-container--bootstrap4 .select2-dropdown.select2-dropdown--below {
+  border-top: 1px solid var(--yellow);
+}
+.select2-container--bootstrap4 .select2-dropdown.select2-dropdown--above {
+  border-top: 1px solid var(--yellow);
+}
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+  color: var(--white);
+}
+.select2-container--bootstrap4 .select2-search--dropdown .select2-search__field {
+  border-color: var(--yellow);
 }
 
 @media (min-width: 576px) {
@@ -95,6 +116,61 @@
 
 .filepond--panel-root {
   background-color: #454d55;
+}
+
+.datepicker-picker {
+  background-color: var(--dark);
+}
+
+.datepicker-footer {
+  background-color: var(--dark);
+}
+
+.datepicker-title {
+  background-color: var(--dark);
+}
+
+.datepicker-controls .view-switch {
+  background-color: var(--dark);
+  color: var(--white);
+}
+.datepicker-controls .next-btn,
+.datepicker-controls .prev-btn {
+  background-color: var(--dark);
+  color: var(--white);
+}
+
+.datepicker-cell:not(.disabled):hover {
+  color: var(--dark);
+}
+.datepicker-cell.focused:not(.selected) {
+  background-color: var(--white);
+  color: var(--dark);
+}
+.datepicker-cell.selected, .datepicker-cell.selected:hover {
+  background-color: var(--yellow);
+  color: var(--dark);
+}
+.datepicker-cell.next:not(.disabled), .datepicker-cell.prev:not(.disabled) {
+  color: var(--secondary);
+}
+.datepicker-cell.next.selected, .datepicker-cell.prev.selected {
+  background-color: var(--yellow);
+  color: var(--dark);
+}
+.datepicker-cell.range-end:not(.selected), .datepicker-cell.range-start:not(.selected) {
+  background-color: var(--yellow);
+  color: var(--dark);
+}
+.datepicker-cell.range {
+  background-color: var(--gray);
+}
+.datepicker-cell.range:not(.disabled):not(.focused):not(.today):hover {
+  background-color: var(--white);
+  color: var(--dark);
+}
+.datepicker-cell.next:not(.disabled).range, .datepicker-cell.prev:not(.disabled).range {
+  color: var(--dark);
 }
 
 .divider {

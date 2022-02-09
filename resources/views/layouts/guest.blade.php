@@ -12,9 +12,9 @@
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Theme style -->
+    <!-- AdminLTE -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
-    <!-- Styles -->
+    <!-- Custom Style -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 

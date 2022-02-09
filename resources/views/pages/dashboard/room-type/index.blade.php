@@ -14,9 +14,9 @@
                     <div class="col">
                         @can('isAdmin')
                             <a href="{{ route('dashboard.room-types.create') }}">
-                                <button type="button" id="btn-add" class="btn btn-sm btn-warning float-right">
-                                    <i class="fa fa-plus"></i>
-                                </button>
+                                <x-shared.button text="Tambah Tipe Kamar" id="btn-add" faIcon="fa-plus"
+                                    class="float-right">
+                                </x-shared.button>
                             </a>
                         @endcan
                     </div>

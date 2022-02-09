@@ -164,7 +164,7 @@
                                 class="nav-link  {{ Route::is('dashboard.reports.reservations') ? 'active' : '' }}">
                                 <i class=" far fa-circle
                                 nav-icon"></i>
-                                <p>Daftar Pemesanan</p>
+                                <p>Pemesanan</p>
                             </a>
                         </li>
 
@@ -173,7 +173,7 @@
                                 class="nav-link  {{ Route::is('dashboard.reports.restaurants') ? 'active' : '' }}">
                                 <i class=" far fa-circle
                                 nav-icon"></i>
-                                <p>Hidangan Restoran</p>
+                                <p>Restoran</p>
                             </a>
                         </li>
 

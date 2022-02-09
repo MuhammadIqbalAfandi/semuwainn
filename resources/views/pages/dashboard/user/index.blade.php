@@ -12,10 +12,8 @@
             <x-shared.card>
                 <div class="row mb-2">
                     <div class="col">
-                        <button type="button" id="btn-add" class="btn btn-sm btn-warning float-right"
-                            data-toggle="modal">
-                            <i class="fa fa-plus"></i>
-                        </button>
+                        <x-shared.button text="Tambah User" id="btn-add" faIcon="fa-plus" class="float-right">
+                        </x-shared.button>
                     </div>
                 </div>
 

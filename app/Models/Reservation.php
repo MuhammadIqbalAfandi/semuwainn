@@ -29,7 +29,7 @@ class Reservation extends Model
 
     public function getReservationTimeAttribute($value)
     {
-        return Carbon::parse($value)->translatedFormat('d/m/Y H:i:s');
+        return Carbon::parse($value)->translatedFormat('l d/m/Y H:i:s');
     }
 
     public function getCheckInAttribute($value)

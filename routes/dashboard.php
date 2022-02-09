@@ -48,7 +48,6 @@ Route::prefix('dashboard')->group(function () {
 
             Route::resource('/restaurant-orders', RestaurantOrderController::class)
                 ->only(['index', 'show', 'store']);
-
             Route::resource('/service-orders', ServiceOrderController::class)
                 ->only(['edit', 'show', 'store']);
 
@@ -70,6 +69,7 @@ Route::prefix('dashboard')->group(function () {
             Route::get('/room-types/upload-thumbnails/load', [ThumbnailController::class, 'load']);
             Route::post('/room-types/upload-thumbnails/process', [ThumbnailController::class, 'process']);
             Route::delete('/room-types/upload-thumbnails/revert', [ThumbnailController::class, 'revert']);
+
             Route::get('/room-types/room-prices/{room_type}', [RoomTypeController::class, 'roomPrices'])
                 ->name('room-types.room-prices');
             Route::get('/room-types/room-facilities/{room_type}', [RoomTypeController::class, 'roomFacilities'])
@@ -78,9 +78,7 @@ Route::prefix('dashboard')->group(function () {
                 ->name('room-types.room-types');
             Route::get('/room-types/facilities', [RoomTypeController::class, 'facilities'])
                 ->name('room-types.facilities');
-            Route::post('/room-types/upload-thumbnails/{room_type}', [RoomTypeController::class, 'update'])
-                ->name('room-types.update');
-            Route::post('/room-types/upload-thumbnails/{room_type}', [RoomTypeController::class, 'update'])
+            Route::post('/room-types/{room_type}/edit', [RoomTypeController::class, 'update'])
                 ->name('room-types.update');
             Route::resource('/room-types', RoomTypeController::class)
                 ->except('show', 'update');
@@ -120,8 +118,11 @@ Route::prefix('dashboard')->group(function () {
                 ->except(['create', 'store']);
 
             // Report
+            Route::get('/reports/reservations/reservations', [ReservationReportController::class, 'reservations'])
+                ->name('report.reservations.reservations');
             Route::get('/reports/reservations', ReservationReportController::class)
                 ->name('reports.reservations');
+
             Route::get('/reports/restaurants', RestaurantReportController::class)
                 ->name('reports.restaurants');
             Route::get('/reports/services', ServiceReportController::class)
