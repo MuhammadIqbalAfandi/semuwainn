@@ -52,7 +52,7 @@
                         @endphp
                         <li class="nav-item">
                             <a href="{{ route('dashboard.reservations.index') }}"
-                                class="nav-link {{ $routeStatus = collect(['dashboard.reservations.index', 'dashboard.reservations.show', 'dashboard.service-orders.show', 'dashboard.restaurant-orders.show'])->contains($routeUri) ? 'active' : '' }}">
+                                class="nav-link {{ $routeStatus = collect(['dashboard.reservations.index','dashboard.reservations.show','dashboard.service-orders.show','dashboard.restaurant-orders.show'])->contains($routeUri)? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Daftar Pemesanan</p>
                             </a>
@@ -62,7 +62,7 @@
 
                 @php
                     $routeUri = Route::currentRouteName();
-                    $routeStatus = collect(['dashboard.facilities.index', 'dashboard.room-types.index', 'dashboard.room-types.create', 'dashboard.room-types.edit', 'dashboard.rooms.index', 'dashboard.restaurants.index', 'dashboard.services.index', 'dashboard.users.index', 'dashboard.guests.index'])->contains($routeUri);
+                    $routeStatus = collect(['dashboard.facilities.index', 'dashboard.room-types.index', 'dashboard.room-types.create', 'dashboard.room-types.edit', 'dashboard.rooms.index', 'dashboard.restaurants.index', 'dashboard.services.index', 'dashboard.users.index', 'dashboard.users.edit', 'dashboard.guests.index'])->contains($routeUri);
                 @endphp
                 <!-- Master -->
                 <li class="nav-item has-treeview {{ $routeStatus ? 'menu-open' : '' }}">
@@ -76,9 +76,13 @@
 
                     <ul class="nav nav-treeview active">
                         @can('isAdmin')
+                            @php
+                                $routeUri = Route::currentRouteName();
+                                $routeStatus = collect(['dashboard.users.edit', 'dashboard.users.index'])->contains($routeUri);
+                            @endphp
                             <li class="nav-item">
                                 <a href="{{ route('dashboard.users.index') }}"
-                                    class="nav-link {{ Route::is('dashboard.users.index') ? 'active' : '' }}">
+                                    class="nav-link {{ $routeStatus ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Akun User</p>
                                 </a>

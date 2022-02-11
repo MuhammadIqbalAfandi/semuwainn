@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('isAdmin', fn(User $user) => $user->role_id === 1);
         Gate::define('isLeader', fn(User $user) => $user->role_id === 2);
         Gate::define('isWaiter', fn(User $user) => $user->role_id === 3);
-        Gate::define('isAdminNotLogin', fn(User $user, int $userId) => $user->role_id === 1 && $userId !== $user->id);
-        Gate::define('isAccountActive', fn(User $user, int $userId) => $user->id === $userId);
+        Gate::define('isAdminNotAuth', fn(User $user, int $userId) => $user->role_id === 1 && $userId !== $user->id);
+        Gate::define('isAuth', fn(User $user, int $userId) => $user->id === $userId);
     }
 }

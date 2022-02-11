@@ -98,11 +98,8 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        DB::beginTransaction();
         try {
-            $user->fill($request->validated())->save();
-
-            DB::commit();
+            $user->update($request->validated());
 
             return response()->json(
                 [
@@ -112,8 +109,6 @@ class UserController extends Controller
                 201,
             );
         } catch (QueryException $e) {
-            DB::rollback();
-
             return response()->json(
                 [
                     'message' => __('messages.errors.update.all'),

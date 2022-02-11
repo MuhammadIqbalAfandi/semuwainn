@@ -63,7 +63,7 @@ Route::prefix('dashboard')->group(function () {
                 ->name('users.genders');
             Route::get('/users/roles', RoleController::class)
                 ->name('users.roles');
-            Route::get('/users/users/{user}/edit', [UserController::class, 'user'])
+            Route::get('/users/users/{user}', [UserController::class, 'user'])
                 ->name('users.user');
             Route::get('/users/users', [UserController::class, 'users'])
                 ->name('users.users');

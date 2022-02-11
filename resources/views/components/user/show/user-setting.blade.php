@@ -7,7 +7,7 @@
                 Ubah Akun User
             </a>
         </li>
-        @can('isAccountActive', $user->id)
+        @can('isAuth', $user->id)
             <li class="nav-item">
                 <a class="nav-link" href="#change-password" data-toggle="tab">Ubah
                     Kata Sandi
@@ -20,7 +20,7 @@
         <div class="active tab-pane" id="edit-user">
             <x-user.show.change-data :user="$user"></x-user.show.change-data>
         </div>
-        @can('isAccountActive', $user->id)
+        @can('isAuth', $user->id)
             <div class="tab-pane" id="change-password">
                 <x-user.show.change-password></x-user.show.change-password>
             </div>

@@ -1,7 +1,7 @@
 @props(['user'])
 
 <form>
-    @can('isAccountActive', $user->id)
+    @can('isAuth', $user->id)
         <div class="form-group">
             <label for="name">Nama</label>
             <input type="text" name="name" id="name" class="form-control" placeholder="Tulis nama"
@@ -44,7 +44,7 @@
         </div>
     @endcan
 
-    @can('isAdminNotLogin', $user->id)
+    @can('isAdminNotAuth', $user->id)
         <div class="form-group">
             <label for="role">Hak Akses</label>
             <select class="select2 form-control" name="role_id" id="role">
@@ -69,12 +69,12 @@
                 e.preventDefault()
 
                 const id = {{ $user->id }}
-                const name = $('#name').val()
-                const phone = $('#phone').val()
-                const email = $('#email').val()
-                const address = $('#address').val()
-                const genderId = $('#gender').val()
-                const roleId = $('#role').val() ?? {{ $user->role_id }}
+                const name = $('#name').val() ?? "{{ $user->name }}"
+                const phone = $('#phone').val() ?? "{{ $user->phone }}"
+                const email = $('#email').val() ?? "{{ $user->email }}"
+                const address = $('#address').val() ?? "{{ $user->address }}"
+                const genderId = $('#gender').val() ?? "{{ $user->gender->id }}"
+                const roleId = $('#role').val() ?? "{{ $user->role_id }}"
 
                 $.ajax({
                     headers: {

@@ -86,6 +86,7 @@ class ServiceController extends Controller
     {
         try {
             $service->update($request->validated());
+
             return response()->json(
                 [
                     'message' => __('messages.success.update.service'),
