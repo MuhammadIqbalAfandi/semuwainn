@@ -11,21 +11,28 @@
 
         <x-shared.content>
             <x-shared.card>
-                <div class="row">
-                    <div class="col-12 col-sm mb-3">
-                        <form class="form-inline">
-                            <div class="form-group" id="period-date">
-                                <p class="mr-2 font-weight-normal">Periode: </p>
-                                <input type="text" name="start" class="form-control">
-                                <i class="fa fa-calendar-day mx-2"></i>
-                                <input type="text" name="end" class="form-control">
+                <div class="row mb-3">
+                    <div class="col">
+                        <form>
+                            <div id="period-date" class="form-inline">
+                                <div class="form-group">
+                                    <label class="font-weight-normal">Periode: </label>
+                                    <input type="text" name="start" class="form-control">
+                                </div>
+
+                                <i class="fa fa-calendar-day"></i>
+
+                                <div class="form-group">
+                                    <input type="text" name="end" class="form-control">
+                                </div>
+
+                                <x-shared.button text="Tampilkan Data" id="btn-show-report" faIcon="fa-eye">
+                                </x-shared.button>
+
+                                <x-shared.button text="Export ke Excel" id="btn-export-xsl" faIcon="fa-file-excel">
+                                </x-shared.button>
                             </div>
                         </form>
-                    </div>
-
-                    <div class="col-auto mb-3">
-                        <x-shared.button text="Export ke Excel" id="btn-export-xsl" faIcon="fa-file-excel">
-                        </x-shared.button>
                     </div>
                 </div>
 
@@ -54,10 +61,16 @@
     @push('scripts')
         <script>
             // Mounted
-            $('#reservation-report-table').DataTable({
+            const reportTable = $('#reservation-report-table').DataTable({
                 serverSide: true,
                 searching: false,
-                ajax: "{{ route('dashboard.report.reservations.reservations') }}",
+                ajax: {
+                    url: "{{ route('dashboard.report.reservations.reservations') }}",
+                    data(d) {
+                        d.startDate = $('[name="start"]').val()
+                        d.endDate = $('[name="end"]').val()
+                    },
+                },
                 columns: [{
                         data: 'name',
                         name: 'name',
@@ -94,7 +107,16 @@
             })
 
             const elemPeriodDate = document.getElementById('period-date')
-            const periodRagePicker = new DateRangePicker(elemPeriodDate, {})
+            const periodRagePicker = new DateRangePicker(elemPeriodDate, {
+                language: 'id',
+                format: 'dd/mm/yyyy',
+            })
+
+
+            $('#btn-show-report').click(() => {
+                reportTable.draw()
+                console.log(reportTable.rows().count());
+            })
             // end Mounted
         </script>
     @endpush

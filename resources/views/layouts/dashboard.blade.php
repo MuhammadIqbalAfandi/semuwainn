@@ -86,6 +86,7 @@
     <script src="{{ asset('js/filepond/filepond.jquery.js') }}"></script>
     <!-- VanilaJS DatePicker -->
     <script src="{{ asset('js/vanillajs-datepicker/datepicker-full.min.js') }}"></script>
+    <script src="{{ asset('js/vanillajs-datepicker/i18n/id.js') }}"></script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
