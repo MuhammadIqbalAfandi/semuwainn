@@ -61,6 +61,8 @@
     @push('scripts')
         <script>
             // Mounted
+            $('#btn-export-xsl').hide()
+
             const reportTable = $('#reservation-report-table').DataTable({
                 serverSide: true,
                 searching: false,
@@ -73,37 +75,37 @@
                 },
                 columns: [{
                         data: 'name',
-                        name: 'name',
                     },
                     {
-                        data: 'reservation_time',
-                        name: 'reservation_time',
+                        data: 'reservation_time'
                     },
                     {
                         data: 'checkin-checkout',
-                        name: 'checkin-checkout',
                     },
                     {
                         data: 'night-count',
-                        name: 'night-count',
                     },
                     {
                         data: 'room-count',
-                        name: 'room-count',
                     },
                     {
                         data: 'guest-count',
-                        name: 'guest-count',
                     },
                     {
-                        data: 'price',
-                        name: 'price',
+                        data: 'price'
                     },
                     {
-                        data: 'status',
-                        name: 'status',
+                        data: 'status'
                     }
                 ]
+            })
+
+            reportTable.on('draw', () => {
+                if (reportTable.page.info().pages) {
+                    $('#btn-export-xsl').show()
+                } else {
+                    $('#btn-export-xsl').hide()
+                }
             })
 
             const elemPeriodDate = document.getElementById('period-date')
@@ -115,7 +117,6 @@
 
             $('#btn-show-report').click(() => {
                 reportTable.draw()
-                console.log(reportTable.rows().count());
             })
             // end Mounted
         </script>
