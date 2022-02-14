@@ -29,8 +29,10 @@
                                 <x-shared.button text="Tampilkan Data" id="btn-show-report" faIcon="fa-eye">
                                 </x-shared.button>
 
-                                <x-shared.button text="Export ke Excel" id="btn-export-xsl" faIcon="fa-file-excel">
-                                </x-shared.button>
+                                <a id="btn-export-xls">
+                                    <x-shared.button text="Export ke Excel" faIcon="fa-file-excel">
+                                    </x-shared.button>
+                                </a>
                             </div>
                         </form>
                     </div>
@@ -61,13 +63,13 @@
     @push('scripts')
         <script>
             // Mounted
-            $('#btn-export-xsl').hide()
+            $('#btn-export-xls').hide()
 
             const reportTable = $('#reservation-report-table').DataTable({
                 serverSide: true,
                 searching: false,
                 ajax: {
-                    url: "{{ route('dashboard.report.reservations.reservations') }}",
+                    url: "{{ route('dashboard.reports.reservations.reservations') }}",
                     data(d) {
                         d.startDate = $('[name="start"]').val()
                         d.endDate = $('[name="end"]').val()
@@ -102,9 +104,15 @@
 
             reportTable.on('draw', () => {
                 if (reportTable.page.info().pages) {
-                    $('#btn-export-xsl').show()
+                    $('#btn-export-xls').show()
+
+                    // Set link export to excel
+                    const startDate = $('[name="start"]').val()
+                    const endDate = $('[name="end"]').val()
+                    $('#btn-export-xls').attr('href',
+                        `/dashboard/reports/reservations/exports?startDate=${startDate}&endDate=${endDate}`)
                 } else {
-                    $('#btn-export-xsl').hide()
+                    $('#btn-export-xls').hide()
                 }
             })
 
@@ -113,7 +121,6 @@
                 language: 'id',
                 format: 'dd/mm/yyyy',
             })
-
 
             $('#btn-show-report').click(() => {
                 reportTable.draw()

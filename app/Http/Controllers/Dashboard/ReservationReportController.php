@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Exports\ReservationReportExport;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Services\ReservationService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class ReservationReportController extends Controller
@@ -55,5 +57,10 @@ class ReservationReportController extends Controller
                     ->make();
             }
         }
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new ReservationReportExport($request), 'reservation-export.xls');
     }
 }

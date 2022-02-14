@@ -47,12 +47,18 @@ return [
             'service' => 'Layanan berhasil dihapus',
             'guest' => 'Data Tamu berhasil dihapus',
         ],
+        'export' => [
+            'all' => 'Export file berhasil',
+        ],
     ],
     'errors' => [
         'change-password' => 'Kata sandi lama salah',
         'blocked' => 'Akun kamu telah diblokir, silakan hubungi admin',
         'email' => [
             'reservation' => 'Gagal mengirim email',
+        ],
+        'export' => [
+            'all' => 'Export file tidak berhasil',
         ],
         'store' => [
             'all' => 'Gagal menyimpan data',

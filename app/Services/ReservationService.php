@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Reservation;
+use App\Models\RoomType;
 use Illuminate\Support\Carbon;
 use PDF;
 
@@ -20,10 +21,22 @@ class ReservationService
         return 'Rp. ' . number_format($number, '2', ',', '.');
     }
 
+    public function getRooms()
+    {
+        $roomNames = RoomType::whereIn('id', $this->reservation->rooms->pluck('room_type_id'))->pluck('name');
+
+        return $roomNames;
+    }
+
     public function getNightCount()
     {
         return Carbon::parse($this->reservation->getRawOriginal('checkin'))
             ->diffInDays($this->reservation->getRawOriginal('checkout'));
+    }
+
+    public function getNightCountString()
+    {
+        return $this->getNightCount() . ' Hari';
     }
 
     public function getRoomBill()

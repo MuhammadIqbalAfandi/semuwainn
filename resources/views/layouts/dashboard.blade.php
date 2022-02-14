@@ -12,8 +12,6 @@
     <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- AdminLTE -->
-    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <!-- SweetAlert2 -->
@@ -32,6 +30,8 @@
     <!-- VanilaJS DatePicker -->
     <link rel="stylesheet" href="{{ asset('css/vanillajs-datepicker/datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vanillajs-datepicker/datepicker-bs4.min.css') }}">
+    <!-- AdminLTE -->
+    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- Custom Style -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
