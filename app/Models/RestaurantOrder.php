@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Models\Reservation;
 use App\Models\Restaurant;
+use App\Traits\RestaurantOrderTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 class RestaurantOrder extends Model
 {
-    use HasFactory;
+    use HasFactory, RestaurantOrderTrait;
 
     protected $fillable = [
         'price',
@@ -21,12 +22,17 @@ class RestaurantOrder extends Model
 
     public function getPriceAttribute($value)
     {
-        return 'Rp. ' . number_format($value, '2', ',', '.');
+        return $this->setRupiahFormat($value);
     }
 
     public function getUpdatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function getOrderTimeAttribute($value)
+    {
+        return Carbon::parse($value)->translatedFormat('l d/m/Y H:i:s');
     }
 
     public function reservation()
@@ -37,5 +43,10 @@ class RestaurantOrder extends Model
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
+    }
+
+    public function totalPrice()
+    {
+        return $this->setRupiahFormat($this->getRawOriginal('price') * $this->quantity);
     }
 }

@@ -61,6 +61,6 @@ class ReservationReportController extends Controller
 
     public function export(Request $request)
     {
-        return Excel::download(new ReservationReportExport($request), 'reservation-export.xls');
+        return Excel::download(new ReservationReportExport($request), 'reservations-report.xls');
     }
 }

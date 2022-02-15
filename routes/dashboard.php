@@ -118,15 +118,18 @@ Route::prefix('dashboard')->group(function () {
                 ->except(['create', 'store']);
 
             // Report
-            Route::get('/reports/reservations/exports', [ReservationReportController::class, 'export'])
-                ->name('reports.reservations.exports');
+            Route::get('/reports/reservations/exports', [ReservationReportController::class, 'export']);
             Route::get('/reports/reservations/reservations', [ReservationReportController::class, 'reservations'])
                 ->name('reports.reservations.reservations');
             Route::get('/reports/reservations', ReservationReportController::class)
                 ->name('reports.reservations');
 
+            Route::get('/reports/restaurants/exports', [RestaurantReportController::class, 'export']);
+            Route::get('/reports/restaurants/restaurants', [RestaurantReportController::class, 'restaurants'])
+                ->name('reports.restaurants.restaurants');
             Route::get('/reports/restaurants', RestaurantReportController::class)
                 ->name('reports.restaurants');
+
             Route::get('/reports/services', ServiceReportController::class)
                 ->name('reports.services');
 
