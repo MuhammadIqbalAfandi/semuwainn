@@ -24,8 +24,7 @@ class ReservationService
     public function getRooms()
     {
         $roomNames = RoomType::whereIn('id', $this->reservation->rooms->pluck('room_type_id'))->pluck('name');
-
-        return $roomNames;
+        return $roomNames->join(', ');
     }
 
     public function getNightCount()
@@ -36,7 +35,7 @@ class ReservationService
 
     public function getNightCountString()
     {
-        return $this->getNightCount() . ' Hari';
+        return $this->getNightCount() . ' ' . __('words.day');
     }
 
     public function getRoomBill()

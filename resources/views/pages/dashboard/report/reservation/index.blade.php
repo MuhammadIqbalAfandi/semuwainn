@@ -12,29 +12,28 @@
         <x-shared.content>
             <x-shared.card>
                 <div class="row mb-3">
-                    <div class="col">
-                        <form>
-                            <div id="period-date" class="form-inline">
-                                <div class="form-group">
-                                    <label class="font-weight-normal">Periode: </label>
-                                    <input type="text" name="start" class="form-control">
-                                </div>
+                    <div class="col-md col-sm-12">
+                        <form id="period-date" class="form-inline">
+                            <div class="form-group">
+                                <label class="mr-1">Periode:</label>
+                                <input type="text" name="start" class="form-control">
+                            </div>
 
-                                <i class="fa fa-calendar-day"></i>
-
-                                <div class="form-group">
-                                    <input type="text" name="end" class="form-control">
-                                </div>
-
-                                <x-shared.button text="Tampilkan Data" id="btn-show-report" faIcon="fa-eye">
-                                </x-shared.button>
-
-                                <a id="btn-export-xls">
-                                    <x-shared.button text="Export ke Excel" faIcon="fa-file-excel">
-                                    </x-shared.button>
-                                </a>
+                            <div class="form-group">
+                                <label><i class="fa fa-calendar-day mx-1"></i></label>
+                                <input type="text" name="end" class="form-control">
                             </div>
                         </form>
+                    </div>
+
+                    <div class="col-md-auto col-sm-12">
+                        <x-shared.button text="Tampilkan Data" id="btn-show-report" faIcon="fa-eye">
+                        </x-shared.button>
+
+                        <a id="btn-export-xls">
+                            <x-shared.button text="Export ke Excel" faIcon="fa-file-excel">
+                            </x-shared.button>
+                        </a>
                     </div>
                 </div>
 
