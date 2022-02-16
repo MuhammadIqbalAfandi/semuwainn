@@ -9,8 +9,12 @@ trait RestaurantOrderTrait
 {
     use HelperTrait;
 
-    public function getAllTotalPrice(Collection $collects)
+    public static function getAllTotalPrice(Collection $collects)
     {
-        return $collects->sum('price');
+        $totalPrice = $collects->sum(function ($collect) {
+            return $collect->getRawOriginal('price') * $collect->quantity;
+        });
+
+        return self::setRupiahFormat($totalPrice);
     }
 }

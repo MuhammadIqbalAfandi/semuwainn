@@ -29,8 +29,13 @@ class RestaurantReportExport implements FromView, WithStyles, ShouldAutoSize
 
     public function styles(Worksheet $sheet)
     {
+        $rowTotal = $sheet->getHighestDataRow();
+
+        $sheet->getRowDimension($rowTotal)->setRowHeight(16);
+
         return [
             1 => ['font' => ['bold' => true]],
+            $rowTotal => ['font' => ['bold' => true, 'size' => 12]],
         ];
     }
 }

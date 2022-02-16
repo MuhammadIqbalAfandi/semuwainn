@@ -22,7 +22,7 @@
             <td colspan="2">Total</td>
             <td>{{ $restaurantOrders->sum('quantity') }}</td>
             <td></td>
-            <td>{{ $restaurantOrder->getAllTotalPrice($restaurantOrders) }}</td>
+            <td>{{ App\Traits\RestaurantOrderTrait::getAllTotalPrice($restaurantOrders) }}</td>
         </tr>
     </tbody>
 </table>

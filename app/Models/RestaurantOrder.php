@@ -22,7 +22,7 @@ class RestaurantOrder extends Model
 
     public function getPriceAttribute($value)
     {
-        return $this->setRupiahFormat($value);
+        return self::setRupiahFormat($value);
     }
 
     public function getUpdatedAtAttribute($value)
@@ -47,6 +47,6 @@ class RestaurantOrder extends Model
 
     public function totalPrice()
     {
-        return $this->setRupiahFormat($this->getRawOriginal('price') * $this->quantity);
+        return self::setRupiahFormat($this->getRawOriginal('price') * $this->quantity);
     }
 }
