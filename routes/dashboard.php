@@ -130,6 +130,9 @@ Route::prefix('dashboard')->group(function () {
             Route::get('/reports/restaurants', RestaurantReportController::class)
                 ->name('reports.restaurants');
 
+            Route::get('/reports/services/exports', [ServiceReportController::class, 'export']);
+            Route::get('/reports/services/services', [ServiceReportController::class, 'services'])
+                ->name('reports.services.services');
             Route::get('/reports/services', ServiceReportController::class)
                 ->name('reports.services');
 

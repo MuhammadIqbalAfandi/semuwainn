@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\RestaurantOrder;
+use App\Models\ServiceOrder;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class RestaurantReportExport implements FromView, WithStyles, ShouldAutoSize
+class ServiceReportExport implements FromView, WithStyles, ShouldAutoSize
 {
     public function __construct(private Request $request)
     {}
@@ -20,10 +20,10 @@ class RestaurantReportExport implements FromView, WithStyles, ShouldAutoSize
     {
         $startDate = Carbon::createFromFormat('d/m/Y', $this->request->startDate)->format('Y-m-d');
         $endDate = Carbon::createFromFormat('d/m/Y', $this->request->endDate)->format('Y-m-d');
-        $restaurantOrders = RestaurantOrder::whereBetween('order_time', [$startDate, $endDate])->get();
+        $serviceOrders = ServiceOrder::whereBetween('order_time', [$startDate, $endDate])->get();
 
-        return view('components.report.restaurant.excel', [
-            'restaurantOrders' => $restaurantOrders,
+        return view('components.report.service.excel', [
+            'serviceOrders' => $serviceOrders,
         ]);
     }
 

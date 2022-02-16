@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Models\Reservation;
 use App\Models\Service;
+use App\Traits\HelperTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 class ServiceOrder extends Model
 {
-    use HasFactory;
+    use HasFactory, HelperTrait;
 
     protected $fillable = [
         'price',
@@ -21,12 +22,17 @@ class ServiceOrder extends Model
 
     public function getPriceAttribute($value)
     {
-        return 'Rp. ' . number_format($value, '2', ',', '.');
+        return self::setRupiahFormat($value);
     }
 
     public function getUpdatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function getOrderTimeAttribute($value)
+    {
+        return Carbon::parse($value)->translatedFormat('l d/m/Y H:i:s');
     }
 
     public function reservation()
