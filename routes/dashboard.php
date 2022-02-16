@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\FacilityController;
 use App\Http\Controllers\Dashboard\GenderController;
 use App\Http\Controllers\Dashboard\GuestController;
+use App\Http\Controllers\Dashboard\PaymentReportController;
 use App\Http\Controllers\Dashboard\PolicyController;
 use App\Http\Controllers\Dashboard\PrivacyController;
 use App\Http\Controllers\Dashboard\ReservationController;
@@ -135,6 +136,12 @@ Route::prefix('dashboard')->group(function () {
                 ->name('reports.services.services');
             Route::get('/reports/services', ServiceReportController::class)
                 ->name('reports.services');
+
+            Route::get('/reports/payments/exports', [PaymentReportController::class, 'export']);
+            Route::get('/reports/payments/payments', [PaymentReportController::class, 'payments'])
+                ->name('reports.payments.payments');
+            Route::get('/reports/payments', PaymentReportController::class)
+                ->name('reports.payments');
 
             // Settings
             Route::resource('/contacts', ContactController::class)

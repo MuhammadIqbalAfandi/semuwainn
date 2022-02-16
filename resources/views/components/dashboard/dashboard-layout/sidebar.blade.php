@@ -185,6 +185,15 @@
                                 <p>Layanan</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.reports.payments') }}"
+                                class="nav-link  {{ Route::is('dashboard.reports.payments') ? 'active' : '' }}">
+                                <i class=" far fa-circle
+                                nav-icon"></i>
+                                <p>Keuangan</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
