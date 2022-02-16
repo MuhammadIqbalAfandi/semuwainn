@@ -18,14 +18,13 @@
                         <table id="reservation-report-table" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
                                     <th>Tgl. Pemesanan</th>
-                                    <th>Tgl. Inap</th>
+                                    <th>Jenis Kamar</th>
+                                    <th>Tgl. Kedatangan</th>
+                                    <th>Tgl. Keberangakatan</th>
                                     <th>Lama Inap</th>
-                                    <th>Jlh. Kamar</th>
                                     <th>Jlh. Tamu</th>
-                                    <th>Total Harga</th>
-                                    <th>Status</th>
+                                    <th>Harga</th>
                                 </tr>
                             </thead>
                         </table>
@@ -49,29 +48,26 @@
                     },
                 },
                 columns: [{
-                        data: 'name',
+                        data: 'order_time',
                     },
                     {
-                        data: 'reservation_time'
+                        data: 'room_type'
                     },
                     {
-                        data: 'checkin-checkout',
+                        data: 'checkin'
                     },
                     {
-                        data: 'night-count',
+                        data: 'checkout',
                     },
                     {
-                        data: 'room-count',
+                        data: 'night_count',
                     },
                     {
-                        data: 'guest-count',
+                        data: 'guest_count',
                     },
                     {
                         data: 'price'
                     },
-                    {
-                        data: 'status'
-                    }
                 ]
             })
 

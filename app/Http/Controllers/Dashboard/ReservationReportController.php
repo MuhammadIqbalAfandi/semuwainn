@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Exports\ReservationReportExport;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
+use App\Models\RoomOrder;
 use App\Services\ReservationService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,28 +33,18 @@ class ReservationReportController extends Controller
         if ($request->startDate && $request->endDate) {
             $startDate = Carbon::createFromFormat('d/m/Y', $request->startDate)->format('Y-m-d');
             $endDate = Carbon::createFromFormat('d/m/Y', $request->endDate)->format('Y-m-d');
-            $reservation = Reservation::whereBetween('reservation_time', [$startDate, $endDate])->latest();
-            if ($reservation) {
-                return DataTables::of($reservation)
-                    ->addColumn('name', fn(Reservation $reservation) => $reservation->guest->name)
-                    ->addColumn('checkin-checkout', fn(Reservation $reservation) => view('components.shared.checkin-checkout', [
-                        'checkin' => $reservation->checkin,
-                        'checkout' => $reservation->checkout,
+            $roomOrder = RoomOrder::whereBetween('order_time', [$startDate, $endDate])->latest();
+            if ($roomOrder) {
+                return DataTables::of($roomOrder)
+                    ->addColumn('order_time', fn(RoomOrder $roomOrder) => $roomOrder->order_time)
+                    ->addColumn('room_type', fn(RoomOrder $roomOrder) => $roomOrder->room->roomType->name)
+                    ->addColumn('checkin', fn(RoomOrder $roomOrder) => $roomOrder->reservation->checkin)
+                    ->addColumn('checkout', fn(RoomOrder $roomOrder) => $roomOrder->reservation->checkout)
+                    ->addColumn('night_count', fn(RoomOrder $roomOrder) => view('components.shared.night-count', [
+                        'nightCount' => $roomOrder->getNightCount(),
                     ]))
-                    ->addColumn('night-count', function (Reservation $reservation) {
-                        $this->reservationService->setReservation($reservation);
-                        $nightCount = $this->reservationService->getNightCount();
-                        return view('components.shared.night-count', compact('nightCount'));
-                    })
-                    ->addColumn('room-count', fn(Reservation $reservation) => $reservation->roomOrders->count())
-                    ->addColumn('guest-count', fn(Reservation $reservation) => $reservation->roomOrders->count())
-                    ->addColumn('price', function (Reservation $reservation) {
-                        $this->reservationService->setReservation($reservation);
-                        return $this->reservationService->getTotalBillString();
-                    })
-                    ->addColumn('status', fn(Reservation $reservation) => view('components.reservation.index.status', [
-                        'status' => $reservation->reservationStatus->name,
-                    ]))
+                    ->addColumn('guest_count', fn(RoomOrder $roomOrder) => $roomOrder->guest_count)
+                    ->addColumn('price', fn(RoomOrder $roomOrder) => $roomOrder->price)
                     ->make();
             }
         }

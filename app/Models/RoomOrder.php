@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Models\Reservation;
 use App\Models\Room;
+use App\Traits\RoomOrderTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 class RoomOrder extends Model
 {
-    use HasFactory;
+    use HasFactory, RoomOrderTrait;
 
     protected $fillable = [
         'price',
@@ -22,17 +23,12 @@ class RoomOrder extends Model
 
     public function getOrderTimeAttribute($value)
     {
-        return Carbon::parse($value)->format('d/m/Y');
+        return Carbon::parse($value)->translatedFormat('l d/m/Y H:i:s');
     }
 
     public function getCheckinAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
-    }
-
-    public function setCheckinAttribute($value)
-    {
-        $this->attributes['Checkin'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
     }
 
     public function getCheckoutAttribute($value)
@@ -42,7 +38,12 @@ class RoomOrder extends Model
 
     public function getPriceAttribute($value)
     {
-        return 'Rp. ' . number_format($value, '2', ',', '.');
+        return self::setRupiahFormat($value);
+    }
+
+    public function setCheckinAttribute($value)
+    {
+        $this->attributes['Checkin'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
     }
 
     public function setCheckoutAttribute($value)
@@ -63,5 +64,10 @@ class RoomOrder extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getNightCount()
+    {
+        return Carbon::parse($this->reservation->getRawOriginal('checkin'))->diffInDays($this->reservation->getRawOriginal('checkout'));
     }
 }
