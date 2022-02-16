@@ -21,12 +21,9 @@ class HomeController extends Controller
                 ->withQueryString()
                 ->through(fn($roomType) => [
                     'id' => $roomType->id,
-                    'thumbnail' => [
-                        'images' => $roomType->thumbnails()->exists()
-                        ? asset('storage/thumbnails/' . $roomType->thumbnails->first()->file_name)
-                        : null,
-                        'defaultImage' => '/img/default-room.webp',
-                    ],
+                    'thumbnail' => $roomType->thumbnail
+                    ? asset('storage/thumbnails/' . $roomType->thumbnail->file_name)
+                    : asset('img/default-room.webp'),
                     'name' => $roomType->name,
                     'price' => $roomType->roomPrices->min()->getRawOriginal('price'),
                     'facilities' => $roomType->roomFacilities->take(3)->pluck('facility.name'),

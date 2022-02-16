@@ -14,7 +14,7 @@ export default {
   computed: {
     ...mapState('roomBooking', ['nightCount']),
     thumbnail() {
-      return this.room.thumbnail.images[0] ?? this.room.thumbnail.defaultImage
+      return this.room.thumbnails[0]
     },
   },
   methods: {

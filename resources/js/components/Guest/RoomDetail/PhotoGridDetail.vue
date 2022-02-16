@@ -3,6 +3,9 @@ export default {
   props: {
     photoGrid: Object,
   },
+  mounted() {
+    console.log(this.photoGrid)
+  },
   data() {
     return {
       images: [],
@@ -10,15 +13,15 @@ export default {
   },
   computed: {
     photoGridCol() {
-      if (this.photoGrid.images.length >= 5) {
-        this.images = this.photoGrid.images.filter((item, index) => {
+      if (this.photoGrid.length >= 5) {
+        this.images = this.photoGrid.filter((item, index) => {
           if (index > 0 && index <= 4) {
             return item
           }
         })
         return 'photo-grid--col-4'
-      } else if (this.photoGrid.images.length >= 3) {
-        this.images = this.photoGrid.images.filter((item, index) => {
+      } else if (this.photoGrid.length >= 3) {
+        this.images = this.photoGrid.filter((item, index) => {
           if (index > 0 && index <= 2) {
             return item
           }
@@ -35,7 +38,7 @@ export default {
     <div :class="photoGridCol" class="photo-grid">
       <template v-if="images.length">
         <div class="photo-grid__main">
-          <img :src="photoGrid.images[0]" alt="Main image" />
+          <img :src="photoGrid[0]" alt="Main image" />
         </div>
 
         <div v-for="(image, index) in images" :key="index" class="photo-grid__item">
@@ -44,8 +47,7 @@ export default {
       </template>
 
       <div v-else class="photo-grid__main">
-        <img v-if="photoGrid.images.length >= 1" :src="photoGrid.images[0]" alt="Main image" />
-        <img v-else :src="photoGrid.defaultImage" alt="Main image" />
+        <img :src="photoGrid[0]" alt="Main image" />
       </div>
     </div>
   </div>

@@ -49,6 +49,11 @@ class RoomType extends Model
         return $this->hasMany(Thumbnail::class);
     }
 
+    public function thumbnail()
+    {
+        return $this->hasOne(Thumbnail::class);
+    }
+
     public function scopeFilter($query)
     {
         $roomId = $query->get()->transform(fn($roomType) => [

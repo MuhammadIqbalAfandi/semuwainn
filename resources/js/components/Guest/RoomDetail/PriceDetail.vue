@@ -24,14 +24,14 @@ export default {
     ...mapActions(['addRoomCart']),
     roomOrder(priceId) {
       if (this.$parent.valid && this.roomAvailable >= 1) {
-        const { id, prices, thumbnail, name, roomsId } = this.roomType
+        const { id, prices, thumbnails, name, roomsId } = this.roomType
         const price = prices.find((price) => price.id === priceId)
         const roomId = head(difference(roomsId, this.getRoomId))
         const roomType = {
           id,
           roomId,
           name,
-          thumbnail,
+          thumbnails,
           priceId: Number(price.id),
           price: Number(price.price),
           guestCount: Number(this.$parent.guestCount),
