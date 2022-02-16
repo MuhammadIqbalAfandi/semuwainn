@@ -29,9 +29,9 @@
                 </div>
             </x-shared.card>
 
-            <x-guest.modal-edit></x-guest.modal-edit>
+            <x-dashboard.guest.modal-edit></x-dashboard.guest.modal-edit>
 
-            <x-guest.modal-delete></x-guest.modal-delete>
+            <x-dashboard.guest.modal-delete></x-dashboard.guest.modal-delete>
         </x-shared.content>
     </x-shared.content-wrapper>
 

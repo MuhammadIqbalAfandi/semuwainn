@@ -43,7 +43,7 @@
                 </div>
             </x-shared.card>
 
-            <x-room-type.modal-delete></x-room-type.modal-delete>
+            <x-dashboard.room-type.modal-delete></x-dashboard.room-type.modal-delete>
         </x-shared.content>
     </x-shared.content-wrapper>
 

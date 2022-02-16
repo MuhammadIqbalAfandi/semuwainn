@@ -38,11 +38,11 @@
                 </div>
             </x-shared.card>
 
-            <x-room.modal-add></x-room.modal-add>
+            <x-dashboard.room.modal-add></x-dashboard.room.modal-add>
 
-            <x-room.modal-edit></x-room.modal-edit>
+            <x-dashboard.room.modal-edit></x-dashboard.room.modal-edit>
 
-            <x-room.modal-delete></x-room.modal-delete>
+            <x-dashboard.room.modal-delete></x-dashboard.room.modal-delete>
         </x-shared.content>
     </x-shared.content-wrapper>
 

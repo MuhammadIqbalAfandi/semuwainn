@@ -49,7 +49,8 @@
                     </div>
                 </form>
 
-                <x-restaurant-order.table-detail :reservationId="$reservationId"></x-restaurant-order.table-detail>
+                <x-dashboard.restaurant-order.table-detail :reservationId="$reservationId">
+                </x-dashboard.restaurant-order.table-detail>
             </x-shared.card>
         </x-shared.content>
     </x-shared.content-wrapper>

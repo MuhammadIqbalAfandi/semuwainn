@@ -1,4 +1,4 @@
-<x-guest-layout title="Login">
+<x-auth-layout title="Login">
     <x-shared.card>
         <div class="login-logo mb-4">
             <a href="/">
@@ -107,4 +107,4 @@
             // end Mounted
         </script>
     @endprepend
-</x-guest-layout>
+</x-auth-layout>

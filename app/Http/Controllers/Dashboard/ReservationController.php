@@ -175,7 +175,7 @@ class ReservationController extends Controller
                         $query->where('name', 'like', "%{$keyword}%");
                     });
                 })
-                ->addColumn('order', fn(Reservation $reservation) => view('components.reservation.index.order-date', [
+                ->addColumn('order', fn(Reservation $reservation) => view('components.dashboard.reservation.index.order-date', [
                     'id' => $reservation->id,
                     'reservation_number' => $reservation->reservation_number,
                     'reservation_time' => $reservation->reservation_time,
@@ -192,13 +192,13 @@ class ReservationController extends Controller
                 })
                 ->addColumn('room-count', fn(Reservation $reservation) => $reservation->roomOrders->count())
                 ->addColumn('guest-count', fn(Reservation $reservation) => $reservation->roomOrders->count())
-                ->addColumn('status', fn(Reservation $reservation) => view('components.reservation.index.status', [
+                ->addColumn('status', fn(Reservation $reservation) => view('components.dashboard.reservation.index.status', [
                     'status' => $reservation->reservationStatus->name,
                 ]))
                 ->addColumn('actions', function (Reservation $reservation) {
                     $id = $reservation->id;
                     $statusHide = !in_array($reservation->reservation_status_id, [3, 5]);
-                    return view('components.reservation.index.action-btn', compact('id', 'statusHide'));
+                    return view('components.dashboard.reservation.index.action-btn', compact('id', 'statusHide'));
                 })
                 ->make(true);
         }

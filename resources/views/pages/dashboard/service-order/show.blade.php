@@ -34,7 +34,8 @@
                     </div>
                 </form>
 
-                <x-service-order.table-detail :reservationId="$reservationId"></x-service-order.table-detail>
+                <x-dashboard.service-order.table-detail :reservationId="$reservationId">
+                </x-dashboard.service-order.table-detail>
             </x-shared.card>
         </x-shared.content>
     </x-shared.content-wrapper>

@@ -1,6 +1,6 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
-import Button from '@/shared/Button.vue'
+import Button from '@/components/Shared/Button.vue'
 
 export default {
   components: {

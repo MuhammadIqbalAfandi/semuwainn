@@ -2,9 +2,9 @@
 import { mapActions, mapGetters } from 'vuex'
 import difference from 'lodash/difference'
 import head from 'lodash/head'
-import Paragraph from '@/shared/Paragraph.vue'
-import OriginPrice from '@/shared/OriginPrice.vue'
-import Button from '@/shared/Button.vue'
+import Paragraph from '@/components/Shared/Paragraph.vue'
+import OriginPrice from '@/components/Shared/OriginPrice.vue'
+import Button from '@/components/Shared/Button.vue'
 import mixinRooms from '@/mixins/rooms'
 
 export default {

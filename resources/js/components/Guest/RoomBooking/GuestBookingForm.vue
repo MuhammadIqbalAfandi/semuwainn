@@ -1,6 +1,6 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
-import TextField from '@/shared/TextField.vue'
+import TextField from '@/components/Shared/TextField.vue'
 import mixinRules from '@/mixins/rules'
 
 export default {

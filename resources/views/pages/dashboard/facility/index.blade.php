@@ -37,11 +37,11 @@
                 </div>
             </x-shared.card>
 
-            <x-facility.modal-add></x-facility.modal-add>
+            <x-dashboard.facility.modal-add></x-dashboard.facility.modal-add>
 
-            <x-facility.modal-edit></x-facility.modal-edit>
+            <x-dashboard.facility.modal-edit></x-dashboard.facility.modal-edit>
 
-            <x-facility.modal-delete></x-facility.modal-delete>
+            <x-dashboard.facility.modal-delete></x-dashboard.facility.modal-delete>
         </x-shared.content>
     </x-shared.content-wrapper>
 

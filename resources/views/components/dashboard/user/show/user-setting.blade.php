@@ -18,11 +18,11 @@
 
     <div class="tab-content">
         <div class="active tab-pane" id="edit-user">
-            <x-user.show.change-data :user="$user"></x-user.show.change-data>
+            <x-dashboard.user.show.change-data :user="$user"></x-dashboard.user.show.change-data>
         </div>
         @can('isAuth', $user->id)
             <div class="tab-pane" id="change-password">
-                <x-user.show.change-password></x-user.show.change-password>
+                <x-dashboard.user.show.change-password></x-dashboard.user.show.change-password>
             </div>
         @endcan
     </div>

@@ -24,7 +24,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('components.dashboard-layout.footer', function ($view) {
+        view()->composer('components.dashboard.dashboard-layout.footer', function ($view) {
             $copyright = Copyright::get()->first();
             $copyright = $copyright->copyright ?? '-';
             $view->with('copyright', $copyright);

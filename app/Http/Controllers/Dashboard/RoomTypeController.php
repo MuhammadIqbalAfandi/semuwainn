@@ -226,15 +226,15 @@ class RoomTypeController extends Controller
         if ($roomType) {
             return DataTables::of($roomType)
                 ->addColumn('facility', function (RoomType $roomType) {
-                    return view('components.room-type.facility', compact('roomType'));
+                    return view('components.dashboard.room-type.facility', compact('roomType'));
                 })
                 ->addColumn('price', function (RoomType $roomType) {
-                    return view('components.room-type.detail-price', compact('roomType'));
+                    return view('components.dashboard.room-type.detail-price', compact('roomType'));
                 })
                 ->addColumn('room-count', fn(RoomType $roomType) => $roomType->rooms->count())
                 ->addColumn('guest-count', fn(RoomType $roomType) => $roomType->number_of_guest)
                 ->addColumn('actions', function (RoomType $roomType) {
-                    return view('components.room-type.action-btn',
+                    return view('components.dashboard.room-type.action-btn',
                         [
                             'id' => $roomType->id,
                             'btnDeleteHide' => !$roomType->rooms->count(),

@@ -1,8 +1,8 @@
 <script>
 import { mapActions, mapState } from 'vuex'
-import Paragraph from '@/shared/Paragraph.vue'
-import Button from '@/shared/Button.vue'
-import OriginPrice from '@/shared/OriginPrice.vue'
+import Paragraph from '@/components/Shared/Paragraph.vue'
+import Button from '@/components/Shared/Button.vue'
+import OriginPrice from '@/components/Shared/OriginPrice.vue'
 import mixinHelper from '@/mixins/helpers'
 
 export default {

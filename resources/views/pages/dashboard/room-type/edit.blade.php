@@ -11,7 +11,7 @@
         </x-shared.content-header>
 
         <x-shared.content>
-            <x-room-type.form title="Ubah Tipe Kamar" :roomType="$roomType"></x-room-type.form>
+            <x-dashboard.room-type.form title="Ubah Tipe Kamar" :roomType="$roomType"></x-dashboard.room-type.form>
         </x-shared.content>
     </x-shared.content-wrapper>
 

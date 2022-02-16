@@ -1,9 +1,9 @@
 <script>
 import { Head } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
-import Paragraph from '@/shared/Paragraph.vue'
-import ParagraphLeftIcon from '@/shared/ParagraphLeftIcon.vue'
-import TextField from '@/shared/TextField.vue'
+import Paragraph from '@/components/Shared/Paragraph.vue'
+import ParagraphLeftIcon from '@/components/Shared/ParagraphLeftIcon.vue'
+import TextField from '@/components/Shared/TextField.vue'
 import PhotoGridDetail from '@/components/Guest/RoomDetail/PhotoGridDetail.vue'
 import PriceRangeDetail from '@/components/Guest/RoomDetail/PriceRangeDetail.vue'
 import PriceDetail from '@/components/Guest/RoomDetail/PriceDetail.vue'

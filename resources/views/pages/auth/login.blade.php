@@ -1,4 +1,4 @@
-<x-guest-layout title="Login">
+<x-auth-layout title="Login">
     @if (session('message'))
         <div class="alert alert-danger" role="alert">
             {{ session('message') }}
@@ -96,4 +96,4 @@
             // end Mounted
         </script>
     @endprepend
-</x-guest-layout>
+</x-auth-layout>

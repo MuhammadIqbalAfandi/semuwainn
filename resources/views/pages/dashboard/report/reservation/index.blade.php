@@ -11,7 +11,7 @@
 
         <x-shared.content>
             <x-shared.card>
-                <x-report.period-filter></x-report.period-filter>
+                <x-dashboard.report.period-filter></x-dashboard.report.period-filter>
 
                 <div class="row">
                     <div class="col">

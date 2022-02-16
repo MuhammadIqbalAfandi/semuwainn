@@ -22,7 +22,7 @@ class ReservationReportExport implements FromView, WithStyles, ShouldAutoSize
         $endDate = Carbon::createFromFormat('d/m/Y', $this->request->endDate)->format('Y-m-d');
         $roomOrders = RoomOrder::whereBetween('order_time', [$startDate, $endDate])->get();
 
-        return view('components.report.reservation.excel', [
+        return view('excel.dashboard.reservation-report.index', [
             'roomOrders' => $roomOrders,
         ]);
     }

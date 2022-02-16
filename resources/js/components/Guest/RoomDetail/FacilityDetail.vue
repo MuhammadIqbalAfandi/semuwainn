@@ -1,5 +1,5 @@
 <script>
-import Paragraph from '@/shared/Paragraph.vue'
+import Paragraph from '@/components/Shared/Paragraph.vue'
 
 export default {
   props: {

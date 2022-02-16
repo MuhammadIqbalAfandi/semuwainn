@@ -38,11 +38,11 @@
                 </div>
             </x-shared.card>
 
-            <x-restaurant.modal-add></x-restaurant.modal-add>
+            <x-dashboard.restaurant.modal-add></x-dashboard.restaurant.modal-add>
 
-            <x-restaurant.modal-edit></x-restaurant.modal-edit>
+            <x-dashboard.restaurant.modal-edit></x-dashboard.restaurant.modal-edit>
 
-            <x-restaurant.modal-delete></x-restaurant.modal-delete>
+            <x-dashboard.restaurant.modal-delete></x-dashboard.restaurant.modal-delete>
         </x-shared.content>
     </x-shared.content-wrapper>
 

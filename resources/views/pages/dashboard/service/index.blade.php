@@ -40,11 +40,11 @@
         </x-shared.content>
     </x-shared.content-wrapper>
 
-    <x-service.modal-add></x-service.modal-add>
+    <x-dashboard.service.modal-add></x-dashboard.service.modal-add>
 
-    <x-service.modal-edit></x-service.modal-edit>
+    <x-dashboard.service.modal-edit></x-dashboard.service.modal-edit>
 
-    <x-service.modal-delete></x-service.modal-delete>
+    <x-dashboard.service.modal-delete></x-dashboard.service.modal-delete>
 
     @prepend('scripts')
         <script>

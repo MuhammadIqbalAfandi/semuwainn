@@ -29,7 +29,7 @@ class ReservationMail extends Mailable
     {
         $reservationService->setReservation($this->reservation);
         return $this->subject('Bukti Pemesanan')
-            ->view('mail.reservation.index')
+            ->view('mail.dashboard.reservation.index')
             ->attachData($reservationService->getPDF()->output(), 'reservation-detail.pdf');
     }
 }

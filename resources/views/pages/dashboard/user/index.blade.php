@@ -37,9 +37,9 @@
                 </div>
             </x-shared.card>
 
-            <x-user.index.modal-add></x-user.index.modal-add>
+            <x-dashboard.user.index.modal-add></x-dashboard.user.index.modal-add>
 
-            <x-user.index.modal-block></x-user.index.modal-block>
+            <x-dashboard.user.index.modal-block></x-dashboard.user.index.modal-block>
         </x-shared.content>
     </x-shared.content-wrapper>
 

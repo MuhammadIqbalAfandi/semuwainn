@@ -46,13 +46,13 @@
 <body class="dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
-        <x-dashboard-layout.navbar />
+        <x-dashboard.dashboard-layout.navbar />
 
-        <x-dashboard-layout.sidebar />
+        <x-dashboard.dashboard-layout.sidebar />
 
         {{ $slot }}
 
-        <x-dashboard-layout.footer />
+        <x-dashboard.dashboard-layout.footer />
 
     </div>
 

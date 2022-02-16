@@ -2,7 +2,7 @@
 import { mapState } from 'vuex'
 import Navbar from '@/components/Guest/Navbar.vue'
 import Footer from '@/components/Guest/Footer.vue'
-import FlashMessage from '@/shared/FlashMessage.vue'
+import FlashMessage from '@/components/Shared/FlashMessage.vue'
 import mixinFlashMessage from '@/mixins/flash-message'
 
 export default {

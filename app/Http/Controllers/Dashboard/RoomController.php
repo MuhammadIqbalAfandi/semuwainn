@@ -144,7 +144,7 @@ class RoomController extends Controller
             return DataTables::of($room)
                 ->addColumn('room-type', fn(Room $room) => $room->roomType->name)
                 ->addColumn('status', function (Room $room) {
-                    return view('components.room.status', ['roomCount' => $room->roomOrders->count()]);
+                    return view('components.dashboard.room.status', ['roomCount' => $room->roomOrders->count()]);
                 })
                 ->addColumn('actions', function (Room $room) {
                     return view('components.shared.action-btn',

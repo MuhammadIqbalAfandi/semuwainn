@@ -2,7 +2,7 @@
 import { Head } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
 import RoomList from '@/components/Guest/Home/RoomList.vue'
-import Link from '@/shared/Link.vue'
+import Link from '@/components/Shared/Link.vue'
 
 export default {
   layout: GuestLayout,

@@ -1,7 +1,7 @@
 <script>
-import OriginPrice from '@/shared/OriginPrice.vue'
-import Paragraph from '@/shared/Paragraph.vue'
-import ParagraphLeftIcon from '@/shared/ParagraphLeftIcon.vue'
+import OriginPrice from '@/components/Shared/OriginPrice.vue'
+import Paragraph from '@/components/Shared/Paragraph.vue'
+import ParagraphLeftIcon from '@/components/Shared/ParagraphLeftIcon.vue'
 import mixinRooms from '@/mixins/rooms'
 
 export default {

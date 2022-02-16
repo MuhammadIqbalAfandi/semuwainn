@@ -12,8 +12,8 @@
         </x-shared.content-header>
 
         <x-shared.content>
-            <x-room-type.form title="Tambah Tipe Kamar">
-            </x-room-type.form>
+            <x-dashboard.room-type.form title="Tambah Tipe Kamar">
+            </x-dashboard.room-type.form>
         </x-shared.content>
     </x-shared.content-wrapper>
 

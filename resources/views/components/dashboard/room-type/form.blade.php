@@ -40,9 +40,9 @@
             </div>
         </div>
 
-        <x-room-type.room-price></x-room-type.room-price>
+        <x-dashboard.room-type.room-price></x-dashboard.room-type.room-price>
 
-        <x-room-type.upload-image :roomType="$roomType"></x-room-type.upload-image>
+        <x-dashboard.room-type.upload-image :roomType="$roomType"></x-dashboard.room-type.upload-image>
 
         <button type="submit" class="btn btn-block btn-warning mt-3">Simpan</button>
     </form>

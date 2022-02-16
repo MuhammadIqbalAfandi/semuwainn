@@ -1,7 +1,7 @@
 <script>
 import { mapActions, mapState } from 'vuex'
-import Paragraph from '@/shared/Paragraph.vue'
-import ParagraphSpacing from '@/shared/ParagraphSpacing.vue'
+import Paragraph from '@/components/Shared/Paragraph.vue'
+import ParagraphSpacing from '@/components/Shared/ParagraphSpacing.vue'
 import mixinHelpers from '@/mixins/helpers'
 
 export default {

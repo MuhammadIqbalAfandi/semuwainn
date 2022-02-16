@@ -1,7 +1,7 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import dayjs from 'dayjs'
-import Paragraph from '@/shared/Paragraph.vue'
+import Paragraph from '@/components/Shared/Paragraph.vue'
 
 export default {
   components: {

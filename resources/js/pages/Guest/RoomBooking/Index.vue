@@ -2,7 +2,7 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 import { Link, Head } from '@inertiajs/inertia-vue'
 import GuestLayout from '@/layouts/Guest.vue'
-import Button from '@/shared/Button.vue'
+import Button from '@/components/Shared/Button.vue'
 import BookingDate from '@/components/Guest/RoomBooking/BookingDate.vue'
 import GuestBookingForm from '@/components/Guest/RoomBooking/GuestBookingForm.vue'
 import ServiceBooking from '@/components/Guest/RoomBooking/ServiceBooking.vue'

@@ -117,7 +117,7 @@ class ReservationService
                 $payment = 0;
         }
 
-        return $pdf = PDF::loadView('pdf.reservation.index', compact(
+        return $pdf = PDF::loadView('pdf.dashboard.reservation.index', compact(
             'reservation',
             'nightCount',
             'restOfBill',

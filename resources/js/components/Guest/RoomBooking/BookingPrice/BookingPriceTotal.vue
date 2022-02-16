@@ -1,8 +1,8 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
-import Paragraph from '@/shared/Paragraph.vue'
-import ParagraphSpacing from '@/shared/ParagraphSpacing.vue'
-import OriginPrice from '@/shared/OriginPrice.vue'
+import Paragraph from '@/components/Shared/Paragraph.vue'
+import ParagraphSpacing from '@/components/Shared/ParagraphSpacing.vue'
+import OriginPrice from '@/components/Shared/OriginPrice.vue'
 import mixinHelpers from '@/mixins/helpers'
 
 export default {

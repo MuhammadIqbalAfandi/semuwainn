@@ -1,8 +1,8 @@
 <script>
-import Paragraph from '@/shared/Paragraph.vue'
-import OriginPrice from '@/shared/OriginPrice.vue'
-import MoneySeparator from '@/shared/MoneySeparator.vue'
-import ParagraphLeftIcon from '@/shared/ParagraphLeftIcon.vue'
+import Paragraph from '@/components/Shared/Paragraph.vue'
+import OriginPrice from '@/components/Shared/OriginPrice.vue'
+import MoneySeparator from '@/components/Shared/MoneySeparator.vue'
+import ParagraphLeftIcon from '@/components/Shared/ParagraphLeftIcon.vue'
 
 export default {
   props: {

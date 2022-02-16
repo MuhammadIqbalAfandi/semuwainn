@@ -13,11 +13,11 @@
         <x-shared.content>
             <div class="row">
                 <div class="col-12 col-lg-5">
-                    <x-user.show.user-profile :user="$user"></x-user.show.user-profile>
+                    <x-dashboard.user.show.user-profile :user="$user"></x-dashboard.user.show.user-profile>
                 </div>
 
                 <div class="col-12 col-lg-7">
-                    <x-user.show.user-setting :user="$user"></x-user.show.user-setting>
+                    <x-dashboard.user.show.user-setting :user="$user"></x-dashboard.user.show.user-setting>
                 </div>
         </x-shared.content>
     </x-shared.content-wrapper>

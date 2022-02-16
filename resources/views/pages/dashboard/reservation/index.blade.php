@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <x-reservation.index.modal-edit-status></x-reservation.index.modal-edit-status>
+                <x-dashboard.reservation.index.modal-edit-status></x-dashboard.reservation.index.modal-edit-status>
             </x-shared.card>
         </x-shared.content>
     </x-shared.content-wrapper>

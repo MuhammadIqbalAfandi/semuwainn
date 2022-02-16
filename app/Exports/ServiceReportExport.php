@@ -22,7 +22,7 @@ class ServiceReportExport implements FromView, WithStyles, ShouldAutoSize
         $endDate = Carbon::createFromFormat('d/m/Y', $this->request->endDate)->format('Y-m-d');
         $serviceOrders = ServiceOrder::whereBetween('order_time', [$startDate, $endDate])->get();
 
-        return view('components.report.service.excel', [
+        return view('excel.dashboard.service-report.index', [
             'serviceOrders' => $serviceOrders,
         ]);
     }

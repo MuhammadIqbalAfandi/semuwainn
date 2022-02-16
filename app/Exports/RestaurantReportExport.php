@@ -22,7 +22,7 @@ class RestaurantReportExport implements FromView, WithStyles, ShouldAutoSize
         $endDate = Carbon::createFromFormat('d/m/Y', $this->request->endDate)->format('Y-m-d');
         $restaurantOrders = RestaurantOrder::whereBetween('order_time', [$startDate, $endDate])->get();
 
-        return view('components.report.restaurant.excel', [
+        return view('excel.dashboard.restaurant-report.index', [
             'restaurantOrders' => $restaurantOrders,
         ]);
     }
